@@ -1,0 +1,222 @@
+# Introduction to STAT 545 and GitHub
+
+## Outline
+
+We'll cover three topics today:
+
+- Syllabus. (~20 min)
+- GitHub. (~35 min)
+- Getting help (~10 min)
+
+We'll end class with a to-do list before next class.
+
+## Learning Objectives
+
+By the end of today's class, students are expected to be able to:
+
+- Distinguish and navigate between GitHub repositories, Organization accounts, and user accounts.
+- Edit plain text files on GitHub.
+- Navigate the commit history of a repository and a file on GitHub.
+- Contribute to GitHub Issues, especially for STAT 545.
+- Identify whether a software-related question has a reproducible example.
+
+## Resources
+
+If you want to learn more about today's topics, check out:
+
+- The [GitHub guide](https://guides.github.com/) has lots of info about GitHub. If you do go here, I recommend you start with ["Hello, World!"](https://guides.github.com/activities/hello-world/). You'll see stuff about branching there -- we'll be discussing that next Thursday.
+- Jenny's ["How to get unstuck"](http://stat545.com/help-general.html) page is useful for getting help online (even outside of STAT 545).
+
+## Topic 1: Syllabus (20 min)
+
+The course syllabus can be found on the STAT 545 @ UBC homepage, [stat545.stat.ubc.ca](https://stat545.stat.ubc.ca). We'll cover:
+
+- Guidebook (2 min)
+- Learning Objectives and Course Structure (8 min)
+  - Example of an analysis: `Interpreting-Regression` book.
+- Teaching Team and Contact (5 min)
+- Resources, especially what's going on with stat545.com (5 min)
+
+## Topic 2: GitHub (35 min)
+
+(2 min)
+
+We will be using [GitHub](https://github.com) a lot in this course:
+
+- All course-related work will go on GitHub.
+- Discussion will happen on GitHub.
+- Even this guidebook and the STAT 545 website files are on GitHub.
+
+But why GitHub? Because it's tremendously effective for developing a project. Examples:
+
+- [Apple](https://github.com/apple) uses it.
+- [Uber](https://github.com/uber) uses it.
+- [Netflix](https://github.com/Netflix) uses it.
+- [This Guidebook](https://github.com/STAT545-UBC/Classroom) and [the STAT545 @ UBC website](https://github.com/STAT545-UBC/STAT545-home) use it.
+- Prominent R packages like [`ggplot2`](https://github.com/tidyverse/ggplot2) use it. 
+
+Today, we'll check out:
+
+1. GitHub as cloud storage;
+2. GitHub for collaboration; and
+3. GitHub for version control with git.
+
+### Register a GitHub account - Activity (4 min)
+
+Your turn:
+
+1. Register for a free account on [github.com](https://github.com). 
+    - You'll be using this account for the duration of the course.
+    - Give your username [some thought](https://happygitwithr.com/github-acct.html#username-advice) -- ideally, should include your name.
+2. Tell us what your username is by filling out [this survey](https://ubc.ca1.qualtrics.com/jfe/form/SV_8jKz3FaT7w5EHfT).
+
+### GitHub as cloud storage (4 min)
+
+At the very least, GitHub allows for cloud storage, like Google Drive and Dropbox do. There's a bit more structure than just storing files under your account:
+
+- __Repositories (aka "repo")__: All files must be organized into _repositories_. Think of these as self-contained projects. These can either be _public_ or _private_.
+- __User Accounts__ vs. __Organization Accounts (aka "Org")__: All repositories belong to an account:
+    - A _user account_ is the account you just made, and typically holds repositories related to your own work. 
+    - An _Organization_ account can be owned by multiple people, and typically holds repositories relevant to a group (like STAT 545).
+
+Examples: 
+
+- The [`ggplot2`](https://github.com/tidyverse/ggplot2) repo, within its corresponding `tidyverse` Org. 
+- My [website](https://github.com/vincenzocoia/website) repo, within my own user account.
+
+Want to read more about GitHub accounts? [Check out this help page on GitHub](https://help.github.com/en/articles/types-of-github-accounts).
+
+### GitHub as cloud storage - Activity (10 min)
+
+__Together: Make a participation repo__
+
+- Follow the [setup instructions](https://stat545.stat.ubc.ca/evaluation/participation/#setup) on the participation page. 
+
+__Navigating GitHub__
+
+1. Together: Make a new file on your participation repository:
+    - Click on the "Create New File" button on your repository's home page.
+    - Call it `navigating_github.md`
+    - Leave it blank, and commit ("save") the file by clicking on green "commit new file" button at the bottom of the page.
+2. Together: Add the following URL's to your `navigating_github.md` file (click on the pen button to edit), together with some commentary:
+    - The repository for the STAT 545 home page, called `STAT545-home` (use this if the site ever goes down!)
+    - The account it's under.
+    - Whether the account is a _user account_ or an _Org_.
+3. Together: Commit the changes.
+4. Your turn: Continue the exercise, and add more URL's (with more commentary):
+    - The URL to your participation repo
+    - The URL to your user account page
+5. Your turn: Commit the changes.
+
+### GitHub for collaboration (4 min)
+
+The "traditional" way to collaborate involves sending files over email. Problems:
+
+- Easily lose track of who has the most recent version.
+- Emails get buried.
+
+Addressed by GitHub:
+
+- GitHub repository treated as the "master version".
+- Use [_GitHub Issues_](https://guides.github.com/features/issues/) instead of email.
+
+_Issues_ are a discussion board corresponding to a particular repository. One "thread" is called an Issue. Some features:
+
+- Tag other GitHub users using `@username`.
+- Get email notifications if you are tagged, or are `Watch`ing a repository.
+
+As an example, check out the Issues in the [`ggplot2`](https://github.com/tidyverse/ggplot2) repository.
+
+More on collaboration next Thursday.
+
+### GitHub for collaboration - Activity (1 min)
+
+__Together: `Watch`ing the `Announcements` repo__
+
+1. Navigate to the STAT 545 [Announcements](https://github.com/STAT545-UBC-hw-2019-20/Announcements) repository.
+2. Click `Watch` on the upper-right corner of the repo
+
+You should now get an email notification whenever an Issue is posted.
+
+### GitHub for version control with git (5 min)
+
+GitHub uses a program called `git` to keep track of the project's history (more about `git` next Thursday).
+
+- Users make "commits" to form a _commit history_.
+- `git` only tracks the _changes_ associated with a commit, so it doesn't need to take a snapshot of all your files each time.
+- The actual changes are called a _diff_.
+
+Demostration:
+
+- View commit history of the [STAT545-home](https://github.com/STAT545-UBC/STAT545-home) repository by clicking on the "commits" button on the repo home page.
+- View a recent diff by clicking on the button with the _SHA_ or _hash_ code (something like `6c0a5f1`).
+    - This is also useful for collaborators to see exactly what you changed.
+- View the repository from a while back with the `<>` button.
+- View the history of a file by clicking on the file, then clicking "History".
+
+Why version control?
+
+- Don't fret removing stuff
+- Leave a breadcrumb trail for troubleshooting
+- "Undo" and navigate a previous state
+- Helps you define your work
+- ...
+
+### GitHub for version control with git - Activity (5 min)
+
+__Your turn: History of the [`STAT545-UBC/Classroom`](https://github.com/STAT545-UBC/Classroom) repository.__
+
+1. Use the commit history of the [`STAT545-UBC/Classroom`](https://github.com/STAT545-UBC/Classroom) repository to find Assignment 01 that was delivered last year in STAT 545A (Note: the course ended in mid October 2018, and the assignments were held in a folder called `assignments`). 
+2. Add the URL of this assignment to your `navigating_github.md` file in your participation repository. Keep up with the commentary within the file, too. When was the assignment due? 
+
+Note: the layout and content of the assignments are changing this year.
+
+## Topic 3: Asking effective questions online (10 min)
+
+(5 min)
+
+We all get stuck sometimes. If you try taking [preliminary measures](http://stat545.com/help-general.html) such as googling, you may have to turn to writing a question on a discussion board. Making your question _effective_ is an art. 
+
+To make your question effective, the idea is to make things as easy as possible for someone to answer. 
+
+- Will they have to dig to find a resource you're talking about, or do you provide links?
+- If your code isn't doing what you expect, or you don't know how to obtain an output, do you provide a [__reproducible example__](https://stackoverflow.com/help/minimal-reproducible-example) (aka "reprex")?
+  - Ideally, someone should be able to copy and paste a chunk of code to reproduce the problem you are talking about.
+- Is your reproducible example _minimal_, meaning you've removed all the unnecessary parts to reproduce the problem?
+
+You'll probably find that the act of writing an effective question causes you to answer your own question!
+
+### Asking questions - Activity (5 min)
+
+__Commenting on some online questions__
+
+1. My turn: Start an Issue on the [Announcements repo](https://github.com/STAT545-UBC-hw-2019-20/Announcements/issues) called `Asking effective questions`.
+2. Your turn: Find a question/issue or two that someone has posed online. Check out [Stack Overflow](https://stackoverflow.com/) for inspiration.
+3. Your turn: Add a comment to the newly opened Issue with the following:
+    - The URL to the thread/question
+    - A few brief points on how the question is worded effectively or ineffectively. What would make it better, if anything?
+
+We'll talk about some examples after you're done. 
+
+## To do before next class
+
+- Please fill out [this survey](https://ubc.ca1.qualtrics.com/jfe/form/SV_8jKz3FaT7w5EHfT), so that we can match you to your GitHub account.
+- Be sure to complete the in-class activities listed in today's section of the guidebook.
+- Please put up a profile photo on GitHub -- it makes the STAT 545 community more personable.
+- Install the software stack for this course, as indicated below. Having trouble? Our wonderful TA's are here to help you during office hours.
+
+Optionally, register for the [Student Developer Pack](https://education.github.com/pack) with GitHub for a bunch of free perks for students!
+
+And remember: bring your laptop to every class, as we will always have live-coding activities. 
+
+### Software Stack Installation
+
+1. Install R and RStudio.
+    - R here: <https://cloud.r-project.org>
+    - RStudio here: <https://www.rstudio.com/products/rstudio/download/preview/>
+    - Commentary on installing this stuff can be found at [stat545.com: r-rstudio-install](http://stat545.com/block000_r-rstudio-install.html)
+2. Install git (this is different from GitHub!). See [happygitwithr: Section 7](http://happygitwithr.com/install-git.html)
+    - You'll need to work with the command line. 
+
+
+
