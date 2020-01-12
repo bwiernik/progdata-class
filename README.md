@@ -1,4 +1,4 @@
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) [![Netlify Status](https://api.netlify.com/api/v1/badges/a518e2ea-10fd-41d8-9a21-5e517b244209/deploy-status)](https://app.netlify.com/sites/wiernik-datascience/deploys) [![Build Status](https://travis-ci.org/bwiernik/Classroom.svg?branch=master)](https://travis-ci.org/bwiernik/Classroom)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) [![Netlify Status](https://api.netlify.com/api/v1/badges/a518e2ea-10fd-41d8-9a21-5e517b244209/deploy-status)](https://app.netlify.com/sites/wiernik-datascience/deploys) [![Build Status](https://travis-ci.org/USF-Psych-DataSci/Classroom.svg?branch=master)](https://travis-ci.org/USF-Psych-DataSci/Classroom)
 
 The "lecture notes" of Data Science and Programming are hosted here, using `bookdown`. 
 
