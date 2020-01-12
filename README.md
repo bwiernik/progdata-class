@@ -1,6 +1,6 @@
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) [![Netlify Status](https://api.netlify.com/api/v1/badges/32ea3201-f299-4bf9-9434-f47de208b342/deploy-status)](https://app.netlify.com/sites/stat545guidebook/deploys) [![Build Status](https://travis-ci.com/STAT545-UBC/Classroom.svg?branch=master)](https://travis-ci.com/STAT545-UBC/Classroom)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) [![Netlify Status](https://api.netlify.com/api/v1/badges/a518e2ea-10fd-41d8-9a21-5e517b244209/deploy-status)](https://app.netlify.com/sites/wiernik-datascience/deploys) [![Build Status](https://travis-ci.org/bwiernik/Classroom.svg?branch=master)](https://travis-ci.org/bwiernik/Classroom)
 
-The "lecture notes" of STAT 545A and 547M are hosted here, using `bookdown`. 
+The "lecture notes" of Data Science and Programming are hosted here, using `bookdown`. 
 
 ## Rendering the book
 
@@ -21,6 +21,6 @@ Please keep to the following bookdown conventions:
 
 ## Notation: 
 
-- `cmxyy` stands for class meeting number `yy`, where `x=0` stands for STAT 545A, and `x=1` 547M.
+- `syyy` stands for class session number.
 - The ordering of these files matters! It determines the "chapter" order.
 

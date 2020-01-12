@@ -1,4 +1,4 @@
-# Introduction to STAT 545 and GitHub
+# Introduction to this class GitHub, and R
 
 ## Outline
 
@@ -7,35 +7,41 @@ We'll cover three topics today:
 - Syllabus. (~20 min)
 - GitHub. (~35 min)
 - Getting help (~10 min)
+- R and RStudio (~60 min)
 
 We'll end class with a to-do list before next class.
 
 ## Learning Objectives
 
-By the end of today's class, students are expected to be able to:
+By the end of today's class, you will be able to:
+
+### Welcome to GitHub
 
 - Distinguish and navigate between GitHub repositories, Organization accounts, and user accounts.
 - Edit plain text files on GitHub.
 - Navigate the commit history of a repository and a file on GitHub.
-- Contribute to GitHub Issues, especially for STAT 545.
+- Contribute to GitHub Issues, especially for this class.
 - Identify whether a software-related question has a reproducible example.
+
+### Welcome to R
+
+- Write an R script to perform simple calculations
+- Access the R documentation on an as-needed basis
+- Use functions and operators in R
+- Subset vectors in R
+- Explore a data frame in R
+- Load packages in R
 
 ## Resources
 
 If you want to learn more about today's topics, check out:
 
-- The [GitHub guide](https://guides.github.com/) has lots of info about GitHub. If you do go here, I recommend you start with ["Hello, World!"](https://guides.github.com/activities/hello-world/). You'll see stuff about branching there -- we'll be discussing that next Thursday.
-- Jenny's ["How to get unstuck"](http://stat545.com/help-general.html) page is useful for getting help online (even outside of STAT 545).
+- The [GitHub guide](https://guides.github.com/) has lots of info about GitHub. If you do go here, I recommend you start with ["Hello, World!"](https://guides.github.com/activities/hello-world/). You'll see stuff about branching there -- we'll be discussing that next week.
+- Dr. Jenny Bryan's ["How to get unstuck"](https://github.com/jennybc/STAT545-UBC-original-website/blob/master/help-general.md) page is useful for getting help online (even outside of STAT 545).
 
 ## Topic 1: Syllabus (20 min)
 
-The course syllabus can be found on the STAT 545 @ UBC homepage, [stat545.stat.ubc.ca](https://stat545.stat.ubc.ca). We'll cover:
-
-- Guidebook (2 min)
-- Learning Objectives and Course Structure (8 min)
-  - Example of an analysis: `Interpreting-Regression` book.
-- Teaching Team and Contact (5 min)
-- Resources, especially what's going on with stat545.com (5 min)
+The course syllabus can be found on Canvas and the class homepage, [https://wiernik.datascience.netlify.com](https://wiernik.datascience.netlify.com). 
 
 ## Topic 2: GitHub (35 min)
 
@@ -45,14 +51,14 @@ We will be using [GitHub](https://github.com) a lot in this course:
 
 - All course-related work will go on GitHub.
 - Discussion will happen on GitHub.
-- Even this guidebook and the STAT 545 website files are on GitHub.
+- Class materials are on GitHub.
 
 But why GitHub? Because it's tremendously effective for developing a project. Examples:
 
 - [Apple](https://github.com/apple) uses it.
 - [Uber](https://github.com/uber) uses it.
 - [Netflix](https://github.com/Netflix) uses it.
-- [This Guidebook](https://github.com/STAT545-UBC/Classroom) and [the STAT545 @ UBC website](https://github.com/STAT545-UBC/STAT545-home) use it.
+- [This Guidebook](https://github.com/USF-Psych-DataSci/Classroom) and [the class website](https://github.com/USF-Psych-DataSci/DataSci-home) use it.
 - Prominent R packages like [`ggplot2`](https://github.com/tidyverse/ggplot2) use it. 
 
 Today, we'll check out:
@@ -68,7 +74,7 @@ Your turn:
 1. Register for a free account on [github.com](https://github.com). 
     - You'll be using this account for the duration of the course.
     - Give your username [some thought](https://happygitwithr.com/github-acct.html#username-advice) -- ideally, should include your name.
-2. Tell us what your username is by filling out [this survey](https://ubc.ca1.qualtrics.com/jfe/form/SV_8jKz3FaT7w5EHfT).
+2. Tell us what your username is by filling out [this survey](https://usf.az1.qualtrics.com/jfe/form/SV_8kAdI0XraWU6geN).
 
 ### GitHub as cloud storage (4 min)
 
@@ -82,7 +88,7 @@ At the very least, GitHub allows for cloud storage, like Google Drive and Dropbo
 Examples: 
 
 - The [`ggplot2`](https://github.com/tidyverse/ggplot2) repo, within its corresponding `tidyverse` Org. 
-- My [website](https://github.com/vincenzocoia/website) repo, within my own user account.
+- My [website](https://github.com/bwiernik/wiernik_org) repo, within my own user account.
 
 Want to read more about GitHub accounts? [Check out this help page on GitHub](https://help.github.com/en/articles/types-of-github-accounts).
 
@@ -90,7 +96,7 @@ Want to read more about GitHub accounts? [Check out this help page on GitHub](ht
 
 __Together: Make a participation repo__
 
-- Follow the [setup instructions](https://stat545.stat.ubc.ca/evaluation/participation/#setup) on the participation page. 
+- Follow the [setup instructions](https://wiernik.datascience.netlify.com/evaluation/participation/#setup) on the participation page. 
 
 __Navigating GitHub__
 
@@ -99,7 +105,7 @@ __Navigating GitHub__
     - Call it `navigating_github.md`
     - Leave it blank, and commit ("save") the file by clicking on green "commit new file" button at the bottom of the page.
 2. Together: Add the following URL's to your `navigating_github.md` file (click on the pen button to edit), together with some commentary:
-    - The repository for the STAT 545 home page, called `STAT545-home` (use this if the site ever goes down!)
+    - The repository for the class home page, called `DataSci-home` (use this if the site ever goes down!)
     - The account it's under.
     - Whether the account is a _user account_ or an _Org_.
 3. Together: Commit the changes.
@@ -133,7 +139,7 @@ More on collaboration next Thursday.
 
 __Together: `Watch`ing the `Announcements` repo__
 
-1. Navigate to the STAT 545 [Announcements](https://github.com/STAT545-UBC-hw-2019-20/Announcements) repository.
+1. Navigate to class [Announcements](https://github.com/USF-Psych-DataSci-2020/Announcements) repository.
 2. Click `Watch` on the upper-right corner of the repo
 
 You should now get an email notification whenever an Issue is posted.
@@ -169,13 +175,13 @@ __Your turn: History of the [`STAT545-UBC/Classroom`](https://github.com/STAT545
 1. Use the commit history of the [`STAT545-UBC/Classroom`](https://github.com/STAT545-UBC/Classroom) repository to find Assignment 01 that was delivered last year in STAT 545A (Note: the course ended in mid October 2018, and the assignments were held in a folder called `assignments`). 
 2. Add the URL of this assignment to your `navigating_github.md` file in your participation repository. Keep up with the commentary within the file, too. When was the assignment due? 
 
-Note: the layout and content of the assignments are changing this year.
+Note: These are not the assignments you will be doing in this class.
 
 ## Topic 3: Asking effective questions online (10 min)
 
 (5 min)
 
-We all get stuck sometimes. If you try taking [preliminary measures](http://stat545.com/help-general.html) such as googling, you may have to turn to writing a question on a discussion board. Making your question _effective_ is an art. 
+We all get stuck sometimes. If you try taking [preliminary measures](https://github.com/jennybc/STAT545-UBC-original-website/blob/master/help-general.md) such as googling, you may have to turn to writing a question on a discussion board. Making your question _effective_ is an art. 
 
 To make your question effective, the idea is to make things as easy as possible for someone to answer. 
 
@@ -190,7 +196,7 @@ You'll probably find that the act of writing an effective question causes you to
 
 __Commenting on some online questions__
 
-1. My turn: Start an Issue on the [Announcements repo](https://github.com/STAT545-UBC-hw-2019-20/Announcements/issues) called `Asking effective questions`.
+1. My turn: Start an Issue on the [Announcements repo](https://github.com/USF-Pssych-DataSci-2020/Announcements/issues) called `Asking effective questions`.
 2. Your turn: Find a question/issue or two that someone has posed online. Check out [Stack Overflow](https://stackoverflow.com/) for inspiration.
 3. Your turn: Add a comment to the newly opened Issue with the following:
     - The URL to the thread/question
@@ -198,16 +204,304 @@ __Commenting on some online questions__
 
 We'll talk about some examples after you're done. 
 
+
+
+# Introduction to R
+
+Now, we'll get you up to speed with a minimum "need to know" about using R and RStudio. We're going to assume you know nothing, but aren't covering the breadth of the R/RStudio landscape.
+
+The format of today's notes aim to teach R by exploration, so is essentially an activity guide with prompts for exploration. These are mostly all exercises we'll be doing together in class. 
+
+From this point, you will need
+
+- R and RStudio installed
+- A [participation repo](https://wiernik.datascience.netlify.com/evaluation/participation/#setup) on GitHub to put in-class work.
+
+## Participation
+
+Start a new R script in RStudio, and add your exploratory code to the script as we work through the exercises. What you write on this script doesn't have to be exactly the same as what I write -- we're just looking for some exploration of coding in R. 
+
+## Resources
+
+Here are some useful resources for getting oriented with R.
+
+- Jenny's [stat545.com: hello r](http://stat545.com/block002_hello-r-workspace-wd-project.html) page for exploring R roughly follows today's outline.
+- Want to practice programming in R? Check out [R Swirl](https://swirlstats.com/) for interactive lessons.
+- For a list of R "vocabulary", see [Advanced R - Vocabulary](http://adv-r.had.co.nz/Vocabulary.html); for a list of R operators, see [Quick-R](https://www.statmethods.net/management/operators.html).
+
+Today, we'll be learning just enough base R so that we can dive in to the tidyverse side of R. If you want to learn even more about base R, take a look at [Mike Marin's R playlist on YouTube](https://www.youtube.com/playlist?list=PLqzoL9-eJTNBlVXxWvJkq0dtVut2sICUW).
+
+
+## Why R?
+
+Why R? Some points taken from [adv-r: intro](http://adv-r.had.co.nz/Introduction.html):
+
+- Free, platform-wide
+- Open source
+- Comprehensive set of "add on" packages for analysis
+- Huge community
+- ...
+
+Alternatives exist for data analysis, python being another excellent tool, especially these days as more and more R-like functionality is added to it. The good thing about python is that it's faster and has better support for machine learning models. 
+
+## Orientation to R
+
+### Using R and RStudio (5 min)
+
+Let's try these exercises as our first steps.
+
+1. Try some arithmetic from a script vs. the console. 
+    - Notice that your commands appear in the "History" tab. Do not rely on this! What do you think is better than relying on the history?
+2. Store a number in a variable called `number` using `<-` (read this arrow as "gets").
+    - Notice that the object appears in the "Environment" tab in the top-right of RStudio.
+3. Try some arithmetic on the variable.
+4. Try some arithmetic on an undefined variable.
+5. Try some arithmetic on the variable on a line of code above the variable definition (do you think we'll get an error?)
+
+### Vectors (3 min)
+
+_Vectors_ store multiple entries of a data type, like numbers. You'll discover that they show up just about everywhere in R.
+
+Let's collect some data and store this in a vector called `times`. How long was your commute this morning, in minutes? Here's starter code:
+
+```
+times <- c()
+```
+
+Operations happen component-wise. Let's calculate those times in hours. How can we "save" the results?
+
+### Functions, Part I (3 min)
+
+What's the average travel time? Instead of computing this manually, let's use a _function_ called `mean`. Notice the syntax of using a function: the _input_ goes inside brackets, which is followed by the function name to the left.
+
+We _input_ `times`, and got some _output_. Did this function change the input? Aside from some bizarre functions, this is always the case. 
+Functions don't always return a single value. Try the `range()` function, for example. What's the output? What about the `sqrt()` function?
+
+Much of R is about becoming familiar with R's "vocabulary". A nice list can be found in [Advanced R - Vocabulary](http://adv-r.had.co.nz/Vocabulary.html).
+
+### Comparisons (7 min)
+
+We'll now introduce _logicals_.
+
+Which of our travel times are less than (say) 30 minutes? Use `<`.
+
+Which of our travel times are equal to ... (pick something)? What about _not_ equal to it? Notice the use of `==` as opposed to `=` -- why do you think that is?
+
+Which of our travel times are greater than ...(lower)... _and_ less than ...(upper)...? What about less than ...(lower)... _or_ greater than ...(upper)...?
+
+Some functions expect logical inputs. Try using the `which()` function on one of the above. What about `any()`? `all()`?
+
+Logicals can be explicitly specified in R with `TRUE` and `FALSE`.
+
+### Subsetting (10 min)
+
+Use `[]` to subset the vector of times:
+
+1. Extract the third entry.
+2. Extract everything except the third entry.
+3. Extract the second and fourth entry. The fourth and second entry.
+4. Extract the second through fifth entry -- make use of `:` to construct sequential vectors.
+4. Extract all entries that are less than 30 minutes. Why does this work? Logical subsetting!
+
+After all of that, did our `times` object change at all?
+
+We can use `[]` in conjunction with `<-` to change the `times` object:
+
+1. Replace two entries with new travel times.
+2. "Cap" entries that are "too large" at some set value. If this is more than one value, why don't we need to match the number of values? Recycling!
+3. Remove an entry, by overwriting `times`.
+
+### NA (2 min)
+
+Sometimes we have missing data. Those entries are replaced with `NA` in R. Be careful with these!
+
+1. Add `NA` to the vector of times.
+2. What's the mean of this new vector of times?
+
+Let's expand our view of functions in order to solve this problem.
+
+### Functions, Part II (10 min)
+
+Functions often take more than one _arguments_ as input, separated by commas. You can find out what these arguments are by accessing the function's _documentation_:
+
+Access the documentation of the `mean()` function by executing `?mean`. 
+
+- There are four arguments.
+- All the arguments have names, except for the `...` argument (more on `...` later). This is always the case. 
+- Under "Usage", some of the arguments are of the form `name = value`.
+    - These are default values, in case you don't specify these arguments.
+    - This is a sure sign that these arguments are _optional_. 
+- `x` is "on its own". This typically means that it has no default, and often (but not always) means that the argument is _required_. 
+
+We can specify an argument in one of two ways:
+
+- specifying `argument name = value` in the function parentheses; or
+- matching the ordering of the input with the ordering of the arguments.
+    - For readability, this is not recommended beyond the first or sometimes second argument! 
+
+Input `TRUE` for the `na.rm` argument in both ways.
+
+### Data frames (12 min)
+
+Living in a vector-only world would be nice if all data analyses involved one variable. When we have more than one variable, _data frames_ come to the rescue. Basically, a data frame holds data in tabular format.
+
+R has some data frames "built in". For example, motor car data is attached to the variable name `mtcars`. 
+
+Print `mtcars` to screen. Notice the tabular format. 
+
+__Your turn__ (5 min): Finish the exercises of this section:
+
+1. Use some of these built-in R functions to explore `mtcars`, without printing the whole thing to screen:
+    - `head()`, `tail()`, `str()`, `nrow()`, `ncol()`, `summary()`, `row.names()` (yuck), `names()`.
+
+Notice that `names` and `row.names()` outputs a _character vector_ (we've already seen numeric and logical vectors). These are useful for characterizing categorical data in R. 
+
+2. What's the first column name in the `mtcars` dataset? 
+3. Which column number is named `"wt"`?
+
+Each column is its own vector that can be extracted using `$`. For example, we can extract the `cyl` column with `mtcars$cyl`.
+
+You can also extract columns using ``[[]]`. For example, try `mtcars[["cyl"]]` or `mtcars[[2]]`.
+
+4. Extract the vector of `mpg` values. What's the mean `mpg` of all cars in the dataset?
+
+### R packages (13 min)
+
+Usually, the suite of functions that "come with" R are just not enough to do an analysis. 
+
+Often, the suite of functions that "come with" R are not very convenient.
+
+In come R _packages_ to the rescue. These are "add ons", each coming with their own suite of functions and objects, usually designed to do one type of task. [CRAN](https://cran.r-project.org/) stores packages that, for all intents and purposes, can be considered "official" R packages. It's easy to install packages from CRAN! Just use the `install.packages()` function. 
+
+Run the following lines of code to install the `tibble` and `gapminder` packages. (But don't include this in your scripts -- it's not very nice to others!)
+
+```
+install.packages("tibble")
+install.packages("gapminder")
+```
+
+- `tibble`: a data frame with some useful "bells and whistles"
+- `gapminder`: a package that makes the gapminder dataset available (as a `tibble`!)
+
+Installing a package is not enough! To access its functions, you have to _load_ it. Use the `library()` function to load a package. 
+
+(Note: Do not use the similar function `require()` to load packages. This has some different, undesirable, behavior for normal usage.)
+
+Run the following lines of code to load the packages. (Put these in your scripts, and near the top)
+
+```
+library(tibble)
+library(gapminder)
+```
+
+Take a look at the packages under the "Global Environment" tab to see the new objects that have just been made available to us. PS: you'll notice `mtcars` is not in our workspace/environment, yet we can still access it -- where does `mtcars` live?
+
+Try the following two approaches to access information about the `tibble` package. Run the lines one-at-a-time. Vignettes are your friend, but do not always exist. 
+
+```
+?tibble
+browseVignettes(package = "tibble")
+```
+
+Print out the `gapminder` object to screen. It's a tibble -- how does it differ from a data frame in terms of how it's printed?
+
+Because a tibble is a data frame, our exploration functions still work on it. Try some.
+
+### Two slogans to understand computations in R (6 min)
+
+(We probably won't have time to cover this, and that's OK -- I'm leaving it here for you to peruse if you are interested).
+
+John Chambers eloquently sums up using R:
+
+> To understand computations in R, two slogans are helpful:
+> 
+> - Everything that exists is an object.
+> - Everything that happens is a function call.
+
+These are useful to remember to prevent us from getting confused. 
+
+1. Everything that exists is an object.
+
+This is not obvious when we look at the output of, say, `str()`:
+
+``` r
+str(mtcars)
+#> 'data.frame':    32 obs. of  11 variables:
+#>  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+#>  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+#>  $ disp: num  160 160 108 258 360 ...
+#>  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
+#>  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+#>  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+#>  $ qsec: num  16.5 17 18.6 19.4 17 ...
+#>  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
+#>  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
+#>  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
+#>  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
+```
+
+The stuff you see is simply printed to screen, not an object! The actual object is `NULL`:
+
+``` r
+foo <- str(mtcars)
+#> 'data.frame':    32 obs. of  11 variables:
+#>  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+#>  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
+# ...(snip)...
+foo
+#> NULL
+```
+
+The output of `summary()` is actually a "table" object (something not often used in R). Let's coerce it to character data:
+
+``` r
+foo <- summary(mtcars)
+as.character(foo)
+#>  [1] "Min.   :10.40  "  "1st Qu.:15.43  "  "Median :19.20  " 
+#>  [4] "Mean   :20.09  "  "3rd Qu.:22.80  "  "Max.   :33.90  " 
+#>  [7] "Min.   :4.000  "  "1st Qu.:4.000  "  "Median :6.000  " 
+#> [10] "Mean   :6.188  "  "3rd Qu.:8.000  "  "Max.   :8.000  " 
+#> [13] "Min.   : 71.1  "  "1st Qu.:120.8  "  "Median :196.3  " 
+#> [16] "Mean   :230.7  "  "3rd Qu.:326.0  "  "Max.   :472.0  " 
+# ...(snip)...
+```
+
+2. Everything that happens is a function call.
+
+Did you know that operators like `+` are actually functions? The "plus" function is literally `` `+`() ``, and accepts two arguments.
+
+Here is what's actually happening when we call `5 + 2`:
+
+``` r
+`+`(5, 2)
+#> [1] 7
+```
+
+Want a challenge? What's the difference between the `` `(`() `` function and the `` `{`() `` function? Hint check the documentation with `` ?`{` ``.
+
+
+## Finishing up (5 min)
+
+1. Highly recommended: [Don't save your workspace](https://www.r-bloggers.com/using-r-dont-save-your-workspace/) when you quit RStudio. Make this a default:
+    - Go to "RStudio" -> "Preferences…" -> "General"
+    - Uncheck "restore .RData into workspace on startup"
+    - Select: "Save workspace to RData on exit:" Never
+2. Push your final script to GitHub (you can do this in a simple way by dragging the file onto your respository homepage).
+
+Don't forget! There's an office hour after every class, held upstairs in my office.
+
+
+
 ## To do before next class
 
-- Please fill out [this survey](https://ubc.ca1.qualtrics.com/jfe/form/SV_8jKz3FaT7w5EHfT), so that we can match you to your GitHub account.
+- Please fill out [this survey](https://usf.az1.qualtrics.com/jfe/form/SV_8kAdI0XraWU6geN), so that we can match you to your GitHub account.
 - Be sure to complete the in-class activities listed in today's section of the guidebook.
-- Please put up a profile photo on GitHub -- it makes the STAT 545 community more personable.
-- Install the software stack for this course, as indicated below. Having trouble? Our wonderful TA's are here to help you during office hours.
+- Please put up a profile photo or image on GitHub -- it makes the class community more personable and easier to work with.
+- If you are using a laptop, install the software stack for this course, as indicated below.
 
 Optionally, register for the [Student Developer Pack](https://education.github.com/pack) with GitHub for a bunch of free perks for students!
 
-And remember: bring your laptop to every class, as we will always have live-coding activities. 
+And remember: if you are using a laptop, bring it to every class, as we will always have live-coding activities. 
 
 ### Software Stack Installation
 
@@ -217,6 +511,9 @@ And remember: bring your laptop to every class, as we will always have live-codi
     - Commentary on installing this stuff can be found at [stat545.com: r-rstudio-install](http://stat545.com/block000_r-rstudio-install.html)
 2. Install git (this is different from GitHub!). See [happygitwithr: Section 7](http://happygitwithr.com/install-git.html)
     - You'll need to work with the command line. 
+3. Install GitHuh: <https://desktop.github.com/>
+    - Or another git client
+4. Install the **tinytex** package in R and run: `tinytex::install_tinytex()`
 
 
 
