@@ -8,7 +8,7 @@ documentclass: book
 biblio-style: apalike
 link-citations: yes
 #github-repo: org/repo
-cover-image: "r.png"
+cover-image: "datasci_prog_class_icon.png"
 ---
 
 # About This Guide {-}
