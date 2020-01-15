@@ -28,7 +28,7 @@ Start a new R script in RStudio, and add your exploratory code to the script as 
 
 Here are some useful resources for getting oriented with R.
 
-- Jenny's [stat545.com: hello r](http://stat545.com/block002_hello-r-workspace-wd-project.html) page for exploring R roughly follows today's outline.
+- Jenny Bryan's [stat545.com: hello r](http://stat545.com/block002_hello-r-workspace-wd-project.html) page for exploring R roughly follows today's outline.
 - Want to practice programming in R? Check out [R Swirl](https://swirlstats.com/) for interactive lessons.
 - For a list of R "vocabulary", see [Advanced R - Vocabulary](http://adv-r.had.co.nz/Vocabulary.html); for a list of R operators, see [Quick-R](https://www.statmethods.net/management/operators.html).
 
