@@ -9,6 +9,7 @@ biblio-style: apalike
 link-citations: yes
 #github-repo: org/repo
 cover-image: "datasci_prog_class_icon.png"
+favicon: "favicon.ico"
 ---
 
 # About This Guide {-}
