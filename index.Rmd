@@ -14,6 +14,10 @@ favicon: "favicon.ico"
 
 # About This Guide {-}
 
-Welcome to the class meeting (or "lecture") guide for Data Science and Programm for Spring 2020! This guide organizes what we will be doing in each class meeting. So you can expect it to be updated regularly -- in fact, the date listed above is the last time this guide was updated. 
+Welcome to the class meeting (or "lecture") guide for Data Science and Programming
+for Spring 2020! This guide organizes what we will be doing in each class meeting. 
+So you can expect it to be updated regularly -- in fact, the date listed above 
+is the last time this guide was updated. 
 
-This course was developed based on the amazing work and resources provided by Jenny Bryan found at stat545.com.
+This course was developed based on the amazing work and resources provided by 
+Jenny Bryan found at <https://stat545.com>.

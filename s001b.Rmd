@@ -314,7 +314,7 @@ And remember: if you are using a laptop, bring it to every class, as we will alw
     - Commentary on installing this stuff can be found at [stat545.com: r-rstudio-install](http://stat545.com/block000_r-rstudio-install.html)
 2. Install git (this is different from GitHub!). See [happygitwithr: Section 7](http://happygitwithr.com/install-git.html)
     - You'll need to work with the command line. 
-3. Install GitHuh: <https://desktop.github.com/>
+3. Install GitHub: <https://desktop.github.com/>
     - Or another git client
 4. Install the **tinytex** package in R and run: `tinytex::install_tinytex()`
 
