@@ -142,7 +142,7 @@ Together:
 
 1. To install these packages, in any R console, run the following:
 
-```{r}
+```{r, eval=FALSE}
 install.packages('rmarkdown')
 install.packages('gapminder')
 install.packages('tibble')
@@ -228,10 +228,16 @@ Note that lines that are a sub-part of the previous line are indented by two spa
 4. You can even include R code that runs in your YAML header. For example, let's
    add code that will insert today's date into the header. Change the `date:` field
    in your YAML to:
-   ` Last updated `r format(Sys.time(), "%d %B, %Y")` `
-     - Note, if you want to start a YAML field with code, wrap it in quotes
-       '`r format(Sys.time(), "%d %B, %Y")`'
-       
+   
+   ```{r, eval=FALSE}
+   Last updated `r format(Sys.time(), "%d %B, %Y")`
+   ```
+   
+   - Note, if you want to start a YAML field with code, wrap it in quotes
+     
+     ```{r, eval=FALSE}
+     '`r format(Sys.time(), "%d %B, %Y")`'
+     ```
 
 ### Activity: exploring chunk options (5 min)
 
