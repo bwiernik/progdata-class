@@ -1,0 +1,282 @@
+# Authoring
+
+Communication of a data analysis is just as important as the analysis itself. Today, we'll be looking at tools for _writing_ about your analysis.
+
+__Announcements__:
+
+- The first assignment is due for Peer Review on Monday, final on Wednesday
+- The first peer review is due on Tuesday
+- Please be sure you have:
+  1. Made a participation repo
+      - You only need 1 for the entire semester!
+  1. Submitted your participation repo link on canvas
+  1. Made a homework repo
+      - You only need 1 for the entire semester!
+  1. Accepted your invitation to the class Organization
+  
+## Learning Objectives
+
+By the end of today's class, students are expected to be able to:
+
+- Write documents in markdown on GitHub and RStudio, and render these documents to html and pdf with RStudio.
+- Choose whether html or pdf is an appropriate output
+- Style an Rmd document by editing the YAML header
+- Demonstrate at least two Rmd code chunk options
+- Make presentation slides using one of the RMarkdown presentation formats.
+
+## Resources
+
+Cheat sheets for "quick reference":
+
+- [GitHub's markdown cheatsheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)
+- [RStudio's RMarkdown cheatsheet](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
+
+Further reading:
+
+- The [Rmd website](https://rmarkdown.rstudio.com/) has a fantastic walk-through [tutorial](https://rmarkdown.rstudio.com/lesson-1.html) that gives a great overview of RMarkdown. There's also a nice [overview video](https://rmarkdown.rstudio.com/authoring_quick_tour.html) on the site, too.
+- Yihui's [Rmd book](https://bookdown.org/yihui/rmarkdown/) for lots more on RMarkdown.
+
+Other explorations of this content:
+
+- Interactive [tutorial](https://commonmark.org/help/tutorial/) for learning markdown.
+- The [Happy Git with R: Rmd test drive](https://happygitwithr.com/rmd-test-drive.html).
+
+## Topic 1: Output Formats (5 min)
+
+There are generally two prominent file types to display manuscripts of various types:
+
+1. __pdf__: This is useful if you intend to print your work onto a physical sheet of paper, or for presentation slides. If this is not the primary purpose, then try to avoid it, because formatting things so that it fits to the page can be more effort than its worth (unless you're making presentation slides). 
+    - Example: Most journals articles and preprints, such as [this one](https://wiernik.org/pdfs/Wiernik%20and%20Kostal_2019_Protean%20and%20boundaryless%20career%20orientations.pdf).
+2. __html__: This is what you see when you visit a webpage. Content does not need to be partitioned to pages. 
+    - Example: My [website main page](https://wiernik.org), and its corresponding [html file](https://github.com/bwiernik/wiernik_org/blob/master/public/index.html).
+    - Example: html [slides using ioslides](https://rpubs.com/cheyu/ioslideDemo).
+
+
+We'll be treating pdf and html files as _output_ that should not be edited. 
+In fact, pdf documents are not even easy to edit, and this is not a reproducible workflow.
+
+What's the source, then? (R) __Markdown__! We'll be discussing this today.
+
+### Word Processor Formats
+
+It is also possible to output files to word processor formats, such as Word (.docx),
+LibreOffice/OpenDocument (.odt), or Rich Text (.rtf). You can also output to other
+slideshow software, such as PowerPoint (.pptx) or LibreOffice/OpenDocument Slides (.odp).
+
+We aren't going to use these in this class, and it's a good idea to avoid them.
+It's hard to integrate these formats into a reproducible workflow that lets you 
+re-run your analyses as you update your data and code. 
+
+There are times when you have to use these formats (e.g., a journal requires Word,
+a conference requires PowerPoint, your advisor or collaborator requires Word). 
+If you have to do this, try to avoid _editing in these formats_. If you need to 
+make revisions, go back and make changes to the source code, rather than the 
+rendered document. Later on in the semester, if we have time, we will talk about 
+some ways to incorporate going to Word and similar formats and back into your 
+workflow.
+
+### Other Output Formats
+
+RMarkdown can be rended to _many_ other formats that we won't have time to cover
+(see the [RMarkdown documentation](https://bookdown.org/yihui/rmarkdown/output-formats.html)
+and the [pandoc documentation](https://pandoc.org/MANUAL.html#option--to)).
+
+
+## Topic 2: Markdown
+
+(3 min)
+
+Markdown is plain text with an easy, readable way of marking up your text. 
+Let's see [GitHub's cheat sheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf). 
+
+Various software convert markdown to either pdf or html. The main tool we will 
+use is called pandoc, which is helpfully built into RStudio.
+
+File extension: .md
+
+### Activity: Modify `navigating_github.md` (5 min)
+
+Together:
+
+1. Open your `navigating_github.md` file that we made in the first class.
+2. Mark up the text with some markdown features.
+3. Commit your changes. 
+
+Notice that GitHub automatically displays markdown files nicely, but not HTML files.
+
+### Activity: Render `navigating_github.md` (5 min)
+
+Note: this exercise employs an effective _local_ git workflow, which we will 
+address later on in class.
+
+Together:
+
+1. If you haven't already, clone your participation repository to your desktop.
+2. In RStudio, open the file `navigating_github.md`.
+    - Yes! RStudio also acts as a plain text editor!
+3. Convert the `.md` file to both pdf and html by clicking the `Preview` or `Knit` button.
+4. Commit the two new files and push them to GitHub.
+
+
+## Topic 3: RMarkdown
+
+(2 min)
+
+RMarkdown (Rmd) is a "beefed up" version of markdown -- it has many more features built in to it, two important ones being:
+
+- We can specify more features in a _YAML header_.
+    - This contains _metadata_ about the document to guide how the Rmd document is rendered.
+- We can integrate code (from R, Python, C++, SQL, etc.) into a document.
+
+Here's [RStudio's cheat sheet](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) on Rmd. 
+You can see that it has more features than "regular" markdown!
+
+### Activity: getting set up with R packages (5 min)
+
+(Includes what we missed from last class)
+
+To get started with using RMarkdown, you might need to install the `rmarkdown` R package.
+The activity we have also depends on the `gapminder`, `tibble`, and `DT` packages. 
+
+Together:
+
+1. To install these packages, in any R console, run the following:
+
+```{r}
+install.packages('rmarkdown')
+install.packages('gapminder')
+install.packages('tibble')
+install.packages('DT')
+```
+
+"Official" R packages are stored an retrieved from [CRAN](https://cran.r-project.org/).
+
+2. Check out vignettes for the tibble package by running `browseVignettes(package = "rmarkdown")`.
+
+### Activity: exploring code chunks (15 min)
+
+Last class, we explored data frames. This time, we'll explore a special and useful
+kind of data frame called tibbles.
+
+We will explore tibbles with code written in code chunks in an RMarkdown document.
+
+Together:
+
+1. Open RStudio's Rmd template by going to "File" -> "New File" -> "RMarkdown" in RStudio. Explore!
+2. Scrap everything below the YAML header.
+3. Add a code chunk below the YAML header via "Insert" -> "R". Or, by:
+    - Mac: `Cmd + Option + I`
+    - Windows: `Ctrl + Alt + I`
+    - Manually typing three back ticks followed by {r} in curly brackets: ` ```{r} `
+4. Load the `gapminder` and `tibble` packages using the `library()` function, by adding the following code to your code chunk:
+
+```{r}
+library(gapminder)
+library(tibble)
+library(DT)
+```
+
+5. Print out the `gapminder` data frame to explore the output. 
+   Then, in a new code chunk, convert the `mtcars` data frame to a tibble using 
+   the `tibble::as_tibble()` function. 
+   Try out the `DT::datatable()` function on a data frame!
+6. Add some markdown commentary to this comparative analysis.
+7. Add an in-line code chunk specifying the number of rows of the `mtcars` dataset.
+8. "Knit" to html and pdf.
+
+Technical note: The `knitr` package is what integrates the results of the code 
+into the document. Under the hood, when you click the "Knit" or "Preview" button,
+what happens this conversion: 
+  Rmd -> (run the R code and convert to output) -> md -> pdf/html.
+
+### Activity: exploring the YAML header (10 min)
+
+(Note: If you've "fallen off the bus" from the last exercise, here's a "bus stop" 
+for you to get back on -- just start a new Rmd file and use the boilerplate 
+content while we work through this exercise.)
+
+Now, we'll modify the metadata via the YAML header. 
+Check out a bunch of YAML options 
+[from the RMarkdown book](https://bookdown.org/yihui/rmarkdown/html-document.html).
+
+YAML is used to control things about your document, such as the title, the creation
+date shown, output formats and options, even variables that might be used in R code.
+
+Together, in an Rmd file (ideally the one from the previous exercise):
+
+1. Change the output to `html_document`. We'll be specifying settings for the 
+   html document, so this needs to go on a new line after the `output:` field:
+
+```
+output:
+  html_document:
+    SETTINGS
+    GO
+    HERE
+```
+
+Note that lines that are a sub-part of the previous line are indented by two spaces.
+
+2. Add the following settings under `html_document`:
+    - Keep the `md` intermediate file with `keep_md: true`
+    - Add a theme. A nice one is cerulean: `theme: cerulean`
+    - Add a table of contents with `toc: true`
+    - Make the toc float: `toc_float: true`.
+    
+3. Knit the results (you may have to delete the pdf, because it is no longer up to date!)
+
+4. You can even include R code that runs in your YAML header. For example, let's
+   add code that will insert today's date into the header. Change the `date:` field
+   in your YAML to:
+   ` Last updated `r format(Sys.time(), "%d %B, %Y")` `
+     - Note, if you want to start a YAML field with code, wrap it in quotes
+       '`r format(Sys.time(), "%d %B, %Y")`'
+       
+
+### Activity: exploring chunk options (5 min)
+
+(Bus stop! Couldn't get previous exercises to work? 
+No problem, just start a fresh RMarkdown document with File -> New File -> RMarkdown)
+
+Just like YAML is metadata for the Rmd document, _code chunk options_ are metadata 
+for the code chunk. Specify them within the `{r}` at the top of a code chunk, separated by commas.
+
+Together, in an Rmd file (ideally the same one we've been working on):
+
+1. Hide the code from the output with `echo = FALSE`.
+2. Prevent warnings from the chunk that loads packages with `warning = FALSE`. 
+3. Knit the results.
+
+
+## Topic 4: Rmd Presentations
+
+(3 min)
+
+You can also make presentation slides using Rmd. A great resource is Yihui's 
+[Rmd book, "Presentations" section](https://bookdown.org/yihui/rmarkdown/presentations.html).
+
+Some types of formats:
+
+- ioslides
+- [xaringan](https://slides.yihui.name/xaringan/#1)
+- [slidy](https://www.w3.org/Talks/Tools/Slidy2/#(1))
+- [reveal.js](https://revealjs.com/#/)
+- ...
+
+### Activity: exploring ioslides (10 min)
+
+Let's turn the file we've been working on into slides.
+
+Together:
+
+1. In RStudio, go to "File" -> "New File" -> "RMarkdown" -> "Presentation" -> "ioslides". Explore!
+2. Clear everything below the YAML header.
+3. Copy and paste the tibble exploration we've been working on (without the YAML header), and turn them into slides.
+
+## Wrap-up (3 min)
+
+Push the following files to your GitHub repo:
+
+1. `navigating_github.md` and its output formats.
+2. The Rmd document exploration and its output formats.
+3. The Rmd presentation slides exploration and its output formats. 
