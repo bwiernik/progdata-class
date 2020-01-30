@@ -3,17 +3,21 @@
 
 __Announcements__:
 
-- Homework 1 is due tonight. Your work should be stored in your _homework_ repository, not your _partication_ repo! Also, please put your URL on canvas. 
+- How did your homework go? Run into any issues we should discuss?
+- Your work should be stored in your _homework_ repository, not your 
+  _partication_ repo!
 
 __Recap__:
 
 - Previous two weeks: software for data analytic work: git & GitHub, markdown, and R.
 - Next three weeks: fundamental methods in exploratory data analysis: R tidyverse.
-- Last two weeks (and STAT 547M): special topics in exploratory data analysis.
 
-__Today__: Introduction to plotting with `ggplot2` (to be continued next Thursday). 
+__Today__: Introduction to plotting with `ggplot2` 
 
-__Worksheet__: You can find a worksheet template for today [here](https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/tutorials/cm005-exercise.Rmd).
+__Worksheet__: You can find a worksheet template for today [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s03a_ggplot_p1-exercise.Rmd).
+
+Download the worksheet file and save it in a new folder in your participation repo
+called "plotting".
 
 Set up the workspace:
 
@@ -65,7 +69,14 @@ TL;DR: We're using `ggplot2` in DataSci.
 
 Traditionally, plots in R are produced using "base R" methods, the main function 
 here being `plot()`. This method tends to be quite involved, and requires a lot 
-of "coding by hand".
+of "coding by hand". That said, for simple plots and some built-in functions, 
+using `plot()` is great. For example, R has built-in regression diagnostics:
+
+```{r}
+mod <- lm(dist ~ speed, data = cars)
+par(mfrow = c(2, 2))
+plot(mod)
+```
 
 Then, an R package called `lattice` was created that aimed to make it easier to 
 create multiple "panels" of plots. It seems to have gone by the wayside in the 
@@ -79,9 +90,9 @@ With `ggplot2`, you can make a great many type of plots with minimal code.
 It's been a hit in and outside of the R community.
 
   - A big advantage of `ggplot2` is that many people have written extensions for
-    it, such as [`tidybayes`]() (for plotting distributions and intervals),
-    [`gganimate`]() (for animations and gifs) and
-    [`ggforce`]() (lots of very customizable features).
+    it, such as [`tidybayes`](https://mjskay.github.io/tidybayes/articles/tidybayes.html) (for plotting distributions and intervals),
+    [`gganimate`](https://gganimate.com/) (for animations and gifs) and
+    [`ggforce`](https://ggforce.data-imaginist.com/) (lots of very customizable features).
 
 Check out [this comparison of the three](http://www.jvcasillas.com/base_lattice_ggplot/) 
 by Joseph V. Casillas.
@@ -109,8 +120,6 @@ evaluates to, consider putting your table in an appendix. Because chances are,
 the reader doesn't care about the exact numeric values. Or, perhaps you just 
 want to point out one or a few numbers, in which case you can put that number 
 directly on a plot.
-
-<!-- [Challenger example from Jenny Bryan](https://speakerdeck.com/jennybc/ggplot2-tutorial?slide=7). -->
 
 ## The grammar of graphics (15 min)
 
@@ -182,7 +191,7 @@ of aesthetics.
 
 Fill out __Exercise 1: Bar Chart Grammar (Together)__ in your worksheet.
 
-Click [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/cm005-exercise.Rmd) if you don't have it yet.
+Click [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s03a_ggplot_p1-exercise.Rmd) if you don't have it yet.
 <!-- TODO: Clean this up -->
 
 ## Working with `ggplot2`
@@ -202,8 +211,22 @@ First, the `ggplot()` function takes two arguments:
   - `data`: the data frame containing your plotting data.
   - `mapping`: aesthetic mappings applying to the entire plot. 
                Expecting the output of the `aes()` function.
+               
+The `aes()` function tells R to look in the `data` for variable names. Notice 
+that the `aes()` function has `x` and `y` as its first two arguments, so we 
+don't need to explicitly name these aesthetics. Beyond these basic arguments,
+you can also specify others, such as `color`, `alpha` (transparency), `size`,
+`group`.
 
-Notice that the `aes()` function has `x` and `y` as its first two arguments, so we don't need to explicitly name these aesthetics. 
+Different plot shapes (`geom_SOMETHING`) accpet different `aes()` arguments.
+These are listed in the help file for the geom function: `?geom_point`, 
+`?geom_line`, etc.
+
+
+You can specify values for aesthetic parameters using constants or variables 
+from outside `data` by specifying them outside of `aes()`. For example, to make 
+all of the shapes of plot blue, you can add: `color = "blue"`.
+
 
 ```{r}
 ggplot(gapminder, aes(gdpPercap, lifeExp))
@@ -262,7 +285,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
 
 _Bus stop_: Did you lose track of where we are? You can still do the exercise!
 
-- Click [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/cm005-exercise.Rmd) 
+- Click [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s03a_ggplot_p1-exercise.Rmd) 
   to get the worksheet if you don't have it.
 - You're all set! Hint for completing the exercise: use the information from 
   this section ("Working with `ggplot2`") to complete the exercise.

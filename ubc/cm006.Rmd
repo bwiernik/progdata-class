@@ -1,5 +1,9 @@
 # Intro to data wrangling, Part I
 
+### Announcements
+
+From Assignment 3 onwards, whenever you produce an HTML file, you must link to a rendered version of the file. We'll cover this today.
+
 __Worksheet__: You can find a worksheet template for today [here](https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/tutorials/cm006-exercise.Rmd).
 
 
@@ -10,6 +14,7 @@ Today we'll introduce the [`dplyr`](https://dplyr.tidyverse.org/) package. Speci
 - Intro to `dplyr` syntax
 - The `dplyr` advantage
 - Relational/comparison and logical operators in R
+- Time dependent: GitHub pages
 
 
 ## Resources
@@ -87,18 +92,20 @@ __Self-documenting code__.
 
 This is where the tidyverse shines.
 
+![Morning Routine Pipie](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/img/pipe_routine.jpg)
+
 Example of `dplyr` vs base R:
 
 ```
-gapminder %>%
-  filter(country == "Cambodia") %>%
-  select(year, lifeExp)
+gapminder[gapminder$country == "Cambodia", c("year", "lifeExp")]
 ```
 
 vs.
 
 ```
-gapminder[gapminder$country == "Cambodia", c("year", "lifeExp")]
+gapminder %>%
+  filter(country == "Cambodia") %>%
+  select(year, lifeExp)
 ```
 
 __No need to take excerpts__.
@@ -126,7 +133,8 @@ Here are the concepts we'll be exploring in this lesson:
 By the end of this lesson, students are expected to be able to:
 
 - Predict the output of R code containing the above operators.
-- Explain the difference between `&`/`&&` and `|`/`||`, and name a situation where one should be used over the other.
+- Explain the difference between `&`/`&&` and `|`/`||`, and name a situation 
+  where one should be used over the other.
 - Subsetting and transforming data using filter and mutate
 
 ### R Operators
@@ -140,7 +148,8 @@ By the end of this lesson, students are expected to be able to:
 | * | Multiply |
 | / | Divide |
 | ^ | Exponent |
-| %% | Modulus (remainder from division) |
+| %/% | Integer division |
+| %% | Modulus (remainder from integer division) |
 
 **Relational** operators allow us to compare values:
 
@@ -165,7 +174,8 @@ By the end of this lesson, students are expected to be able to:
 | \|\| | Or |
 | && | And |
 
-* The difference between `|` and `||` is that `||` evaluates only the first element of the two vectors, whereas `|` evaluates element-wise. 
+* The difference between `|` and `||` is that `||` evaluates only the first 
+element of the two vectors, whereas `|` evaluates element-wise. 
 
 ### Demonstration
 
@@ -176,7 +186,23 @@ Continue along with the `cm006-exercise.Rmd` file.
 1. Let's do the bonus exercises together, in the `cm006-exercise.Rmd` file.
 2. Another "break"
 
+## Participation repository and GitHub Pages
 
+### GitHub Pages
+
+You can turn your GitHub repository into a website, by enabling __GitHub Pages__ on that repo. This is useful for something as small as being able to display HTML files without getting a local copy of the repository, to something as big as making a full fledged website like the [stat545.stat.ubc.ca](https://stat545.stat.ubc.ca) website. 
+
+- If you make a repo called `yourusername.github.io`, and enable GitHub Pages on that repo, then the URL of the website will be `https://yourusername.github.io/`.
+- If you enable GitHub pages on any other repo, the URL for that repo will be `https://yourusername.github.io/name_of_other_repo`.
+
+Learn more with GitHub's [GitHub Pages](https://pages.github.com/) tutorial. 
+
+### Practice with HTML file linking
+
+We'll practice linking to an HTML file for today's exercise, by following the instructions on the (new!) ["Viewing and Linking to HTML Files"](https://stat545.stat.ubc.ca/evaluation/assignments/#viewing-and-linking-to-html-files) on the assignments home page.
+
+
+<!-- TODO: Add rowwise summarization -->
 
 
 

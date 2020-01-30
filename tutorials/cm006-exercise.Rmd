@@ -22,8 +22,10 @@ knitr::opts_chunk$set(error = TRUE)
 
 # Intro to `dplyr` syntax
 
-Load the `gapminder` and `tidyverse` packages. Hint: `suppressPackageStartupMessages()`!
+Load the `gapminder` and `tidyverse` packages.
     - This loads `dplyr`, too.
+
+Hint: `suppressPackageStartupMessages()` to keep your output looking nice!
     
 ```{r load packages, warning = FALSE, message = FALSE}
 # load your packages here:
@@ -103,12 +105,16 @@ Demonstration:
 
 Here I want to combine `select()` Task 1 with `arrange()` Task 3.
 
+### Base R method
+
 This is how I could do it by *nesting* the two function calls:
 
 ```{r nesting functions example, eval = F}
 # Nesting function calls can be hard to read
 arrange(select(gapminder, year, lifeExp, country), year, lifeExp)
 ```
+
+### tidyverse method
 
 Now using with pipes:
 

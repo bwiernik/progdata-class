@@ -16,13 +16,6 @@ suppressPackageStartupMessages(library(DT))
 
 You can find a worksheet template for today [here](https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/tutorials/cm007-exercise.Rmd).
 
-### Announcements
-
-- Due tonight:
-  - Peer review 1 due tonight.
-  - Homework 2 due tonight.
-- Reminder about setting up your own hw repo.
-- stat545.com
 
 ### Follow-up
 
@@ -358,4 +351,8 @@ week(dec31)
 yearweek(dec31)
 ```
 
+
+## Time remaining?
+
+If so, let's make tibbles with `tibble()`, and make a list column while we're at it. Maybe even `nest()` and `unnest()`.
 
