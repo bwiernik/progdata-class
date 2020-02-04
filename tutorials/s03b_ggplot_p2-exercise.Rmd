@@ -1,5 +1,5 @@
 ---
-title: "cm008 Exercises: Fix the Plots"
+title: "s03b Exercises: Fix the Plots"
 output: 
   html_document:
     keep_md: true
