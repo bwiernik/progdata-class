@@ -1,5 +1,5 @@
 ---
-title: "cm005 Worksheet: Exploring Geometric Objects"
+title: "s03a Worksheet: Intro to `ggplot2`"
 output: 
   html_document:
     keep_md: true
