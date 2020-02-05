@@ -6,17 +6,17 @@
 
 - Great job overall!
 - Add `keep_md: TRUE` to the `html_document` output parameters in you `.Rmd` files
-<!-- - From Assignment 2 onwards, whenever you produce an HTML file, you must link to a rendered version of the file. We'll cover this today. -->
 
-__Worksheet__: You can find the worksheet template for today [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s04_data-wrangling-exercise.Rmd).
+__Worksheet__: You can find the worksheet template for today
+[here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s04_data-wrangling-exercise.Rmd).
 
 
 ## Today's Topics
 
-Today we'll get started with learning to "wrangle" data—that is, to subset it, rearrange it, 
-transform it, and otherwise make it ready for analysis. We are going to be working with the 
-[`dplyr`](https://dplyr.tidyverse.org/) package. Specifically, we're going to consider three
-lessons today:
+Today we'll get started with learning to "wrangle" data—that is, to subset it, 
+rearrange it, transform it, summarize it, and otherwise make it ready for 
+analysis. We are going to be working with the [`dplyr`](https://dplyr.tidyverse.org/) 
+package. Specifically, we're going to consider three lessons today:
 
 - Intro to `dplyr` syntax
 - The `%>%` pipe and the `dplyr` advantage
@@ -31,8 +31,9 @@ lessons today:
   - [ ] `group_by()`
       - [ ] grouped `mutate()`
       - [ ] grouped `summarize()`
-- _Maybe:_ `tsibble` and `lubridate` 
-<!-- - Time dependent: GitHub pages -->
+
+Depending on time, we might also talk about:
+- GitHub pages
 
 
 ## Resources
@@ -86,25 +87,16 @@ Let's talk about:
   - Don't use both in one script!
   - My recommendation, don't use `plyr` at all at this point.
 - tibbles are a special type of data frame
-- the [tidyverse](https://www.tidyverse.org/)
+- The [tidyverse](https://www.tidyverse.org/)
+- Package functions and masking
+  - Load the `tidyverse` package: `library(tidyverse)`
 
 ### Demonstration
 
 Let's get started with the exercise:
 
-1. Open RStudio, and download the `tidyverse` meta-package by executing `install.packages("tidyverse")` into the R console.
-2. _Optional_: open the `STAT545_participation` RStudio project in RStudio.
-3. With RStudio, open the `cm006-exercise.Rmd` file you downloaded and committed earlier.
-4. Follow the instructions in the `.Rmd` file until the *Resume Lecture* section.
-
-
-## Small break
-
-Here are some things you might choose to do on this break:
-
-- Talk with a TA, Vincenzo, or your neighbour(s) about the content so far.
-- Attempt the bonus exercises on the `cm006-exercise.Rmd` file.
-- Work on an assignment.
+1. Open the `s04_data-wrangling-exercise.Rmd` worksheet in RStudio.
+2. Follow along in the `.Rmd` file until the *Back to Guide* section.
 
 
 ## The `dplyr` advantage
@@ -172,7 +164,7 @@ Here are the concepts we'll be exploring in this lesson:
     - filter
     - mutate
 
-By the end of this lesson, students are expected to be able to:
+By the end of this lesson, you will be able to:
 
 - Predict the output of R code containing the above operators.
 - Explain the difference between `&`/`&&` and `|`/`||`, and name a situation 
@@ -206,6 +198,12 @@ By the end of this lesson, students are expected to be able to:
 
 * Arithmetic and relational operators work on vectors.
 
+There is another very useful relational function, `%in%`:
+
+```{r}
+c(1, 2, 3, 4, 5) %in% c(1, 2)
+```
+
 **Logical** operators allow us to carry out boolean operations:
 
 | Operator | Description |
@@ -221,7 +219,8 @@ element of the two vectors, whereas `|` evaluates element-wise.
 
 ### Demonstration
 
-Continue along with the worksheet. 
+Continue along with the worksheet until **Back to Guide Again**.
+
 
 ## `summarize()` (3 min)
 
@@ -268,7 +267,6 @@ gapminder %>%
   group_by(smallLifeExp = lifeExp < 60)
 ```
 
-
 ### Grouped `summarize()` (10 min)
 
 Want to compute the mean and standard deviation for each year for every continent? No problem:
@@ -282,7 +280,7 @@ gapminder %>%
 
 Notice:
 
-- The grouping variables are kept in the tibble, because their values are unique within in chunk (by definition of the chunk!)
+- The grouping variables are kept in the tibble, because their values are unique within each chunk (by definition of the chunk!)
 - With each call to `summarize()`, the grouping variables are "peeled back" from last grouping variable to first.
 
 This means the above tibble is now only grouped by continent. What happens when we reverse the grouping?
@@ -328,17 +326,19 @@ gap_inc <- gapminder %>%
   arrange(year) %>% 
   group_by(country) %>%
   mutate(gdpPercap_inc = gdpPercap - lag(gdpPercap))
-DT::datatable(gap_inc)
+print(gap_inc)
 ```
 
-You can't see it here (because of the `datatable()` output), but the tibble is still grouped by country.
+The tibble is still grouped by country.
 
-Drop the `NA`s with another convenience function, this time supplied by the `tidyr` package (another tidyverse package that we'll see soon):
+Drop the `NA`s with another convenience function, this time supplied by the 
+`tidyr` package (another tidyverse package that we'll see soon):
 
 ```{r}
 gap_inc %>% 
   tidyr::drop_na()
 ```
+
 
 ## Function types (5 min)
 
@@ -351,177 +351,11 @@ We've seen cases of transforming variables using `mutate()` and `summarize()`, b
 | Aggregate functions | These take a vector, and return a vector of length 1 | `mean()`, `sd()`, `length()` | `summarize()`, esp with `group_by()`. |
 | Window Functions | these take a vector, and return a vector of the same length that depends on the vector as a whole. | `lag()`, `rank()`, `cumsum()` | `mutate()`, esp with `group_by()` |
 
+
 ## `dplyr` Exercises (20 min)
 
-## Dates and Times (5 min)
-
-The `lubridate` package is great for identifying dates and times. You can also do arithmetic with dates and times with the package, but we won't be discussing that.
-
-Make an object of class `"Date"` using a function that's some permutation of `y`, `m`, and `d` (for year, month, and date, respectively). These functions are more flexible than your yoga instructor:
-
-```{r}
-lubridate::mdy("September 24, 2019")
-lubridate::mdy("Sep 24 2019")
-lubridate::mdy("9-24-19")
-lubridate::dym(c("24-2019, September", "25 2019 Sep"))
-```
-
-Notice that they display the dates all in `ymd` format, which is best for computing because the dates sort nicely this way.
-
-This is not just a character!
-
-```{r}
-lubridate::ymd("2019 September 24") %>% 
-  class()
-```
-
-You can tag on `hms`, too:
-
-```{r}
-lubridate::ymd_hms("2019 September 24, 23:59:59")
-```
-
-We can also extract information from these objects. Day of the week:
-
-```{r}
-today <- lubridate::ymd("2019 September 24")
-lubridate::wday(today, label = TRUE)
-```
-
-Day:
-
-```{r}
-lubridate::day(today)
-```
-
-Number of days into the year:
-
-```{r}
-lubridate::yday(today)
-```
-
-Is it a leap year this year?
-
-```{r}
-lubridate::leap_year(today)
-```
-
-The newer `tsibble` package gives these `lubridate` functions some friends. What's the year and month? Year and week?
-
-```{r}
-tsibble::yearmonth(today)
-tsibble::yearweek(today)
-```
-
-
-## Tsibbles (15 min)
-
-A `tsibble` (from the package of the same name) is a special type of `tibble`, useful for handling data where a column indicates a time variable.
-
-As an example, here are daily records of a household's electricity usage:
-
-```{r}
-energy <- here::here("data", "daily_consumption.csv") %>% 
-  read_csv()
-energy
-```
-
-Let's make this a `tsibble` in the same way we'd convert a data frame to a `tibble`: with the `as_tsibble()` function. The conversion requires you to specify which column contains the time index, using the `index` argument.
-
-```{r}
-(energy <- as_tsibble(energy, index = date))
-```
-
-We already see an improvement vis-a-vis the sorted dates!
-
-This is an example of _time series_ data, because the time interval has a regular spacing. A `tsibble` cleverly determines and stores this interval. With the energy consumption data, the interval is one day ("1D" means "1 day", not "1 dimension"!):
-
-```{r}
-interval(energy)
-```
-
-Notice that there is no record for December 21, 2006, in what would be Row 5. Such records are called _implicit NA's_, because they're actually missing, but aren't explicitly shown as missing in your data set. If you don't make these explicit, you could mess up your analysis if it's anticipating your data to be equally spaced in time. Just `full_gaps()` to bring them out of hiding:
-
-
-```{r}
-(energy <- fill_gaps(energy))
-```
-
-Already, it's better to plot the data now that these gaps are filled in. Let's check out 2010. See how the plot without NA's can be a little misleading? Moral: always be as honest as possible with your data.
-
-```{r}
-small_energy <- filter(energy, year(date) == 2010)
-cowplot::plot_grid(
-  ggplot(small_energy, aes(date, intensity)) +
-    geom_line() +
-    theme_bw() +
-    xlab("Date (in 2010)") +
-    ggtitle("NA's made explicit"),
-  ggplot(drop_na(small_energy), aes(date, intensity)) +
-    geom_line() +
-    theme_bw() +
-    xlab("Date (in 2010)") +
-    ggtitle("NA's in hiding (implicit)"),
-  nrow = 2
-)
-```
-
-How would we convert `gapminder` to a `tsibble`, since it has a time series per country? Use the `key` argument to specify the grouping:
-
-```{r}
-gapminder %>% 
-  as_tsibble(index = year, key = country)
-```
-
-
-
-### `index_by()` instead of `group_by()` (5 min)
-
-It looks like there's seasonality in intensity across the year:
-
-```{r}
-ggplot(energy, aes(yday(date), intensity)) +
-  geom_point() +
-  theme_bw() +
-  labs(x = "Day of the Year")
-```
-
-Let's get a mean estimate of intensity on each day of the year. We'd like to `group_by(yday(date))`, but because we're grouping on the index variable, we use `index_by()` instead. 
-
-```{r}
-energy %>% 
-  tsibble::index_by(day_of_year = yday(date)) %>% 
-  dplyr::summarize(mean_intensity = mean(intensity, na.rm = TRUE))
-```
-
-What if we wanted to make the time series less granular? Instead of total daily consumption, how about total weekly consumption? Note the convenience function `summarize_all()` given to us by `dplyr`!
-
-```{r}
-energy %>% 
-  tsibble::index_by(yearweek = yearweek(date)) %>% 
-  dplyr::summarize_all(sum)
-```
-
-By the way, there's no need to worry about "truncated weeks" at the beginning and end of the year. For example, December 31, 2019 is a Tuesday, and is Week 53, but its "yearmonth" is Week 1 in 2020:
-
-```{r}
-dec31 <- "2019-12-31"
-wday(dec31, label = TRUE)
-week(dec31)
-yearweek(dec31)
-```
-
-
-## Time remaining?
-
-If so, let's make tibbles with `tibble()`, and make a list column while we're at it. Maybe even `nest()` and `unnest()`.
 
 ## If there's time remaining
-
-1. Let's do the bonus exercises together, in the `cm006-exercise.Rmd` file.
-2. Another "break"
-
-## Participation repository and GitHub Pages
 
 ### GitHub Pages
 

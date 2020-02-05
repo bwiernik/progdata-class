@@ -12,7 +12,7 @@ output:
 knitr::opts_chunk$set(error = TRUE)
 ```
 
-**When you make an Rmd file for participation or homework, be sure to to this**:
+**When you make an Rmd file for participation or homework, be sure to do this**:
 
 1. Change the file output to both html and md _documents_ (not notebook).
   - See the `keep_md: TRUE` argument above.
@@ -21,12 +21,14 @@ knitr::opts_chunk$set(error = TRUE)
 
 3. Stage and commit the Rmd and knitted documents.
 
+
 # Intro to `dplyr` syntax
 
 Load the `gapminder` and `tidyverse` packages.
     - This loads `dplyr`, too.
 
-Hint: Add `suppressPackageStartupMessages()` around the `library()` command to keep your output looking nice!
+Hint: You can add the `suppressPackageStartupMessages()` function around the 
+      `library()` command to keep your output looking nice!
     
 ```{r load packages, warning = FALSE, message = FALSE}
 # load your packages here:
@@ -35,14 +37,14 @@ library(FILL_THIS_IN)
 ```
     
 
-## `select()` (8 min)
+## `select()`
 
-1. Make a data frame containing the columns `year`, `lifeExp`, `country` from the gapminder data, in that order.
+1. Make a data frame containing the columns `year`, `lifeExp`, `country` from 
+the `gapminder` data, in that order.
 
 ```{r}
 select(gapminder, FILL_THIS_IN)
 ```
-
 
 2. Select all variables, from `country` to `lifeExp`.
 
@@ -53,7 +55,6 @@ select(gapminder, country, continent, year, lifeExp)
 # Better way:
 select(gapminder, FILL_THIS_IN)
 ```
-
 
 3. Select all variables, except `lifeExp`.
 
@@ -67,7 +68,6 @@ select(gapminder, FILL_THIS_IN)
 select(gapminder, FILL_THIS_IN, FILL_THIS_IN)
 ```
 
-
 5. Rename `continent` to `cont`.
 
 ```{r}
@@ -78,7 +78,7 @@ rename(gapminder, FILL_THIS_IN)
 ```
 
 
-## `arrange()` (8 min)
+## `arrange()`
 
 1. Order by year.
 
@@ -99,7 +99,7 @@ arrange(gapminder, FILL_THIS_IN, FILL_THIS_IN)
 ```
 
 
-## Piping, `%>%` (8 min)
+## Piping, `%>%`
 
 Note: think of `%>%` as the word "then"!
 
@@ -111,9 +111,14 @@ Here I want to combine `select()` Task 1 with `arrange()` Task 3.
 
 This is how I could do it by *nesting* the two function calls:
 
-```{r nesting functions example, eval = F}
+```{r nesting functions example, eval = FALSE}
 # Nesting function calls can be hard to read
 arrange(select(gapminder, year, lifeExp, country), year, lifeExp)
+```
+
+```{r intermediate assignment example, eval = FALSE}
+gap_sel <- select(gapminder, year, lifeExp, country)
+arrange(gap_sel, year, lifeExp)
 ```
 
 ### tidyverse method
@@ -126,11 +131,14 @@ arrange(select(gapminder, year, lifeExp, country), year, lifeExp)
 ```
 
 
-# Resume lecture 
+# Back to Guide 
 
-Return to guide at section 6.7.
+Return to guide at the section on *Relational/Comparison and Logical Operators in R*.
 
-## `filter()` (10 min)
+
+# Transforming datasets
+
+## `filter()`
 
 1. Only take data with population greater than 100 million.
 
@@ -196,14 +204,20 @@ Your turn: Make a new column called `cc` that pastes the country name followed b
 ```{r}
 ```
 
-These functions we've seen are called __vectorized functions__.
+These functions we've seen are called __vectorized functions__—they are designed 
+to work with vectors and do their computation on each element of the vector(s).
 
 ## git stuff
 
 Now is a good time to knit, commit, push!
 
 
-# Grouped data frames
+# Back to Guide Again
+
+Let's head back to the guide at the section on `summarize()`.
+
+
+# Exercises for grouped data frames
 
 Let's do some practice with grouping (and ungrouping) and summarizing data frames!
 
@@ -215,15 +229,17 @@ gapminder %>%
   FILL_THIS_IN(min_life = min(lifeExp))
 ```
 
-2. Let's compute the mean Agreeableness score across items for each participant in the `psych::bfi` dataset. Be sure to handle `NA`!
+
+2. Let's compute the mean Agreeableness score across items for each participant 
+in the `psych::bfi` dataset. Be sure to handle `NA`!
 
 ```{r}
 psych::bfi %>%
+  as_tibble() %>% 
+  select(A1:A5) %>% 
   rowwise() %>% 
   mutate(A_mean = mean(c(A1, A2, A3, A4, A5), na.rm = TRUE)) %>% 
-  ungroup() %>% 
-  as_tibble() %>% 
-  print()
+  ungroup()
 ```
 
 Now compute mean scores for the other Big Five traits, as well as 
@@ -233,7 +249,33 @@ Now compute mean scores for the other Big Five traits, as well as
 
 ```
 
-3. Calculate the growth in population since the first year on record _for each country_ by rearranging the following lines, and filling in the `FILL_THIS_IN`. Here's another convenience function for you: `dplyr::first()`. 
+** There are a few other ways to do this sort of computation.**
+
+`rowMeans()` computes the mean of each row of a data frame. We can use it by
+putting `select()` inside of `mutate()`:
+
+```{r}
+psych::bfi %>% 
+  as_tibble() %>% 
+  select(A1:A5) %>% 
+  mutate(A_mn = rowMeans(select(., A1:A5)),
+         A_mn2 = rowMeans(select(., starts_with("A", ignore.case = FALSE))))
+```
+
+Some functions are **vectorized**, so you don't need `rowwise()`. 
+For example, `pmin()` computes the "parallel min" across the vectors it receives:
+
+```{r}
+psych::bfi %>% 
+  as_tibble() %>% 
+  select(A1:A5) %>% 
+  mutate(A_min = pmin(A1, A2, A3, A4, A5))
+```
+
+
+3. Calculate the growth in population since the first year on record 
+_for each country_ by rearranging the following lines, and filling in the 
+`FILL_THIS_IN`. Here's another convenience function for you: `dplyr::first()`. 
 
 ```
 mutate(rel_growth = FILL_THIS_IN) %>% 
@@ -248,7 +290,11 @@ group_by(country) %>%
 ```
 
 
-4. Determine the country, on each continent, that experienced the **sharpest 5-year drop in life expectancy**, sorted by the drop, by rearranging the following lines of code. Ensure there are no `NA`'s. A helpful function to compute changes in a variable across rows of data (e.g., for time-series data) is `tsibble::difference()`:
+4. Determine the country, on each continent, that experienced the 
+**sharpest 5-year drop in life expectancy**, sorted by the drop, by rearranging 
+the following lines of code. Ensure there are no `NA`'s. A helpful function to 
+compute changes in a variable across rows of data (e.g., for time-series data) 
+is `tsibble::difference()`:
 
 ```
 drop_na() %>% 
@@ -268,21 +314,25 @@ knitr::kable()
 ```
 
 
-
-
 # Bonus Exercises
 
-If there's time remaining, we'll practice with these three exercises. I'll give you 1 minute for each, then we'll go over the answer.
+If there's time remaining, we'll practice with these three exercises. 
+I'll give you a minute for each, then we'll go over the answer.
 
-1. Take all countries in Europe that have a GDP per capita greater than 10000, and select all variables except `gdpPercap`. (Hint: use `-`).
+1. In `gapminder`, take all countries in Europe that have a GDP per capita 
+   greater than 10000, and select all variables except `gdpPercap`. 
+   (Hint: use `-`).
 
-2. Take the first three columns, and extract the names.
+2. Take the first three columns of `gapminder` and extract the names.
 
-3. Of the `iris` data frame, take all columns that start with the word "Petal". 
-    - Hint: take a look at the "Select helpers" documentation by running the following code: `?tidyselect::select_helpers`.
-    
-4. Convert the population to a number in billions.
+3. In `gapminder`, convert the population to a number in billions.
 
-5. Filter the rows of the iris dataset for Sepal.Length >= 4.6 and Petal.Width >= 0.5.
+4. Take the `iris` data frame and extract all columns that start with 
+   the word "Petal". 
+    - Hint: take a look at the "Select helpers" documentation by running the 
+      following code: `?tidyselect::select_helpers`.
 
-Exercises 3. and 5. are from [r-exercises](https://www.r-exercises.com/2017/10/19/dplyr-basic-functions-exercises/).
+5. Filter the rows of `iris` for Sepal.Length >= 4.6 and Petal.Width >= 0.5.
+
+Exercises 4. and 5. are from 
+[r-exercises](https://www.r-exercises.com/2017/10/19/dplyr-basic-functions-exercises/).
