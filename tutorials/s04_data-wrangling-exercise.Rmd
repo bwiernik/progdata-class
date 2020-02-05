@@ -1,5 +1,5 @@
 ---
-title: 'cm006: `dplyr` Exercise'
+title: 's04: `dplyr` Exercise'
 output: 
   html_document:
     keep_md: true
@@ -12,20 +12,21 @@ output:
 knitr::opts_chunk$set(error = TRUE)
 ```
 
-**Optional, but recommended startup**:
+**When you make an Rmd file for participation or homework, be sure to to this**:
 
 1. Change the file output to both html and md _documents_ (not notebook).
+  - See the `keep_md: TRUE` argument above.
 
 2. `knit` the document. 
 
-3. Stage and commit the rmd, and knitted documents.
+3. Stage and commit the Rmd and knitted documents.
 
 # Intro to `dplyr` syntax
 
 Load the `gapminder` and `tidyverse` packages.
     - This loads `dplyr`, too.
 
-Hint: `suppressPackageStartupMessages()` to keep your output looking nice!
+Hint: Add `suppressPackageStartupMessages()` around the `library()` command to keep your output looking nice!
     
 ```{r load packages, warning = FALSE, message = FALSE}
 # load your packages here:
@@ -97,6 +98,7 @@ arrange(gapminder, FILL_THIS_IN)
 arrange(gapminder, FILL_THIS_IN, FILL_THIS_IN)
 ```
 
+
 ## Piping, `%>%` (8 min)
 
 Note: think of `%>%` as the word "then"!
@@ -122,6 +124,7 @@ Now using with pipes:
 # alter the below to include 2 "pipes"
 arrange(select(gapminder, year, lifeExp, country), year, lifeExp)
 ```
+
 
 # Resume lecture 
 
@@ -195,9 +198,77 @@ Your turn: Make a new column called `cc` that pastes the country name followed b
 
 These functions we've seen are called __vectorized functions__.
 
-## git stuff (Optional)
+## git stuff
 
-Knit, commit, push!
+Now is a good time to knit, commit, push!
+
+
+# Grouped data frames
+
+Let's do some practice with grouping (and ungrouping) and summarizing data frames!
+
+1. (a) What's the minimum life expectancy for each continent and each year? (b) Add the corresponding country to the tibble, too. (c) Arrange by min life expectancy.
+
+```{r}
+gapminder %>% 
+  group_by(FILL_THIS_IN) %>% 
+  FILL_THIS_IN(min_life = min(lifeExp))
+```
+
+2. Let's compute the mean Agreeableness score across items for each participant in the `psych::bfi` dataset. Be sure to handle `NA`!
+
+```{r}
+psych::bfi %>%
+  rowwise() %>% 
+  mutate(A_mean = mean(c(A1, A2, A3, A4, A5), na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  as_tibble() %>% 
+  print()
+```
+
+Now compute mean scores for the other Big Five traits, as well as 
+`sd` and `min` scores for reach person.
+
+```{r}
+
+```
+
+3. Calculate the growth in population since the first year on record _for each country_ by rearranging the following lines, and filling in the `FILL_THIS_IN`. Here's another convenience function for you: `dplyr::first()`. 
+
+```
+mutate(rel_growth = FILL_THIS_IN) %>% 
+arrange(FILL_THIS_IN) %>% 
+gapminder %>% 
+knitr::kable()
+group_by(country) %>% 
+```
+
+```{r}
+
+```
+
+
+4. Determine the country, on each continent, that experienced the **sharpest 5-year drop in life expectancy**, sorted by the drop, by rearranging the following lines of code. Ensure there are no `NA`'s. A helpful function to compute changes in a variable across rows of data (e.g., for time-series data) is `tsibble::difference()`:
+
+```
+drop_na() %>% 
+ungroup() %>% 
+arrange(year) %>% 
+filter(inc_life_exp == min(inc_life_exp)) %>% 
+gapminder %>% 
+mutate(inc_life_exp = FILL_THIS_IN) %>% # Compute the changes in life expectancy
+arrange(inc_life_exp) %>% 
+group_by(country) %>% 
+group_by(continent) %>% 
+knitr::kable()
+```
+
+```{r}
+
+```
+
+
+
 
 # Bonus Exercises
 

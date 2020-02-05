@@ -1,5 +1,4 @@
-# Intro to plotting with `ggplot2`, Part I
-
+# Intro to plotting with `ggplot2`
 
 __Announcements__:
 
@@ -14,9 +13,12 @@ __Recap__:
 
 __Today__: Introduction to plotting with `ggplot2` 
 
-__Worksheet__: You can find a worksheet template for today [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s03a_ggplot_p1-exercise.Rmd).
+__Worksheets__: You can find worksheet templates for today here:
+  
+  - [Worksheet 1](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s03a_ggplot_p1-exercise.Rmd).
+  - [Worksheet 2](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s03b_ggplot_p2-exercise.Rmd).
 
-Download the worksheet file and save it in a new folder in your participation repo
+Download the worksheet files and save them in a new folder in your participation repo
 called "plotting".
 
 Set up the workspace:
@@ -30,7 +32,7 @@ knitr::opts_chunk$set(fig.width = 5, fig.height = 4, fig.align = "center")
 
 ## Learning Objectives
 
-By the end of this lesson, students are expected to be able to:
+By the end of this lesson, you will be able to:
 
 - Identify the plotting framework available in R
 - Have a sense of why we're learning the `ggplot2` tool
@@ -189,7 +191,7 @@ of aesthetics.
 
 ### Activity: Bar chart grammar
 
-Fill out __Exercise 1: Bar Chart Grammar (Together)__ in your worksheet.
+Fill out __Exercise 1: Bar Chart Grammar (Together)__ in your Worksheet 1.
 
 Click [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s03a_ggplot_p1-exercise.Rmd) if you don't have it yet.
 <!-- TODO: Clean this up -->
@@ -277,7 +279,7 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
 ```
 
 
-### Activity: Plotting
+### Activity: Build some plots!
 
 1. Go to your worksheet
 2. Set up the workspace by following the instructions in the "Preliminary" section.
@@ -289,3 +291,169 @@ _Bus stop_: Did you lose track of where we are? You can still do the exercise!
   to get the worksheet if you don't have it.
 - You're all set! Hint for completing the exercise: use the information from 
   this section ("Working with `ggplot2`") to complete the exercise.
+
+
+## A tour of some important `geom`s
+
+Here, we'll explore some common plot types, and how to produce them with 
+`ggplot2`.
+
+### Histograms: `geom_histogram()`
+
+Useful for depicting the distribution of a continuous random variable. 
+Partitions the number line into bins of certain width, counts the number of 
+observations falling into each bin, and erects a bar of that height for each bin.
+
+Required aesthetics:
+
+- `x`: A numeric vector.
+  - By default, a histogram plots the _count_ on the y-axis. If you want to use 
+    proportion (i.e., "density"), specify the `y = ..density..` aesthetic. 
+
+You can change the smoothness of the plot via two arguments (your choice):
+
+- `bins`: the number of bins/bars shown in the plot.
+- `binwidth`: the with of the bins shown on the plot.
+
+Example:
+
+```{r}
+ggplot(gapminder, aes(lifeExp)) +
+  geom_histogram(bins = 50)
+```
+
+
+### Density: `geom_density()`
+
+Essentially, a "smooth" version of a histogram. Uses [kernels](https://en.wikipedia.org/wiki/Kernel_density_estimation) to produce the curve.
+
+Required aesthetics:
+
+- `x`: A numeric vector.
+
+Good to know:
+
+- `bw` argument controls the smoothness: Smaller = rougher.
+
+Example:
+
+```{r}
+ggplot(gapminder, aes(lifeExp)) +
+  geom_density()
+```
+
+### Jitter plots: `geom_jitter()`
+
+A scatterplot, but with minor random perturbations of each point. Useful for 
+scatterplots where points are overlaying, or when one variable is categorical.
+
+Required aesthetics:
+
+- `x`: any vector
+- `y`: any vector
+
+Example:
+
+```{r}
+ggplot(gapminder, aes(continent, lifeExp)) +
+  geom_jitter()
+```
+
+### Box plots: `geom_boxplot()`
+
+This geom makes a boxplot for a numeric variable in each of a category. 
+Useful for visualizing probability distributions across different categories.
+
+Required aesthetics:
+
+- `x`: A factor (categorical variable)
+- `y`: A numeric variable
+
+Example:
+
+```{r}
+ggplot(gapminder, aes(continent, lifeExp)) +
+  geom_boxplot()
+```
+
+
+### Ridge plots: `ggridges::geom_density_ridges()`
+
+A (superior?) alternative to the boxplot, the ridge plot (also known as the 
+"joy plot", but don't use that term) places a kernel density for each group, 
+instead of the box. 
+
+You'll need to install the `ggridges` package. You can do lots more with ridges -- check out 
+[the ggridges intro vignette](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html).
+
+Required aesthetics (reversed from boxplots!)
+
+- `x`: A numeric variable
+- `y`: A factor (categorical variable) 
+
+Example:
+
+```{r}
+ggplot(gapminder, aes(lifeExp, continent)) +
+  ggridges::geom_density_ridges()
+```
+
+### Bar plots: `geom_bar()` or `geom_col()`
+
+These geom's erect a bar over each category.
+
+`geom_bar()` automatically determines the height of the bar according to the 
+count of each category.
+
+`geom_col()` just takes the supplied values as the bar heights.
+
+Required aesthetics:
+
+- `x`: A categorical variable
+- `y`: A numeric variable (only required for `geom_col()`!)
+  - By default, a bar plot plots the _count_ on the y-axis. If you want to use 
+    proportion, specify the `y = ..prop..` aesthetic. 
+
+Example: number of 4-, 6-, and 8- cylinder cars in the `mtcars` dataset:
+
+```{r}
+ggplot(mtcars, aes(cyl)) +
+  geom_bar()
+```
+
+### Line charts: `geom_line()`
+
+A line plot connects points with straight lines, from left-to-right. 
+Especially useful if time is on the x-axis.
+
+Required aesthetics:
+
+- `x`: a variable having some ordering to it.
+- `y`: a numeric variable.
+
+Although not required, the `group` aesthetic will come in handy here. 
+This aesthetic produces a plot independently for each group, and overlays the 
+results (i.e., a separate line for each group).
+
+```{r}
+tsibble::as_tsibble(co2) %>% 
+  rename(yearmonth = index,
+         conc = value) %>% 
+  mutate(month = lubridate::month(yearmonth, label = TRUE),
+         year  = lubridate::year(yearmonth)) %>% 
+  ggplot(aes(month, conc)) +
+  geom_line(aes(group = year), alpha = 0.5) +
+  ylab("CO2 Concentration")
+```
+
+
+
+### Path plots: `geom_path()`
+
+Like `geom_line()`, except connects points in the order that they appear in the 
+dataset.
+
+
+## Activity: Fix the Plots (40 min)
+
+Fill out [Worksheet 2](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s03b_ggplot_p2-exercise.Rmd) together.

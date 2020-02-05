@@ -1,67 +1,227 @@
-# Intro to data wrangling, Part II
+# Wrangle yo' data
+
+## Announcements
+
+### Comments on assignments
+
+- Great job overall!
+- Add `keep_md: TRUE` to the `html_document` output parameters in you `.Rmd` files
+<!-- - From Assignment 2 onwards, whenever you produce an HTML file, you must link to a rendered version of the file. We'll cover this today. -->
+
+__Worksheet__: You can find the worksheet template for today [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s04_data-wrangling-exercise.Rmd).
 
 
-```{r, warning = FALSE}
-suppressPackageStartupMessages(library(tidyverse))
-suppressPackageStartupMessages(library(gapminder))
-suppressPackageStartupMessages(library(lubridate))
-suppressPackageStartupMessages(library(tsibble))
-suppressPackageStartupMessages(library(here))
-suppressPackageStartupMessages(library(DT))
+## Today's Topics
+
+Today we'll get started with learning to "wrangle" data—that is, to subset it, rearrange it, 
+transform it, and otherwise make it ready for analysis. We are going to be working with the 
+[`dplyr`](https://dplyr.tidyverse.org/) package. Specifically, we're going to consider three
+lessons today:
+
+- Intro to `dplyr` syntax
+- The `%>%` pipe and the `dplyr` advantage
+- `filter`; relational/comparison and logical operators in R
+
+- Specific `dplyr` functions we will cover
+  - [ ] `select()`
+  - [ ] `arrange()`
+  - [ ] `filter()`
+  - [ ] `mutate()`
+  - [ ] `summarize()`
+  - [ ] `group_by()`
+      - [ ] grouped `mutate()`
+      - [ ] grouped `summarize()`
+- _Maybe:_ `tsibble` and `lubridate` 
+<!-- - Time dependent: GitHub pages -->
+
+
+## Resources
+
+STAT 545 chapters:
+  - [stat545: dplyr-intro](http://stat545.com/block009_dplyr-intro.html)
+  - [stat545: dplyr-single](https://stat545.com/dplyr-single.html)
+
+More detail can be found in the [r4ds: transform](http://r4ds.had.co.nz/transform.html) chapter.
+
+Here are some supplementary resources:
+
+- A similar resource to the r4ds one above is the [intro to dplyr vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html).
+- Want to read more about piping? See [r4ds: pipes](http://r4ds.had.co.nz/pipes.html).
+
+Some advanced topics you might find useful:
+- For window functions and how dplyr handles them, see the [window-functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html) vignette for the `dplyr` package. 
+- For time series data, see the [tsibble demo](https://tsibble.tidyverts.org/)
+
+
+## Participation
+
+To get participation points for today, you will need to:
+  - Make a new folder in your participation repo called `wrangling`
+  - Fill out the worksheet, knit it, and push the files to this folder:
+    - [s04_data-wrangling-exercise.Rmd](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s04_data-wrangling-exercise.Rmd).
+
+
+## Intro to `dplyr` syntax
+
+### Learning Objectives
+
+Here are the concepts we'll be exploring in this lesson:
+
+- tidyverse
+- `dplyr` functions:
+    - select
+    - arrange
+- piping
+
+By the end of this lesson, students are expected to be able to:
+
+- subset and rearrange data with `dplyr`
+- use piping (`%>%`) when implementing function chains
+
+### Preamble
+
+Let's talk about:
+
+- The history of `dplyr`: `plyr`
+  - Don't use both in one script!
+  - My recommendation, don't use `plyr` at all at this point.
+- tibbles are a special type of data frame
+- the [tidyverse](https://www.tidyverse.org/)
+
+### Demonstration
+
+Let's get started with the exercise:
+
+1. Open RStudio, and download the `tidyverse` meta-package by executing `install.packages("tidyverse")` into the R console.
+2. _Optional_: open the `STAT545_participation` RStudio project in RStudio.
+3. With RStudio, open the `cm006-exercise.Rmd` file you downloaded and committed earlier.
+4. Follow the instructions in the `.Rmd` file until the *Resume Lecture* section.
+
+
+## Small break
+
+Here are some things you might choose to do on this break:
+
+- Talk with a TA, Vincenzo, or your neighbour(s) about the content so far.
+- Attempt the bonus exercises on the `cm006-exercise.Rmd` file.
+- Work on an assignment.
+
+
+## The `dplyr` advantage
+
+### Learning Objectives
+
+By the end of this lesson, you will:
+
+- Have a sense of why `dplyr` is advantageous compared to the "base R" way with respect to good coding practice.
+
+Why?
+
+- Having this in the back of your mind will help you identify qualities of and produce a readable analysis.
+
+### Compare base R to `dplyr`
+
+__Self-documenting code__. 
+
+This is where the tidyverse shines.
+
+Example of `dplyr` vs base R:
+
+```
+gapminder[gapminder$country == "Cambodia", c("year", "lifeExp")]
 ```
 
-## Orientation (5 min)
+vs.
 
-### Worksheet
-
-You can find a worksheet template for today [here](https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/tutorials/cm007-exercise.Rmd).
-
-
-### Follow-up
-
-- By the way, STAT 545 jumps into the tidyverse way of doing things in R, instead of the base R way of doing things. Lecture 2 was about "just enough" base R to get you started. If you feel that you want more practice here, take a look at [the R intro stat videos by MarinStatsLectures](https://www.youtube.com/playlist?list=PLqzoL9-eJTNARFXxgwbqGo56NtbJnB37A) (link is now in cm002 notes too).
-- `if` statement on its own won't work within `mutate()` because it's not vectorized. Would need to vectorize it with `sapply()` or, better, the `purrr::map` family:
-
-```{r}
-tibble(a = 1:4) %>% 
-  mutate(b = (if (a < 3) "small" else "big"),
-         c = sapply(a, function(x) if (x < 3) "small" else "big"),
-         d = purrr::map_chr(a, ~  (if(.x < 3) "small" else "big")))
+```
+gapminder %>%
+  filter(country == "Cambodia") %>%
+  select(year, lifeExp)
 ```
 
-### Today's Lessons
+![Morning Routine Pipie](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/img/pipe_routine.jpg)
 
-Where we are with `dplyr`:
+### The workflow:
 
-- [x] `select()`
-- [x] `filter()`
-- [x] `arrange()`
-- [x] `mutate()`
-- [ ] `summarize()`
-- [ ] `group_by()`
-    - [ ] grouped `mutate()`
-    - [ ] grouped `summarize()`
+1. Wrangle your data with `dplyr` first
+2. Pipe `%>%` your data into a plot/analysis
 
-Today: the unchecked boxes. 
+### Basic principles:
 
-We'll then look to a special type of tibble called a __tsibble__, useful for handling data with a time component. In doing so, we will touch on its older cousin, __lubridate__, which makes handling dates and times easier. 
+1. Do one thing at a time
+  - Transform variables OR select variables OR filter cases
+2. Chain multiple operations together using the pipe `%>%` 
+3. Use readable object and variable names
+4. Subset a dataset (i.e., select variables) by **name**, not by "magic numbers"
+5. _Note that you need to use the assignment operator `<-` to store changes!_
 
-### Resources
+### Tangent: Base R workflow
 
-Concepts from today's class are closely mirrored by the following resources.
+- We are jumping right into the tidyverse way of doing things in R, instead of the base R way of doing things. Our first week was about "just enough" base R to get you started. If you feel that you want more practice here, take a look at [the R intro stat videos by MarinStatsLectures](https://www.youtube.com/playlist?list=PLqzoL9-eJTNARFXxgwbqGo56NtbJnB37A).
 
-- Jenny's tutorial on [Single table dplyr functions](https://stat545.com/dplyr-single.html)
 
-Other resources:
+## Relational/Comparison and Logical Operators in R
 
-- Like learning from a textbook? Check out all of [r4ds: transform](http://r4ds.had.co.nz/transform.html).
-- The [intro to `dplyr` vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html) is also a great resource. 
+### Learning Objectives
 
-Resources for specific concepts:
+Here are the concepts we'll be exploring in this lesson:
 
-- To learn more about window functions and how dplyr handles them, see the [window-functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html) vignette for the `dplyr` package. 
+- Relational/comparison operators
+- Logical operators
+- `dplyr` functions:
+    - filter
+    - mutate
 
-[tsibble demo](https://tsibble.tidyverts.org/)
+By the end of this lesson, students are expected to be able to:
+
+- Predict the output of R code containing the above operators.
+- Explain the difference between `&`/`&&` and `|`/`||`, and name a situation 
+  where one should be used over the other.
+- Subsetting and transforming data using filter and mutate
+
+### R Operators
+
+**Arithmetic** operators allow us to carry out mathematical operations:
+
+| Operator | Description |
+|------|:---------|
+| + | Add |
+| - | Subtract |
+| * | Multiply |
+| / | Divide |
+| ^ | Exponent |
+| %/% | Integer division |
+| %% | Modulus (remainder from integer division) |
+
+**Relational** operators allow us to compare values:
+
+| Operator | Description |
+|------|:---------|
+| < | Less than |
+| > | Greater than |
+| <= | Less than or equal to |
+| >= | Greater than or equal to |
+| == | Equal to |
+| != | Not equal to |
+
+* Arithmetic and relational operators work on vectors.
+
+**Logical** operators allow us to carry out boolean operations:
+
+| Operator | Description |
+|---|:---|
+| ! | Not |
+| \| | Or (element_wise) |
+| & | And (element-wise) |
+| \|\| | Or |
+| && | And |
+
+* The difference between `|` and `||` is that `||` evaluates only the first 
+element of the two vectors, whereas `|` evaluates element-wise. 
+
+### Demonstration
+
+Continue along with the worksheet. 
 
 ## `summarize()` (3 min)
 
@@ -355,4 +515,24 @@ yearweek(dec31)
 ## Time remaining?
 
 If so, let's make tibbles with `tibble()`, and make a list column while we're at it. Maybe even `nest()` and `unnest()`.
+
+## If there's time remaining
+
+1. Let's do the bonus exercises together, in the `cm006-exercise.Rmd` file.
+2. Another "break"
+
+## Participation repository and GitHub Pages
+
+### GitHub Pages
+
+You can turn your GitHub repository into a website, by enabling __GitHub Pages__ on that repo. This is useful for something as small as being able to display HTML files without getting a local copy of the repository, to something as big as making a full fledged website like the [stat545.stat.ubc.ca](https://stat545.stat.ubc.ca) website. 
+
+- If you make a repo called `yourusername.github.io`, and enable GitHub Pages on that repo, then the URL of the website will be `https://yourusername.github.io/`.
+- If you enable GitHub pages on any other repo, the URL for that repo will be `https://yourusername.github.io/name_of_other_repo`.
+
+Learn more with GitHub's [GitHub Pages](https://pages.github.com/) tutorial. 
+
+### Practice with HTML file linking
+
+We'll practice linking to an HTML file for today's exercise, by following the instructions on the (new!) ["Viewing and Linking to HTML Files"](https://stat545.stat.ubc.ca/evaluation/assignments/#viewing-and-linking-to-html-files) on the assignments home page.
 
