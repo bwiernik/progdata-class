@@ -222,11 +222,18 @@ element of the two vectors, whereas `|` evaluates element-wise.
 Continue along with the worksheet until **Back to Guide Again**.
 
 
+## Picking up where we left off
+
+__Worksheet__: You can find the worksheet template for today
+[here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s05_data-wrangling-exercise_part-2.Rmd).
+
 ## `summarize()` (3 min)
 
-Like `mutate()`, the `summarize()` function also creates new columns, but the calculations that make the new columns must reduce down to a single number. 
+Like `mutate()`, the `summarize()` function also creates new columns, but the 
+calculations that make the new columns must reduce down to a single number. 
 
-For example, let's compute the mean and standard deviation of life expectancy in the gapminder data set:
+For example, let's compute the mean and standard deviation of life expectancy 
+in the gapminder data set:
 
 ```{r}
 gapminder %>% 
@@ -234,13 +241,21 @@ gapminder %>%
             sigma = sd(lifeExp))
 ```
 
-Notice that all other columns were dropped. This is necessary, because there's no obvious way to compress the other columns down to a single row. This is unlike `mutate()`, which keeps all columns, and more like `transmute()`, which drops all other columns.
+Notice that all other columns were dropped. This is necessary, because there's 
+no obvious way to compress the other columns down to a single row. This is 
+unlike `mutate()`, which keeps all columns, and more like `transmute()`, which 
+drops all other columns.
 
-As it is, this is hardly useful. But that's outside of the context of _grouping_, coming up next.
+As it is, this is hardly useful. (Though it is useful for creating Table 1 in 
+your papers.) But summarizing is more useful in the context of _grouping_, 
+coming up next.
+
 
 ## `group_by()` (20 min)
 
-The true power of `dplyr` lies in its ability to group a tibble, with the `group_by()` function. As usual, this function takes in a tibble and returns a (grouped) tibble. 
+The true power of `dplyr` lies in its ability to group a tibble, with the 
+`group_by()` function. As usual, this function takes in a tibble and returns a 
+(grouped) tibble. 
 
 Let's group the gapminder dataset by continent and year:
 
@@ -249,18 +264,23 @@ gapminder %>%
   group_by(continent, year)
 ```
 
-The only thing different from a regular tibble is the indication of grouping variables above the tibble. This means that the tibble is recognized as having "chunks" defined by unique combinations of continent and year:
+The only thing different from a regular tibble is the indication of grouping 
+variables above the tibble. This means that the tibble is recognized as having 
+"chunks" defined by unique combinations of continent and year:
 
 - Asia in 1952 is one chunk.
 - Asia in 1957 is another chunk.
 - Europe in 1952 is another chunk.
 - etc...
 
-Notice that the data frame isn't rearranged by chunk! 
+Notice that the data frame isn't _rearranged_ by chunk! The grouping is something
+stored internally about the grouped tibble.
 
-Now that the tibble is grouped, operations that you do on a grouped tibble _will be done independently within each chunk_, as if no other chunks exist. 
+Now that the tibble is grouped, operations that you do on a grouped tibble 
+_will be done independently within each chunk_, as if no other chunks exist. 
 
-You can also create new variables and group by that variable simultaneously. Try splitting life expectancy by "small" and "large" using 60 as a threshold:
+You can also create new variables and group by that variable simultaneously. 
+Try splitting life expectancy by "small" and "large" using 60 as a threshold:
 
 ```{r}
 gapminder %>% 
@@ -269,7 +289,8 @@ gapminder %>%
 
 ### Grouped `summarize()` (10 min)
 
-Want to compute the mean and standard deviation for each year for every continent? No problem:
+Want to compute the mean and standard deviation for each year for every 
+continent? No problem:
 
 ```{r}
 gapminder %>% 
@@ -280,10 +301,13 @@ gapminder %>%
 
 Notice:
 
-- The grouping variables are kept in the tibble, because their values are unique within each chunk (by definition of the chunk!)
-- With each call to `summarize()`, the grouping variables are "peeled back" from last grouping variable to first.
+- The grouping variables are kept in the tibble, because their values are unique 
+  within each chunk (by definition of the chunk!)
+- With each call to `summarize()`, the grouping variables are "peeled back" from 
+  last grouping variable to first.
 
-This means the above tibble is now only grouped by continent. What happens when we reverse the grouping?
+This means the above tibble is now only grouped by continent. What happens when 
+we reverse the grouping?
 
 ```{r}
 gapminder %>% 
@@ -292,9 +316,12 @@ gapminder %>%
             sigma = sd(lifeExp))
 ```
 
-The grouping columns are switched, and now the tibble is grouped by year instead of continent. 
+The grouping columns are switched, and now the tibble is grouped by year instead 
+of continent. 
 
-`dplyr` has a bunch of convenience functions that help us write code more eloquently. We could use `group_by()` and `summarize()` with `length()` to find the number of entries each country has:
+`dplyr` has a bunch of convenience functions that help us write code more 
+eloquently. We could use `group_by()` and `summarize()` with `length()` to find 
+the number of entries each country has:
 
 ```{r}
 gapminder %>% 
@@ -302,7 +329,8 @@ gapminder %>%
   transmute(n = length(country))
 ```
 
-Or, we can use `dplyr::n()` to count the number of rows in each group:
+Or, we can use the more elegant `dplyr::n()` to count the number of rows in each 
+group:
 
 ```{r}
 gapminder %>% 
@@ -310,7 +338,7 @@ gapminder %>%
   summarize(n = n())
 ```
 
-Or better yet, just use `dplyr::count()`:
+Or better yet, if this is all we want, just use `dplyr::count()`:
 
 ```{r}
 gapminder %>% 
@@ -339,15 +367,18 @@ gap_inc %>%
   tidyr::drop_na()
 ```
 
+You can specify specific columns to drop `NA`s from in the `drop_na()` function.
 
 ## Function types (5 min)
 
-We've seen cases of transforming variables using `mutate()` and `summarize()`, both with and without `group_by()`. How can you know what combination to use? Here's a summary based on one of three types of functions.
+We've seen cases of transforming variables using `mutate()` and `summarize()`, 
+both with and without `group_by()`. How can you know what combination to use? 
+Here's a summary based on one of three types of functions.
 
 
 | Function type | Explanation | Examples | In `dplyr` |
 |------|-----|----|----|
-| Vectorized functions | These take a vector, and operate on each component independently to return a vector of the same length. In other words, they work element-wise. | `cos()`, `sin()`, `log()`, `exp()`, `round()` | `mutate()` |
+| Vectorized functions | These take a *vector*, and operate on each component independently to return a vector of the same length. In other words, they work element-wise. | `cos()`, `sin()`, `log()`, `exp()`, `round()` | `mutate()` |
 | Aggregate functions | These take a vector, and return a vector of length 1 | `mean()`, `sd()`, `length()` | `summarize()`, esp with `group_by()`. |
 | Window Functions | these take a vector, and return a vector of the same length that depends on the vector as a whole. | `lag()`, `rank()`, `cumsum()` | `mutate()`, esp with `group_by()` |
 

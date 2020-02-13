@@ -1,0 +1,249 @@
+---
+title: 's05: Some More `dplyr` Exercise'
+output: 
+  html_document:
+    keep_md: true
+    theme: paper
+---
+
+<!---The following chunk allows errors when knitting--->
+
+```{r allow errors, echo = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+**When you make an Rmd file for participation or homework, be sure to do this**:
+
+1. Change the file output to both html and md _documents_ (not notebook).
+  - See the `keep_md: TRUE` argument above.
+
+2. `knit` the document. 
+
+3. Stage and commit the Rmd and knitted documents.
+
+
+# Let's review some `dplyr` syntax
+
+Load the `tidyverse` package.
+    
+```{r load packages, warning = FALSE, message = FALSE}
+# load your packages here:
+library(FILL_THIS_IN)
+```
+    
+
+## `select()`, `rename()`, `filter()`, `mutate()`, and a little plotting
+
+Let's use the `mtcars` dataset. Complete the following tasks. Chain together
+all of the commands in a task using the pipe `%>%`.
+
+1. Show the miles per gallon and horsepower for cars with 6 cylinders. Also
+   convert the data frame to a tibble (keep the rownames and store them in the
+   tibble with a descriptive variable name). Store this result as a new object
+   with a descriptive object name.
+
+```{r}
+```
+
+2. Print the results from Task 1 in an appealing way by using `knitr::kable()`.
+
+```{r}
+```
+
+Let's use the `iris` dataset. Complete the following tasks. Chain together
+all of the commands in a task using the pipe `%>%`.
+
+3. Rename the variables to be all lowercase and to separate words with "_"
+   instead of ".". Put the species name variable first. Store this result as 
+   a new object.
+
+```{r}
+```
+
+4. Using the data from Task 3, plot the sepal width for each species. Perhaps 
+   use a boxplot or a jitter plot (or both overlaid!). Be sure to format the
+   axis labels nicely.
+
+```{r}
+```
+
+5. `iris` expresses all of the measurements in centimeters. Convert them to 
+   inches (1 in = 2.54 cm). Store this dataset as a new object.
+
+```{r}
+```
+
+6. Using the data from Task 5, plot the relationship between sepal width and
+   sepal length. Indicate species using color and point shape.
+
+```{r}
+```
+
+7. Using the data from Task 5, plot the relationship between sepal width and
+   sepal length. This time, separate each species into a different subplot 
+   (facet).
+
+```{r}
+```
+
+
+# Back to Guide Again
+
+Let's head back to the guide at the section on `summarize()`.
+
+
+# Exercises for grouped data frames
+
+Let's do some practice with grouping (and ungrouping) and summarizing data frames!
+
+1. (a) What's the minimum life expectancy for each continent and each year? 
+   (b) Add the corresponding country to the tibble, too. 
+   (c) Arrange by min life expectancy.
+
+```{r}
+gapminder %>% 
+  group_by(FILL_THIS_IN) %>% 
+  FILL_THIS_IN(min_life = min(lifeExp))
+```
+
+
+2. Let's compute the mean Agreeableness score across items for each participant 
+in the `psych::bfi` dataset. Be sure to handle `NA`!
+
+```{r}
+psych::bfi %>%
+  as_tibble() %>% 
+  select(A1:A5) %>% 
+  rowwise() %>% 
+  mutate(A_mean = mean(c(A1, A2, A3, A4, A5), na.rm = TRUE)) %>% 
+  ungroup()
+```
+
+Now compute mean scores for Conscientiousness, as well as `sd` and `min` scores 
+for reach person.
+
+```{r}
+
+```
+
+Some functions are **vectorized**, so you don't need `rowwise()`. 
+For example, `pmin()` computes the "parallel min" across the vectors it receives:
+
+```{r}
+psych::bfi %>% 
+  as_tibble() %>% 
+  select(A1:A5) %>% 
+  mutate(A_min = pmin(A1, A2, A3, A4, A5))
+```
+
+**There are a few other ways to do this sort of computation.**
+
+`rowMeans()` computes the mean of each row of a data frame. We can use it by
+putting `select()` inside of `mutate()`:
+
+
+```{r}
+psych::bfi %>% 
+  as_tibble() %>% 
+  select(A1:A5) %>% 
+  mutate(A_mn = rowMeans(select(., A1:A5)),
+         A_mn2 = rowMeans(select(., starts_with("A", ignore.case = FALSE))))
+```
+
+**In the development version of `dplyr`, there are some functions to make**
+**this approach easier.**
+
+```
+remotes::install_github("tidyverse/dplyr")
+```
+
+```{r, eval = FALSE}
+psych::bfi %>% 
+  as_tibble() %>% 
+  select(A1:A5) %>% 
+  mutate(A_mn = rowMeans(across(A1:A5)),
+         A_mn2 = rowMeans(across(starts_with("A", ignore.case = FALSE))))
+```
+
+3. Let's use `psych::bfi` and make a new data frame that has
+   (1) each participant's educational level (convert it to a categorical variable
+   using `factor*()`) and the mean score for each of the Big Five scales for each 
+   participant. Store this data frame as a new object.
+   
+```{r}
+FILL_THIS_IN <-
+  psych::bfi %>% 
+  FILL_THIS_IN(FILL_THIS_IN)
+```
+
+4. Use the data from Task 3 to summarize the distributions of Big Five scores 
+   for each educational level (e.g., report the mean, sd, min, and max for
+   each score in each group). Also report the sample size within each group.
+   
+```{r}
+FILL_THIS_IN %>% 
+  FILL_THIS_IN(FILL_THIS_IN) %>% 
+  FILL_THIS_IN(FILL_THIS_IN)
+```  
+
+
+
+# Bonus Exercises
+
+1. In `gapminder`, take all countries in Europe that have a GDP per capita 
+   greater than 10000, and select all variables except `gdpPercap`. 
+   (Hint: use `-`).
+
+2. Take the first three columns of `gapminder` and extract the names.
+
+3. In `gapminder`, convert the population to a number in billions.
+
+4. Take the `iris` data frame and extract all columns that start with 
+   the word "Petal". 
+    - Hint: take a look at the "Select helpers" documentation by running the 
+      following code: `?tidyselect::select_helpers`.
+
+5. Filter the rows of `iris` for Sepal.Length >= 4.6 and Petal.Width >= 0.5.
+
+6. Calculate the growth in population since the first year on record 
+_for each country_ by rearranging the following lines, and filling in the 
+`FILL_THIS_IN`. Here's another convenience function for you: `dplyr::first()`. 
+
+```
+mutate(rel_growth = FILL_THIS_IN) %>% 
+arrange(FILL_THIS_IN) %>% 
+gapminder %>% 
+knitr::kable()
+group_by(country) %>% 
+```
+
+```{r}
+
+```
+
+
+7. Determine the country, on each continent, that experienced the 
+**sharpest 5-year drop in life expectancy**, sorted by the drop, by rearranging 
+the following lines of code. Ensure there are no `NA`'s. A helpful function to 
+compute changes in a variable across rows of data (e.g., for time-series data) 
+is `tsibble::difference()`:
+
+```
+drop_na() %>% 
+ungroup() %>% 
+arrange(year) %>% 
+filter(inc_life_exp == min(inc_life_exp)) %>% 
+gapminder %>% 
+mutate(inc_life_exp = FILL_THIS_IN) %>% # Compute the changes in life expectancy
+arrange(inc_life_exp) %>% 
+group_by(country) %>% 
+group_by(continent) %>% 
+knitr::kable()
+```
+
+```{r}
+
+```
+
+Exercises 4. and 5. are from 
+[r-exercises](https://www.r-exercises.com/2017/10/19/dplyr-basic-functions-exercises/).
