@@ -11,7 +11,8 @@ library(tidyverse)
 
 ### Worksheet
 
-You can find a worksheet template for today [here](/tutorials/s06_pivot-exercise.Rmd).
+You can find a worksheet template for today
+[here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
 
 
 ### Today
@@ -228,7 +229,8 @@ haireye %>%
 
 ### Activity
 
-Fill out __Exercise 1: Univariate Pivoting__ in the [worksheet](/tutorials/s06_pivot-exercise.Rmd).
+Fill out __Exercise 1: Univariate Pivoting__ in the 
+[worksheet](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
 
 
 ## Multivariate Pivoting
@@ -364,7 +366,8 @@ iris2_longer %>%
 
 ### Activity
 
-Fill out __Exercise 2: Multivariate Pivoting__ in the [worksheet](/tutorials/s06_pivot-exercise.Rmd).
+Fill out __Exercise 2: Multivariate Pivoting__ in the 
+[worksheet](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
 
 
 ## Making tibbles
@@ -476,4 +479,5 @@ Want to link two or more columns when looking for combinations? Use `nesting()`.
 
 ## Activity (10 min)
 
-Fill out __Exercise 3: Making tibbles__ in the [worksheet](/tutorials/s06_pivot-exercise.Rmd).
+Fill out __Exercise 3: Making tibbles__ in the 
+[worksheet](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).

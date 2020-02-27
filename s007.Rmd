@@ -1,0 +1,53 @@
+# Tibble Joins: A Tale of Two Tibbles
+
+Today's topic is on operations with two or more tibbles. These operations are 
+are used to combine two different data tables, compare two different data tables,
+verify or filter data in one data table against another, etc.
+
+
+## Worksheet
+
+You can find a worksheet template for today [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s07_tibble-join-exercise.Rmd).
+
+
+## Resources
+
+- [Jenny Bryan's join cheatsheet](https://stat545.com/join-cheatsheet.html)
+- The `dplyr` "two-table verbs" [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html)
+- [Relational Data chapter](https://r4ds.had.co.nz/relational-data.html) in "R for Data Science".
+- [dplyr cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+For an overview of operations involving multiple tibbles, check out Jenny Bryan's 
+[Chapter 14](https://stat545.com/multiple-tibbles.html) in stat545.com.
+
+For more activities, see the matrials from  
+[Rashedul Islam](https://github.com/Rashedul/stat545_guest_lecture).
+
+
+## Join Functions
+
+Often, we need to work with data living in more than one table. There are four 
+main types of operations that can be done with two tables (as elaborated in 
+[r4ds Chapter 13 Introduction](https://r4ds.had.co.nz/relational-data.html#introduction-7)):
+
+- [__Mutating joins__](https://r4ds.had.co.nz/relational-data.html#mutating-joins) 
+  add new columns to the "original" tibble.
+- [__Filtering joins__](https://r4ds.had.co.nz/relational-data.html#filtering-joins) 
+  filter the "original" tibble's rows.
+- [__Set operations__](https://r4ds.had.co.nz/relational-data.html#set-operations) 
+  work as if each row is an element in a set. 
+- __Binding__ stacks tables on top of or beside each other, with 
+  `bind_rows()` and `bind_cols()`.
+
+Let's navigate to each of these three links, which lead to the relevant r4ds 
+chapters, and go through the concepts there. These have excellent visuals to 
+explain what's going on.
+
+We will also look at the visuals of these concepts [here](https://github.com/gadenbuie/tidyexplain).
+
+Then, let's go through [Jenny Bryans's join cheatsheet](https://stat545.com/join-cheatsheet.html) for examples. 
+
+
+## Activity
+
+Let's complete [today's worksheet](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s07_tibble-join-exercise.Rmdd).

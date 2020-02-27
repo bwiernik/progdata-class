@@ -1,5 +1,5 @@
 ---
-title: "cm010 Exercises: Tibble Joins"
+title: "s07 Exercises: Tibble Joins"
 output: 
   html_document:
     keep_md: true
@@ -8,18 +8,22 @@ output:
 
 ## Requirements
 
-You will need Joey's `singer` R package for this exercise. And to install that, you'll need to install `devtools`. Running this code in your console should do the trick:
+You will need data from Joey Bernhardt's `singer` R package for this exercise. 
+
+You can download the singer data from the `USF-Psych-DataSci/Classroom` repo:
+
+```
+songs <- read_csv("https://github.com/USF-Psych-DataSci/Classroom/raw/master/data/singer/songs.csv")
+locations <- read_csv(https://github.com/USF-Psych-DataSci/Classroom/raw/master/data/singer/loc.csv")
+```
+
+If you want, you could instead install the `singer` package itself. To do that,
+you'll need to install `devtools`. Running this code in your console should do 
+the trick:
 
 ```
 install.packages("devtools")
 devtools::install_github("JoeyBernhardt/singer")
-```
-
-If you can't install the `singer` package, we've put the singer data on the `STAT545-UBC/Classroom` repo, and you can load those in instead by running the following lines of code:
-
-```
-songs <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/singer/songs.csv")
-locations <- read_csv("https://raw.githubusercontent.com/STAT545-UBC/Classroom/master/data/singer/loc.csv")
 ```
 
 Load required packages:
@@ -30,7 +34,7 @@ library(singer)
 knitr::opts_chunk$set(fig.width=4, fig.height=3, warning = FALSE, fig.align = "center")
 ```
 
-<!---The following chunk allows errors when knitting--->
+<!-- The following chunk allows errors when knitting -->
 
 ```{r allow errors, echo = FALSE}
 knitr::opts_chunk$set(error = TRUE)
@@ -38,7 +42,8 @@ knitr::opts_chunk$set(error = TRUE)
 
 ## Exercise 1: `singer`
 
-The package `singer` comes with two smallish data frames about songs. Let's take a look at them (after minor modifications by renaming and shuffling):
+The package `singer` comes with two smallish data frames about songs. 
+Let's take a look at them (after minor modifications by renaming and shuffling):
 
 ```{r}
 (time <- as_tibble(songs) %>% 
@@ -53,14 +58,16 @@ The package `singer` comes with two smallish data frames about songs. Let's take
 ```
 
 
-1. We really care about the songs in `time`. But, which of those songs do we know its corresponding album?
+1. We really care about the songs in `time`. But, for which of those songs do we 
+   know its corresponding album?
 
 ```{r}
 time %>% 
   FILL_THIS_IN(album, by = FILL_THIS_IN)
 ```
 
-2. Go ahead and add the corresponding albums to the `time` tibble, being sure to preserve rows even if album info is not readily available.
+2. Go ahead and add the corresponding albums to the `time` tibble, being sure to 
+   preserve rows even if album info is not readily available.
 
 ```{r}
 time %>% 
@@ -82,7 +89,8 @@ time %>%
 ```
 
 
-5. You've come across these two tibbles, and just wish all the info was available in one tibble. What would you do?
+5. You've come across these two tibbles, and just wish all the info was 
+   available in one tibble. What would you do?
 
 ```{r}
 FILL_THIS_IN %>% 
@@ -92,7 +100,7 @@ FILL_THIS_IN %>%
 
 ## Exercise 2: LOTR
 
-Load in the three Lord of the Rings tibbles that we saw last time:
+Load in three tibbles of data on the Lord of the Rings:
 
 ```{r}
 fell <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/The_Fellowship_Of_The_Ring.csv")
@@ -106,7 +114,8 @@ retk <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/dat
 FILL_THIS_IN(fell, FILL_THIS_IN)
 ```
 
-2. Which races are present in "The Fellowship of the Ring" (`fell`), but not in any of the other ones?
+2. Which races are present in "The Fellowship of the Ring" (`fell`), but not in 
+   any of the other ones?
 
 ```{r}
 fell %>% 
@@ -115,10 +124,10 @@ fell %>%
 ```
 
 
-
 ## Exercise 3: Set Operations
 
-Let's use three set functions: `intersect`, `union` and `setdiff`. We'll work with two toy tibbles named `y` and `z`, similar to Data Wrangling Cheatsheet
+Let's use three set functions: `intersect`, `union` and `setdiff`. We'll work 
+with two toy tibbles named `y` and `z`, similar to Data Wrangling Cheatsheet
 
 ```{r}
 (y <-  tibble(x1 = LETTERS[1:3], x2 = 1:3))
@@ -134,7 +143,8 @@ Let's use three set functions: `intersect`, `union` and `setdiff`. We'll work wi
 FILL_THIS_IN(y, z)
 ```
 
-2. You collected the data in `y` on Day 1, and `z` in Day 2. Make a data set to reflect that.
+2. You collected the data in `y` on Day 1, and `z` in Day 2. 
+   Make a data set to reflect that.
 
 ```{r}
 FILL_THIS_IN(
