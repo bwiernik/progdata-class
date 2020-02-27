@@ -227,7 +227,7 @@ Continue along with the worksheet until **Back to Guide Again**.
 __Worksheet__: You can find the worksheet template for today
 [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s05_data-wrangling-exercise_part-2.Rmd).
 
-## `summarize()` (3 min)
+## `summarize()`
 
 Like `mutate()`, the `summarize()` function also creates new columns, but the 
 calculations that make the new columns must reduce down to a single number. 
@@ -287,7 +287,7 @@ gapminder %>%
   group_by(smallLifeExp = lifeExp < 60)
 ```
 
-### Grouped `summarize()` (10 min)
+### Grouped `summarize()`
 
 Want to compute the mean and standard deviation for each year for every 
 continent? No problem:
@@ -345,7 +345,7 @@ gapminder %>%
   count(country)
 ```
 
-### Grouped `mutate()` (3 min)
+### Grouped `mutate()`
 
 Want to get the increase in GDP per capita for each country? No problem:
 
@@ -369,7 +369,7 @@ gap_inc %>%
 
 You can specify specific columns to drop `NA`s from in the `drop_na()` function.
 
-## Function types (5 min)
+## Function types
 
 We've seen cases of transforming variables using `mutate()` and `summarize()`, 
 both with and without `group_by()`. How can you know what combination to use? 
@@ -383,21 +383,6 @@ Here's a summary based on one of three types of functions.
 | Window Functions | these take a vector, and return a vector of the same length that depends on the vector as a whole. | `lag()`, `rank()`, `cumsum()` | `mutate()`, esp with `group_by()` |
 
 
-## `dplyr` Exercises (20 min)
+## `dplyr` Exercises
 
-
-## If there's time remaining
-
-### GitHub Pages
-
-You can turn your GitHub repository into a website, by enabling __GitHub Pages__ on that repo. This is useful for something as small as being able to display HTML files without getting a local copy of the repository, to something as big as making a full fledged website like the [stat545.stat.ubc.ca](https://stat545.stat.ubc.ca) website. 
-
-- If you make a repo called `yourusername.github.io`, and enable GitHub Pages on that repo, then the URL of the website will be `https://yourusername.github.io/`.
-- If you enable GitHub pages on any other repo, the URL for that repo will be `https://yourusername.github.io/name_of_other_repo`.
-
-Learn more with GitHub's [GitHub Pages](https://pages.github.com/) tutorial. 
-
-### Practice with HTML file linking
-
-We'll practice linking to an HTML file for today's exercise, by following the instructions on the (new!) ["Viewing and Linking to HTML Files"](https://stat545.stat.ubc.ca/evaluation/assignments/#viewing-and-linking-to-html-files) on the assignments home page.
-
+Let's go to the worksheet and work on the exercises.
