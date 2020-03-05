@@ -3,7 +3,8 @@
 Today's class is all about reading into R and writing out data files out of R.
 
 Because sometimes you want to work with your own damn data, instead of data 
-about flowers, cars, life expectancy, or Big Five personality scores.
+about flowers, cars, life expectancy, or the Big Five personality scores of 2800
+of your closest friends.
 
 ## Worksheet
 
