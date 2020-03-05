@@ -424,6 +424,7 @@ share.
 
 In your project's root folder, you should have a README.md file and a .Rproj
 project. Then, you should have folders that separate different types of files:
+
   - `data`: Stores all of your data files for a project
     - Have subfolders for different dates, waves, groups, etc. as needed
     - If you plan on saving cleaned data, having separate `data-raw` and `data`
