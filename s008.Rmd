@@ -392,14 +392,19 @@ format. Bitmap graphs represent the image as colored dots or pixels. This means
 that the image quality will suffer if you make the image larger or zoom in on it
 (making it smaller can also sometimes compromise quality). With bitmap images,
 you need to be concerned with *resolution* (how many pixels/dots per inch when
-printed). Always use at least **300 DPI** resolution. The two most used bitmap
-formats are `.tiff`/`.tif` and `.png`. `.tiff` is higher quality, but the files
-can end up being fairly large. `.png` is smaller, but it supports fewer colors.
-Stick with `.tiff` unless you intend to host these images on a web page; then,
-`.png` will help your pages load faster generally.
+printed). Always use at least **300 DPI** resolution. 
 
-Don't use `.jpg`/`.jpeg` (it's lossy) and don't use `.gif` unless the plot is 
-animated.
+There are several popular bitmap image formats. `.tiff`/`.tif` is the highest
+quality, but also the largest. Use it for print graphics, but you should probably
+avoid it for images to be hosted on the web. `.png` is a bit smaller, and it 
+should be your go to for charts, figures, line drawings, etc. More complex 
+images (e.g., photos) can get pretty big with `.png`, though. `.jpg`/`.jpeg` is
+probably the most popular bitmap format. It works well for photographs hosted on
+the web, but its compression often makes line drawing and charts look terrible.
+`.jpg`/`.jpeg` also degrades in quality each time you edit/save it, so don't 
+use it for images you intend to edit. Generally avoid `.gif` unless you are
+making an animation or you need very small file size for a simple image. `.gif` 
+supports very few colors, so always check your image quality after making a `.gif`. 
 
 Let's save to some other formats:
 
