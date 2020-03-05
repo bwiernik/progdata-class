@@ -45,7 +45,7 @@ library(gapminder)
 library(tidyverse)
 ```
 
-Next, let's filter the data to only  2007 and only the Asia continent and 
+Next, let's filter the data to only 2007 and only the Asia continent and 
 save it to a new object.
 
 ```{r}
@@ -89,7 +89,7 @@ getwd()
 
 You can also change the working directory using the `setwd()` function:
 
-```
+```{r, eval = FALSE}
 setwd(file.path("path", "to", "folder"))
 ```
 
@@ -172,7 +172,7 @@ For example, create a new folder "data" in your participation repo, and within
 it make a subfolder called "s008_data". Then, save `gap_asia_2007` using the
 `here::here()` and `write_csv()` functions:
 
-```{r}
+```{r, eval = FALSE}
 write_csv(gap_asia_2007, here::here("data", "s008_data", "exported_file.csv"))
 ```
 
@@ -185,7 +185,7 @@ More details on `here` are available in this
 The same csv file that we just saved to disk can be imported into R again by 
 specifying the path where it exists:
 
-```{r}
+```{r, eval = FALSE}
 read_csv(here::here("data", "s008_data", "exported_file.csv"))
 ```
 
@@ -253,14 +253,14 @@ first need to download it localy.
 Either create the folder path in Finder/Windows Explorer, or use the `dir.create()`
 function:
 
-```{r}
+```{r, eval = FALSE}
 dir.create(here::here("data", "s008_data"), recursive = TRUE)
 ```
 
 Next, you download the file. To download it, create a new object called `xls_url` 
 and then using `download.file` to dowload it to a specified destination path.
 
-```{r}
+```{r, eval = FALSE}
 xls_url <- "http://gattonweb.uky.edu/sheather/book/docs/datasets/GreatestGivers.xls"
 download.file(xls_url, here::here("data", "s008_data", "some_file.xls"), mode = "wb")
 ```
@@ -277,14 +277,14 @@ a good idea to name the file similarly (or the same as) the original file
 
 There's handy trick to extract the filename from the URL:
 
-```{r}
+```{r, eval = FALSE}
 file_name <- basename(xls_url)
 download.file(xls_url, here::here("data", "s008_data", file_name), mode = "wb")
 ```
 
 Now we can import the file:
 
-```{r}
+```{r, eval = FALSE}
 read_excel(here::here("data", "s008_data", file_name))
 ```
 
@@ -307,8 +307,8 @@ The subset of data here consists of 200 cases, with variables indicating:
   
 Let's load in the data using the `haven` package.
 
-```{r}
-(clevel <- haven::read_spss(here("data", "s008_data", "clevel.sav")))
+```{r, eval = FALSE}
+(clevel <- haven::read_spss(here::here("data", "s008_data", "clevel.sav")))
 ```
 
 Notice that this tibble looks a little different for the `language` and `gender`
@@ -316,7 +316,7 @@ variables than normal. It has **labels** for the numeric values. This format
 is what SPSS uses, but it's not standard for R. Let's convert those variables, 
 and `isClevel` as well, to factors:
 
-```{r}
+```{r, eval = FALSE}
 clevel_cleaned <-
   clevel %>% 
   mutate(language = as_factor(language),
@@ -337,7 +337,7 @@ original code numbers.
 Let's save this file as a CSV file so that it's a smaller file and easier to 
 import again in the future.
 
-```{r}
+```{r, eval = FALSE}
 write_csv(clevel_cleaned, here::here("data", "s008_data", "clevel_cleaned.csv"))
 ```
 
@@ -346,7 +346,7 @@ write_csv(clevel_cleaned, here::here("data", "s008_data", "clevel_cleaned.csv"))
 
 Now let's make a plot.
 
-```{r}
+```{r, eval = FALSE}
 clevel_plot <-
   clevel_cleaned %>% 
   mutate(isClevel = recode(isClevel, 
@@ -361,7 +361,8 @@ clevel_plot <-
   scale_color_manual(values = c("#1b9e77", "#7570b3")) +
   ggtitle("Extraversion Stan Scores") +
   scale_y_continuous(breaks = 1:9) +
-  ggthemes::theme_fivethirtyeight()
+  ggthemes::theme_fivethirtyeight() %>% 
+  print()
 
 ```
 
@@ -376,7 +377,7 @@ and `dpi` (dots per inch; for bitmap formats).
 want, you can specify a specific format or R graphics device to save with using
 the `device` argument.
 
-```{r}
+```{r, eval = FALSE}
 dir.create(here::here("output"))
 ggsave(here::here("output", "clevel_extraversion.svg"), clevel_plot)
 ```
@@ -402,7 +403,7 @@ animated.
 
 Let's save to some other formats:
 
-```{r}
+```{r, eval = FALSE}
 ggsave(here::here("output", "clevel_extraversion.eps"), clevel_plot)
 ggsave(here::here("output", "clevel_extraversion.pdf"), clevel_plot)
 ggsave(here::here("output", "clevel_extraversion.tiff"), clevel_plot)
