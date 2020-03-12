@@ -114,10 +114,17 @@ p_mpg <- ggplot(mtcars, aes(factor(cyl), mpg, color = factor(cyl))) +
 p_hp <- ggplot(mtcars, aes(factor(cyl), hp, color = factor(cyl))) + 
     geom_boxplot() + theme_bw() + xlab("No. of cylinders") + ylab("Horsepower")
 
+p_mpg + p_hp 
 
+p_mpg / p_hp
+
+p_mpg + p_hp + plot_layout(guides = 'collect')
 ```
 
-Two other packages you might find useful for making awesome data displays:
+Package docs: https://patchwork.data-imaginist.com/index.html
+Nice tutorial: [here](https://cmdlinetips.com/2020/01/tips-to-combine-multiple-ggplots-using-patchwork/)
+
+Some other packages you might find useful for making awesome data displays:
 
   - `ggtext`: Lets you use (_some_) Markdown formatting in text on ggplot 
     (e.g., use images in your factor labels!)
