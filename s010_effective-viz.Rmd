@@ -130,6 +130,10 @@ Two other packages you might find useful for making awesome data displays:
      - Amazing presentation:
        [here](https://resources.rstudio.com/rstudio-conf-2020/spruce-up-your-ggplot2-visualizations-with-formatted-text-claus-wilke)
        
+  - `ggstatsplot`: Annotate plots with statistical test results easily
+    - Install: `install.packages("ggstatsplot")`
+    - Package docs: https://indrajeetpatil.github.io/ggstatsplot/
+       
   - `ggpubr`: An older package for arranging plots, adding annotations and 
     data tables, etc. A bit harder to use than patchwork, but lots of code online.
     - Install: `install.packages("ggpubr")`
