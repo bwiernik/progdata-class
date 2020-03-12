@@ -1,5 +1,5 @@
 ---
-title: "cm013 Supplemental"
+title: "s10: Plot theming exercises"
 output: 
   html_document:
     keep_md: true

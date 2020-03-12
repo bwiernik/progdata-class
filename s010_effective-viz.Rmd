@@ -14,11 +14,8 @@ effective visualizations.
 
 ## Worksheet
 
-**The worksheet questions for today are embedded into the class notes.**
-
-You can download this Rmd file [here](https://github.com/STAT545-UBC/Classroom/raw/master/cm013.Rmd)
-
-Note, there will be very little coding in-class today, but I've given you plenty of exercises in the form of a supplemental worksheet (linked at the bottom of this page) to practice with after class is over.
+Not much coding here, but there is a supplemental worksheet you will do as 
+homework [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s10_plot-theme-exercise.Rmd)
 
 ## Resources
 
@@ -156,4 +153,4 @@ over the basic mechanics of formatting scales, specifying accessible colors, and
 setting theme elements in ggplots. There is also a short guided activity showing 
 you how to make a ggplot interactive using plotly.
 
-- [Supplemental worksheet here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s10_plot-theme-exercize.Rmd)
+- [Supplemental worksheet here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s10_plot-theme-exercise.Rmd)
