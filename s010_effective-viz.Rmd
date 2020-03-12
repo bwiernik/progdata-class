@@ -101,6 +101,11 @@ many themes already available, such as in the `ggthemes` package.
 In Assignment 3, I asked you to try to arrange two plots side by side. There is 
 recently a new package called `patchwork` that makes this super easy!
 
+```{r, echo = FALSE}
+if (!requireNamespace("patchwork")) install.packages("patchwork")
+if (!requireNamespace("gridExtra")) install.packages("gridExtra")
+```
+
 ```{r}
 library(patchwork)
 library(gridExtra)
