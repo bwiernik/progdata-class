@@ -30,7 +30,7 @@ ggsave(FILENAME_HERE, PLOT_OBJECT_HERE)
     - __Vector__: represented as shapes and lines. `pdf`, [`svg`](https://www.w3schools.com/graphics/svg_intro.asp).
     - For tips: ["10 tips for making your R graphics look their best""](http://blog.revolutionanalytics.com/2009/01/10-tips-for-making-your-r-graphics-look-their-best.html).
     
-# Scales; Colour
+# Scales; Color
 
 Scale functions in `ggplot2` take the form `scale_[aesthetic]_[mapping]()`.
 
@@ -137,7 +137,7 @@ ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 ```
 
 
-# Plotly
+# Plotly (optional)
 
 Consider the following plot:
 
