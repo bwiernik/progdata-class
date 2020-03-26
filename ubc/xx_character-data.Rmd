@@ -2,13 +2,6 @@
 
 --- LAST YEAR'S CONTENT BELOW ---
 
-## Announcements
-
-- Fill out [class survey](https://goo.gl/forms/UPvRA6a9WRod8JPb2) if you haven't already done so in STAT 545A. This allows us to link you to your github username. The link is also available on the course homepage, stat545.com/Classroom.
-- Participation:
-    - Can't attend lecture for some legitimate reason (besides not wanting to come)? Let me know. We won't look for your commit timestamp for that day, but will still expect you to show that you engaged with the material at some point.
-    - Contributing to the discussion boards is also part of participation.
-
 ## Agenda
 
 Making sense of strings: how to deal with data of class `character`.

@@ -1,0 +1,25 @@
+## Recap: principles of effective visualizations
+
+Here are some general principles on effective figures
+
+1. Apply [Principle of proportional ink](https://callingbullshit.org/tools/tools_proportional_ink.html)
+- Definition: "The amount of ink used to indicate a value should be proportional to the value itself."
+- Example: Truncating the y-axis on a bar chart to exaggerate the difference between bars violates the principle of proportional ink
+1. Maintain a high data-to-ink ratio: [less is more](https://speakerdeck.com/cherdarchuk/remove-to-improve-the-data-ink-ratio)
+- Definition: remove distracting visual elements to focus attention on the data
+- Examples: Lighten line weights, remove backgrounds, never use 3D or special effects, remove unnecessary/redundant labels, etc...
+1. Always update axes labels and titles on your plots
+- In STAT545/547 we take principles of effective visualizations very seriously and you will lose marks if this isn't followed
+1. Choose your scale-type carefully
+    - Whether you choose a linear, logarithm, sqrt scale depends on your data, context, and purpose
+1. Choose your graph-type carefully
+    - Examples: [here](https://serialmentor.com/dataviz/directory-of-visualizations.html) is a great directory of plots
+1. Choose colours with accessibility and readability in mind
+    - Examples: [here](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) is a great set of colour schemes that are colour-blind friendly and perceptually uniform
+
+
+# Model paradigm
+
+<!-- Note: not able to add parsnip or rsample this year, did briefly mention it though
+Possible addition for 2020: `parsnip` package. Maybe `rsample` if it didn't make it into cm011.
+-->

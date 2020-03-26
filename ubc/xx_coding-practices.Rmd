@@ -1,71 +1,7 @@
-# The Model-Fitting Paradigm in R
+# Reproducibility and Coding Practices
 
-## Today
-
-1. Recap from last class on principles of effective visualizations
-1. Introduction and motivation for model-fitting in R.
-1. Instructor and TA evaluations
-1. Worksheet where we do a full model-fitting analysis together
-1. Deep thoughts on data analytic work (go through material at home)
-
-Worksheet: the model-fitting paradigm in R.
-    - [Rmd](https://github.com/STAT545-UBC/Classroom/blob/master/tutorials/cm014-exercise.Rmd), 
-    - [from html](http://stat545.com/Classroom/notes/cm014-exercise.nb.html)
-    
-<!-- Note: not able to add parsnip or rsample this year, did briefly mention it though
-Possible addition for 2020: `parsnip` package. Maybe `rsample` if it didn't make it into cm011.
--->
-
-## Recap: principles of effective visualizations
-
-Here are some general principles on effective figures
-
-1. Apply [Principle of proportional ink](https://callingbullshit.org/tools/tools_proportional_ink.html)
-    - Definition: "The amount of ink used to indicate a value should be proportional to the value itself."
-    - Example: Truncating the y-axis on a bar chart to exaggerate the difference between bars violates the principle of proportional ink
-1. Maintain a high data-to-ink ratio: [less is more](https://speakerdeck.com/cherdarchuk/remove-to-improve-the-data-ink-ratio)
-    - Definition: remove distracting visual elements to focus attention on the data
-    - Examples: Lighten line weights, remove backgrounds, never use 3D or special effects, remove unnecessary/redundant labels, etc...
-1. Always update axes labels and titles on your plots
-    - In STAT545/547 we take principles of effective visualizations very seriously and you will lose marks if this isn't followed
-1. Choose your scale-type carefully
-    - Whether you choose a linear, logarithm, sqrt scale depends on your data, context, and purpose
-1. Choose your graph-type carefully
-    - Examples: [here](https://serialmentor.com/dataviz/directory-of-visualizations.html) is a great directory of plots
-1. Choose colours with accessibility and readability in mind
-    - Examples: [here](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/#a-colorblind-friendly-palette) is a great set of colour schemes that are colour-blind friendly and perceptually uniform
-    
-## Resources
-
-- [Tutorial](https://cfss.uchicago.edu/notes/linear-models/) on model fitting in R.
-
-- [`broom` vignette](https://cran.r-project.org/web/packages/broom/vignettes/broom.html)
-
-If you're interested in learning more about the actual statistical / machine learning methods for fitting models, I highly recommend the book ["An Introduction to Statistical Learning"](https://www-bcf.usc.edu/~gareth/ISL/) (freely available online). It uses R, too.
-
-## Introduction and motivation for model-fitting in R.
-
-We will go through this [tutorial](https://cfss.uchicago.edu/notes/linear-models/) from Dr. Benjamin Soltoff.
-
-## Instructor and TA evaluations
-
-Since I was only your instructor for the last two weeks, I probably will not have a course evaluation on Canvas, but I'd still like your feedback. Please give it to me (anonymously) using [this brief survey](https://firasmoosvi.typeform.com/to/ihIYQe).
-
-To fill out an evaluation for *Dr. Coia** (cm001 to cm010), go to the STAT545 Canvas course, and in the left sidebar, click "Course Evaluation".
-
-TA evaluations are still done on paper so I will hand out the TA evaluation forms and a pencil if you need it. Your TAs for this course were: Alejandra, Victor, Hossam, and Yulia. 
-
-Let's take some time to fill these out, feedback is very important to all of us.
-
-## Break
-
-## Worksheet
-
-## Deep Thoughts about Data Analytic Work
-
-- [Jenny's Deep Thoughts](https://www.slideshare.net/jenniferbryan5811/cm002-deep-thoughts)
-
-("Deep Thoughts" refers to Jack Handley's skit on Saturday Night Live)
+sessionInfo()
+devtools::session_info()
 
 ### Reproducibility
 
@@ -117,9 +53,11 @@ Concepts to live by:
 
 ### Coding Practices: Naming
 
-- some people use camelCase, snake_case, or.periods.
+- Some people use camelCase, snake_case, or.periods.
+  - Don't use periods!
 - Functions should be verbs (based on the one thing that it achieves). Objects should be nouns. Functions that return functions should be adverbs. 
 - Don't over-create. The more objects in your global environment there are, the more confusing it will be -- especially if you don't have a consistent rule.
+  - Use the pipe `%>%` to do all of 
 - Don't under-create: avoid magic numbers!
     - Bad: 
         ```
@@ -212,4 +150,3 @@ Scenario: how could the following practice be made better?
 
 > You're writing code directly to the console, and end up with a plot from your machine learning model, so you click save and use the plot in a report.
 -->
-

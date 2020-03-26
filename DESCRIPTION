@@ -12,4 +12,6 @@ Imports:
     DT,
     lubridate,
     here,
-    cowplot
+    cowplot,
+    patchwork
+    gridExtra
