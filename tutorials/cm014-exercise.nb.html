@@ -1778,129 +1778,8 @@ library(broom)</code></pre>
 <li>How do we fit a model in R?</li>
 <li>How can we obtain tidy results from the model output?</li>
 </ol>
-<div id="what-is-model-fitting" class="section level2">
-<h2>What is Model-Fitting?</h2>
-<p>When variables are not independent, then we can gain information about one variable if we know something about the other.</p>
-<p><strong>Example:</strong> Use the scatterplot below</p>
-<ol style="list-style-type: decimal">
-<li>A car weighs 4000 lbs. What can we say about its mpg?</li>
-<li>A car weights less than 3000 lbs. What can we say about its mpg?</li>
-</ol>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeSh0aWR5dmVyc2UpXG5nZ3Bsb3QobXRjYXJzLCBhZXMod3QsIG1wZykpICtcbiAgZ2VvbV9wb2ludCgpICtcbiAgbGFicyh4ID0gXCJXZWlnaHQgKDEwMDAncyBvZiBsYnMpXCIpXG5gYGAifQ== -->
-<pre class="r"><code>library(tidyverse)
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point() +
-  labs(x = &quot;Weight (1000&#39;s of lbs)&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p><strong>Example:</strong> What can we say about rear axle ratio if we know something about quarter mile time?</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuZ2dwbG90KG10Y2FycywgYWVzKHFzZWMsIGRyYXQpKSArIFxuICBnZW9tX3BvaW50KCkgK1xuICBsYWJzKHggPSBcIlF1YXJ0ZXIgbWlsZSB0aW1lXCIsXG4gICAgICAgeSA9IFwiUmVhciBheGxlIHJhdGlvXCIpXG5gYGAifQ== -->
-<pre class="r"><code>ggplot(mtcars, aes(qsec, drat)) + 
-  geom_point() +
-  labs(x = &quot;Quarter mile time&quot;,
-       y = &quot;Rear axle ratio&quot;)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>If exploratory data analysis isn’t enough, we can answer these questions more precisely by <em>fitting a model</em>: a curve that predicts <em>Y</em> given <em>X</em>. This is also called a <strong>regression curve</strong> or a <strong>machine learning model</strong>.</p>
-<p>(There are more comprehensive models too, such as modeling entire distributions, but that’s not what we’re doing here)</p>
-<p>There are typically two goals of fitting a model:</p>
-<ol style="list-style-type: decimal">
-<li>Make predictions.</li>
-<li>Interpret variable relationships.</li>
-</ol>
-</div>
 <div id="fitting-a-model-in-r" class="section level2">
 <h2>Fitting a model in R</h2>
-<p>Model fitting methods tend to use a common format in R:</p>
-<pre><code>method(formula, data, options)</code></pre>
-<p>They also tend to have a common output: a special <em>list</em>.</p>
-<p><strong>Method</strong>:</p>
-<p>A function such as:</p>
-<ul>
-<li>Linear Regression: <code>lm</code></li>
-<li>Generalized Linear Regression: <code>glm</code> (e.g., logistic regression, Poisson regression)</li>
-<li>Local regression (aka “smoother lines”): <code>loess</code></li>
-<li>Quantile regression: <code>quantreg::rq</code></li>
-<li>Meta-analysis: <code>metafor::rma</code></li>
-<li>…</li>
-</ul>
-<p><strong>Formula</strong>:</p>
-<p>In R, takes the form <code>y ~ x1 + x2 + ... + xp</code> (x1, x2, etc. are the column names in your data frame).</p>
-<p><strong>Data</strong>: The data frame.</p>
-<p><strong>Options</strong>: Specific to the method.</p>
-<p>Exercise: Use <code>gapminder</code>.</p>
-<ol style="list-style-type: decimal">
-<li><p>Fit a linear regression model to life expectancy (“Y”) from year (“X”) by filling in the formula.</p>
-<p>Notice what appears as the output.</p></li>
-<li><p>On a new line, use the <code>unclass</code> function to uncover the object’s true nature: a list. Note: it might be easier to use the <code>names</code> function to see what components are included in the list.</p></li>
-</ol>
-<p>First, create a subset of the <code>gapminder</code> dataset containing only the country of `France</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKGdhcG1pbmRlcl9GcmFuY2UgPC0gRklMTF9USElTX0lOKVxuYGBgIn0= -->
-<pre class="r"><code>(gapminder_France &lt;- FILL_THIS_IN)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Now, using the <code>lm()</code> function we will create the linear model</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKG1vZF9mcmFuY2UgPC0gbG0oRklMTF9USElTX0lOKSlcbmBgYCJ9 -->
-<pre class="r"><code>(mod_france &lt;- lm(FILL_THIS_IN))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Does that mean that the life expectency at “year 0” was equal to -397.7646?!</p>
-<p>We are interested in the modeling results around the modeling period which starts at year 1952. To get a meaniningful “interpretable” intercept, we can use the <code>I()</code> function. <code>I()</code> lets you tell R to fit the model to an arithmetic transformation of a variable. For example:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuKG1vZF9mcmFuY2UgPC0gbG0obGlmZUV4cCB+IEkoeWVhciAtIDE5NTIpLCBkYXRhID0gZ2FwbWluZGVyX0ZyYW5jZSkpXG5cbmBgYCJ9 -->
-<pre class="r"><code>(mod_france &lt;- lm(lifeExp ~ I(year - 1952), data = gapminder_France))
-</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>In this model, the intercept</p>
-<p>Use the <code>unclass()</code> function to take a look at how the <code>lm()</code> object actually looks like.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudW5jbGFzcyhtb2RfZnJhbmNlKVxuYGBgIn0= -->
-<pre class="r"><code>unclass(mod_france)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>To complicate things further, some info is stored in <em>another</em> list after applying the <code>summary</code> function:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShtb2RfZnJhbmNlKVxuYGBgIn0= -->
-<pre class="r"><code>summary(mod_france)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>We can use the <code>predict()</code> function to make predictions from the model (default is to use fitting/training data). Here are the predictions:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucHJlZGljdChtb2RfZnJhbmNlKSAlPiUgXG4gIGhlYWQoKVxuYGBgIn0= -->
-<pre class="r"><code>predict(mod_france) %&gt;% 
-  head()</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p>Or we can predict on a new dataset:</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueWVhcnMxID0gRklMTF9USElTX0lOXG5wcmVkaWN0KG1vZF9mcmFuY2UsIHllYXJzMSlcbmBgYCJ9 -->
-<pre class="r"><code>years1 = FILL_THIS_IN
-predict(mod_france, years1)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
 <p>We can plot models (with one predictor/<em>X</em> variable) using <code>ggplot2</code> using the <code>geom_smooth()</code> function. Specifying <code>method = &quot;lm&quot;</code> gives us the linear regression fit (but only visually!):</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1943,14 +1822,6 @@ gapminder_Zimbabwe %&gt;% ggplot(aes(year, lifeExp)) + geom_point()</code></pre>
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG1fbGluZWFyIDwtIGxtKGRhdGEgPSBnYXBtaW5kZXIsZm9ybXVsYSA9IEZJTExfVEhJU19JTilcbmxtX3BvbHkgPC0gbG0oZGF0YSA9IGdhcG1pbmRlcixmb3JtdWxhID0gRklMTF9USElTX0lOKSlcbmBgYCJ9 -->
 <pre class="r"><code>lm_linear &lt;- lm(data = gapminder,formula = FILL_THIS_IN)
 lm_poly &lt;- lm(data = gapminder,formula = FILL_THIS_IN))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<p><code>anova</code> lets you compare between different models.</p>
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuYW5vdmEobG1fbGluZWFyLCBsbV9wb2x5KVxuYGBgIn0= -->
-<pre class="r"><code>anova(lm_linear, lm_poly)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2016,7 +1887,7 @@ contrasts(gapminder$continent)</code></pre>
 <!-- rnb-chunk-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIldvcmtzaGVldDogVGhlIE1vZGVsLUZpdHRpbmcgUGFyYWRpZ20gaW4gUiINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KZWRpdG9yX29wdGlvbnM6IA0KICBjaHVua19vdXRwdXRfdHlwZTogaW5saW5lDQotLS0NCg0KYGBge3J9DQpzdXBwcmVzc1BhY2thZ2VTdGFydHVwTWVzc2FnZXMobGlicmFyeSh0aWR5dmVyc2UpKQ0KbGlicmFyeShnYXBtaW5kZXIpDQpsaWJyYXJ5KGJyb29tKQ0KYGBgDQoNClNvIHlvdSB3YW50IHRvIGZpdCBhIG1vZGVsIHRvIHlvdXIgZGF0YS4gSG93IGNhbiB5b3UgYWNoaWV2ZSB0aGlzIHdpdGggUj8NCg0KVG9waWNzOg0KDQoxLiBXaGF0IF9pc18gbW9kZWwtZml0dGluZz8NCjIuIEhvdyBkbyB3ZSBmaXQgYSBtb2RlbCBpbiBSPw0KMy4gSG93IGNhbiB3ZSBvYnRhaW4gdGlkeSByZXN1bHRzIGZyb20gdGhlIG1vZGVsIG91dHB1dD8NCg0KDQojIyBXaGF0IGlzIE1vZGVsLUZpdHRpbmc/DQoNCldoZW4gdmFyaWFibGVzIGFyZSBub3QgaW5kZXBlbmRlbnQsIHRoZW4gd2UgY2FuIGdhaW4gaW5mb3JtYXRpb24gYWJvdXQgb25lIA0KdmFyaWFibGUgaWYgd2Uga25vdyBzb21ldGhpbmcgYWJvdXQgdGhlIG90aGVyLg0KDQoqKkV4YW1wbGU6KiogVXNlIHRoZSBzY2F0dGVycGxvdCBiZWxvdw0KDQoxLiBBIGNhciB3ZWlnaHMgNDAwMCBsYnMuIFdoYXQgY2FuIHdlIHNheSBhYm91dCBpdHMgbXBnPw0KMi4gQSBjYXIgd2VpZ2h0cyBsZXNzIHRoYW4gMzAwMCBsYnMuIFdoYXQgY2FuIHdlIHNheSBhYm91dCBpdHMgbXBnPw0KDQpgYGB7ciwgZmlnLndpZHRoPTUsIGZpZy5oZWlnaHQ9M30NCmxpYnJhcnkodGlkeXZlcnNlKQ0KZ2dwbG90KG10Y2FycywgYWVzKHd0LCBtcGcpKSArDQogIGdlb21fcG9pbnQoKSArDQogIGxhYnMoeCA9ICJXZWlnaHQgKDEwMDAncyBvZiBsYnMpIikNCmBgYA0KDQoqKkV4YW1wbGU6KiogV2hhdCBjYW4gd2Ugc2F5IGFib3V0IHJlYXIgYXhsZSByYXRpbyBpZiB3ZSBrbm93IHNvbWV0aGluZyBhYm91dCANCnF1YXJ0ZXIgbWlsZSB0aW1lPw0KDQpgYGB7ciwgZmlnLndpZHRoPTUsIGZpZy5oZWlnaHQ9M30NCmdncGxvdChtdGNhcnMsIGFlcyhxc2VjLCBkcmF0KSkgKyANCiAgZ2VvbV9wb2ludCgpICsNCiAgbGFicyh4ID0gIlF1YXJ0ZXIgbWlsZSB0aW1lIiwNCiAgICAgICB5ID0gIlJlYXIgYXhsZSByYXRpbyIpDQpgYGANCg0KDQpJZiBleHBsb3JhdG9yeSBkYXRhIGFuYWx5c2lzIGlzbid0IGVub3VnaCwgd2UgY2FuIGFuc3dlciB0aGVzZSBxdWVzdGlvbnMgbW9yZQ0KcHJlY2lzZWx5IGJ5IF9maXR0aW5nIGEgbW9kZWxfOiBhIGN1cnZlIHRoYXQgcHJlZGljdHMgX1lfIGdpdmVuIF9YXy4gVGhpcyBpcyANCmFsc28gY2FsbGVkIGEgX19yZWdyZXNzaW9uIGN1cnZlX18gb3IgYSBfX21hY2hpbmUgbGVhcm5pbmcgbW9kZWxfXy4gDQoNCihUaGVyZSBhcmUgbW9yZSBjb21wcmVoZW5zaXZlIG1vZGVscyB0b28sIHN1Y2ggYXMgbW9kZWxpbmcgZW50aXJlIGRpc3RyaWJ1dGlvbnMsIA0KYnV0IHRoYXQncyBub3Qgd2hhdCB3ZSdyZSBkb2luZyBoZXJlKQ0KDQpUaGVyZSBhcmUgdHlwaWNhbGx5IHR3byBnb2FscyBvZiBmaXR0aW5nIGEgbW9kZWw6DQoNCjEuIE1ha2UgcHJlZGljdGlvbnMuDQoyLiBJbnRlcnByZXQgdmFyaWFibGUgcmVsYXRpb25zaGlwcy4NCg0KDQojIyBGaXR0aW5nIGEgbW9kZWwgaW4gUg0KDQpNb2RlbCBmaXR0aW5nIG1ldGhvZHMgdGVuZCB0byB1c2UgYSBjb21tb24gZm9ybWF0IGluIFI6DQoNCmBgYA0KbWV0aG9kKGZvcm11bGEsIGRhdGEsIG9wdGlvbnMpDQpgYGANCg0KVGhleSBhbHNvIHRlbmQgdG8gaGF2ZSBhIGNvbW1vbiBvdXRwdXQ6IGEgc3BlY2lhbCBfbGlzdF8uIA0KDQpfX01ldGhvZF9fOg0KDQpBIGZ1bmN0aW9uIHN1Y2ggYXM6DQoNCi0gTGluZWFyIFJlZ3Jlc3Npb246IGBsbWANCi0gR2VuZXJhbGl6ZWQgTGluZWFyIFJlZ3Jlc3Npb246IGBnbG1gIChlLmcuLCBsb2dpc3RpYyByZWdyZXNzaW9uLCBQb2lzc29uIHJlZ3Jlc3Npb24pDQotIExvY2FsIHJlZ3Jlc3Npb24gKGFrYSAic21vb3RoZXIgbGluZXMiKTogYGxvZXNzYA0KLSBRdWFudGlsZSByZWdyZXNzaW9uOiBgcXVhbnRyZWc6OnJxYA0KLSBNZXRhLWFuYWx5c2lzOiBgbWV0YWZvcjo6cm1hYA0KLSAuLi4NCg0KX19Gb3JtdWxhX186DQoNCkluIFIsIHRha2VzIHRoZSBmb3JtIGB5IH4geDEgKyB4MiArIC4uLiArIHhwYCAoeDEsIHgyLCBldGMuIGFyZSB0aGUgY29sdW1uIG5hbWVzIA0KaW4geW91ciBkYXRhIGZyYW1lKS4NCg0KX19EYXRhX186IFRoZSBkYXRhIGZyYW1lLg0KDQpfX09wdGlvbnNfXzogU3BlY2lmaWMgdG8gdGhlIG1ldGhvZC4NCg0KDQpFeGVyY2lzZTogVXNlIGBnYXBtaW5kZXJgLg0KDQoxLiBGaXQgYSBsaW5lYXIgcmVncmVzc2lvbiBtb2RlbCB0byBsaWZlIGV4cGVjdGFuY3kgKCJZIikgZnJvbSB5ZWFyICgiWCIpIGJ5IA0KICAgZmlsbGluZyBpbiB0aGUgZm9ybXVsYS4gDQogICANCiAgIE5vdGljZSB3aGF0IGFwcGVhcnMgYXMgdGhlIG91dHB1dC4NCjIuIE9uIGEgbmV3IGxpbmUsIHVzZSB0aGUgYHVuY2xhc3NgIGZ1bmN0aW9uIHRvIHVuY292ZXIgdGhlIG9iamVjdCdzIHRydWUgbmF0dXJlOiBhIGxpc3QuDQogICBOb3RlOiBpdCBtaWdodCBiZSBlYXNpZXIgdG8gdXNlIHRoZSBgbmFtZXNgIGZ1bmN0aW9uIHRvIHNlZSB3aGF0IGNvbXBvbmVudHMgYXJlIGluY2x1ZGVkIGluICAgIHRoZSBsaXN0LiANCg0KRmlyc3QsIGNyZWF0ZSBhIHN1YnNldCBvZiB0aGUgYGdhcG1pbmRlcmAgZGF0YXNldCBjb250YWluaW5nIG9ubHkgdGhlIGNvdW50cnkgb2YgYEZyYW5jZQ0KYGBge3J9DQooZ2FwbWluZGVyX0ZyYW5jZSA8LSBGSUxMX1RISVNfSU4pDQpgYGANCg0KTm93LCB1c2luZyB0aGUgYGxtKClgIGZ1bmN0aW9uIHdlIHdpbGwgY3JlYXRlIHRoZSBsaW5lYXIgbW9kZWwNCmBgYHtyfQ0KKG1vZF9mcmFuY2UgPC0gbG0oRklMTF9USElTX0lOKSkNCmBgYA0KDQpEb2VzIHRoYXQgbWVhbiB0aGF0IHRoZSBsaWZlIGV4cGVjdGVuY3kgYXQgInllYXIgMCIgd2FzIGVxdWFsIHRvIC0zOTcuNzY0Nj8hDQoNCldlIGFyZSBpbnRlcmVzdGVkIGluIHRoZSBtb2RlbGluZyByZXN1bHRzIGFyb3VuZCB0aGUgbW9kZWxpbmcgcGVyaW9kIHdoaWNoIA0Kc3RhcnRzIGF0IHllYXIgMTk1Mi4gVG8gZ2V0IGEgbWVhbmluaW5nZnVsICJpbnRlcnByZXRhYmxlIiBpbnRlcmNlcHQsIHdlIGNhbiB1c2UgDQp0aGUgYEkoKWAgZnVuY3Rpb24uIGBJKClgIGxldHMgeW91IHRlbGwgUiB0byBmaXQgdGhlIG1vZGVsIHRvIGFuIGFyaXRobWV0aWMNCnRyYW5zZm9ybWF0aW9uIG9mIGEgdmFyaWFibGUuIEZvciBleGFtcGxlOg0KDQpgYGB7cn0NCihtb2RfZnJhbmNlIDwtIGxtKGxpZmVFeHAgfiBJKHllYXIgLSAxOTUyKSwgZGF0YSA9IGdhcG1pbmRlcl9GcmFuY2UpKQ0KDQpgYGANCg0KSW4gdGhpcyBtb2RlbCwgdGhlIGludGVyY2VwdA0KDQpVc2UgdGhlIGB1bmNsYXNzKClgIGZ1bmN0aW9uIHRvIHRha2UgYSBsb29rIGF0IGhvdyB0aGUgYGxtKClgIG9iamVjdCBhY3R1YWxseSBsb29rcyBsaWtlLg0KDQpgYGB7cn0NCnVuY2xhc3MobW9kX2ZyYW5jZSkNCmBgYA0KDQpUbyBjb21wbGljYXRlIHRoaW5ncyBmdXJ0aGVyLCBzb21lIGluZm8gaXMgc3RvcmVkIGluIF9hbm90aGVyXyBsaXN0IGFmdGVyIGFwcGx5aW5nIHRoZSBgc3VtbWFyeWAgZnVuY3Rpb246DQoNCmBgYHtyfQ0Kc3VtbWFyeShtb2RfZnJhbmNlKQ0KYGBgDQoNCldlIGNhbiB1c2UgdGhlIGBwcmVkaWN0KClgIGZ1bmN0aW9uIHRvIG1ha2UgcHJlZGljdGlvbnMgZnJvbSB0aGUgbW9kZWwgKGRlZmF1bHQgaXMgdG8gdXNlIGZpdHRpbmcvdHJhaW5pbmcgZGF0YSkuIEhlcmUgYXJlIHRoZSBwcmVkaWN0aW9uczoNCg0KYGBge3J9DQpwcmVkaWN0KG1vZF9mcmFuY2UpICU+JSANCiAgaGVhZCgpDQpgYGANCg0KT3Igd2UgY2FuIHByZWRpY3Qgb24gYSBuZXcgZGF0YXNldDoNCg0KYGBge3J9DQp5ZWFyczEgPSBGSUxMX1RISVNfSU4NCnByZWRpY3QobW9kX2ZyYW5jZSwgeWVhcnMxKQ0KYGBgDQoNCg0KV2UgY2FuIHBsb3QgbW9kZWxzICh3aXRoIG9uZSBwcmVkaWN0b3IvX1hfIHZhcmlhYmxlKSB1c2luZyBgZ2dwbG90MmAgdXNpbmcgdGhlDQpgZ2VvbV9zbW9vdGgoKWAgZnVuY3Rpb24uIFNwZWNpZnlpbmcgYG1ldGhvZCA9ICJsbSJgIGdpdmVzIHVzIHRoZSBsaW5lYXIgDQpyZWdyZXNzaW9uIGZpdCAoYnV0IG9ubHkgdmlzdWFsbHkhKToNCg0KYGBge3J9DQpnZ3Bsb3QoZ2FwbWluZGVyLCBhZXMoZ2RwUGVyY2FwLCBsaWZlRXhwKSkgKw0KICAgIGdlb21fcG9pbnQoKSArDQogICAgZ2VvbV9zbW9vdGgobWV0aG9kPSJsbSIpICsNCiAgICBzY2FsZV94X2xvZzEwKCkNCmBgYA0KDQpMZXQncyBjb25zaWRlciBhbm90aGVyIGNvdW50cnkgIlppbWJhYndlIiwgd2hpY2ggaGFzIGEgdW5pcXVlIGJlaGF2aW9yIGluIHRoZSANCmBsaWZlRXhwYCBhbmQgYHllYXJgIHJlbGF0aW9uc2hpcC4NCg0KYGBge3J9DQpnYXBtaW5kZXJfWmltYmFid2UgPC0gRklMTF9USElTX0lODQpnYXBtaW5kZXJfWmltYmFid2UgJT4lIGdncGxvdChhZXMoeWVhciwgbGlmZUV4cCkpICsgZ2VvbV9wb2ludCgpDQpgYGANCg0KTGV0J3MgdHJ5IGZpdHRpbmcgYSBsaW5lYXIgbW9kZWwgdG8gdGhpcyByZWxhdGlvbnNoaXANCmBgYHtyfQ0KZ2dwbG90KGdhcG1pbmRlcl9aaW1iYWJ3ZSwgYWVzKHllYXIsbGlmZUV4cCkpICsgZ2VvbV9wb2ludCgpK2dlb21fc21vb3RoKG1ldGhvZCA9ICJsbSIsIHNlID0gRikNCmBgYA0KDQpOb3cgd2Ugd2lsbCB0cnkgdG8gZml0IGEgc2Vjb25kIGRlZ3JlZSBwb2x5bm9taWFsIGFuZCBzZWUgd2hhdCB3b3VsZCB0aGF0IGxvb2sgbGlrZS4NCg0KYGBge3J9DQpnZ3Bsb3QoRklMTF9USElTX0lOKSArIGdlb21fcG9pbnQoKSArIGdlb21fc21vb3RoKEZJTExfVEhJU19JTikNCg0KYGBgDQoNCmBgYHtyfQ0KbG1fbGluZWFyIDwtIGxtKGRhdGEgPSBnYXBtaW5kZXIsZm9ybXVsYSA9IEZJTExfVEhJU19JTikNCmxtX3BvbHkgPC0gbG0oZGF0YSA9IGdhcG1pbmRlcixmb3JtdWxhID0gRklMTF9USElTX0lOKSkNCmBgYA0KDQpgYW5vdmFgIGxldHMgeW91IGNvbXBhcmUgYmV0d2VlbiBkaWZmZXJlbnQgbW9kZWxzLg0KYGBge3J9DQphbm92YShsbV9saW5lYXIsIGxtX3BvbHkpDQpgYGANCg0KIyMgUmVncmVzc2lvbiB3aXRoIGNhdGVnb3JpY2FsIHZhcmlhYmxlcw0KDQpgYGB7cn0NCihsbV9mcmFuY2VfY2F0IDwtIGxtKGdkcFBlcmNhcCB+IEkoeWVhciAtIDE5NTIpICsgY29udGluZW50LCBkYXRhID0gZ2FwbWluZGVyKSkNCg0KYGBgDQoNCkhvdyBkaWQgUiBrbm93IHRoYXQgY29udGluZW50IHdhcyBhIGNhdGVnb3JpY2FsIHZhcmlhYmxlPw0KYGBge3J9DQpjbGFzcyhnYXBtaW5kZXIkY29udGluZW50KQ0KbGV2ZWxzKGdhcG1pbmRlciRjb250aW5lbnQpDQpjb250cmFzdHMoZ2FwbWluZGVyJGNvbnRpbmVudCkNCmBgYA0KDQpIb3cgY2FuIHdlIGNoYW5nZSB0aGUgcmVmZXJlbmNlIGxldmVsPw0KYGBge3J9DQpnYXBtaW5kZXIkY29udGluZW50IDwtIHJlbGV2ZWwoZ2FwbWluZGVyJGNvbnRpbmVudCwgcmVmID0gIk9jZWFuaWEiKQ0KYGBgDQoNCkxldCdzIGJ1aWxkIGEgbmV3IG1vZGVsDQpgYGB7cn0NCmxtX2NhdDIgPC0gbG0oZ2RwUGVyY2FwIH4gSSh5ZWFyIC0gMTk1MikgKyBjb250aW5lbnQsIGRhdGEgPSBnYXBtaW5kZXIpDQoNCmBgYA0KDQoNCiMjIEJyb29tDQoNCkxldCdzIG1ha2UgaXQgZWFzaWVyIHRvIGV4dHJhY3QgaW5mbywgdXNpbmcgdGhlIGBicm9vbWAgcGFja2FnZS4gVGhlcmUgYXJlIHRocmVlIGNyb3duIGZ1bmN0aW9ucyBpbiB0aGlzIHBhY2thZ2UsIGFsbCBvZiB3aGljaCBpbnB1dCBhIGZpdHRlZCBtb2RlbCwgYW5kIG91dHB1dHMgYSB0aWR5IGRhdGEgZnJhbWUuDQoNCjEuIGB0aWR5YDogZXh0cmFjdCBzdGF0aXN0aWNhbCBzdW1tYXJpZXMgYWJvdXQgZWFjaCBjb21wb25lbnQgb2YgdGhlIG1vZGVsLg0KICAgIC0gVXNlZnVsIGZvciBfaW50ZXJwcmV0YXRpb25fIHRhc2suDQoyLiBgYXVnbWVudGA6IGFkZCBjb2x1bW5zIHRvIHRoZSBvcmlnaW5hbCBkYXRhIGZyYW1lLCBnaXZpbmcgaW5mb3JtYXRpb24gY29ycmVzcG9uZGluZyB0byBlYWNoIHJvdy4NCiAgICAtIFVzZWZ1bCBmb3IgX3ByZWRpY3Rpb25fIHRhc2suDQozLiBgZ2xhbmNlYDogZXh0cmFjdCBzdGF0aXN0aWNhbCBzdW1tYXJpZXMgYWJvdXQgdGhlIG1vZGVsIGFzIGEgd2hvbGUgKDEtcm93IHRpYmJsZSkuDQogICAgLSBVc2VmdWwgZm9yIGNoZWNraW5nIGdvb2RuZXNzIG9mIGZpdC4NCg0KRXhlcmNpc2U6IGFwcGx5IGFsbCB0aHJlZSBmdW5jdGlvbnMgdG8gb3VyIGZpdHRlZCBtb2RlbCwgYG15X2xtYC4gV2hhdCBkbyB5b3Ugc2VlPw0KDQpgYGB7cn0NCg0KYGBgDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIldvcmtzaGVldDogVGhlIE1vZGVsLUZpdHRpbmcgUGFyYWRpZ20gaW4gUiINCm91dHB1dDogaHRtbF9ub3RlYm9vaw0KZWRpdG9yX29wdGlvbnM6IA0KICBjaHVua19vdXRwdXRfdHlwZTogaW5saW5lDQotLS0NCg0KYGBge3J9DQpzdXBwcmVzc1BhY2thZ2VTdGFydHVwTWVzc2FnZXMobGlicmFyeSh0aWR5dmVyc2UpKQ0KbGlicmFyeShnYXBtaW5kZXIpDQpsaWJyYXJ5KGJyb29tKQ0KYGBgDQoNClNvIHlvdSB3YW50IHRvIGZpdCBhIG1vZGVsIHRvIHlvdXIgZGF0YS4gSG93IGNhbiB5b3UgYWNoaWV2ZSB0aGlzIHdpdGggUj8NCg0KVG9waWNzOg0KDQoxLiBXaGF0IF9pc18gbW9kZWwtZml0dGluZz8NCjIuIEhvdyBkbyB3ZSBmaXQgYSBtb2RlbCBpbiBSPw0KMy4gSG93IGNhbiB3ZSBvYnRhaW4gdGlkeSByZXN1bHRzIGZyb20gdGhlIG1vZGVsIG91dHB1dD8NCg0KDQoNCg0KDQojIyBGaXR0aW5nIGEgbW9kZWwgaW4gUg0KDQoNCg0KDQoNCldlIGNhbiBwbG90IG1vZGVscyAod2l0aCBvbmUgcHJlZGljdG9yL19YXyB2YXJpYWJsZSkgdXNpbmcgYGdncGxvdDJgIHVzaW5nIHRoZQ0KYGdlb21fc21vb3RoKClgIGZ1bmN0aW9uLiBTcGVjaWZ5aW5nIGBtZXRob2QgPSAibG0iYCBnaXZlcyB1cyB0aGUgbGluZWFyIA0KcmVncmVzc2lvbiBmaXQgKGJ1dCBvbmx5IHZpc3VhbGx5ISk6DQoNCmBgYHtyfQ0KZ2dwbG90KGdhcG1pbmRlciwgYWVzKGdkcFBlcmNhcCwgbGlmZUV4cCkpICsNCiAgICBnZW9tX3BvaW50KCkgKw0KICAgIGdlb21fc21vb3RoKG1ldGhvZD0ibG0iKSArDQogICAgc2NhbGVfeF9sb2cxMCgpDQpgYGANCg0KTGV0J3MgY29uc2lkZXIgYW5vdGhlciBjb3VudHJ5ICJaaW1iYWJ3ZSIsIHdoaWNoIGhhcyBhIHVuaXF1ZSBiZWhhdmlvciBpbiB0aGUgDQpgbGlmZUV4cGAgYW5kIGB5ZWFyYCByZWxhdGlvbnNoaXAuDQoNCmBgYHtyfQ0KZ2FwbWluZGVyX1ppbWJhYndlIDwtIEZJTExfVEhJU19JTg0KZ2FwbWluZGVyX1ppbWJhYndlICU+JSBnZ3Bsb3QoYWVzKHllYXIsIGxpZmVFeHApKSArIGdlb21fcG9pbnQoKQ0KYGBgDQoNCkxldCdzIHRyeSBmaXR0aW5nIGEgbGluZWFyIG1vZGVsIHRvIHRoaXMgcmVsYXRpb25zaGlwDQpgYGB7cn0NCmdncGxvdChnYXBtaW5kZXJfWmltYmFid2UsIGFlcyh5ZWFyLGxpZmVFeHApKSArIGdlb21fcG9pbnQoKStnZW9tX3Ntb290aChtZXRob2QgPSAibG0iLCBzZSA9IEYpDQpgYGANCg0KTm93IHdlIHdpbGwgdHJ5IHRvIGZpdCBhIHNlY29uZCBkZWdyZWUgcG9seW5vbWlhbCBhbmQgc2VlIHdoYXQgd291bGQgdGhhdCBsb29rIGxpa2UuDQoNCmBgYHtyfQ0KZ2dwbG90KEZJTExfVEhJU19JTikgKyBnZW9tX3BvaW50KCkgKyBnZW9tX3Ntb290aChGSUxMX1RISVNfSU4pDQoNCmBgYA0KDQpgYGB7cn0NCmxtX2xpbmVhciA8LSBsbShkYXRhID0gZ2FwbWluZGVyLGZvcm11bGEgPSBGSUxMX1RISVNfSU4pDQpsbV9wb2x5IDwtIGxtKGRhdGEgPSBnYXBtaW5kZXIsZm9ybXVsYSA9IEZJTExfVEhJU19JTikpDQpgYGANCg0KDQojIyBSZWdyZXNzaW9uIHdpdGggY2F0ZWdvcmljYWwgdmFyaWFibGVzDQoNCmBgYHtyfQ0KKGxtX2ZyYW5jZV9jYXQgPC0gbG0oZ2RwUGVyY2FwIH4gSSh5ZWFyIC0gMTk1MikgKyBjb250aW5lbnQsIGRhdGEgPSBnYXBtaW5kZXIpKQ0KDQpgYGANCg0KSG93IGRpZCBSIGtub3cgdGhhdCBjb250aW5lbnQgd2FzIGEgY2F0ZWdvcmljYWwgdmFyaWFibGU/DQpgYGB7cn0NCmNsYXNzKGdhcG1pbmRlciRjb250aW5lbnQpDQpsZXZlbHMoZ2FwbWluZGVyJGNvbnRpbmVudCkNCmNvbnRyYXN0cyhnYXBtaW5kZXIkY29udGluZW50KQ0KYGBgDQoNCkhvdyBjYW4gd2UgY2hhbmdlIHRoZSByZWZlcmVuY2UgbGV2ZWw/DQpgYGB7cn0NCmdhcG1pbmRlciRjb250aW5lbnQgPC0gcmVsZXZlbChnYXBtaW5kZXIkY29udGluZW50LCByZWYgPSAiT2NlYW5pYSIpDQpgYGANCg0KTGV0J3MgYnVpbGQgYSBuZXcgbW9kZWwNCmBgYHtyfQ0KbG1fY2F0MiA8LSBsbShnZHBQZXJjYXAgfiBJKHllYXIgLSAxOTUyKSArIGNvbnRpbmVudCwgZGF0YSA9IGdhcG1pbmRlcikNCg0KYGBgDQoNCg0KIyMgQnJvb20NCg0KTGV0J3MgbWFrZSBpdCBlYXNpZXIgdG8gZXh0cmFjdCBpbmZvLCB1c2luZyB0aGUgYGJyb29tYCBwYWNrYWdlLiBUaGVyZSBhcmUgdGhyZWUgY3Jvd24gZnVuY3Rpb25zIGluIHRoaXMgcGFja2FnZSwgYWxsIG9mIHdoaWNoIGlucHV0IGEgZml0dGVkIG1vZGVsLCBhbmQgb3V0cHV0cyBhIHRpZHkgZGF0YSBmcmFtZS4NCg0KMS4gYHRpZHlgOiBleHRyYWN0IHN0YXRpc3RpY2FsIHN1bW1hcmllcyBhYm91dCBlYWNoIGNvbXBvbmVudCBvZiB0aGUgbW9kZWwuDQogICAgLSBVc2VmdWwgZm9yIF9pbnRlcnByZXRhdGlvbl8gdGFzay4NCjIuIGBhdWdtZW50YDogYWRkIGNvbHVtbnMgdG8gdGhlIG9yaWdpbmFsIGRhdGEgZnJhbWUsIGdpdmluZyBpbmZvcm1hdGlvbiBjb3JyZXNwb25kaW5nIHRvIGVhY2ggcm93Lg0KICAgIC0gVXNlZnVsIGZvciBfcHJlZGljdGlvbl8gdGFzay4NCjMuIGBnbGFuY2VgOiBleHRyYWN0IHN0YXRpc3RpY2FsIHN1bW1hcmllcyBhYm91dCB0aGUgbW9kZWwgYXMgYSB3aG9sZSAoMS1yb3cgdGliYmxlKS4NCiAgICAtIFVzZWZ1bCBmb3IgY2hlY2tpbmcgZ29vZG5lc3Mgb2YgZml0Lg0KDQpFeGVyY2lzZTogYXBwbHkgYWxsIHRocmVlIGZ1bmN0aW9ucyB0byBvdXIgZml0dGVkIG1vZGVsLCBgbXlfbG1gLiBXaGF0IGRvIHlvdSBzZWU/DQoNCmBgYHtyfQ0KDQpgYGANCg==</div>
 
 
 

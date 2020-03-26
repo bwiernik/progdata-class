@@ -13,7 +13,6 @@ Imports:
     lubridate,
     here,
     cowplot,
-    patchwork
-    gridExtra,
+    patchwork,
     broom,
     modelr
