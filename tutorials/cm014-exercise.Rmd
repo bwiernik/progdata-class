@@ -20,136 +20,13 @@ Topics:
 3. How can we obtain tidy results from the model output?
 
 
-## What is Model-Fitting?
 
-When variables are not independent, then we can gain information about one 
-variable if we know something about the other.
-
-**Example:** Use the scatterplot below
-
-1. A car weighs 4000 lbs. What can we say about its mpg?
-2. A car weights less than 3000 lbs. What can we say about its mpg?
-
-```{r, fig.width=5, fig.height=3}
-library(tidyverse)
-ggplot(mtcars, aes(wt, mpg)) +
-  geom_point() +
-  labs(x = "Weight (1000's of lbs)")
-```
-
-**Example:** What can we say about rear axle ratio if we know something about 
-quarter mile time?
-
-```{r, fig.width=5, fig.height=3}
-ggplot(mtcars, aes(qsec, drat)) + 
-  geom_point() +
-  labs(x = "Quarter mile time",
-       y = "Rear axle ratio")
-```
-
-
-If exploratory data analysis isn't enough, we can answer these questions more
-precisely by _fitting a model_: a curve that predicts _Y_ given _X_. This is 
-also called a __regression curve__ or a __machine learning model__. 
-
-(There are more comprehensive models too, such as modeling entire distributions, 
-but that's not what we're doing here)
-
-There are typically two goals of fitting a model:
-
-1. Make predictions.
-2. Interpret variable relationships.
 
 
 ## Fitting a model in R
 
-Model fitting methods tend to use a common format in R:
-
-```
-method(formula, data, options)
-```
-
-They also tend to have a common output: a special _list_. 
-
-__Method__:
-
-A function such as:
-
-- Linear Regression: `lm`
-- Generalized Linear Regression: `glm` (e.g., logistic regression, Poisson regression)
-- Local regression (aka "smoother lines"): `loess`
-- Quantile regression: `quantreg::rq`
-- Meta-analysis: `metafor::rma`
-- ...
-
-__Formula__:
-
-In R, takes the form `y ~ x1 + x2 + ... + xp` (x1, x2, etc. are the column names 
-in your data frame).
-
-__Data__: The data frame.
-
-__Options__: Specific to the method.
 
 
-Exercise: Use `gapminder`.
-
-1. Fit a linear regression model to life expectancy ("Y") from year ("X") by 
-   filling in the formula. 
-   
-   Notice what appears as the output.
-2. On a new line, use the `unclass` function to uncover the object's true nature: a list.
-   Note: it might be easier to use the `names` function to see what components are included in    the list. 
-
-First, create a subset of the `gapminder` dataset containing only the country of `France
-```{r}
-(gapminder_France <- FILL_THIS_IN)
-```
-
-Now, using the `lm()` function we will create the linear model
-```{r}
-(mod_france <- lm(FILL_THIS_IN))
-```
-
-Does that mean that the life expectency at "year 0" was equal to -397.7646?!
-
-We are interested in the modeling results around the modeling period which 
-starts at year 1952. To get a meaniningful "interpretable" intercept, we can use 
-the `I()` function. `I()` lets you tell R to fit the model to an arithmetic
-transformation of a variable. For example:
-
-```{r}
-(mod_france <- lm(lifeExp ~ I(year - 1952), data = gapminder_France))
-
-```
-
-In this model, the intercept
-
-Use the `unclass()` function to take a look at how the `lm()` object actually looks like.
-
-```{r}
-unclass(mod_france)
-```
-
-To complicate things further, some info is stored in _another_ list after applying the `summary` function:
-
-```{r}
-summary(mod_france)
-```
-
-We can use the `predict()` function to make predictions from the model (default is to use fitting/training data). Here are the predictions:
-
-```{r}
-predict(mod_france) %>% 
-  head()
-```
-
-Or we can predict on a new dataset:
-
-```{r}
-years1 = FILL_THIS_IN
-predict(mod_france, years1)
-```
 
 
 We can plot models (with one predictor/_X_ variable) using `ggplot2` using the
@@ -188,10 +65,6 @@ lm_linear <- lm(data = gapminder,formula = FILL_THIS_IN)
 lm_poly <- lm(data = gapminder,formula = FILL_THIS_IN))
 ```
 
-`anova` lets you compare between different models.
-```{r}
-anova(lm_linear, lm_poly)
-```
 
 ## Regression with categorical variables
 

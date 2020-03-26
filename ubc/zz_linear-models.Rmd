@@ -29,78 +29,7 @@ set.seed(1234)
 theme_set(theme_minimal())
 ```
 
-Linear models are the simplest statistical learning method to understand. 
-They adopt a generic form
 
-$$y = \beta_0 + \beta_1 \times x$$
-
-where $y$ is the **outcome of interest**, $x$ is the **explanatory** or **predictor**
-variable, and $\beta_0$ and $\beta_1$ are **parameters** that vary to capture 
-different patterns. Given the empirical values you have for $x$ and $y$, you 
-generate a **fitted model** that finds the values for the parameters that best 
-fit the data.
-
-```{r sim-plot}
-ggplot(sim1, aes(x, y)) + 
-  geom_point()
-```
-
-This looks like a linear relationship. We could randomly draw lines. (That is, we
-could randomly generate values for $\beta_0$ and $\beta_1$ for the formula 
-$y = \beta_0 + \beta_1 \times x$ to try and explain or predict the relationship 
-between $x$ and $y$.):
-
-```{r sim-random-fit}
-models <- tibble(
-  a1 = runif(250, -20, 40),
-  a2 = runif(250, -5, 5)
-)
-
-ggplot(sim1, aes(x, y)) + 
-  geom_abline(aes(intercept = a1, slope = a2), data = models, alpha = 1/4) +
-  geom_point()
-```
-
-But obviously some parameters are better than others. We need a definition that 
-can be used to differentiate good parameters from bad parameters. One approach 
-widely used is called **least squares** - it means that the overall solution 
-minimizes the sum of the squares of the errors made in the results of every 
-single equation. The errors are simply the vertical difference between the 
-actual values for $y$ and the predicted values for $y$.
-
-```{r sim-error, echo = FALSE}
-dist1 <- sim1 %>% 
-  mutate(
-    dodge = rep(c(-1, 0, 1) / 20, 10),
-    x1 = x + dodge,
-    pred = 7 + x1 * 1.5
-  )
-
-ggplot(dist1, aes(x1, y)) + 
-  geom_abline(intercept = 7, slope = 1.5, color = "grey40") +
-  geom_point(color = "grey40") +
-  geom_linerange(aes(ymin = y, ymax = pred), color = "#3366FF")
-```
-
-[R for Data Science](http://r4ds.had.co.nz/model-basics.html) walks you through 
-the steps to perform all these calculations manually by writing your own functions. 
-I encourage you to read through and practice some of this code, especially if 
-you have no experience with linear models.
-
-However for our purposes here I will assume you at least get the basics of this 
-process. You can use `ggplot2` to draw the best-fit line:
-
-```{r sim-plot-lm}
-ggplot(sim1, aes(x, y)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-The line in blue is the best-fit line, with 95% confidence intervals in grey 
-indicating a range of values so defined that there is a 95% probability that the 
-true value of a parameter lies within it. If you want to learn more about the 
-precise definition of confidence intervals and the debate over how useful they 
-actually are, you should take a statistics class.
 
 ## Estimating a linear model using `lm()`
 
@@ -341,12 +270,12 @@ resids %>%
     geom_smooth(se = FALSE)
 ```
 
-## Exercise: linear regression with `scorecard`
+## Exercise: Linear regression with `psych::bfi`
 
-Recall the `scorecard` data set which contains information on U.S. institutions of higher learning.
+Recall the `psych::bfi` dataset which contains information on U.S. institutions of higher learning.
 
 ```{r scorecard}
-library(rcfss)
+
 scorecard
 ```
 

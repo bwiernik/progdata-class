@@ -14,4 +14,6 @@ Imports:
     here,
     cowplot,
     patchwork
-    gridExtra
+    gridExtra,
+    broom,
+    modelr

@@ -59,9 +59,6 @@ particularly well-written and funny.
 
 ```{r packages, cache = FALSE, message = FALSE, warning = FALSE}
 library(tidyverse)
-library(modelr)
-library(broom)
-library(rcfss)
 library(broom)
 set.seed(1234)
 
@@ -83,7 +80,6 @@ feet tall.
 2. A car weights less than 3000 lbs. What can we say about its mpg?
 
 ```{r, fig.width=5, fig.height=3}
-library(tidyverse)
 ggplot(mtcars, aes(wt, mpg)) +
   geom_point() +
   labs(x = "Weight (1000's of lbs)")
@@ -170,7 +166,7 @@ parameters by picking values that best fit the data.
 Let's look at some simulated data with predictor $x$ and response $y$. 
 
 ```{r sim-plot}
-ggplot(sim1, aes(x, y)) + 
+ggplot(modelr::sim1, aes(x, y)) + 
   geom_point()
 ```
 
@@ -185,7 +181,7 @@ models <- tibble(
   a2 = runif(250, -5, 5)
 )
 
-ggplot(sim1, aes(x, y)) + 
+ggplot(modelr::sim1, aes(x, y)) + 
   geom_abline(aes(intercept = a1, slope = a2), data = models, alpha = 1/4) +
   geom_point()
 ```
@@ -203,7 +199,7 @@ values [the line]?) are the _vertical_ difference between the actual values for
 $y$ and the predicted values for $y$ (the points on the line).
 
 ```{r sim-error, echo = FALSE}
-dist1 <- sim1 %>% 
+dist1 <- modelr::sim1 %>% 
   mutate(
     dodge = rep(c(-1, 0, 1) / 20, 10),
     x1 = x + dodge,
@@ -225,7 +221,7 @@ However for our purposes, let's focus on using existing R tools to fit a linear
 model. You can use `ggplot2` to draw the best-fit line:
 
 ```{r sim-plot-lm}
-ggplot(sim1, aes(x, y)) +
+ggplot(modelr::sim1, aes(x, y)) +
   geom_point() +
   geom_smooth(method = "lm")
 ```
@@ -386,7 +382,7 @@ predict(mod_europe, interval = "confidence") # can abbreviate to "conf"
 Or we can predict on a new dataset:
 
 ```{r}
-new_data_france <- modelr::tibble(year = c(1955, 1964, 1971, 1998, 2000, 2006))
+new_data_france <- tibble(year = c(1955, 1964, 1971, 1998, 2000, 2006))
 predict(mod_europe, newdata = new_data_france, interval = TRUE)
 ```
 
@@ -501,19 +497,34 @@ left over across countries in a single year. The `sigma` value is the left over
 accounting for the predictors (year). Here, within a single year, countries'
 life expectancies have a standard deviation of `r glance(mod_europe)$sigma`.
 
-## Multivariable models
+If you want a full ANOVA table for your model, use the `anova()` function:
+
+```{r}
+anova(mod_europe)
+```
+
+(I prefer to focus on the adjusted $R^2$ and `sigma` values to the ANOVA table.)
+
+## Categorical and multivariable models
+
+If you include a character or factor variable as a predictor, R will turn this
+into a series of dummy-coded contrast variables:
+
+```{r}
+(mod_europe_country <- lm(lifeExp ~ country, data = gapminder_europe))
+```
 
 You can fit models with multiple predictors by adding them to the right side of
 your formula:
 
 ```{r}
-(mod_europe_gdp <- lm(lifeExp ~ year + gdpPerCap, data = gapminder_europe))
+(mod_europe_gdp <- lm(lifeExp ~ year + gdpPercap, data = gapminder_europe))
 ```
 
 You can transform variables before including them in the model:
 
 ```{r}
-(mod_europe_lgdp <- lm(lifeExp ~ year + log(gdpPerCap), data = gapminder_europe))
+(mod_europe_lgdp <- lm(lifeExp ~ year + log(gdpPercap), data = gapminder_europe))
 ```
 
 You can specify squared terms or other arithmetic transformations using the 
@@ -524,19 +535,22 @@ You can specify squared terms or other arithmetic transformations using the
 ```
 
 You can specify interactions between two variables using `*`. This will include
-both variables themselves (`year`, `log(gdpPerCap)`) and their product/interaction
-(`year:gdpPerCap`):
+both variables themselves (`year`, `log(gdpPercap)`) and their product/interaction
+(`year:gdpPercap`):
 
 ```{r}
-(mod_europe_interaction <- lm(lifeExp ~ year * log(gdpPerCap), data = gapminder_europe))
+(mod_europe_interaction <- lm(lifeExp ~ year * log(gdpPercap), data = gapminder_europe))
 ```
 
-If you include a character or factor variable as a predictor, R will turn this
-into a series of dummy-coded contrast variables:
+You can use `anova()` to compare two nested models:
 
 ```{r}
-(mod_europe_country <- lm(lifeExp ~ country, data = gapminder_europe))
+anova(mod_europe, mod_europe_yrsq)
 ```
+
+This comparison suggests that adding a squared term for year only slightly
+improves model fit. The year-trend for life expectancy is most linear. 
+
 
 ## Summary
 
