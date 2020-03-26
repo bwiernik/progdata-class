@@ -240,6 +240,8 @@ to fit the line. `"lm"` stands for "linear model" and uses R's function for
 fitting linear models, `lm()`, to fit the line. `lm()` is one of many modeling 
 function in R. 
 
+## Model-Fitting in R
+
 Model fitting methods usually use a common format in R:
 
 ```
@@ -505,7 +507,7 @@ anova(mod_europe)
 
 (I prefer to focus on the adjusted $R^2$ and `sigma` values to the ANOVA table.)
 
-## Categorical and multivariable models
+## Categorical and Multivariable Models
 
 If you include a character or factor variable as a predictor, R will turn this
 into a series of dummy-coded contrast variables:
