@@ -1,4 +1,4 @@
-## Making ggplots interactive with plotly
+# Making ggplots interactive with plotly
 
 ## Plotly demo
 
