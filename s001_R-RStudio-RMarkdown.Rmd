@@ -578,7 +578,7 @@ Together:
 ```{r}
 library(gapminder)
 library(tibble)
-library(knit)
+library(knitr)
 library(DT)
 ```
 
