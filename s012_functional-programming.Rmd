@@ -1,0 +1,385 @@
+# Let's get functional
+
+## Today
+
+Today, we are going to expand on last week's topic of model-fitting to cover
+three important topics:
+  1. Using a "functional programming" approach to make your code more efficient
+     and avoid "repeating yourself"—copying and pasting essentially the same code
+     over and over again 
+  2. As part of the functional programming approach, how to write your own
+     functions in R to do useful things.
+  
+
+## Resources
+
+1. Chapter 21 of [R for Data Science](https://r4ds.had.co.nz/iteration.html).
+2. [Learn to purr](http://www.rebeccabarter.com/blog/2019-08-19_purrr/) blog post.
+3. Chapter 9 of [Advanced R for Data Science](https://adv-r.hadley.nz/functionals.html).
+
+```{r}
+library(tidyverse)
+library(broom)
+library(psychTools)
+```
+
+## What is functional programming?
+
+I recommend you start today by watching 
+[this presentation](https://youtu.be/bzUmK0Y07ck?t=251) by Hadley Wickham, the 
+chief scientist at RStudio and the architect of the tidyverse, on functional 
+programming. He uses a really great analogy of baking cupcakes to motivate
+why a functional approach is useful, and he demonstrates the skills we will
+be using today.
+
+If you don't watch the whole video, at least read through and understand
+[the slides](https://speakerdeck.com/hadley/the-joy-of-functional-programming) 
+accompanying the presentation.
+
+Until now, you've problem approached each **R** programming task as its own problem:
+you figured out what variables you were working with and then wrote code to wrangle,
+transform, plot, or model that variable. For example, in last week's activity, 
+you looked at gender differences in the Big Five personality traits using the
+`psych::bfi` dataset. Your code for that probably looked something like this:
+
+```{r}
+bfi <- psychTools::bfi
+keys <- replace_na(psychTools::bfi.dictionary$Keying, 1)
+
+bfi_mean <- bfi %>% mutate_at(names(bfi)[keys == -1], ~ 7 - .x) %>% 
+  mutate(A = rowMeans(select(., A1:A5), na.rm = TRUE),
+         C = rowMeans(select(., C1:C5), na.rm = TRUE),
+         E = rowMeans(select(., E1:E5), na.rm = TRUE),
+         N = rowMeans(select(., N1:N5), na.rm = TRUE),
+         O = rowMeans(select(., O1:O5), na.rm = TRUE),
+         gender = recode_factor(gender, `1` = "male", `2` = "female"),
+         education = recode_factor(education, `1` = "some hs", 
+                                              `2` = "hs", 
+                                              `3` = "some college", 
+                                              `4` = "college",
+                                              `5` = "graduate degree")) %>% 
+  select(gender:O)
+  
+mod_gender_a <- lm(A ~ gender, data = bfi_mean)
+mod_gender_c <- lm(C ~ gender, data = bfi_mean)
+mod_gender_e <- lm(E ~ gender, data = bfi_mean)
+mod_gender_n <- lm(N ~ gender, data = bfi_mean)
+mod_gender_o <- lm(O ~ gender, data = bfi_mean)
+```
+
+This works, but it can get really tedious. What if you wanted to do this sort
+of analysis with 25 varibles? Or 100 variables? What if you wanted to fit a bunch 
+of similar, but slightly different, versions of the model (e.g., regressing on
+gender, age, education, or a combination of these)? That is a recipe for boredom
+and finger cramps at best and typos or errors at worst (potentially with big
+consequences if you don't catch them before they are disseminated). 
+
+Functional programming can come to the rescue here. The idea of functional 
+programming is that, rather than writing bespoke code for each new analysis 
+or each new variable, we can **write the code once** and then 
+**apply it over and over again** as needed for new analyses. 
+
+For example, we can streamline the code above using the `map()` function in the
+`purrr` package:
+
+```{r}
+bfi_just_traits <- select(bfi_mean, A:O)
+mods_gender <- 
+  map(bfi_just_traits,
+      ~ lm(.x ~ gender, data = bfi_mean)
+      )
+
+# Or, using the pipe without making an intermediate object
+
+mods_gender <- 
+  bfi_mean %>% 
+  select(A:O) %>% 
+  map(~ lm(.x ~ gender, data = bfi_mean))
+```
+
+The result of this code is `mods_gender`, a *list* of models, one for each Big 
+Five trait. You can then use these pass these models to other functions, such as
+`summary()`, `tidy()`, or `glance()`.
+
+```{r}
+mods_gender
+
+map(mods_gender, summary)
+```
+
+In this way, `map()` lets us write code that is much shorter, easier to read, 
+and less prone to copy-paste errors.
+
+Let's dive into how `map()` works.
+
+
+## Working with `map()`
+
+
+`map()` takes a data frame, list, or vector as as input and applies the requested 
+function to each column of the data frame or element of the list/vector.
+
+This impage illustrates what `map` does: 
+
+<img src="https://d33wubrfki0l68.cloudfront.net/12f6af8404d9723dff9cc665028a35f07759299d/d0d9a/diagrams/functionals/map-list.png" width=500>
+
+Source: [Advanced R](https://adv-r.hadley.nz/index.html) by Hadley Wickham.
+
+*Note*: In this image, the input is a *list* and the function `f()` is applied
+to each element of the list. When the input is a *data frame*, the function `f()`
+is applied to each *column* of the data frame.
+
+Its arguments look like this:
+
+`map(.x, .f, ...)`
+
+For example, this code takes each column of the `cars` data set and applies the
+`mean` function:
+
+```{r}
+map(cars, mean)
+```
+
+You can see a similar example above where I applied the `summary()` function to
+each element of the `mods_gender` list.
+
+Often, you will want to specify additional arguments for the function you are
+mapping. The easiest way to do that is using `~`. With `~`, you can write out
+a whole function call, similar to `lm(A ~ gender, data = bfi_mean)`. For example:
+
+```{r}
+map(cars, ~ mean(.x, trim = .1))
+```
+
+When you use `~`, in the function call, `.x` is a **placeholder** that means
+"whatever the current variable from the data frame is". So, the above code means
+"Take each column of cars and pass to to the `mean()` function with the argument
+`trim = .1`."
+
+Accordingly, the gender modeling code above:
+
+```{r}
+mods_gender <- 
+  bfi_mean %>% 
+  select(A:O) %>% 
+  map(~ lm(.x ~ gender, data = bfi_mean))
+mods_gender
+```
+
+means "Take `bfi_mean` and select columns `A` through `O`. For each of these
+columns, predict the column using the `lm()` function with `gender` from the
+`bfi_mean` data frame as a predictor."
+
+### More details on `map()`
+
+`map()` is the basic mapping function in the `purrr` package. It always returns
+a **list**. This is useful for *a lot* of purposes, but there are additional 
+`map_*()` functions that also return other outputs. 
+
+For example, let's say that I wanted to return just the `r.squared` value for each
+of the gender–Big Five trait models. I could use the `map_dbl()` function, which
+returns a numeric vetor instead of a list:
+
+```{r}
+rsq_gender <- 
+  bfi_mean %>% 
+    select(A:O) %>% 
+    map_dbl(~ lm(.x ~ gender, data = bfi_mean) %>% 
+                summary() %>% .$r.squared)
+rsq_gender
+```
+
+`map_dfc()` combines all of the results into the *columns* of a new data frame. 
+`map_dfr()` combines all of the results into the *rows* of a new data frame. For
+example, to extract the coefficients for all of the models:
+
+```{r}
+coef_gender <- 
+  bfi_mean %>% 
+    select(A:O) %>% 
+    map_dfr(~ lm(.x ~ gender, data = bfi_mean) %>% 
+                coef(),
+            .id = "Trait")
+coef_gender
+```
+
+The `.id` argument gives the name of the variable where the model each row of 
+results came from.
+
+Similarly, to get the whole coefficient results tables for each model:
+
+```{r}
+coef_summary_gender <- 
+  bfi_mean %>% 
+    select(A:O) %>% 
+    map_dfr(~ lm(.x ~ gender, data = bfi_mean) %>% 
+                tidy(conf.int = TRUE),
+            .id = "Trait")
+coef_summary_gender
+```
+
+For more information on different types of `map_*()` functions, see the `map()`
+help file: `?map()`
+
+You can also map across 2 data frames/lists at once using the `map2_*()` functions
+and across as many lists as you want at once using the `pmap_*()` functions, but
+we aren't going to get into those in detail today. Check out Chapter 21 of 
+[R for Data Science](https://r4ds.had.co.nz/iteration.html) for some examples
+and exercises if you are interested. 
+
+
+## Writing your own functions
+
+`map()` is a powerful tool for performing the same analysis repeatedly, but it's
+possible for the function code you use inside `map()` to get real messy real fast.
+For example, look at this example from above:
+
+```
+coef_summary_gender <- 
+  bfi_mean %>% 
+    select(A:O) %>% 
+    map_dfr(~ lm(.x ~ gender, data = bfi_mean) %>% 
+                tidy(conf.int = TRUE),
+            .id = "Trait")
+coef_summary_gender
+```
+
+The function inside `map_dfr()` is a pipe:
+`~ lm(.x ~ gender, data = bfi_mean) %>% tidy(conf.int = TRUE)`
+
+Especially if a pipe like this gets very long, that can be hard to read.
+
+When you write a function with `~`, that's called an "anonymous function"—you
+are making up that function on the spot and it isn't being saved for future use.
+If your function is complex, it's better to *write and save your function first*, 
+then *call your saved function object inside `map()`*.
+
+For example, we can rewrite the above as:
+
+```{r}
+get_coef_summary_gender <- function(.x, data) {
+  mod <- lm(.x ~ gender, data = bfi_mean)
+  return(tidy(mod, conf.int = TRUE))
+}
+
+coef_summary_gender <- 
+  bfi_mean %>% 
+    select(A:O) %>% 
+    map_dfr(get_coef_summary_gender, .id = "Trait")
+coef_summary_gender
+```
+
+There are two major advanges of writing and saving a function, rather than
+using an anonymous function:
+  1. Your code is often more readable.
+  2. You can reuse the function multiple times throughout your analyses.
+  3. Its easier to fix bugs or typos you might make because your code is only
+     in one spot.
+  
+To write a function in R, use the following template:
+
+```
+function_name <- function(arguments) {
+  # function code
+}
+```
+
+```
+function_name <- function(arg1, arg2, arg3 = FALSE) {
+  # function steps go here
+  return(result)
+}
+```
+
+A function as three parts:
+
+  1. Its **name**: how do we call it?
+  2. Its **arguments**: what are its inputs?
+  3. Its **body**: what does it do with the inputs?
+
+First, pick a name for your function. Like all of your object names, make your
+function names clear and unambiguous. `my_awesome_function()` doesn't tell
+us anything about what the function does. Usually, I prefer to make my function
+names *verbs* to make it clear that they *do* something.
+
+Then, tell R that you are making a function by assigning `function() {}` to your
+function name:
+
+```
+function_name <- function() {}
+```
+
+Your arguments go *inside the parentheses* after `function`. Follow the same basic
+guidelines for naming arguments as you do for naming any object in R. Give your 
+arguments understandable names and be consistent in your naming scheme.
+
+To give an argument a default value, specify the default with `=`. For example,
+this function will take a vector of numbers and draw a histogram of them, 
+with the default colorbeing blue:
+
+```{r}
+plot_histogram <- function(data, color = "blue") {
+  tbl <- tibble(data = data)
+  ggplot(tbl, aes(x = data)) +
+  geom_histogram(color = color, fill = color)
+}
+```
+
+If the user of this function doesn't specify a color, the line and fill colors
+will be blue:
+
+```{r}
+simulated_data <- rnorm(100)
+plot_histogram(simulated_data)
+```
+
+If the user of the function _does_ specify a color, the line and fill colors will
+be the specified color:
+
+```{r}
+plot_histogram(simulated_data, color = "black")
+```
+
+For more guidance on writing R functions, including advanced features and testing,
+see Chapter 19 of [R for Data Science](https://r4ds.had.co.nz/functions.html).
+
+
+## Activities
+
+### Activity 1: `bfi` Models Part 2: Map Attack!
+
+Use the `psych::bfi` dataset again. Compute mean scores for each of the Big Five 
+scales for each person. Then, perform the same analyses as last week. But this
+time, rather than writing out the code for each model and variable separately,
+use `map()` or related functions to do so in a more functional programatic way.
+Fit linear models for each Big Five trait, and present your results using both 
+tables of results and figures.
+
+1. Do men and women differ on the Big Five traits? How big are the differences?
+2. Do the Big Five traits increase or decrease with Age? Is there a linear or 
+   squared trend?
+3. Do the Big Five traits differ across educational levels? Treat education as 
+   a categorical variable.
+4. How well do age and gender together predict the Big Five traits?
+5. In your models in part (4), do the residuals appear to be normally distributed?
+   Are they consistent across age ranges and gender groups?
+   
+### Activity 2: Individual `bfi` Reports
+
+Select 10 people from the `bfi` dataset. Prepare an individualized report for
+each person presenting the following information:
+
+  1. Their mean score on each of the Big Five scales.
+  2. The percentile of their mean score compared to the rest of the full sample
+     of 2800 people (hint: use the `quantile()` function).
+  3. A profile plot illustrating their level on each Big Five trait.
+    - For examples, see [here](https://www.unzcloud.com/wp-content/uploads/2014/02/teddypersonality.png)
+      or [here](https://projects.fivethirtyeight.com/personality-quiz/).
+  4. Bonus: In addition, provide individualized _narrative_ descriptions of what
+     each of their scores means (e.g., based on whether they are "high", "medium",
+     or "low" on each trait). See the two examples linked above for ideas
+     
+To save yourself a bunch of tedious report writing, write a function and consider
+using a `map_*()` function to automate the process. Take a look at Hadley's slides
+and video for some examples! He has R code linked from his talk as well.
+

@@ -15,4 +15,5 @@ Imports:
     cowplot,
     patchwork,
     broom,
-    modelr
+    modelr,
+    psychTools
