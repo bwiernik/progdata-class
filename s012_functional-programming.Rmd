@@ -342,6 +342,8 @@ plot_histogram(simulated_data, color = "black")
 
 For more guidance on writing R functions, including advanced features and testing,
 see Chapter 19 of [R for Data Science](https://r4ds.had.co.nz/functions.html).
+For a great video overview of good functional design, see 
+[this keynote](https://www.youtube.com/watch?v=Qne86lxjgtg).
 
 
 ## Activities
