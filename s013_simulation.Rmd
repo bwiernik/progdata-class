@@ -1,0 +1,346 @@
+# Data Simulation: Making Your Perfect Dataset
+
+Today we will discuss various ways to simulate data. Generally, we either simulate data that follows some global distribution (e.g. normal), or some specific pattern of responses at the individual level (e.g. within-person normal).
+
+
+## Worksheet
+
+You can find a worksheet template for today [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s12_simulation-exercise.Rmd).
+
+LINK THE WORKSHEET ABOVE WHEN IT IS UPLOADED
+
+## Resources
+
+- [An Intro to Simple Simulation](https://bookdown.org/rdpeng/rprogdatascience/simulation.html)
+- [Simulating Different Distributions and Sequences](http://michaelminn.net/tutorials/r-simulating-data/)
+- [Simulating Simple and Multivariate Data](https://it.unt.edu/simple-data-simulations)
+- [A Brief Introduction to the SimStudy Package](https://cran.r-project.org/web/packages/simstudy/vignettes/simstudy.html)
+
+For an overview of Directed Acyclic Graphs see
+[This Paper](https://journals.sagepub.com/doi/full/10.1177/2515245917745629). These graphs are useful for visualizing any complex relationships you may want to simulate.
+
+For an overview of how simulations can aid decision making in instrument development see [This Paper](https://journals.sagepub.com/doi/full/10.1177/0734282917718062).
+
+For an overview of simulations in clinical psychology see [This Paper](https://journals.sagepub.com/doi/full/10.1177/0734282917690302). Although I think this paper is also useful for those outside of clinical to read.
+
+
+## Simple Simulations
+
+The first, and most important thing, to remember about simulations is that the process is random. You will never reproduce the same results twice unless you set a seed for your simulation. The `set.seed()` function allows you to specify a 4 digit number. This will fix how random numbers are generated so that every time you run a script the same results will be produced. This is true across any machine you run the analyses on, so others can replicate your results.
+
+### Distributions in R
+
+Base R provides several functions that allow you to sample data from various distributions. For example, the rnorm statement allows you to randomly sample values from a normal distribution with a specified mean and standard deviation.
+
+The code below simulates data with a mean of 4, standard deviation of 1, and a sample size of 200.
+```{r}
+#This makes it so that all simulations will produce the same numbers
+set.seed(1337)
+
+dataNormal <- rnorm(200, mean = 10, sd = 1)
+
+hist(dataNormal)
+
+```
+
+We can extend this to simulate data from multiple different groups and compare the resulting distributions. This is essentially how you would conduct a power analysis.
+- What if you don't want a normal distribution?
+- There are functions for several different distributions [built into R](https://www.stat.umn.edu/geyer/old/5101/rlook.html)
+
+#### Go to part 1 of the exercise, `rnorm()`, to practice simulating data from two distributions.
+
+### Simulating Distributions Based on Specific Probabilities
+
+While the functions included in R provide an easy way to simulate lots of different distributions, we may want to be more specific about exactly what our distribution looks like. We can use the `sample()` function to sample from a range of numbers and specify a specific probability that each one is sampled.
+
+We can replicate a normal sampling distribution above using specific scale points. For example, let's say we want to simulate a normal distribution of scores for a 5 item likert scale.
+```{r}
+set.seed(1337)
+                            #The numbers we will sample from
+sampleNormalDistribution <- sample(c(1, 2, 3, 4, 5), #i.e. our scale points
+#200 = the number of cases. Replace = T means we can sample the same number multiple times. prob = the probability of each point being sampled. (e.g. 1 has a 6% chance, 2 has a 24% chance)
+                      200, replace=T, prob = c(6, 24, 40, 24, 6)) 
+hist(sampleNormalDistribution)
+
+```
+
+How about a skewed distribution?
+```{r}
+set.seed(1337)
+
+sampleNormalDistribution <- sample(c(1, 2, 3, 4, 5), #scale points
+                      200, replace=T, prob = c(4, 12, 20, 28, 38)) 
+hist(sampleNormalDistribution)
+```
+
+If we wanted to, we could even match the normal distribution more precisely using the sample function. Here we use the sequence function to generate a range of numbers from -3.00 to 3.00, counting up by 0.01 for each new number. Thus, the start of the sequence would look like: -3.00, -2.99, -2.98, etc. We then use the same sequence with the dnorm function, which gives us the probability of a given number at a point along the normal curve. (Note: if you wanted you could change the mean and SD of the dnorm function to get different looking results).
+```{r}
+set.seed(1337)
+
+sampleNormalDistribution <- sample(c(seq(-3.00, 3.00, by = 0.01)), #scale points
+                      10000, replace=T, prob = c(dnorm(seq(-3.00, 3.00, by = 0.01), mean = 0, sd = 1))) 
+hist(sampleNormalDistribution)
+```
+
+#### Go to part 2 of the exercise, `sample()`, so practice using the sample function.
+
+We can also use the `sample()` function to generate data for individual item responses. Below is a script that samples cases for 200 individuals responding to a 10 item measure. The numbers are sampled using the `sample()` function, and are filled by row into a matrix. This data follows a normal distribution globally. (Note: we now need to sample 2,000 cases because each 'person' has 10 responses. Thus, there are 200 * 10 total cases in our data).
+```{r}
+set.seed(1337)
+
+sampleNormalDistribution <- sample(c(1, 2, 3, 4, 5), #scale points
+                      2000, replace=T, prob = c(6, 24, 40, 24, 6)) 
+
+dataNormalSampled <- matrix( 
+  c(sampleNormalDistribution),         
+  nrow=200,              
+  ncol=10,              
+  byrow = TRUE)
+rm(sampleNormalDistribution)
+
+hist(dataNormalSampled)
+
+```
+
+This is great. But, this data follows the same global pattern for all individuals. That is, the distribution for each person will be nearly identical. We know this isn't the case for actual data. Some people will respond with low values on the scale and not high values. We can model this behavior within individual's using loops.
+
+### Using Loops to Simulate Individual Behavior
+
+First we need to talk about what loops are. Basically, it's a way to run the same function on something for multiple iterations.
+
+For example, the below for loop will run 10 times. For each time it runs it will save the value of 'i' to the ith row in the first column of the 'dataForLoop' matrix. i = the loop you are currently on. So the values of i will range from 1 to 10. It will start at 1 and count up once for every loop.
+```{r}
+#Create a matrix we will save our values to
+dataForLoop <- matrix(nrow=10,ncol=1)
+#The loop length goes in parentheses ()
+for(i in 1:10)
+#The function the loop executes goes in curly brackets {}
+{
+  #we use brackets [] to call a specific row and column in our dataset
+  #we specify the row we want first, then the column
+  #we can open our data frame or matrix and count (starting from 1) to get the number of a row or column we want. 
+  #we can also just hover the name of that row or column to see its number.
+  dataForLoop[i,1] <- i
+}
+
+print(dataForLoop)
+  
+```
+
+We can extend this to have a loop within another loop. This allows us to select both rows and columns at the same time. Below we will iterate through i 10 times and use that to symbolize rows. We will also iterate through j 5 times, which symbolizes columns. For each cell in our matrix will we print the current value of i plus the current value of j.
+```{r}
+dataDoubleLoop <-matrix(nrow=10,ncol=5)
+
+for(i in 1:10)
+{
+  for (j in 1:5)
+  {
+   dataDoubleLoop[i,j] <- i + j
+  }
+}
+
+print(dataDoubleLoop)
+
+```
+
+What's actually going on here? Let's look at the GIF below.
+```{r 1simpson, fig.cap="Example of how two loops can be used to write random numbers to each value of a data frame."}
+knitr::include_graphics("/Loop-GIF.gif")
+```
+
+What we can do now is extend this functionality to sample values that follow a normal distribution WITHIN every individual. Each starting value is randomly selected from a uniform distribution, so the distribution of all scores should look roughly uniform, but the distribution of scores within every person should be normal.
+```{r}
+#Creates our matrix
+normalWPSample <-matrix(nrow=200,ncol=10)
+#for loop to iterate over individuals
+for(i in 1:200){
+  #for loop to iterate over items within individuals
+  for(j in 1:10){
+    #first response randomly generated and set as the center point for all remaining responses
+    if(j==1){ #remember j is our row, so this will sample a new center point whenever we are  on item 1 for a person.
+      wInMean<-sample(1:5,1) #sets our mean. Could save in our matrix if we want to know it
+          #We will sample a value that is the center point, or deviates from it by 1 or 2
+      normalWPSample[i,j] <- sample(c(wInMean - 2, wInMean - 1, wInMean, 
+                                      wInMean + 1, wInMean + 2), 
+                                    #probabilities to sample these values
+                                    1, replace=T, prob = c(6, 24, 40, 24, 6)) 
+    }
+    #all responses past first response. This function is the same as above, 
+    #but we don't need to sample a value for the center point because we already have it
+    else{
+      normalWPSample[i,j] <- sample(c(wInMean - 2, wInMean - 1, wInMean, 
+                                      wInMean + 1, wInMean + 2), 
+                                    1, replace=T, prob = c(6, 24, 40, 24, 6)) 
+    }
+  }
+}
+
+hist(normalWPSample)
+```
+
+What's the issue here?
+
+We're able to sample values from outside our scale values of 1-5 for people with low or high means. There are a few ways to fix this, but the simplest one is to just replace all values outside our scale with the closet scale point.
+
+```{r}
+#If there is a number greater than 5 replace it with 5
+normalWPSample[normalWPSample>5]<-5
+#If there is a number less than 1 replace it with 1
+normalWPSample[normalWPSample<1]<-1
+
+hist(normalWPSample)
+```
+
+We could also calculate a sum or average score for our scale.
+```{r}
+normalWPSample <- as.data.frame(normalWPSample)
+
+for (i in 1:200)
+{
+#We can use a loop to grab the mean for all 10 items and write it to a new column
+normalWPSample[i,11] <- mean(as.numeric(normalWPSample[i,1:10]))
+}
+
+#we can use this to rename our 11th variable to something more meaningful
+names(normalWPSample)[11] <- "average"
+
+hist(normalWPSample$average)
+
+psych::describe(normalWPSample$average)
+```
+
+### Simulating an Actual Study
+
+Suppose there is an organizational researcher who wants to know the effect of two training programs on job performance. This researcher will test how these two programs (Training 1, and Training 2) perform against a control group. This researcher also believes that the trait conscientiousness will impact how effective these training methods are. Finally, the researcher has training administered by 3 different trainers and thinks that the specific relationship someone has with that trainer will impact the effectiveness of the training. Each person will receive their training from ONE trainer, but will receive EVERY training program.
+
+We will first setup a data frame with all of the variables we will need for the study. The training group someone is in, their performance scores after training is received (3 scores for each person), their personal ID (1-300), the trainer they received training from, and whether they are high or low on conscientiousness.
+```{r}
+#Generates our data
+dataTrainingMain <- data.frame(training = rep(c("Control", "Training 1", "Training 2")[1:3]),
+                       perfScores = 0,
+                       person = rep(1:300, each = 3),
+                       trainer = rep(1:3, 100, each = 3),
+                       Cgroup = rep(c("Low Conscientious","High Conscientious"), times=1, each = 450))
+
+head(dataTrainingMain, n=5)
+tail(dataTrainingMain, n=5)
+```
+
+We will first generate performance scores for each person based on the training they have received. All groups will have an SD of 1. The control group has a mean of 5, the group that receives the first training program has a mean 1 SD higher of 6, and the group that receives the second training program has a mean of 1SD higher than that of 7.
+```{r}
+set.seed(1337)
+#training effects
+for(i in 1:900){
+    if(dataTrainingMain[i,1] == "Control"){
+      dataTrainingMain[i,2] <- dataTrainingMain[i,2] + rnorm(1,mean = 5, sd=1)
+    }
+    else if(dataTrainingMain[i,1] == "Training 1"){
+      dataTrainingMain[i,2] <- dataTrainingMain[i,2] + rnorm(1,mean = 6, sd=1)
+    }
+    else if(dataTrainingMain[i,1] == "Training 2"){
+      dataTrainingMain[i,2] <- dataTrainingMain[i,2] + rnorm(1,mean = 7, sd=1)
+    }
+}
+```
+
+Let's take a look at our results.
+```{r}
+ggplot(dataTrainingMain, aes(x=training, y=perfScores)) + 
+  geom_boxplot()
+```
+
+```{r}
+set.seed(1337)
+#conscientiousness effects
+for(i in 1:900){
+  if(dataTrainingMain[i,1] == "Training 1" && dataTrainingMain[i,5] == "High Conscientious"){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] - 1
+  }
+  else if(dataTrainingMain[i,1] == "Training 2" && dataTrainingMain[i,5] == "High Conscientious"){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] + 1
+  }
+  else if(dataTrainingMain[i,1] == "Training 1" && dataTrainingMain[i,5] == "Low Conscientious"){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] + 1
+  }
+  else if(dataTrainingMain[i,1] == "Training 2" && dataTrainingMain[i,5] == "Low Conscientious"){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] - 1
+  }
+}
+```
+
+Let's see what things look like with these added effects.
+```{r}
+#Color blind friendly pallete
+cbPalette <- c("#000000", "#4E79A7", "#F28E2B","#59A14F", "#A0CBE8","#FFBE7D",
+               "#8CD17D", "#B6992D", "#F1CE63", "#499894", "#86BCB6", "#E15759",
+               "#FF9D9A", "#79706E", "#BAB0AC", "#D37295", "#FABFB2", "#B07AA1",
+               "#D4A6C8", "#9D7660", "#D7B5A6", "#BCBD22", "#8C564B", "98DF8A")
+#This creates a palette of colors that is a bit more distinct for big data sets
+bigColor = grDevices::colors()[grep('gr(a|e)y', grDevices::colors(), invert = T)]
+
+ggplot(dataTrainingMain, aes(x=training, y=perfScores)) + 
+  geom_boxplot()
+
+ggplot(dataTrainingMain, aes(x=training, y=perfScores)) + 
+  stat_summary(aes(group=Cgroup, color=Cgroup), fun.y=mean, geom = "line") +
+  labs(x = "Training", y = "Performance", color = "Conscientiousness Level") +
+  scale_fill_manual(values=cbPalette) + scale_colour_manual(values=cbPalette)
+```
+
+```{r}
+set.seed(1337)
+#trainer effects
+for(i in 1:900){
+  if(i < 151 & dataTrainingMain[i,4] == 1){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] * 1.5
+  }
+  else if(i > 150 & i < 301 & dataTrainingMain[i,4] == 2){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] * 1.5
+  }
+  else if(i > 300 & i < 451 & dataTrainingMain[i,4] == 3){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] * 1.5
+  }
+  else if(i > 450 & i < 601 & dataTrainingMain[i,4] == 1){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] * 1.5
+  }
+  else if(i > 600 & i < 751 & dataTrainingMain[i,4] == 2){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] * 1.5
+  }
+  else if(i > 750 & i < 901 & dataTrainingMain[i,4] == 3){
+    dataTrainingMain[i,2] <- dataTrainingMain[i,2] * 1.5
+  }
+}
+```
+
+```{r}
+#factors variables for graphing
+dataTrainingMain$trainer <- as.factor(dataTrainingMain$trainer)
+dataTrainingMain$person <- as.factor(dataTrainingMain$person)
+
+ggplot(dataTrainingMain, aes(x=training, y=perfScores)) + 
+  geom_boxplot()
+
+ggplot(dataTrainingMain, aes(x=training, y=perfScores)) + 
+  stat_summary(aes(group=Cgroup, color=Cgroup), fun.y=mean, geom = "line") +
+  labs(x = "Training", y = "Performance", color = "Conscientiousness Level") +
+  scale_fill_manual(values=cbPalette) + scale_colour_manual(values=cbPalette)
+
+ggplot(data = dataTrainingMain, aes(x = training, y = perfScores, group = person, color = person)) + 
+  geom_point() + geom_line() + 
+  stat_summary(aes(group = person, color = person), geom = "point", fun.y = mean, shape = 3, size=5) +
+  labs(x = "Training", y = "Performance") + theme(legend.position = "none") +
+  scale_fill_manual(values=bigColor) + scale_colour_manual(values=bigColor)
+
+```
+
+```{r}
+install.packages(lme4)
+install.packages(lmerTest)
+
+fit1 <- aov(perfScores ~ training*trainer*Cgroup, data=dataTrainingMain)
+summary(fit1)
+
+fit2 <- lmer(perfScores ~ training * Cgroup + (1 | trainer:training) + 
+              (1 | trainer:training:Cgroup), data = dataTrainingMain)
+anova(fit2)
+```
