@@ -15,11 +15,24 @@ knitr::opts_chunk$set(error = TRUE)
 set.seed(9999)
 ```
 
+**When you make an Rmd file for participation or homework, be sure to do this**:
+
+1. Change the file output to both html and md _documents_ (not notebook).
+  - See the `keep_md: TRUE` argument above.
+
+2. `knit` the document. 
+
+3. Stage and commit the Rmd and knitted documents.
+
+
 # Intro to simulations in R
 
 Load the `tidyverse` package.
-    - This will mainly be used for ggplot, but some of the data manipulation tools may be useful.
+    - This will mainly be used for GGplot, but some of the data manipulation tools may be useful.
 
+Hint: You can add the `suppressPackageStartupMessages()` function around the 
+      `library()` command to keep your output looking nice!
+    
 ```{r load packages, warning = FALSE, message = FALSE}
 # load your packages here:
 library(FILL_THIS_IN)
@@ -31,21 +44,18 @@ library(FILL_THIS_IN)
 1. Simulate two datasets that follow a normal distribution. The first one should have a mean of 4 and SD of 1. The second one should have a mean of 8 and SD of 1.5. Both should have 200 cases.
 
 ```{r}
-dataNormal1 <- as.data.frame(rnorm(FILL_THIS_IN))
-dataNormal2 <- as.data.frame(rnorm(FILL_THIS_IN))
+dataNormal1 <- data.frame("Values" = FILL_THIS_IN,
+                         #Creates a grouping factor for our data
+                         "Group" = "Group1")
 
-#Converts the name of your column containing the data to "Values".
-names(dataNormal1) <- "Values"
-names(dataNormal2) <- "Values"
+dataNormal2 <- data.frame("Values" = FILL_THIS_IN,
+                         #Creates a grouping factor for our data
+                         "Group" = "Group2")
 ```
 
-2. Create a group factor so you know which dataset a number comes from, then combine the two datasets.
+2. Combine the two datasets.
 
 ```{r}
-#Using brackets [] allows us to create a new column in our dataframe
-dataNormal1[1:200,"Group"] <- "Group1"
-dataNormal2[1:200,"Group"]<- "Group2"
-
 dataNormalCombined <- rbind(FILL_THIS_IN)
 ```
 
@@ -56,7 +66,7 @@ ggplot(FILL_THIS_IN) +
   geom_histogram(alpha=0.6, position = 'identity')
 ```
 
-4. Run summary stats 
+4. Run summary stats of your three data sets
 
 ```{r}
 summary(FILL_THIS_IN)
@@ -154,4 +164,21 @@ hist(FILL_THIS_IN)
 FILL_THIS_IN
 
 hist(FILL_THIS_IN)
+```
+
+###Return to guide
+
+## Conduct your own simulation study
+
+You've now seen a few different methods we can use to simulate data. At this point you should be familiar with the `sample()`, `for()`, and `if()` functions and the distribution functions built into R. Now is your chance to use them to run your own simulation study.
+
+1. Come up with an idea that can be simulated. 
+- If you have a study idea you want to do a power analysis for this could be a good opportunity to try doing that
+- You could simulate a study similar to our education intervention example. For instance, the implicit bias has been purported to influence police officer shooting decisions. One question might be, how big of a correlation would implicit bias need to have with police officer shooting decisions to account for 25% of the variance in those behaviors?
+- There are also many papers that specify conceptual models of different psychological processes. You could try to replicate this conceptual model using simulated data.
+2. Simulate your data. This simulation should use some of the more complex functions we covered, like a for loop, if statement, or some other type of logic. Just simulating one or two distributions using `rnorm()` is not enough for this part.
+3. Write a summary of what you simulated and what you found.
+NOTE: the resources section at the top of the main lab may be helpful if you're having trouble figuring out the right code to simulate what you want. This contains walkthroughs for different functions and simulation methods not covered here.
+```{r}
+FILL_THIS_IN
 ```
