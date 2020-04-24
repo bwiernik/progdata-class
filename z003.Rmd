@@ -1,0 +1,32 @@
+# Final Project Guidelines
+
+Your final project 
+
+You GitHub repo should:
+
+  1. Be well-organized and documented with README files
+  2. Include scripts to:
+     1. Import your data
+        - If you are simulating data, then code for that instead
+     2. Wrangle data
+     3. Do analyses and data exploration
+     4. Generate visualizations, tables, and other output
+     5. Save output tables and/or figures as separate files
+     6. Render a document describing your analyses and conclusions
+        - Treat this like a report someone might actually like to read
+        - You don't have to go very in depth; the project is more about the coding
+          than the science here, so it can be a short report.
+  3. Your rendered document should be rendered to HTML and Word
+     - Bonus: Also render to PDF
+  4. Your rendered document must
+     1. Include at least 1 figure presenting useful data in an effective
+        and appealing way
+     2. Include at least 1 table formatted effectively
+     3. Have your code following a consistent and readable style
+        - Code blocks should be no more than 100 characters wide to prevent 
+          overflow off the page
+     4. Insert all statistical results using code blocks or in-line R code
+        - Don't manually type results into your document!
+     5. Include your R `devtools::session_info()` output
+     6. Bonus: Include citations using pandoc/Zotero
+     
