@@ -197,7 +197,7 @@ Install the `tinytex` R package, then use the `tinytex::install_tinytex()` funct
 to install the TeX program on your computer.
 
 ```{r, eval = FALSE}
-install.packages("tinytext")
+install.packages("tinytex")
 tinytex::install_tinytex()
 ```
 
