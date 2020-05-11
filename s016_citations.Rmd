@@ -6,7 +6,6 @@ automate this process using RMarkdown. pandoc, the program that converts your
 document from Markdown to other formats, has a built-in citation formatter.
 This week, you will practice using Markdown to insert and format citations.
 
-
 ## Resources
 
 - [The RStudio tutorial on RMarkdown citations](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
@@ -296,7 +295,7 @@ as Zotero uses in Word and Google Docs.
 First, install `rbbt` from GitHub:
 
 ```
-devtools::install_github("paleolimbot/rbbt")
+remotes::install_github("paleolimbot/rbbt")
 ```
 
 Then, in RStudio, click Tools → Addins → Browse Addins… Click Keyboard Shortcuts…
@@ -313,16 +312,8 @@ for details), or you can manually type them in your Markdown document
 (but always add them from the popup window if you are writing in Word, LibreOffice,
 or Google Docs).
 
-When you are finishing writing and are ready to knit, use the `bbt_bib_file()`
-function to generate your CSL JSON file for the items you have cited in your
-document. 
-
-(Note, that this function is currently being written by the `rbbt` developer.
-If you don't see it, come back in a few days and reinstall both `rbbt` in R
-and BetterBibTeX in Zotero.)
-
-Be sure to add `bibliography: references.json` (or whatever you named your
-bibliography file) to your YAML metadata.
+When you are finishing writing and are ready to knit, add this line to your YAML
+metadata: ``bibliography: "`r rbbt::bbt_write_bib("bibliography.json", overwrite = TRUE)`"`` 
 
 
 ## Inserting Citations with `citr`
