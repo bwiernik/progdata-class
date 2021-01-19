@@ -128,7 +128,7 @@ page number:
 `[@Wiernik2016, p. 123-124]`
 
 You can refer to other types of locators (e.g., chapter, section, paragraph, 
-etc.) using the locator abbreviations listed [here])(https://zotero-odf-scan.github.io/zotero-odf-scan/).
+etc.) using the locator abbreviations listed ([here](https://zotero-odf-scan.github.io/zotero-odf-scan/)).
 
 You can also add prefixes or suffixes to your citation:
 
