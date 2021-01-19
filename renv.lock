@@ -470,13 +470,6 @@
       "Repository": "CRAN",
       "Hash": "e87a35ec73b157552814869f45a63aa3"
     },
-    "mnormt": {
-      "Package": "mnormt",
-      "Version": "1.5-6",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "f4c908c3d498f2ed076cb1746dc8b0db"
-    },
     "modelr": {
       "Package": "modelr",
       "Version": "0.1.8",
