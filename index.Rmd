@@ -1,5 +1,6 @@
 ---
-title: "Data Science and Programming: Spring 2020"
+title: "Programming with Data"
+subtitle: "Spring 2021"
 author: "Brenton M. Wiernik"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -14,10 +15,8 @@ favicon: "favicon.ico"
 
 # About This Guide {-}
 
-Welcome to the class meeting (or "lecture") guide for Data Science and Programming
-for Spring 2020! This guide organizes what we will be doing in each class meeting. 
-So you can expect it to be updated regularly -- in fact, the date listed above 
-is the last time this guide was updated. 
+Welcome to the class guide for Programming with Data for Spring 2021! 
+This guide organizes what we will be doing in each class meeting. 
+So you can expect it to be updated regularly -- in fact, the date listed above is the last time this guide was updated. 
 
-This course was developed based on the amazing work and resources provided by 
-Jenny Bryan found at <https://stat545.com>.
+This course was developed in part based on the resources provided by Jenny Bryan found at <https://stat545.com>.

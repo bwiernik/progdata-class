@@ -1,14 +1,24 @@
 # R, RStudio, RMarkdown
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 ## Outline
 
-We'll cover three topics today:
+We'll cover two topics today:
 
-- Syllabus and class structure
-- R and RStudio
-- RMarkdown
+- Working with R scripts
+  - Functions
+  - Objects
+  
+- Writing with RMarkdown
+  - Documents
+  - Code blocks
+  - Knitting
 
 We'll end class with a to-do list before next class.
+
 
 ## Learning Objectives
 
@@ -21,243 +31,334 @@ By the end of today's class, you will be able to:
   - Subset vectors
   - Explore a data frame
   - Load packages
-- Write documents in RMarkdown (Rmd) and render these documents to 
-  HTML and PDF with RStudio.
+- Write documents in RMarkdown (Rmd) and render these documents to HTML with RStudio.
 - Style an Rmd document by editing the YAML header
-- Make presentation slides using one of the RMarkdown presentation formats.
-
-## Syllabus
-
-Before we dive into R, let's talk about the structure of the class.
-
-The course has a website, 
-[https://wiernik-datasci.netlify.com](https://wiernik-datasci.netlify.com). 
-
-Here you will find the syllabus, assignments, a link to the textbook/"lecture 
-notes", and other resources.
-
-Your grade in the class will be determined by four things:
-  1. In-class participation
-  2. Homework assignments
-  3. Peer review
-  4. Final project
-  5. (Graduate students have an additional required project.)
-  
-We will talk more about how to submit your homework and peer review next week.
-
-
-## Welcome to R
-
-Now, we'll get you up to speed with a minimum "need to know" about using R and 
-RStudio. We're going to assume you know nothing and start from the basics. We will
-explore more of the R/RStudio landscape as the semester goes on.
-
-The format of today's notes aim to teach R by exploration, so is essentially an 
-activity guide with prompts for exploration. These are mostly all exercises 
-we'll be doing together in class. 
 
 
 ## Participation
 
-Each class meeting, you will complete coding activities. You will be required
-to save a copy of these activities as part of a portfolio that you will submit
-for grading at the end of the semester. 
+Each class meeting, you will complete coding activities. 
+These will include both scripts you write locally and guided activities with the _progdata_ package.
 
-For today's participation:
+In the **Participation** section at the top of each day's chapter of this guide, I will list the activities you should complete and any deliverables that you should retain for homework.
 
-  1. Make a new R script in RStudio: 
-     - File → New File → R Script 
-     - Or type Ctrl/Cmd + Shift + N
-  2. Add your exploratory code to the script as we work through the exercises. 
-  3. What you write on this script doesn't have to be exactly the same as what 
-     I write. We're just looking for some exploration of coding in R. 
-     
-Next week, we will set up the system for saving and submitting your in-class 
-participation work, homework, peer reviews, etc. For this week, save a copy of 
-your R script to a network folder, cloud drive, or email.
 
+For today's participation, you will make two files:
+  1. exploring_r.R
+  1. exploring_markdown.Rmd
+  
 
 ## Resources
 
 Here are some useful resources for getting oriented with R.
 
-- Jenny Bryan's [stat545.com: hello r](http://stat545.com/block002_hello-r-workspace-wd-project.html)
-  page for exploring R roughly follows today's outline.
-- Want to practice programming in R? Check out 
-  [R Swirl](https://swirlstats.com/) for interactive lessons.
+- Jenny Bryan's [stat545.com: hello r](http://stat545.com/block002_hello-r-workspace-wd-project.html) page for exploring R roughly follows today's outline.
+- Want to practice programming in R? Check out [R Swirl](https://swirlstats.com/) for interactive lessons.
 - For a list of R "vocabulary", see [Advanced R - Vocabulary](http://adv-r.had.co.nz/Vocabulary.html)
 - For a list of R operators, see [Quick-R](https://www.statmethods.net/management/operators.html).
 
-Today, we'll be learning just enough base R so that we can dive in to the 
-"tidyverse" side of R. If you want to learn even more about base R, take a look at 
-[Mike Marin's R playlist on YouTube](https://www.youtube.com/playlist?list=PLqzoL9-eJTNBlVXxWvJkq0dtVut2sICUW).
 
+## Working with R Scripts
 
-## Why R?
+Make a new R script in RStudio: 
+  - File → New File → R Script 
+  - Or type Ctrl/Cmd + Shift + N
+  
+An R script file name ends with `.R` and it contains **only R commands**. 
+When you program your data analysis projects, one project might involve many individual R script files.
 
-Why R? Some points taken from [adv-r: intro](http://adv-r.had.co.nz/Introduction.html):
+Save your R script file by clicking the Save icon or typing Ctrl/Cmd + S.
+Give it an informative name like `exploring_r.R`.
 
-- Free, platform-wide
-- Open source
-- Comprehensive set of "add on" packages for analysis
-- Huge community
-- …
+Let's explore some basic R programming concepts with this script file.
 
-Alternatives exist for data analysis, python being another excellent tool, 
-especially these days as more and more R-like functionality is added to it. The 
-good thing about python is that it's faster and has better support for machine 
-learning models. 
+### Objects
 
+Everything is an **object**. An object has a _name_ and _contents_. 
+Objects can be values (e.g., `4`, `pi`), data (e.g., `mtcars`), or functions (e.g., `mean`).
 
-## Orientation to R
+You call an object by typing its name. Try it:
 
-### Using R and RStudio
+```{r}
+3
 
-Let's try these exercises as our first steps.
+pi
 
-1. Try some arithmetic from a script vs. the console. 
-    - Notice that your commands appear in the "History" tab. Do not rely on 
-      this! What do you think is better than relying on the history?
-2. Store a number in a variable called `number` using `<-` (read this arrow as "gets").
-    - Notice that the object appears in the "Environment" tab in the top-right of RStudio.
-3. Try some arithmetic on the variable.
-4. Try some arithmetic on an undefined variable.
-5. Try some arithmetic on the variable on a line of code above the variable 
-   definition. (Do you think we'll get an error?)
+mtcars
+
+mean(c(1, 3, 3))
+```
+
+When we just type an object's name like this, R will **print** out its value in the console.
+This is the same as typing out the print function: `print( object )`
+
+If you try to call an object that doesn't exist, you get an error:
+
+```{r}
+apple
+```
+
+You **assign** something to an object using the arrow operator `<-`.
+RStudio has a keyboard shortcut to insert the arrow quickly: Alt + -
+
+```{r}
+number <- 4
+```
+
+Once you've assigned a value to an object, you can perform additional operations with that object by calling its name:
+
+```{r}
+number 
+number * 2
+
+number
+
+number <- number * 2
+number
+```
+
+Notice that the stored value of `number` does not change when we perform an operation with it.
+**The value of an object only changes when you _assign_ it!**
+
 
 ### Vectors
 
-_Vectors_ store multiple entries of a data type, like numbers. You'll discover 
-that they show up just about everywhere in R.
+_Vectors_ store multiple entries of one data type, like numbers or characters. 
+You'll discover that they show up just about everywhere in R.
 
-Let's collect some data and store this in a vector called `times`. How long was 
-your commute this morning, in minutes? Here's starter code:
+Let's collect some data and store this in a vector called `times`. 
 
-```
+**How many hours did you sleep last night?** 
+
+Drop your answer in the chat.
+
+Here's starter code:
+
+```{r, eval=FALSE}
 times <- c()
 ```
 
-Operations happen component-wise. Let's calculate those times in hours. How can 
-we "save" the results?
+```{r, include=FALSE}
+times <- round(runif(20, 4, 10))
+```
 
-### Functions, Part I
+The `c()` function is how we make a vector in R. The "c" stands for "concatenate".
 
-What's the average travel time? Instead of computing this manually, let's use a 
-_function_ called `mean`. Notice the syntax of using a function: the _input_ 
-goes inside parentheses, which is followed by the function name to the left.
+Operations happen component-wise. Change those times to minutes. How can we "save" the results?
 
-We _input_ `times`, and got some _output_. Did this function change the input? 
-Aside from some bizarre functions, this is always the case. 
+All parts of a vector have the same **type**. 
+There are many types of variables in R.
+The most common types are:
+  1. numeric (numbers)
+    1. double (numbers with decimal values; `2`, `3.4`, `1000`)
+    1. integer (`1L`, `2L`, `100L`)
+  1. character (words or strings; `"a"`, `"foo"`, `"lastname"`)
+  1. logical (`TRUE` or `FALSE`)
+  1. factor (categorical variable; `factor(c("control", "experiment"))`)
+  
+  
+### Functions
 
-Functions don't always return a single value. Try the `range()` function, for 
-example. What's the output? What about the `sqrt()` function?
+R comes with many many **functions**.
+Functions take one or more _inputs_ and return one or more _outputs_.
+You can think of functions as prewritten R programs.
 
-Much of R is about becoming familiar with R's "vocabulary". A nice list can be 
-found in [Advanced R - Vocabulary](http://adv-r.had.co.nz/Vocabulary.html).
+Functions all take the general form:
 
-### Comparisons (7 min)
+```{r, eval = FALSE, tidy = FALSE}
+functionName(arg1 = val1, arg2 = val2, and so on)
+```
 
-We'll now introduce _logicals_.
+To call a function, type its name, then parentheses `()`. 
+Inside the `()`, type the arguments and values to use as input.
 
-Which of our travel times are less than (say) 30 minutes? Use `<`.
+What's the average sleep time? Let's compute that using the `mean()` function. 
 
-Which of our travel times are equal to ... (pick something)? What about _not_ 
-equal to it? Notice the use of `==` as opposed to `=` — why do you think that is?
+```{r}
+mean(times)
+```
 
-Which of our travel times are greater than ...(lower)... _and_ less than 
-...(upper)...? What about less than ...(lower)... _or_ greater than ...(upper)...?
+To learn how a function works, we can look at its **help file**. 
+Open the help file for `mean()` by typing `?mean` or `help(mean)` in the console.
 
-Some functions expect logical inputs. Try using the `which()` function on one of 
-the above. What about `any()`? `all()`?
+The help file will includes the following:
+  1. A brief description of the function
+  1. A list of the arguments and how to call the function
+  1. A detailed description of the arguments
+  1. (Optionally) Other usage details
+  1. Coded examples
+  
+We can see that `mean()` has 4 **arguments**. 
+  1. `x`: A vector to compute the mean of
+  1. `trim`: the fraction (0 to 0.5) of observations to be trim from each end
+  1. `na.rm`: `TRUE` or `FALSE`--should missing values be removed before computing?
+  1. `...`: Other arguments. More on that later.
+  
+**Default values** for arugments are given in the Usage section by ` = `.
+If an argument has no default (like `x` in `mean()`), it usually means it's `required`.
 
-Logicals can be explicitly specified in R with `TRUE` and `FALSE`.
+Let's compute the trimmed mean of `times`, dropping 10% of values from each end.
+
+```{r, eval=FALSE}
+
+```
+
+You can either enter arguments **in order**:
+
+```{r}
+mean(times, .1)
+```
+
+Or **by name**:
+```{r}
+mean(times, trim = .1)
+```
+
+It's good practice to _name all arguments after the first (or maybe second if its clear)_.
+
+Try out some other functions, such as `sd()`, `range()`, and `length()`.
+
+Much of R is about becoming familiar with R's "vocabulary". 
+A nice list can be found in [Advanced R - Vocabulary](http://adv-r.had.co.nz/Vocabulary.html).
+
+
+### Comparisons
+
+How many people slept less than 6 hours? Let's answer that using _comparisons_.
+
+We can compare the values of `times` to another value using `<`.
+
+```{r}
+times < 6
+```
+
+Comparisons return a vector of **logical** values. 
+
+We can do other logical comparisons:
+
+```{r}
+times > 6
+
+times == 5
+
+times <= 7
+
+times != 2
+```
+
+We can combine multiple comparisons using `&` (AND), `|` (OR), and `!` (NOT).
+
+```{r}
+(times < 4) | (times > 9)
+```
+
+Try out these functions that work with logical values.
+
+```{r}
+any(times < 6)
+
+all(times < 6)
+
+which(times < 6)
+```
+
 
 ### Subsetting
 
-Use `[]` to subset the vector of times:
+Use `[]` to subset values from a vector. 
+You can subset with an integer (by position) or with logicals.
+
+```{r}
+times[4]
+times[c(2, 5)]
+
+times[-6]
+times[-c(2, 3)]
+
+times[4:8]
+
+times[times >= 7]
+```
+
+Subset `times`:
 
 1. Extract the third entry.
 2. Extract everything except the third entry.
 3. Extract the second and fourth entry. The fourth and second entry.
-4. Extract the second through fifth entry -- make use of `:` to construct sequential vectors.
-5. Extract all entries that are less than 30 minutes. Why does this work? Logical subsetting!
+4. Extract the second through fifth entry.
+5. Extract all entries that are less than 4 hours Why does this work? Logical subsetting!
 
-After all of that, did our `times` object change at all?
 
-We can use `[]` in conjunction with `<-` to change the `times` object:
+### Modifying a vector
 
-1. Replace two entries with new travel times.
-2. "Cap" entries that are "too large" at some set value. If this is more than 
-   one value, why don't we need to match the number of values? Recycling!
-3. Remove an entry, by overwriting `times`.
+You can change the vector by combining `[]` with `<-`.
 
-### NA
+Let's say that we learned that the second time was incorrect and we wanted to replace it with missing data.
+In R, missing data is noted by `NA`. 
 
-Sometimes we have missing data. Those entries are replaced with `NA` in R. 
-Be careful with these!
+Replace the second entry in `times` with `NA`.
 
-1. Add `NA` to the vector of times.
-2. What's the mean of this new vector of times?
+```{r}
 
-Let's expand our view of functions in order to solve this problem.
+```
 
-### Functions, Part II
+Now, let's "cap" all entries that are bigger than 8 at 8 hours.
 
-Functions often take more than one _arguments_ as input, separated by commas. 
-You can find out what these arguments are by accessing the function's _help file_:
+```{r}
 
-Access the documentation of the `mean()` function by running `?mean`. 
+```
 
-- There are four arguments.
-- All the arguments have names, except for the `...` argument (more on `...` later). 
-  This is always the case. 
-- Under "Usage", some of the arguments are of the form `name = value`.
-    - These are default values, in case you don't specify these arguments.
-    - This is a sure sign that these arguments are _optional_. 
-- `x` is "on its own". This typically means that it has no default, and often 
-  (but not always) means that the argument is _required_. 
+If this is more than one value, why don't we need to match the number of values? Recycling!
+Be careful of recycling!
 
-We can specify an argument in one of two ways:
+Let's compute the mean of these new times:
 
-- specifying `argument name = value` in the function parentheses; or
-- matching the ordering of the input with the ordering of the arguments.
-    - For readability, this is not recommended beyond the first or sometimes 
-      second argument! 
+```{r}
+mean(times)
+```
 
-Input `TRUE` for the `na.rm` argument in both ways.
+What happened? How do we compute the mean of the non-missing values?
+
+```{r}
+
+```
+
 
 ### Data frames
 
-Living in a vector-only world would be nice if all data analyses involved one 
-variable. When we have more than one variable, _data frames_ come to the rescue. 
-Basically, a data frame holds data in tabular format.
+We usually work with more than one variable at a time. 
+When we do that, we will work with **data frames**. 
+A data frame is a **list** of vectors, all of the same length.
 
-R has some data frames "built in". For example, motor car data is attached to 
-the variable name `mtcars`. 
+R has some data frames "built in". For example, some car data is attached to the variable name `mtcars`. 
 
 Print `mtcars` to screen. Notice the tabular format. 
 
-__Your turn__ (5 min): Finish the exercises of this section:
+__Your turn__: Finish the exercises of this section:
 
   1. Use some of these built-in R functions to explore `mtcars`:
-    - `head()`, `tail()`, `str()`, `nrow()`, `ncol()`, `summary()`, 
-      `row.names()` (yuck), `names()`.
-
-Notice that `names` and `row.names()` outputs a _character vector_ (we've 
-already seen numeric and logical vectors). These are useful for characterizing 
-categorical data in R. 
+    - `head()`
+    - `tail()`
+    - `str()`
+    - `nrow()`
+    - `ncol()`
+    - `summary()`
+    - `row.names()`
+    - `names()`
 
   2. What's the first column name in the `mtcars` dataset? 
   3. Which column number is named `"wt"`?
+  
+With data frames,each column is its own vector.
+You can extract a vector by name using `$`. 
+For example, we can extract the `cyl` column with `mtcars$cyl`.
 
-Each column is its own vector that can be extracted using `$`. For example, 
-we can extract the `cyl` column with `mtcars$cyl`.
-
-You can also extract columns using ``[[]]`. For example, try `mtcars[["cyl"]]` 
-or `mtcars[[2]]`.
+You can also extract columns using ``[[]]`. 
+For example, try `mtcars[["cyl"]]` or `mtcars[[2]]`.
 
   4. Extract the vector of `mpg` values. What's the mean `mpg` of all cars in 
      the dataset?
+
 
 ### R packages
 
@@ -265,155 +366,55 @@ Often, the suite of functions that "come with" R are not enough to do an analysi
 
 Sometimes, the suite of functions that "come with" R are not very convenient.
 
-In these cases, R _packages_ come to the rescue. These are "add ons", each 
-coming with their own suite of functions and objects, usually designed to do one 
-type of task. [CRAN](https://cran.r-project.org/) stores packages that, for all 
-intents and purposes, can be considered "official" R packages. It's easy to 
-install packages from CRAN! Just use the `install.packages()` function. 
+In these cases, R _packages_ come to the rescue. 
+These are "add ons", each coming with their own suite of functions and objects, usually designed to do one type of task. 
+[CRAN](https://cran.r-project.org/) stores many R packages that. 
+It's easy to install packages from CRAN using the `install.packages()` function. 
 
 Run the following lines of code to install the `tibble` and `gapminder` packages. 
-(But don't include `install.packages()` lines in your scripts—it's not very nice 
-to others!)
+(But don't include `install.packages()` lines in your scripts—it's not very nice to others!)
 
-```
+```{r, eval=FALSE}
 install.packages("tibble")
-install.packages("gapminder")
+install.packages("palmerpenguins")
 ```
 
 - `tibble`: a data frame with some useful "bells and whistles"
-- `gapminder`: a package that makes the gapminder dataset available (as a `tibble`!)
+- `palmerpenguins`: a package with the penguins dataset (as a `tibble`!)
 
-Installing a package is not enough! To access its functions, you have to _load_ 
-it. Use the `library()` function to load a package. 
+After you install a package, you need to _load_ it to use it.
+Use the `library()` function to load a package. 
 
-(Note: Do not use the similar function `require()` to load packages. This has 
-some different, undesirable, behavior for normal usage.)
+(Note: Do not use the similar function `require()` to load packages. This has some different, undesirable, behavior for normal usage.)
 
-Run the following lines of code to load the packages. (Put these in your scripts, 
-and near the top)
+Run the following lines of code to load the packages. (Put these in your scripts, and near the top.)
 
-```
+```{r}
 library(tibble)
-library(gapminder)
+library(palmerpenguins)
 ```
 
-Take a look at the packages under the "Global Environment" tab to see the new 
-objects that have just been made available to us. PS: you'll notice `mtcars` is 
-not in our "Global" workspace/environment, yet we can still access it—where does 
-`mtcars` live?
+You can explore the objects in a package in the Environment pane.
 
 Try the following two approaches to access information about the `tibble` package. 
 Run the lines one-at-a-time. Vignettes are your friend, but do not always exist. 
 
-```
+```{r, eval=FALSE}
 ?tibble
 browseVignettes(package = "tibble")
 ```
 
-Print out the `gapminder` object to screen. It's a tibble—how does it differ 
-from a data frame in terms of how it's printed?
-
-Because a tibble is a data frame, our exploration functions still work on it. 
-Try some.
-
-
-### Two slogans to understand computations in R
-
-(We probably won't have time to cover this, and that's OK—I'm leaving it here 
-for you to peruse if you are interested).
-
-John Chambers eloquently sums up using R:
-
-> To understand computations in R, two slogans are helpful:
-> 
-> - Everything that exists is an object.
-> - Everything that happens is a function call.
-
-These are useful to remember to prevent us from getting confused. 
-
-1. Everything that exists is an object.
-
-This is not obvious when we look at the output of, say, `str()`:
-
-``` r
-str(mtcars)
-#> 'data.frame':    32 obs. of  11 variables:
-#>  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
-#>  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
-#>  $ disp: num  160 160 108 258 360 ...
-#>  $ hp  : num  110 110 93 110 175 105 245 62 95 123 ...
-#>  $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
-#>  $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
-#>  $ qsec: num  16.5 17 18.6 19.4 17 ...
-#>  $ vs  : num  0 0 1 1 0 1 0 1 1 1 ...
-#>  $ am  : num  1 1 1 0 0 0 0 0 0 0 ...
-#>  $ gear: num  4 4 4 3 3 3 3 4 4 4 ...
-#>  $ carb: num  4 4 1 1 2 1 4 2 2 4 ...
-```
-
-The stuff you see is simply printed to screen, not an object! The actual object is `NULL`:
-
-``` r
-foo <- str(mtcars)
-#> 'data.frame':    32 obs. of  11 variables:
-#>  $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
-#>  $ cyl : num  6 6 4 6 8 6 8 4 4 6 ...
-# ...(snip)...
-foo
-#> NULL
-```
-
-The output of `summary()` is actually a "table" object (something not often used in R). Let's coerce it to character data:
-
-``` r
-foo <- summary(mtcars)
-as.character(foo)
-#>  [1] "Min.   :10.40  "  "1st Qu.:15.43  "  "Median :19.20  " 
-#>  [4] "Mean   :20.09  "  "3rd Qu.:22.80  "  "Max.   :33.90  " 
-#>  [7] "Min.   :4.000  "  "1st Qu.:4.000  "  "Median :6.000  " 
-#> [10] "Mean   :6.188  "  "3rd Qu.:8.000  "  "Max.   :8.000  " 
-#> [13] "Min.   : 71.1  "  "1st Qu.:120.8  "  "Median :196.3  " 
-#> [16] "Mean   :230.7  "  "3rd Qu.:326.0  "  "Max.   :472.0  " 
-# ...(snip)...
-```
-
-2. Everything that happens is a function call.
-
-Did you know that operators like `+` are actually functions? The "plus" function is literally `` `+`() ``, and accepts two arguments.
-
-Here is what's actually happening when we call `5 + 2`:
-
-``` r
-`+`(5, 2)
-#> [1] 7
-```
-
-Want a challenge? What's the difference between the `` `(`() `` function and the `` `{`() `` function? Hint check the documentation with `` ?`{` ``.
-
-
-## Taking a break
-
-Let's pause here for a short break. Save your R script you have been writing.
-Then, save it to a network folder or cloud drive (or email it to yourself). 
-So that you will have access to it next week.
-
-  - Highly recommended: 
-    [Don't save your workspace](https://www.r-bloggers.com/using-r-dont-save-your-workspace/) 
-    when you quit RStudio. Make this a default:
-      - Go to "RStudio" -> "Preferences…" -> "General"
-      - Uncheck "restore .RData into workspace on startup"
-      - Select: "Save workspace to RData on exit:" Never
+Print out the `penguins` object to screen. 
+It's a tibble—how does it differ from a data frame in terms of how it's printed?
 
 
 ## Authoring with RMarkdown
 
-In the first part of class, we practiced writing R code. In this half, we will
-practice combining our R scripts with other text, such as descriptions of the 
-analyses, explanations, interpretations, or even a whole manuscript or report.
+In the first part of class, we practiced writing R code. 
+In this half, we will practice combining our R scripts with other text, such as descriptions of the analyses, explanations, interpretations, or even a whole manuscript or report.
 Communication of a data analysis is just as important as the analysis itself. 
-We will use a scripting language called "Markdown" to write text for our R
-scripts. Markdown is a "lightweight" and very readable language for describing
-text styling.
+We will use a scripting language called "Markdown" to write text for our R scripts. 
+Markdown is a "lightweight" and very readable language for describing text styling.
 
 
 ## Resources
@@ -425,13 +426,9 @@ Cheat sheets for "quick reference":
 
 Further reading:
 
-- The [Rmd website](https://rmarkdown.rstudio.com/) has a fantastic walk-through
-  [tutorial](https://rmarkdown.rstudio.com/lesson-1.html) that gives a great 
-  overview of RMarkdown. 
-- There's also a nice [overview video](https://rmarkdown.rstudio.com/authoring_quick_tour.html) 
-  on the Rmd website, too.
-- Yihui's [Rmd book](https://bookdown.org/yihui/rmarkdown/) for lots more on 
-  RMarkdown.
+- The [Rmd website](https://rmarkdown.rstudio.com/) has a fantastic walk-through [tutorial](https://rmarkdown.rstudio.com/lesson-1.html) that gives a great overview of RMarkdown. 
+- There's also a nice [overview video](https://rmarkdown.rstudio.com/authoring_quick_tour.html) on the Rmd website, too.
+- Yihui's [Rmd book](https://bookdown.org/yihui/rmarkdown/) for lots more on RMarkdown.
 
 Other explorations of this content:
 
@@ -444,41 +441,27 @@ Other explorations of this content:
 There are generally two prominent file types to display manuscripts of various 
 types:
 
-1. __pdf__: This is useful if you intend to print your work onto a physical 
-   sheet of paper, or for presentation slides. If this is not the primary 
-   purpose, then try to avoid it, because formatting things so that it fits to 
-   the page can be more effort than its worth (unless you're making presentation slides). 
-   - Example: Most journals articles and preprints, such as 
-     [this one](https://wiernik.org/pdfs/Wiernik%20and%20Kostal_2019_Protean%20and%20boundaryless%20career%20orientations.pdf).
-2. __html__: This is what you see when you visit a webpage. Content does not 
-   need to be partitioned to pages. 
-   - Example: My [website main page](https://wiernik.org), and its corresponding 
-     [html file](https://github.com/bwiernik/wiernik_org/blob/master/public/index.html).
-   - Example: html [slides using ioslides](https://rpubs.com/cheyu/ioslideDemo).
+  1. __pdf__: This is useful if you intend to print your work onto a physical sheet of paper, or for presentation slides. 
+    If this is not the primary purpose, then try to avoid it, because formatting things so that it fits to the page can be more effort than its worth (unless you're making presentation slides). 
+    - Example: Most journals articles and preprints.
+  2. __html__: This is what you see when you visit a webpage. Content does not need to be partitioned to pages. 
+    - Example: My [website main page](https://wiernik.org), and its corresponding [html file](https://github.com/bwiernik/wiernik_org/blob/master/public/index.html).
 
 We'll be treating pdf and html files as _output_ that should not be edited. 
-In fact, pdf documents are not even easy to edit, and this is not a reproducible 
-workflow.
 
-What's the source, then? (R)__Markdown__! We'll be discussing this today.
+What's the source, then? (R)__Markdown__!
+
 
 ### Word Processor Formats
 
-It is also possible to output files to word processor formats, such as Word (.docx),
-LibreOffice/OpenDocument (.odt), or Rich Text (.rtf). You can also output to other
-slideshow software, such as PowerPoint (.pptx) or LibreOffice/OpenDocument Slides (.odp).
+It is also possible to output files to word processor formats, such as Word (.docx), LibreOffice/OpenDocument (.odt), or Rich Text (.rtf). You can also output to other slideshow software, such as PowerPoint (.pptx) or LibreOffice/OpenDocument Slides (.odp).
 
 We aren't going to use these in this class, and it's a good idea to avoid them.
-It's hard to integrate these formats into a reproducible workflow that lets you 
-re-run your analyses as you update your data and code. 
+It's hard to integrate these formats into a reproducible workflow that lets you re-run your analyses as you update your data and code. 
 
-There are times when you have to use these formats (e.g., a journal requires Word,
-a conference requires PowerPoint, your advisor or collaborator requires Word). 
-If you have to do this, try to avoid _editing in these formats_. If you need to 
-make revisions, go back and make changes to the source code, rather than the 
-rendered document. Later on in the semester, if we have time, we will talk about 
-some ways to incorporate going to Word and similar formats and back into your 
-workflow.
+There are times when you have to use these formats (e.g., a journal requires Word, a conference requires PowerPoint, your advisor or collaborator requires Word). 
+If you have to do this, try to avoid _editing in these formats_. 
+If you need to make revisions, go back and make changes to the source code, rather than the rendered document. Later on in the semester, if we have time, we will talk about some ways to incorporate going to Word and similar formats and back into your workflow.
 
 ### Other Output Formats
 
@@ -492,143 +475,91 @@ and the [pandoc documentation](https://pandoc.org/MANUAL.html#option--to)).
 Markdown is plain text with a straightforward, readable way of marking up your text. 
 Let's see [GitHub's cheat sheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf). 
 
-Various software convert markdown to either pdf or html. The main tool we will 
-use is called pandoc, which is helpfully built into RStudio.
+Various software convert markdown to either pdf or html. 
+The main tool we will use is called pandoc, which is helpfully built into RStudio.
 
-File extension: .md
+File extension: .md (no R code) or .Rmd (with R code)
 
-### Activity: Make a Markdown document
+### Make a Markdown document
 
-Together:
+  1. Make a new RMarkdown file in RStudio, then save it as `exploring_markdown.Rmd`.
+  2. Add some text, such as introducing yourself and what your favorite animal is. 
+  3. Mark up the text with some markdown features (e.g., bold, italic, bullets, a link to a URL on the internet).
 
-1. Make a new R Script file in RStudio, then save it as `exploring_markdown.md`.
-   This will change the file type to Markdown instead of R. 
-2. Add some text, such as introducting yourself and what you are hoping to learn
-   in this class. 
-3. Mark up the text with some markdown features (e.g., bold, italic, bullets, a
-   link to a URL on the internet).
+### Render `exploring_markdown.Rmd`
 
-### Activity: Render `exploring_markdown.md`
-
-We can use RStudio to convert our plain text Markdown document into various
-output formats. Above the script editor in RStudio, click the `Preview` or `Knit` 
-button and convert your file to both PDF and HTML.
+We can use RStudio to convert our plain text Markdown document into various output formats. 
+Above the script editor in RStudio, click the `Preview` or `Knit` button and convert your file to HTML.
 
 
 ## RMarkdown
 
-RMarkdown (Rmd) is a "beefed up" version of markdown—it has many more features 
-built in to it, two important ones being:
+RMarkdown (Rmd) is a "beefed up" version of markdown. 
+It has two special features that we can use for powerful programming. 
 
-- We can specify more features in a _YAML header_.
-    - This contains _metadata_ about the document to guide how the Rmd document 
-      is rendered.
-- We can integrate code (from R, Python, C++, SQL, etc.) into a document.
+  1. We can integrate code (from R, Python, C++, SQL, etc.) into a document.
+  1. We can specify document options a _YAML header_.
+    - This contains _metadata_ about the document to guide how the Rmd document is rendered.
 
-Here's 
-[RStudio's cheat sheet](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
-on Rmd. 
+Here's [RStudio's cheat sheet](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) on Rmd. 
 
 You can see that it has more features than "regular" markdown!
 
-### Activity: Getting set up with R packages
 
-For these activities below, we are going to use the `rmarkdown`, `gapminder`,
-`knitr`, `tibble`, and `DT` packages. 
+### Code Chunks 
 
-Load up these packages with `library()`.
+The parts of your document inside the "fences" <code>```</code> are **code chunks**.
+When you render the RMarkdown document, R will run the code in the chunks and show the output in the rendered document.
 
-```{r}
-library(gapminder)
-library(tibble)
-library(DT)
-library(rmarkdown)
-library(knitr)
-```
+You can run the code from a chunk interactively by placing your cursor on the line and typing Ctrl/Cmd + Enter/Return or by clicking the green "play" button at the top right of the code chunk.
 
-If you get an error, that means that one of the packages isn't installed.
-Install the missing packages by copying these lines into the R console (only 
-the lines for the missing packages):
+Add a new code chunk by doing one of these:
+  - Clicking the Insert button and choosing R or by typing -> "R"
+  - Typing Mac: `Cmd + Option + I` or Windows: `Ctrl + Alt + I`
+  - Manually typing three back ticks followed by {r} in curly brackets: `` ```{r} ``, 
+    then typing three back ticks on a later line to "close" the code block:
+    `` ``` ``.
 
-```{r, eval=FALSE}
-install.packages('rmarkdown')
-install.packages('gapminder')
-install.packages('tibble')
-install.packages('DT')
-install.packages('knitr')
-```
-
-
-### Activity: Exploring code chunks 
-
-Together:
-
-1. Open RStudio's Rmd template by going to "File" -> "New File" -> "RMarkdown" 
-   in RStudio. Explore!
-2. Scrap everything below the YAML header.
-3. Add a code chunk below the YAML header via "Insert" -> "R". Or, by:
-    - Mac: `Cmd + Option + I`
-    - Windows: `Ctrl + Alt + I`
-    - Manually typing three back ticks followed by {r} in curly brackets: `` ```{r} ``,
-      then typing three back ticks on a later line to "close" the code block:
-      `` ``` ``.
-4. Load the `gapminder`, `tibble`, `knitr`, and `DT` packages using the `library()` 
-   function, by adding the following code to your code chunk:
+Add a code chunk near the top of the file and load the _tibble_ package.
 
 ```{r}
-library(gapminder)
 library(tibble)
 library(knitr)
-library(DT)
 ```
 
-5. In a new code chunk, convert the `mtcars` data frame to a tibble using 
-   the `tibble::as_tibble()` function and save it as a new object (e.g., called
-   `mtcars_tbl`). Print it out using the `print()` function.
-   
-6. When you print with just the `print()` function, your table will look like
-   R console script in your output HTML or PDF. To make your tables look nicer
-   in the output, use the `knitr::kable()` function to convert the results to a 
-   Markdown table. In a new code chunk, print the `mtcars_tbl` using `knitr::kable()`.
-   
-7. Look at the `gapminder` data frame. It has a lot of rows! When you print it
-   to the console, only the first 10 rows are shown to save your screen space. 
-   When knitting to HTML, rather than `knitr::kable()`, use `DT::datatable()` 
-   to print a compact, searchable, sortable table.
-   
-6. Add some markdown commentary about the tables you are showing. Your markdown
-   commentary needs to go outside of the code chunks.
+If you don't have _knitr_ installed, install it with `install.packages("knitr")`.
 
-7. You can also include R code "in-line" with markdown text. This is useful, for
-   example, in your results section of a paper to report the results of your analyses
-   without having to copy-paste them (and make errors). 
+
+### Rendering output
+
+In a new code chunk, convert the `mtcars` data frame to a tibble using the `tibble::as_tibble()` function and assign it as a new object (e.g., called `mtcars_tbl`). Print it out using the `print()` function.
    
-   Add an in-line code chunk specifying the number of rows of the `mtcars` dataset
-   like this:
+When you print with just the `print()` function, your table will look like R console script in your output HTML or PDF. 
+To make your tables look nicer in the output, use the `knitr::kable()` function to convert the results to a Markdown table. 
+In a new code chunk, print the `mtcars_tbl` using `knitr::kable()`.
+
+We will explore other table tools in future classes.
    
+Add some markdown commentary about the tables you are showing. 
+Your markdown commentary needs to go outside of the code chunks.
+
+You can also include R code "in-line" with markdown text. 
+This is useful, for example, in your results section of a paper to report the results of your analyses without having to copy-paste them (and make errors). 
+   
+Add an in-line code chunk specifying the number of rows of the `mtcars` dataset like this:
    - `` The `mtcars` dataset has `r nrow(mtcars)` rows. ``
    
-8. "Knit" to HTML and PDF.
+Now, "Knit" to HTML.
 
-Technical note: The `knitr` package is what integrates the results of the code 
-into the document. Under the hood, when you click the "Knit" or "Preview" button,
-what happens this conversion: 
-  Rmd -> (run the R code and convert to output) -> md -> pdf/html.
 
-### Activity: exploring the YAML header
-
-(Note: If you've "fallen off the bus" from the last exercise, here's a "bus stop" 
-for you to get back on—just start a new Rmd file and use the boilerplate 
-content while we work through this exercise.)
+### YAML Headers
 
 Now, we'll modify the metadata via the YAML header. 
-Check out a bunch of YAML options 
-[from the RMarkdown book](https://bookdown.org/yihui/rmarkdown/html-document.html).
+Check out a bunch of YAML options [from the RMarkdown book](https://bookdown.org/yihui/rmarkdown/html-document.html).
 
-YAML is used to control things about your document, such as the title, the creation
-date shown, output formats and options, even variables that might be used in R code.
+YAML is used to control things about your document, such as the title, the creation date shown, output formats and options, even variables that might be used in R code.
 
-Together, in an Rmd file (ideally the one from the previous exercise):
+In your Rmd file:
 
 1. Change the output to `html_document`. We'll be specifying settings for the 
    html document, so this needs to go on a new line after the `output:` field:
@@ -644,13 +575,12 @@ output:
 Note that lines that are a sub-part of the previous line are **indented by two spaces**.
 
 2. Add the following settings under `html_document`:
-    - Keep the `md` intermediate file with `keep_md: true`
     - Add a theme. A nice one is paper: `theme: paper`
     - Add a table of contents with `toc: true`
     - Make the toc float: `toc_float: true`
     - Make the code hideable using: `code_folding: "hide"`
     
-3. Knit the results (you may want to delete the PDF, because it is no longer up to date!)
+3. Knit the results.
 
 4. You can even include R code that runs in your YAML header. For example, let's
    add code that will insert today's date into the header. Change the `date:` field
@@ -665,72 +595,41 @@ Note that lines that are a sub-part of the previous line are **indented by two s
      ```{r, eval=FALSE}
      '`r format(Sys.time(), "%d %B, %Y")`'
      ```
+     
+5. Change the output format to `github_document` and knit again. 
+   This is the format we will use for your homework.
 
-### Activity: Exploring chunk options
 
-(Bus stop! Couldn't get previous exercises to work? 
-No problem, just start a fresh RMarkdown document with File -> New File -> RMarkdown)
+### Chunk Options
 
-Just like YAML is metadata for the Rmd document, _code chunk options_ are metadata 
-for the code chunk. Specify them within the `{r}` at the top of a code chunk, separated by commas.
+Just like YAML is metadata for the Rmd document, _code chunk options_ are metadata for the code chunk. 
+Specify them within the `{r}` at the top of a code chunk, separated by commas.
 
-Together, in an Rmd file (ideally the same one we've been working on):
+Add to your RMarkdown document:
 
-1. Add a title to the code after the `r` and a space.
+1. Add a name to the code chunk after the `r` and a space.
 2. Hide the code from the output with `echo = FALSE`.
 3. Prevent warnings from the chunk that loads packages with `warning = FALSE`. 
 4. Knit the results.
 
 
-## Rmd Presentations
-
-You can also make presentation slides using Rmd. A great resource is Yihui's 
-[Rmd book, "Presentations" section](https://bookdown.org/yihui/rmarkdown/presentations.html).
-
-Some types of formats:
-
-- ioslides
-- [xaringan](https://slides.yihui.name/xaringan/#1)
-- [slidy](https://www.w3.org/Talks/Tools/Slidy2/#(1))
-- [reveal.js](https://revealjs.com/#/)
-- ...
-
-### Activity: Exploring ioslides
-
-Let's turn the file we've been working on into slides.
-
-Together:
-
-1. In RStudio, go to "File" -> "New File" -> "RMarkdown" -> 
-   "Presentation" -> "ioslides". Explore!
-2. Clear everything below the YAML header.
-3. Copy and paste the tibble exploration we've been working on 
-   (without the YAML header), and turn them into slides.
-
 ## Wrap-up
 
-Save te following files to your network/cloud drive or email:
+Save the following files. We will use them next class. 
 
-1. `exploring_markdown.md` and its output formats (PDF, HTML).
-2. The Rmd document exploration and its output formats.
-3. The Rmd presentation slides exploration and its output formats. 
+  1. `exploring_r.R`
+  2. `exploring_markdown.Rmd` and its output formats (PDF, HTML).
 
 
 ## To do before next class
 
 - Make an account on [GitHub](https://github.com/).
   - Make your username recognizable!
-  - Please put up a profile photo or image on GitHub—it makes the class community 
-    more personable and easier to work with.
-- Fill out [this survey](https://usf.az1.qualtrics.com/jfe/form/SV_8kAdI0XraWU6geN), 
-  so that I can match you to your GitHub account.
-- Finish any in-class activities listed in today's section of the guidebook that
-  you didn't get done.
-- If you are using a laptop, install the software stack for this course, as indicated below.
+  - Please put up a profile photo or image on GitHub—it makes the class community more personable and easier to work with.
+- Finish any in-class activities listed in today's section of the guidebook that you didn't get done.
+- Install the software stack for this course, as indicated below.
 
 Optionally, register for the [Student Developer Pack](https://education.github.com/pack) with GitHub for a bunch of free perks for students!
-
-And remember: If you are using a laptop, bring it to every class, as we will always have live-coding activities. 
 
 ### Software Stack Installation
 
@@ -739,7 +638,4 @@ And remember: If you are using a laptop, bring it to every class, as we will alw
     - RStudio here: <https://www.rstudio.com/products/rstudio/download/preview/>
     - Commentary on installing this stuff can be found at [stat545.com: r-rstudio-install](http://stat545.com/block000_r-rstudio-install.html)
 2. Install git (this is different from GitHub!). See [happygitwithr: Section 7](http://happygitwithr.com/install-git.html)
-    - You'll need to work with the command line. 
 3. Install GitHub: <https://desktop.github.com/>
-    - Or another git client
-4. Install the **tinytex** package in R and run: `tinytex::install_tinytex()`

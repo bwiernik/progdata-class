@@ -1,0 +1,64 @@
+---
+title: "Scraps"
+author: "Brenton M. Wiernik"
+date: "1/18/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Welcome to R
+
+Now, we'll get you up to speed with a minimum "need to know" about using R and 
+RStudio. We're going to assume you know nothing and start from the basics. We will
+explore more of the R/RStudio landscape as the semester goes on.
+
+The format of today's notes aim to teach R by exploration, so is essentially an 
+activity guide with prompts for exploration. These are mostly all exercises 
+we'll be doing together in class. 
+
+
+## Why R?
+
+Why R? Some points taken from [adv-r: intro](http://adv-r.had.co.nz/Introduction.html):
+
+- Free, platform-wide
+- Open source
+- Comprehensive set of "add on" packages for analysis
+- Huge community
+- …
+
+Alternatives exist for data analysis, python being another excellent tool, 
+especially these days as more and more R-like functionality is added to it. The 
+good thing about python is that it's faster and has better support for machine 
+learning models. 
+
+
+
+## Rmd Presentations
+
+You can also make presentation slides using Rmd. A great resource is Yihui's 
+[Rmd book, "Presentations" section](https://bookdown.org/yihui/rmarkdown/presentations.html).
+
+Some types of formats:
+
+- ioslides
+- [xaringan](https://slides.yihui.name/xaringan/#1)
+- [slidy](https://www.w3.org/Talks/Tools/Slidy2/#(1))
+- [reveal.js](https://revealjs.com/#/)
+- ...
+
+
+### Activity: Exploring ioslides
+
+Let's turn the file we've been working on into slides.
+
+Together:
+
+1. In RStudio, go to "File" -> "New File" -> "RMarkdown" -> 
+   "Presentation" -> "ioslides". Explore!
+2. Clear everything below the YAML header.
+3. Copy and paste the tibble exploration we've been working on 
+   (without the YAML header), and turn them into slides.
