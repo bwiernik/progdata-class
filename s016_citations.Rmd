@@ -315,7 +315,7 @@ or Google Docs).
 When you are finishing writing and are ready to knit, add this line to your YAML
 metadata: 
 ```
-bibliography: "`r rbbt::bbt_write_bib("bibliography.json", overwrite = TRUE)`"
+bibliography: "\u0060r eval=FALSE rbbt::bbt_write_bib("bibliography.json", overwrite = TRUE)\u0060"
 ``` 
 
 
