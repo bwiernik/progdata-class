@@ -313,7 +313,10 @@ for details), or you can manually type them in your Markdown document
 or Google Docs).
 
 When you are finishing writing and are ready to knit, add this line to your YAML
-metadata: ``bibliography: "`r rbbt::bbt_write_bib("bibliography.json", overwrite = TRUE)`"`` 
+metadata: 
+```
+bibliography: "`r rbbt::bbt_write_bib("bibliography.json", overwrite = TRUE)`"
+``` 
 
 
 ## Inserting Citations with `citr`
