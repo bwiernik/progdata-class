@@ -5,7 +5,7 @@ bookdown::gitbook:
       collapse: section
       scroll_highlight: yes
       before: |
-        <li><a href="./">DataSci & Programming 2020</a></li>
+        <li><a href="./">Programming with Data</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit: https://github.com/USF-Psych-DataSci/Classroom/edit/master/%s
