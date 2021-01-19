@@ -14,7 +14,7 @@ menu:
     weight: 2
 ---
 
-```{r setup, include = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(cache = TRUE,
                       message = FALSE,
                       warning = FALSE)

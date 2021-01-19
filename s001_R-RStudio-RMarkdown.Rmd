@@ -1,9 +1,5 @@
 # R, RStudio, RMarkdown
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Outline
 
 We'll cover two topics today:
@@ -94,7 +90,7 @@ This is the same as typing out the print function: `print( object )`
 
 If you try to call an object that doesn't exist, you get an error:
 
-```{r}
+```{r, error=TRUE}
 apple
 ```
 

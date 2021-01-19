@@ -5,10 +5,6 @@ date: "1/18/2021"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Welcome to R
 
 Now, we'll get you up to speed with a minimum "need to know" about using R and 
