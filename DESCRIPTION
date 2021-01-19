@@ -18,5 +18,5 @@ Imports:
     modelr,
     psychTools,
     palmerpenguins,
-    knitr,
-    tsibble
+    knitr
+    
