@@ -12,7 +12,6 @@ Imports:
     DT,
     lubridate,
     here,
-    cowplot,
     patchwork,
     broom,
     modelr,
