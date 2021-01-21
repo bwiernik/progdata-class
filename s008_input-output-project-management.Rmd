@@ -65,7 +65,7 @@ directory and RStudio Projects.
 
 ## The working directory and RStudio Projects
 
-When you open, it "runs" in some folder on your computer. This is the place
+When you open R, it "runs" in some folder on your computer. This is the place
 it will look for files to import and write files as output. Think about where
 your participation and homework files end up when you knit them.
 

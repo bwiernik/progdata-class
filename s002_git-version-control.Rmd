@@ -2,15 +2,9 @@
 
 __Announcements__:
 
-- The first assignment is due for Peer Review on Monday, final on Wednesday
+- The first assignment is due for peer review on Monday, final on Wednesday
 - The first peer review is due on Tuesday
-- Please be sure you have:
-  1. Made a participation repo
-      - You only need 1 for the entire semester!
-  1. Submitted your participation repo link on canvas
-  1. Made a homework repo
-      - You only need 1 for the entire semester!
-  1. Accepted your invitation to the class Organization
+
 
 ## Outline
 
@@ -21,198 +15,169 @@ We'll cover four topics today:
 - Submitting assignments
 - Asking questions
 
+
 ## Learning Objectives
 
 By the end of today's class, you will be able to:
 
-- Distinguish and navigate between GitHub repositories, Organization accounts, 
-  and user accounts.
-- Edit plain text files on GitHub.
-- Navigate the commit history of a repository and a file on GitHub.
-- Contribute to GitHub Issues, especially for this class.
-- Identify whether a software-related question has a reproducible example.
+- Understand the benefits of a version control workflow 
+- Commit file changes to GitHub
+- Open and respond to pull requests on GitHub
+- Navigate the commit history of a repository and a file on GitHub
+
 
 ## Resources
 
 If you want to learn more about today's topics, check out:
 
-- The [GitHub guide](https://guides.github.com/) has lots of info about GitHub. 
-  If you do go here, I recommend you start with 
-  ["Hello, World!"](https://guides.github.com/activities/hello-world/). You'll 
-  see stuff about branching there -- we'll be discussing that next week.
-- Dr. Jenny Bryan's ["How to get unstuck"](https://wiernik-datasci.netlify.com/help-general/) 
-  page is useful for getting help online.
+- The [GitHub guide](https://guides.github.com/) has lots of info about GitHub.
+  If you do go here, I recommend you start with "Hello, World!"](https://guides.github.com/activities/hello-world/). 
+- Dr. Jenny Bryan's ["How to get unstuck"](https://progdata.netlify.com/help-general/) page is useful for getting help online.
 
-## Topic 2: GitHub (35 min)
 
-(2 min)
+## Making a GitHub Repository
 
-We will be using [GitHub](https://github.com) a lot in this course:
+We will be using [GitHub](https://github.com) a lot in this course.
 
-- All course-related work will go on GitHub.
-- Discussion will happen on GitHub.
-- Class materials are on GitHub.
+GitHub is similar to Dropbox, OneDrive, or other cloud storage services.
+There are 3 key benefits of GitHub compared to those other services.
 
-But why GitHub? Because it's tremendously effective for developing a project. Examples:
+  1. GitHub is a _version control_ platform. 
+     It is designed to **track** exactly **what changes you make** and **when you make them**.
+     You can browse the history 
+  2. GitHub is designed for code.
+     You can track what changes you make **line by line**
+     You can integrate your code with automated tools for error checking, testing, etc.
+  3. GitHub is designed for _collaborative coding_.
+     
+       - One master copy
+       - People can make simultaneous edits
+       - No emailing files back and forth
+       - Tools for checking and verifying each other's code
+       
+     We will practice using GitHub for collaboration through the weekly homework.
+     
+Let's make a GitHub repository that you will use for this class.
+Follow this link: <https://classroom.github.com/a/bUKffmtV>
 
-- [Apple](https://github.com/apple) uses it.
-- [Uber](https://github.com/uber) uses it.
-- [Netflix](https://github.com/Netflix) uses it.
-- [This Guidebook](https://github.com/USF-Psych-DataSci/Classroom) and [the class website](https://github.com/USF-Psych-DataSci/DataSci-home) use it.
-- Prominent R packages like [`ggplot2`](https://github.com/tidyverse/ggplot2) use it. 
+This will create a repository for you or take you to your existing repository.
 
-Today, we'll check out:
+     
+## Navigating a GitHub Repository
 
-1. GitHub as cloud storage;
-2. GitHub for collaboration; and
-3. GitHub for version control with git.
+Let's practice some vocabulary.
 
-### Register a GitHub account - Activity (4 min)
+  1. You each have a GitHub **account**.
+  1. You each have made a homework **repository** or **repo**.
+  
+     - A repository can be *public* or *private*.
+     - You can have many repositories for your account.
+     - It's a good idea to **one repository for each project**.
+     - (Sign up for the GitHub Student Pack to get free unlimited private repositories.)
+     
+  1. A repo can contain many files and folers (or "directories").
+  1. When you make a change to a file in your repo, this is called **committing** a change (or making a **commit**).
+  
+Let's take a look at various parts of a GitHub repo.
 
-Your turn:
+  1. Files/folders ("code")
+  1. History
+  1. Issues
+  1. Branches
+  1. Pull requests
 
-1. Register for a free account on [github.com](https://github.com). 
-    - You'll be using this account for the duration of the course.
-    - Give your username [some thought](https://happygitwithr.com/github-acct.html#username-advice) -- ideally, should include your name.
-2. Tell me what your username is by filling out [this survey](https://usf.az1.qualtrics.com/jfe/form/SV_8kAdI0XraWU6geN).
+Let's practice editing a file with GitHub.
+Make a new file on your participation repository and edit it:
 
-### GitHub as cloud storage (4 min)
-
-At the very least, GitHub allows for cloud storage, like Google Drive and Dropbox do. There's a bit more structure than just storing files under your account:
-
-- __Repositories (aka "repo")__: All files must be organized into _repositories_. Think of these as self-contained projects. These can either be _public_ or _private_.
-- __User Accounts__ vs. __Organization Accounts (aka "Org")__: All repositories belong to an account:
-    - A _user account_ is the account you just made, and typically holds repositories related to your own work. 
-    - An _Organization_ account can be owned by multiple people, and typically holds repositories relevant to a group (like STAT 545).
-
-Examples: 
-
-- The [`ggplot2`](https://github.com/tidyverse/ggplot2) repo, within its corresponding `tidyverse` Org. 
-- My [website](https://github.com/bwiernik/wiernik_org) repo, within my own user account.
-
-Want to read more about GitHub accounts? [Check out this help page on GitHub](https://help.github.com/en/articles/types-of-github-accounts).
-
-### GitHub as cloud storage - Activity (10 min)
-
-__Together: Make a participation repo__
-
-- Follow the [setup instructions](https://wiernik-datasci.netlify.com/evaluation/participation/#setup) on the participation page. 
-
-__Navigating GitHub__
-
-1. Together: Make a new file on your participation repository:
     - Click on the "Create New File" button on your repository's home page.
     - Call it `navigating_github.md`
-    - Leave it blank, and commit ("save") the file by clicking on green "commit new file" button at the bottom of the page.
-2. Together: Add the following URL's to your `navigating_github.md` file (click on the pen button to edit), together with some commentary:
-    - The repository for the class home page, called `DataSci-home` (use this if the site ever goes down!)
-    - The account it's under.
-    - Whether the account is a _user account_ or an _Org_.
-3. Together: Commit the changes.
-4. Your turn: Continue the exercise, and add more URL's (with more commentary):
-    - The URL to your participation repo
-    - The URL to your user account page
-5. Your turn: Commit the changes.
+    - Write something (e.g., what's your favorite color?). 
+    - Commit ("save") the file by clicking on green "commit new file" button at the bottom of the page.
+    - Now type something else (e.g., what's your favorite animal?) and commit the change.
+    
+Now look at your commit history in the "History" tab.
+  
+You can download a copy of your repository to your computer (**cloning** it), make changes (commits) there, then **push** them back to GitHub.
+You do this with a **git client** application, such as the one provided by GitHub: [GitHub for Desktop](https://desktop.github.com)
 
-### GitHub for collaboration (4 min)
+After GitHub for Desktop is installed, you can clone the repo to your computer using the big green "Code" button on the GitHub page.
+You can also clone a repository and work with it directly in RStudio.
+Let's do that now.
 
-The "traditional" way to collaborate involves sending files over email. Problems:
 
-- Easily lose track of who has the most recent version.
-- Emails get buried.
+## RStudio Projects
 
-Addressed by GitHub:
+In RStudio, click File → New Project… → Version Control → Git. In the popup:
 
-- GitHub repository treated as the "master version".
-- Use [_GitHub Issues_](https://guides.github.com/features/issues/) instead of email.
+  1. Enter the URL for your GitHub repository
+  1. Choose where you want the folder to be stored on your computer
+  1. Give the folder (directory) an understandable name
+  
+This will do two things:
+  1. Download ("clone") the GitHub repo to your computer and start tracking it
+  1. Create an RStudio Project file
 
-_Issues_ are a discussion board corresponding to a particular repository. One "thread" is called an Issue. Some features:
+### The working directory
 
-- Tag other GitHub users using `@username`.
-- Get email notifications if you are tagged, or are `Watch`ing a repository.
+When you open R, it "runs" in some folder on your computer. 
+This is the place it will look for files to import and write files as output. 
+Think about where your Rmd output files end up when you knit them.
 
-As an example, check out the Issues in the [`ggplot2`](https://github.com/tidyverse/ggplot2) repository.
+If you have R/RStudio closed, and you open a .R or .Rmd file, R/RStudio will start in the folder holding that file.
 
-More on collaboration next Thursday.
+If you open R/RStudio from the Windows Start menu, the Mac dock, the Mac Spotlight, etc., R/Studio will start in its default location (probably your user home directory, see Tools → Global Options → General → Default working directory…).
 
-### GitHub for collaboration - Activity (1 min)
+When I say "R/Studio will start in…", what I am referring to is R's "working directory". 
+Like I say above, this is the place R will look for files to import and write files as output. 
+You can check what R's current working directory is using the `getwd()` function:
 
-__Together: `Watch`ing the `Announcements` repo__
+```{r}
+getwd()
+```
 
-1. Navigate to class [Announcements](https://github.com/USF-Psych-DataSci-2020/Announcements) repository.
-2. Click `Watch` on the upper-right corner of the repo
+You can also change the working directory using the `setwd()` function:
 
-You should now get an email notification whenever an Issue is posted.
+```{r, eval = FALSE}
+setwd(file.path("path", "to", "folder"))
+```
 
-### GitHub for version control with git (5 min)
+Do not use `setwd()`! 
+You should always write your R scripts so that the entire project is self-contained in a folder. 
+All of the scripts, folders, data, output, etc. should all "live" within this project folder. 
 
-GitHub uses a program called `git` to keep track of the project's history (more about `git` next Thursday).
+We will talk a lot about how to do this throughout the semester.
+For now, we will start by working with RStudio Projects to make this easier.
 
-- Users make "commits" to form a _commit history_.
-- `git` only tracks the _changes_ associated with a commit, so it doesn't need to take a snapshot of all your files each time.
-- The actual changes are called a _diff_.
+When you double click on a .Rproj file, it:
 
-Demostration:
+  1. Opens a new fresh R session, with
+  2. The working directory set to the location of the .Rproj file, and
+  3. No connection whatsoever to any other R sessions you already have open
+  
+You can also set specfic options for each RStudio project (e.g., number of spaces to insert when you type Tab, etc.).
 
-- View commit history of the [STAT545-home](https://github.com/STAT545-UBC/STAT545-home) repository by clicking on the "commits" button on the repo home page.
-- View a recent diff by clicking on the button with the _SHA_ or _hash_ code (something like `6c0a5f1`).
-    - This is also useful for collaborators to see exactly what you changed.
-- View the repository from a while back with the `<>` button.
-- View the history of a file by clicking on the file, then clicking "History".
+Let's practice closing RStudio and re-opening it by opening the RStudio project.
+Run `getwd()` to see where R is running. 
 
-Why version control?
 
-- Don't fret removing stuff
-- Leave a breadcrumb trail for troubleshooting
-- "Undo" and navigate a previous state
-- Helps you define your work
-- ...
+## The Version Control Workflow
 
-### GitHub for version control with git - Activity (5 min)
+Now, let's practice the workflow to work with your files with GitHub.
 
-__Your turn: History of the [`STAT545-UBC/Classroom`](https://github.com/STAT545-UBC/Classroom) repository.__
+### Editing a file and making a commit
 
-1. Use the commit history of the [`STAT545-UBC/Classroom`](https://github.com/STAT545-UBC/Classroom) repository to find Assignment 01 that was delivered last year in STAT 545A (Note: the course ended in mid October 2018, and the assignments were held in a folder called `assignments`). 
-2. Add the URL of this assignment to your `navigating_github.md` file in your participation repository. Keep up with the commentary within the file, too. When was the assignment due? 
+Open the `README.md` file in your local git folder by clicking on it in the Files pane. 
+`README.md` is a special file that will show when viewing a folder on GitHub.
+Use README files to describe the contents of a folder and what's going on there.
 
-Note: These are not exactly the assignments you will be doing in this class.
+Type "Hello world" and save the file.
 
-## Topic 3: Asking effective questions online (10 min)
+Now, open the Git tab on the right hand side of the RStudio window. 
 
-(5 min)
+This pane shows you the files in the git fold that **have changed since the last commit**. 
+You can view a detailed list of changes 
 
-We all get stuck sometimes. If you try taking [preliminary measures](https://wiernik-datasci.netlify.com/help-general/) such as googling, you may have to turn to writing a question on a discussion board. Making your question _effective_ is an art. 
 
-To make your question effective, the idea is to make things as easy as possible for someone to answer. 
-
-- Will they have to dig to find a resource you're talking about, or do you provide links?
-- If your code isn't doing what you expect, or you don't know how to obtain an output, do you provide a [__reproducible example__](https://stackoverflow.com/help/minimal-reproducible-example) (aka "reprex")?
-  - Ideally, someone should be able to copy and paste a chunk of code to reproduce the problem you are talking about.
-- Is your reproducible example _minimal_, meaning you've removed all the unnecessary parts to reproduce the problem?
-
-You'll probably find that the act of writing an effective question causes you to answer your own question!
-
-### Asking questions - Activity (5 min)
-
-__Commenting on some online questions__
-
-1. My turn: Start an Issue on the [Announcements repo](https://github.com/USF-Pssych-DataSci-2020/Announcements/issues) called `Asking effective questions`.
-2. Your turn: Find a question/issue or two that someone has posed online. Check out [Stack Overflow](https://stackoverflow.com/) for inspiration.
-3. Your turn: Add a comment to the newly opened Issue with the following:
-    - The URL to the thread/question
-    - A few brief points on how the question is worded effectively or ineffectively. What would make it better, if anything?
-
-We'll talk about some examples after you're done. 
-
-# The version control workflow
-
-The rest of today's topic is version control..
-
-## Learning Objectives
-
-From this lesson, you will be able to demonstrate the git/GitHub functionality listed here.
-
-## Working with git and GitHub
 
 Before we dive into concepts, it's important to distinguish between the __local__ 
 and __remote__ copies of a repo.

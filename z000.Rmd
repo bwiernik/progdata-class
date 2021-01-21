@@ -52,3 +52,34 @@ Together:
 2. Clear everything below the YAML header.
 3. Copy and paste the tibble exploration we've been working on 
    (without the YAML header), and turn them into slides.
+   
+   
+   
+   
+   
+## Topic 3: Asking effective questions online (10 min)
+
+(5 min)
+
+We all get stuck sometimes. If you try taking [preliminary measures](https://wiernik-datasci.netlify.com/help-general/) such as googling, you may have to turn to writing a question on a discussion board. Making your question _effective_ is an art. 
+
+To make your question effective, the idea is to make things as easy as possible for someone to answer. 
+
+- Will they have to dig to find a resource you're talking about, or do you provide links?
+- If your code isn't doing what you expect, or you don't know how to obtain an output, do you provide a [__reproducible example__](https://stackoverflow.com/help/minimal-reproducible-example) (aka "reprex")?
+  - Ideally, someone should be able to copy and paste a chunk of code to reproduce the problem you are talking about.
+- Is your reproducible example _minimal_, meaning you've removed all the unnecessary parts to reproduce the problem?
+
+You'll probably find that the act of writing an effective question causes you to answer your own question!
+
+### Asking questions - Activity (5 min)
+
+__Commenting on some online questions__
+
+1. My turn: Start an Issue on the [Announcements repo](https://github.com/USF-Pssych-DataSci-2020/Announcements/issues) called `Asking effective questions`.
+2. Your turn: Find a question/issue or two that someone has posed online. Check out [Stack Overflow](https://stackoverflow.com/) for inspiration.
+3. Your turn: Add a comment to the newly opened Issue with the following:
+    - The URL to the thread/question
+    - A few brief points on how the question is worded effectively or ineffectively. What would make it better, if anything?
+
+We'll talk about some examples after you're done. 
