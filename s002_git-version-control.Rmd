@@ -175,296 +175,193 @@ Type "Hello world" and save the file.
 Now, open the Git tab on the right hand side of the RStudio window. 
 
 This pane shows you the files in the git fold that **have changed since the last commit**. 
-You can view a detailed list of changes 
+Any files shown here have had changes made.
+(Remember, you need to save the file in RStudio [so the title on the Source tab isn't blue] before they appear in this list.)
+Changes shown here are not saved in the repo history until you **commit** them.
+
+  1. The "Path" column gives the filename (and folder path)
+  1. The "Staged" column indicates whether the changes will be saved in the next commit.
+
+     - Check the box to "stage" the file (add it to the commit)
+     - Uncheck the box to "unstage" it (remove it from the commit)
+     
+  1. The "Status" column indicates how a file has changed
+  
+     - "M" for modified
+     - "A" for added
+     - "R" for removed
+     
+You can view the changes in more detail by clicking the "Diff" button.
+Here you can view individual line changes, stage/unstage files, and view the commit history.
+
+If you want to undo any changes and revert back to the previous committed version of a file, select it in the Diff list and click the "Revert" button.
+
+To **commit** your changes, type a **commit message** describing what you've changed in the message box on the right.
+Always give informative commit messages (help out future you!).
+When you are ready, click the "Commit" button.
+
+Now, you've made the commit locally, but you need to "push" it to GitHub so that it shows up there as well. 
+Click the "Push" (up arrow) button.
+
+Now go check out the file on GitHub online.
+
+### Fetching or Pulling Changes from the Remote Repo
+
+One of the amazing things about git is that it can track changes made to a file at different locations or on different computers and reconcile them together.
+(This is how it is so useful for collaboration!)
+
+Let's see how that works.
+
+  1. First, let's make a change directly on the GitHub website.
+     Edit `README.md` and type "oops!" at the top.
+     Commit your change.
+  1. Go back to RStudio.
+  1. Click the "Pull" (down arrow) button in the Git tab.
+  1. See how the file on your local computer changed to reflect the change you made online.
+  
+Let's fix that "oops!".
+Delete it, commit your change (give an informative commit message), and push your changes back online.
+
+### The General Workflow
+
+You will use this basic workflow througout the semester (and your coding career).
+
+When you sit down to start working:
+
+  1. Open you RStudio Project.
+  1. Click the Pull button to fetch remote changes and get your local repo copy up to date.
+  1. Make changes.
+  1. Commit your changes.
+  1. Push your commits back up to the remote repo (GitHub).
+  
+You should get in the habit of **commit early, commit often**.
+Don't wait until you are completely done with your work to commit the changes.
+Make small commits as you go.
+This makes it much easier to go back if you accidentally break something and need to revert.
+
+Next week, we will practice what to do if something goes wrong with this workflow and you need to fix things (e.g., merge conflicts, reverting commits).
 
 
+## Branches and Pull Requests
 
-Before we dive into concepts, it's important to distinguish between the __local__ 
-and __remote__ copies of a repo.
+Sometimes, it's a good idea to work on changes to one part of your code separately before putting them back into your master document. 
+For example, let's say youwant to experiment with a new analysis without messing up your existing work.
 
-- __Local__ refers to things on your own computer. A local repo is a repo found on your hard drive.
-- __Remote__ refers to things on the internet. A remote repo lives on GitHub (or other similar sites). 
+To do that, we use **branches**. 
+A branch is a copy of the repo that sits separately from your `master` branch. 
+Git keeps track of how each of your branches differs.
 
-You can connect a local repo to a remote repo, then push and pull ("fetch") changes
-between them. You have already been doing this using the GitHub Desktop program.
-
-Note that you can connect your local repo to more than one remote repo! 
-Because of this, git gives the remote repos names (e.g., `origin`, `upstream`). 
-In this class, we will only ever be using one remote. By default, this remote is 
-named __origin__. 
-
-
-### The typical workflow (8 min)
-
-The majority of your interaction with version control will be a 
-**pull/stage/commit/push workflow**, explained here. For another resource on 
-this, check out [happygitwithr: rstudio-git-github](http://happygitwithr.com/rstudio-git-github.html).
-
-0. __Clone__ your repository if you don't have a local copy.
-
-Once you have a local copy of the repository, then working on a project involves 
-frequent use of these three steps:
-
-1. __Pull__ the remote repo to make sure your local copy is up to date.
-2. Make changes to your files.
-   1. __Stage__ your changes (GitHub Desktop does this for you).
-3. __Commit__ your changes.
-4. __Push__ the changes (after perhaps pulling again).
-
-Git treats the remote repository as the "official" version of the repository. 
-This means that your local copy is a second class citizen -- the repository you 
-have locally must be up-to-date with the remote repository before you are 
-allowed to push your work. If there are commits on the remote repository that 
-are not present locally, git will throw an error if you try to push your changes.
-
-**Integrate version control as you do work!**
-
-Keep track of your changes by committing them frequently as you go, rather than
-waiting until the end.
-
-- Workflow without version control: save your files spontaneously.
-- Workflow with version control: 
-  - save your files spontaneously, 
-  - commit your changes after every "step" in your work, and 
-  - push your changes [in case of fire](https://github.com/louim/in-case-of-fire). 
-
-Committing often ensures that you can trace back all the work you did. 
-This results in transparency with the way your project has developed, 
-which is a very effective workflow. 
-
-You might feel self-conscious about half-finished work being viewable.
-Try to push past that. Folks aren't going to judge you based on in-progress work.
-
-
-
-### Git Clients (3 min)
-
-We have been using the GitHub Desktop program ("client") to work with git. 
-It's also possible to work with git directly from RStudio (see the bottom of this
-page) or using other programs. You can also "directly" interact with git, by
-typing commands in the terminal (cmd, Terminal, bash), such as `git clone`, 
-`git commit`, etc. Working in the terminal opens a lot of extra functionality
-with git, but the GitHub Desktop program will get us most of what we need.
-
-
-### Merge conflicts (5 min)
-
-If you change a file locally, and that same file (_and_ the same lines) get 
-changed on the remote repo in a different way, you'll end up with a _merge conflict_.
-
-You will need to resolve this conflict before you can continue working. Remember 
-that your local copy is a second class citizen compared to the remote version, 
-so you'll have to resolve things locally before pushing to the remote. 
-
-### Merge conflicts: Activity (5 min)
-
-Let's make a merge conflict, then fix it. 
-
-1. Edit a line of your README both locally and remotely (on GitHub) to something 
-   different in both cases. Commit both changes.
-2. Try pulling your remote changes. You'll get a _merge conflict_. 
-3. Update the file that has the conflict, commit your changes, and push.
-
-
-### Branching (8 min)
-
-Sometimes, it's a good idea to work on changes to one part of your code separately
-before putting them back into your master document. For example, let's say you
-want to experiment with a new analysis without messing up your existing work.
-
-To do that, we use **branches**. A branch is a copy of the repo that sits separately
-from your `master` branch. Git keeps track of how each of your branches differs.
   - When did a branch break off from `master`?
   - What commits have been made to the branch since the break?
   - What commits have been made to `master` since the break?
   
 Let's take a look at some branches on the [psychmeta repo](https://github.com/psychmeta/psychmeta).
 
-After you make changes to the branch, at some point, you probably want to **merge**
-the branch back into `master`. On GitHub, we do this using a **pull request**.
-  - That name means you want the parent branch (`master`) to _pull_ in all the 
-    commits made on child branch. You _request_ that this happens from the 
-    owners or collaborators on the repo (for your homework, this is yourself).
-  - Once a pull request has been opened, it's a good time to review the changes
-    to the code, run tests, make comments, and correct any errors. You can review
-    yourself and also request code reviews from others by username.
-  - You can make additional changes to the pull request by pushing more commits
-    to the child branch.
+After you make changes to the branch, at some point, you probably want to **merge** the branch back into `master`. 
+On GitHub, we do this using a **pull request**.
+
+  - That name means you want the parent branch (`master`) to _pull_ in all the commits made on child branch. 
+    You _request_ that this happens from the  owners or collaborators on the repo (for your homework, this is yourself).
+  - Once a pull request has been opened, it's a good time to review the changes to the code, run tests, make comments, and correct any errors. 
+    You can review yourself and also request code reviews from others by username.
+  - You can make additional changes to the pull request by pushing more commits to the child branch.
   - When you are ready, **merge** the pull request into the parent branch.
   - [Example from psychmeta](https://github.com/psychmeta/psychmeta/pull/75).
   - For more info on pull requests, see this [GitHub tutorial](https://help.github.com/articles/about-pull-requests/).
 
 There are many reasons you may want to branch. Here are some:
 
-- A collaborator wants to make a change to the repo, but the end product of the 
-  change requires review from collaborators.
-- You want to make changes, but don't want to "deploy" the changes until later 
-  (such as if pushing to GitHub triggers a website build).
+- A collaborator wants to make a change to the repo, but the end product of the change requires review from collaborators.
+- You want to make changes, but don't want to "deploy" the changes until later (such as if pushing to GitHub triggers a website build).
 - If you want to try something "risky", it's just safer to work on a branch.
 
-### Branching: Activity (5 min)
+### Making a Branch
 
-Let's organize our participation repo in a branch.
+Let's organize your homework repo in a branch.
 
-1. Create a new branch locally, called "organizing" (we could have also made this on GitHub):
-    - Click the "Branch" button ![](./img/branch.png) in GitHub Desktop.
-    - Type a name for your branch and click "New Branch".
-2. Stage and commit the new files.
-3. Restructure your repository in a more sensible way, using some folders (locally).
-4. Stage and commit the changes; push to GitHub.
-5. Explore: 
-    - Switch between branches to see that the repo structure is different.
-6. Merge the branch to "master" via GitHub by making a pull request. 
+  1. Create a new branch locally by clicking the "Branch" button in RStudio (next to the "master" branch name)
+  
+     - Call this branch "organizing"
 
+  1. Open your repo folder in your computer's file system.
+  
+  1. Make a folder called "participation" and move all of the files besides `README.md` into it.
+  1. Make a folder called "hw01". 
+     This will be where you save your files for your first homework.
+  1. Stage and commit your changes.
+  
+Now let's see how the branches work.
+Switch back and forth between the `master` and `organizing` branches.
+See how the organization changes happened on `organizing` but not on `master`.
 
-### Undoing Changes (5 min)
+### Making a Pull Request
 
-There are many ways that work can be "undone" in git. We will only investigate 
-three of the simpler methods. For more advanced methods, like reverting to a specific
-previous commit in your repo history, check out these resources by 
-[bitbucket](https://www.atlassian.com/git/tutorials/undoing-changes) and 
-[GitHub](https://blog.github.com/2015-06-08-how-to-undo-almost-anything-with-git/). 
+Now, let's merge the changes from `organizing` back to `master`.
 
+  1. Go to your repo on GitHub.
+  
+     - **Pro tip:** I link to add a shortcut link to the GitHub page for the repo to the folder to make it easier to get to GitHub from RStudio.
+     
+  1. Switch to the `organizing` branch.
+  1. Click "Pull Requests" and then the green "New pull request" button.
+  1. Select the approprite "base" (`master`) and "compare" (`organizing`) branches.
+  1. Type a description of the changes made in the box.
+  1. Click "Create pull request".
+  
+Once the pull request is open, your changes are ready to be reviewed, then merged back into `master`.
 
-The three most useful "undo"s are:
+For your homework, you will make a new branch called `hw01`. 
+Do your work on this new branch.
+When you are ready for peer review, open a pull request and tag your assigned reviewers by clicking the "Request review" link and typing their names.
 
-1. Undoing your (uncommited) work and reverting to the previous commit.
-2. Reverting a single previous commit.
-3. Browsing the repo at previous states, and taking files from there. 
+### Commenting on a Pull Request
 
-We'll demonstrate (1) and (2) in an activity.
+Once a pull request is open, folks can review your code and make comments.
+You will review two of your classmates' code each week.
+You can find a peer review template on the course website.
 
-### Undoing Changes: Activity (2 min)
+Be sure your comments are productive and constructive.
+Be kind!
 
-Here's how to go back to the most recent commit:
+You can mention specific people (e.g., me) by typing `@` and then their username.
 
-1. First, make and save a change to (say) a README file in your participation repo.
-2. In GitHub desktop, right-click on the file whose changes you want to discard.
-   Click "Discard Changes". You can even select multiple files at once if you like.
-   
-Here's how to undo a specific previous commit:
+You can make general comments and feedback, as well as comments on specific lines (and even suggest specific edits).
 
-1. In GitHub desktop, click on the History tab.
-2. Right-click on the commit you want to revert and choose "Revert this commit".
+### Revisining and Merge a Pull Request
 
+After you receive comments, make any necessary changes to your code.
+You can update a pull request by making more commits to the same branch (e.g., to the `hw01` branch).
+No need to make a new branch here.
 
-### Getting weird errors? (3 min)
+Once you have finished updating, **merge** the pull request by going to it on GitHub online, and clicking the "Merge" button.
 
-It's common to sometimes experience some errors in git, especially if you're first 
-learning how to use it. Try to get yourself unstuck with the concepts we've discussed here first. 
-
-But, you might find yourself stuck. The git documentation is full of jargon, 
-making it difficult to read and therefore difficult to debug things. There's even 
-a [parody](https://git-man-page-generator.lokaltog.net/) on it. If you are in 
-this position, it's best to just [burn it all down](http://happygitwithr.com/burn.html). 
-There's even an [xkcd comic](https://xkcd.com/1597/) on this.
-
-
-### Tagging a Release (5 min)
-
-Tagging a release on GitHub is like putting a "star" next to a particular commit. 
-It highlights a particular point in time of your repository that is noteworthy, 
-typically after achieving some milestone. This is easier to come back to than 
-having to manually keep track of noteworthy points in your commit history.
-
-Examples:
-
-- At the end of teaching this class, I will tag a release so I can easily come back
-  to earlier versions of the course in the future.
-- After sufficient development of an R package like [psychmeta](https://github.com/psychmeta/psychmeta/releases), 
-  a new release is tagged corresponding to the version of the package. 
-
-### Tagging a Release: Activity (3 min)
-
-Congratulations! We finished the first two weeks of DataSci and Programming, 
-which focussed on _tools_. To mark this milestone, let's tag a release on our 
-participation repositories.
-
-1. On your GitHub repo online, click "Releases"
-2. Click "Create a new release"
-3. Fill in the fields:
-    - It probably makes sense to use a versioning system like `week_2` here.
-4. "Publish Release".
+After you have merged the pull request, it's a good idea to delete the branch.
 
 
 ## This week's homework
 
 ### Assignment
 
-The assignment is posted on the [Assignments page](https://wiernik-datasci.netlify.com/evaluation/assignments/) 
-of the course website.
+The assignment is posted on the [Assignments page](https://progdata.netlify.app/evaluation/assignments/) of the course website.
 
-Your tasks are to create 3 products:
-  1. A README.md file for your homework repository to introduce yourself
-     and show off some Markdown formatting skills.
-  2. An RMarkdown document exploring a dataset, such as `gapminder::gapminder`
-     or `psych::bfi`.
-  3. An RMarkdown presentation that formats your dataset exploration as a set
-     of slides instead a document.
+Your tasks are to create 2 products:
 
-- Follow the instructions in the HW01 description carefully. 
-- Commit your code to your homework repo on GitHub **on a new branch called `hw01`**. 
-- When you are ready for your peer review (by Monday at 23:59!), create a 
-  **Pull Request** to prepare to merge this branch back into your `master` branch.
-- Request code reviews from the 2 people assigned to you (see the 
-  [Peer Review page](https://wiernik-datasci.netlify.com/evaluation/hw01/pr01/)).
-- Submit your peer reivews to your classmat by Tuesday at 23:59.
-- Merge your homework branch back into `master` and tag a release called `hw01` 
-  by Wednesday at 23:59.
+  1. A `README.md` file for your homework repository to introduce yourself and show off some Markdown formatting skills.
+     Place this in your repo's root (home/base) folder.
+  2. An RMarkdown document exploring a dataset, such as `palmerpenguins::penguins`, `gapminder::gapminder`, or `psych::bfi`.
+     Place this in the `hw01` folder.
 
 
-## Optional: Work with git in RStudio
+For this assignment: 
 
-It's possible to work with git/GitHub directly in RStudio, rather than using
-GitHub Desktop. I usually work with GitHub Desktop, but do whatever works for you.
-I can help you get RStudio working with git if you need a hand.
-
-You might need to [configure your git](http://happygitwithr.com/hello-git.html) 
-using the command line or the `usethis` package.
-
-Your RStudio will probably be able to "find" git. But if it can't, you'll 
-encounter errors. See [happygitwithr: see-git](http://happygitwithr.com/rstudio-see-git.html) 
-for help. 
-
-__Optional__ (but recommended): If you are on a laptop, after class, you might 
-want to [cache](http://happygitwithr.com/credential-caching.html) 
-your credentials so that you don't have to keep inserting your password.
-
-### The typical workflow git in RStudio
-
-Let's make a change to our repository from local.  
-
-1. Cloning your participation repo.
-    - In RStudio, File -> New Project -> Version Control -> Git.
-    - You should see a `Git` tab in RStudio, upper-right corner window. 
-      If not, see [happygitwithr: see-git](http://happygitwithr.com/rstudio-see-git.html) 
-      for help.
-    - Take a look at the files you just downloaded!
-2. Make your README a little nicer. Maybe fix up the title.
-3. Stage and commit the changes:
-    - In the Git tab in RStudio, click the checkboxes for the files that you 
-      want to commit. This is called "staging".
-    - Click the "Commit" button.
-    - Enter a commit message.
-    - Click "commit". 
-4. Push to your remote repository (which is named "origin")
-    - Click the up arrow in the Git panel in RStudio.
-
-<!-- 
-# Leftover text.
-
-3. Commit your changes. 
-
-Notice that GitHub automatically displays markdown files nicely, but not HTML files.
-
-Note: this exercise employs an effective _local_ git workflow, which we will 
-address later on in class.
-
-Together:
-
-1. If you haven't already, clone your participation repository to your desktop.
-2. In RStudio, open the file `navigating_github.md`.
-    - Yes! RStudio also acts as a plain text editor!
-3. Convert the `.md` file to both pdf and html by clicking the `Preview` or `Knit` button.
-4. Commit the two new files and push them to GitHub.
--->
+  - Follow the instructions in the HW01 description carefully. 
+  - Commit your code to your homework repo on GitHub **on a new branch called `hw01`**. 
+  - When you are ready for your peer review (by Monday at 23:59!), create a  **Pull Request** to prepare to merge this branch back into your `master` branch.
+  - Request code reviews from the 2 people assigned to you (see the [Peer Review page](https://progdata.netlify.app/evaluation/hw01/pr01/)).
+  - Submit your peer review comments to your classmate by Tuesday at 23:59.
+    - After you make your PR comments, copy a link to the PR page and submit this through Teams.
+  - Merge your homework branch back into `master` by Wednesday at 23:59.
+    - Afer you merge your PR, copy a link to the `hw01` folder and submit this through Teams.
+    
+If you run into any issues getting R or GitHub to work, please ask me!
+Don't spend hours bashing your head against your keyboard!
