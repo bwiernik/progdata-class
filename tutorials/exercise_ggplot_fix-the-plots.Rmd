@@ -246,6 +246,8 @@ Color by `gdpPercap`.
 Add alpha transparency to your liking.
 Consider log-transforming population and GDP.
 
+__Exercise 6__: 
+Make a "raincloud" plot for life expectancy by continent.
+For each continent, include (1) the individual data points, (2) a boxplot, and (3) a density curve.
 
 **Save your finished document in the participation folder of your homework repo!**
-__Exercise 6__: Add points to the plot in Exercise 5.
