@@ -114,6 +114,7 @@ In RStudio, click File → New Project… → Version Control → Git. In the po
   1. Give the folder (directory) an understandable name
   
 This will do two things:
+
   1. Download ("clone") the GitHub repo to your computer and start tracking it
   1. Create an RStudio Project file
 
@@ -280,11 +281,8 @@ There are many reasons you may want to branch. Here are some:
 Let's organize your homework repo in a branch.
 
   1. Create a new branch locally by clicking the "Branch" button in RStudio (next to the "master" branch name)
-  
-     - Call this branch "organizing"
-
+       - Call this branch "organizing"
   1. Open your repo folder in your computer's file system.
-  
   1. Make a folder called "participation" and move all of the files besides `README.md` into it.
   1. Make a folder called "hw01". 
      This will be where you save your files for your first homework.
@@ -299,9 +297,7 @@ See how the organization changes happened on `organizing` but not on `master`.
 Now, let's merge the changes from `organizing` back to `master`.
 
   1. Go to your repo on GitHub.
-  
      - **Pro tip:** I link to add a shortcut link to the GitHub page for the repo to the folder to make it easier to get to GitHub from RStudio.
-     
   1. Switch to the `organizing` branch.
   1. Click "Pull Requests" and then the green "New pull request" button.
   1. Select the approprite "base" (`master`) and "compare" (`organizing`) branches.

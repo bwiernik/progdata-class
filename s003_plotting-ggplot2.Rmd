@@ -3,8 +3,6 @@
 __Announcements__:
 
 - How did your homework go? Run into any issues we should discuss?
-- Your work should be stored in your _homework_ repository, not your 
-  _partication_ repo!
 
 __Recap__:
 
@@ -65,7 +63,7 @@ Here are some good resource to use as a reference:
 - [R Graphics Cookbook](http://www.cookbook-r.com/Graphs/)
     - Good as a reference if you want to learn how to make a specific type of plot.
 
-## Orientation to plotting in R (7 min)
+## Orientation to plotting in R
 
 TL;DR: We're using `ggplot2` in DataSci.
 
@@ -108,7 +106,7 @@ There are also some non-R plotting interfaces that are useful when you need
 highly customized solutions, such as [D3](https://d3js.org/), accessible in R 
 using the [r2d3 package](https://rstudio.github.io/r2d3/).
 
-## Just plot it (7 min)
+## Just plot it
 
 The human visual cortex is a powerful thing. If you're wanting to point 
 someone's attention to a bunch of numbers, you probably won't get any "aha" 
@@ -123,7 +121,7 @@ the reader doesn't care about the exact numeric values. Or, perhaps you just
 want to point out one or a few numbers, in which case you can put that number 
 directly on a plot.
 
-## The grammar of graphics (15 min)
+## The grammar of graphics
 
 You can think of the grammar of graphics as a systematic approach for describing 
 the components of a graph. It has seven components (the ones in bold are required 
@@ -165,11 +163,12 @@ For example, consider the following plot from the `gapminder` data set. For now,
 don't focus on the code, just the graph itself.
 
 ```{r}
-ggplot(gapminder, aes(gdpPercap, lifeExp)) +
+ggplot(gapminder) +
+  aes(x = gdpPercap, y = lifeExp) + 
   geom_point(alpha = 0.1) +
   scale_x_log10("GDP per capita", labels = scales::dollar_format()) +
   theme_bw() +
-  ylab("Life Expectancy")
+  scale_y_continuous("Life Expectancy")
 ```
 
 This scatterplot has the following components of the grammar of graphics. 
@@ -182,7 +181,7 @@ This scatterplot has the following components of the grammar of graphics.
 | scale                 | x: log10, y: linear |
 | statistical transform | none  |
 | coordinate system     | rectangular  |
-| facetting             | none  |
+| faceting              | none  |
 
 Note that `x` and `y` aesthetics are required for scatterplots (or "point" 
 geometric objects). In general, each geometric object has its own required set 
@@ -454,6 +453,6 @@ Like `geom_line()`, except connects points in the order that they appear in the
 dataset.
 
 
-## Activity: Fix the Plots (40 min)
+## Activity: Fix the Plots
 
 Fill out [Worksheet 2](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s03b_ggplot_p2-exercise.Rmd) together.

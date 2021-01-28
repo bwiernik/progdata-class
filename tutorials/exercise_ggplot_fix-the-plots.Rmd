@@ -5,7 +5,7 @@ output:
     theme: paper
 ---
 
-In this worksheet, we'll be looking at some erroneous plots and fixing them. 
+In this worksheet, we'll be looking at some problematic plots and fixing them. 
 
 I think you might not have these two packages installed:
 
