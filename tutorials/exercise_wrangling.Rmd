@@ -1,0 +1,384 @@
+---
+title: 's04: `dplyr` Exercise'
+output: 
+  html_document:
+    theme: paper
+---
+
+<!---The following chunk allows errors when knitting--->
+
+```{r allow errors, echo = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+# Intro to `dplyr` syntax
+
+Load the `gapminder` and `tidyverse` packages.
+    - This loads `dplyr`, too.
+
+```{r load packages}
+# load your packages here:
+library(FILL_THIS_IN)
+library(FILL_THIS_IN)
+```
+    
+
+## `select()`
+
+1. Make a data frame containing the columns `year`, `lifeExp`, `country` from 
+the `gapminder` data, in that order.
+
+```{r}
+select(gapminder, FILL_THIS_IN)
+```
+
+2. Select all variables, from `country` to `lifeExp`.
+
+```{r}
+# This will work:
+select(gapminder, country, continent, year, lifeExp)
+
+# Do it shorter with `:` :
+select(gapminder, FILL_THIS_IN)
+```
+
+3. Select all variables, except `lifeExp`.
+
+```{r}
+select(gapminder, FILL_THIS_IN)
+```
+
+4. Put `continent` first. Hint: use the `everything()` function.
+
+```{r}
+select(gapminder, FILL_THIS_IN, FILL_THIS_IN)
+```
+
+5. Rename `continent` to `cont`.
+
+```{r}
+# compare
+select(gapminder, FILL_THIS_IN)
+
+rename(gapminder, FILL_THIS_IN)
+```
+
+
+## `arrange()`
+
+1. Order by year.
+
+```{r}
+arrange(gapminder, FILL_THIS_IN)
+```
+
+2. Order by year, in descending order.
+
+```{r}
+arrange(gapminder, FILL_THIS_IN)
+```
+
+3. Order by year, then by life expectancy.
+
+```{r}
+arrange(gapminder, FILL_THIS_IN, FILL_THIS_IN)
+```
+
+
+## Piping, `%>%`
+
+Remember: Think of `%>%` as the word "then"!
+
+Do `select()` Task 1 and `arrange()` Task 3 together with a pipe. 
+
+Select `year`, `lifeExp`, `country` from the `gapminder`, then arrange in order by year and life expectancy.
+
+```{r}
+
+```
+
+
+# Transforming datasets
+
+## `filter()`
+
+1. Only keep data with population greater than 100 million.
+
+```{r}
+gapminder %>%
+  filter(FILL_THIS_IN)
+```
+
+2. Only keep data _from Asia_ with population greater than 100 million.
+
+```{r}
+gapminder %>%
+  filter(FILL_THIS_IN)
+```
+
+3. Only keep data _from the countries Brazil and China_ with population greater than 100 million.
+
+```{r}
+gapminder %>%
+  filter(FILL_THIS_IN)
+```
+
+## `mutate()`
+
+The `mutate()` function _creates_ new columns in the tibble by transforming other variables. 
+Like `select()`, `filter()`, and `arrange()`, the `mutate()` function also takes a tibble as its first argument, and returns a tibble. 
+
+The general syntax is:
+
+```
+mutate(tibble, NEW_COLUMN_NAME = CALCULATION)
+```
+
+Let's get: 
+
+- `grossGDP`: Multiplying GPD per capita by population
+- `gdpBill`: GDP in billions, rounded to two decimals.
+
+```{r}
+gapminder %>%
+  mutate(FILL_THIS_IN)
+```
+
+Notice the backwards compatibility! No need for loops!
+
+Try the same thing, but with `transmute` (drops all other variables). 
+
+```{r}
+gapminder %>%
+  transmute(FILL_THIS_IN)
+```
+
+The `if_else` function is useful for changing certain elements in a data frame.
+
+Example: Suppose Canada's 1952 life expectancy was mistakenly entered as 68.8 in the data frame, but is actually 70. Fix it using `if_else` and `mutate`. 
+
+```{r}
+gapminder %>%
+  mutate(FILL_THIS_IN)
+```
+
+Your turn: 
+Make a new column called `cc` that pastes the country name followed by the continent, separated by a comma.
+(Hint: use the `paste()` function with the `sep=", "` argument).
+
+```{r}
+```
+
+These functions we've seen are called __vectorized functions__—they are designed to work with vectors and do their computation on each element of the vector(s).
+
+
+# Back to the Big Group
+
+Let's head back to the main group. 
+
+
+# `across()`
+
+The `across()` function makes it easier to do `mutate()` and `summarize()` on multiple columns at a time.
+When you use `across()`, you give either:
+(1) A **vector** of column names, or 
+(2) A **condition** that columns must match.
+Then, `mutate()` or `summarize()` will be performed for each matching column.
+
+Let's use `across()` to rescale the personality scores in `psych::bfi` to be on a 0-100 scale instead of a 1-6 scale.
+
+```{r}
+psych::bfi %>%
+  as_tibble(rownames = ".id") %>% 
+  mutate(across(A1:O5, ~ (.x - 1) / 5 * 100))
+```
+
+Now, let's use `across()` to **mean center** all of the numeric variables in gapminder:
+
+```{r}
+gapminder %>% 
+  filter(country == "Canada")
+
+gapminder %>% 
+  filter(country == "Canada") %>% 
+  mutate(across(where(is.numeric), ~ .x - mean(.x, na.rm = TRUE)))
+```
+
+You can check out other ways to select matching variables by running:
+`?tidyselect::select_helpers`.
+
+Now you try.
+Use `psych::bfi` and mean center the personality scales. 
+
+```{r}
+psych::bfi %>%
+  as_tibble(rownames = ".id") %>% 
+  FILL_THIS_IN(FILL_THIS_IN)
+```
+
+
+# `group_by()` and `summarize()`
+
+`summarize()` is a way to **reduce** a data frame to summary values. 
+Like `mutate()`, `summarize()` will compute a new column, but each column needs to reduce to a **single value**.
+
+```{r}
+gapminder %>% 
+  summarize(mu = mean(lifeExp),
+            sigma = sd(lifeExp))
+```
+
+This is most useful if combined with `group_by()`.
+When you group a data frame, all operations on that data frame are done **separately for each group**. 
+
+```{r}
+gapminder %>% 
+  group_by(year)
+```
+
+See how the printing of the tibble now says it is grouped?
+
+```{r}
+gapminder %>% 
+  group_by(year) %>% 
+  summarize(mu = mean(lifeExp),
+            sigma = sd(lifeExp))
+```
+
+You can group by multiple variables at a time:
+
+```{r}
+gapminder %>% 
+  group_by(year, continent) %>% 
+  summarize(mu = mean(lifeExp),
+            sigma = sd(lifeExp))
+```
+
+You can also combine `group_by()` with `mutate()` to create new variables by group:
+
+```{r}
+gapminder %>% 
+  group_by(year) %>% 
+  mutate(lifeExp_center = lifeExp - mean(lifeExp, na.rm = TRUE)) %>% 
+  ungroup()
+```
+
+When you use `group_by()` with `mutate()`, always `ungroup()` at the end so that future operations happen on the whole dataset rather than by group!
+
+
+
+# Exercises for grouped data frames
+
+Let's do some practice with grouping (and ungrouping) and summarizing data frames!
+
+1. 
+(a) What's the minimum life expectancy for each continent and each year? 
+(b) Add the corresponding country to the tibble, too. 
+(c) Arrange by min life expectancy.
+
+```{r}
+gapminder %>% 
+  group_by(FILL_THIS_IN) %>% 
+  FILL_THIS_IN(min_life = min(lifeExp))
+```
+
+
+2. 
+Let's compute the mean Agreeableness score across items for each participant in the `psych::bfi` dataset. 
+Be sure to handle `NA`!
+
+```{r}
+psych::bfi %>%
+  as_tibble(rownames = ".id") %>% 
+  select(.id, A1:A5) %>% 
+  rowwise() %>% 
+  mutate(A_mean = mean(c(A1, A2, A3, A4, A5), na.rm = TRUE)) %>% 
+  ungroup()
+```
+
+You can do this more compactly with the `c_across()` function.
+this function selects columns the same way across does `across()`, then puts the matching values together with `c()`.
+
+```{r}
+psych::bfi %>%
+  as_tibble(rownames = ".id") %>% 
+  select(.id, education, A1:A5, O1:O5) %>% 
+  rowwise() %>% 
+  mutate(A_mean = mean(c_across(A1:A5), na.rm = TRUE),
+         O_mean = mean(c_across(starts_with("O"), na.rm = TRUE))) %>% 
+  ungroup()
+```
+
+Now compute mean scores for the other Big Five traits, as well as 
+`sd` and `min` scores for each person.
+
+```{r}
+
+```
+
+3.
+Use your data from Question 2 to compute the **mean** score for each Big Five trait **for each education level**
+
+```{r}
+
+```
+
+
+4. 
+Calculate the growth in population since the **first year on record** 
+_for each country_.
+Do it by rearranging the following lines, and filling in the 
+`FILL_THIS_IN`. 
+To get the first value in a vecotr, use `dplyr::first()`. 
+
+```
+mutate(rel_growth = FILL_THIS_IN) %>% 
+arrange(FILL_THIS_IN) %>% 
+gapminder %>% 
+knitr::kable()
+group_by(country) %>% 
+```
+
+```{r}
+
+```
+
+
+5. 
+Determine the country on each continent, that had the **largest increase in life expectancy** between two measurements.
+Sort the output by the size of the increase.
+To compute the the difference between rows of data, try `dplyr::lag()`.
+
+```
+gapminder %>% 
+filter(lifeExp_incr == max(lifeExp_incr, na.rm = TRUE)) %>% 
+group_by(country) %>% 
+group_by(continent) %>% 
+ungroup() %>% 
+ungroup() %>% 
+arrange(lifeExp_incr)
+mutate(lifeExp_incr = lifeExp - lag(lifeExp)) %>% 
+```
+
+```{r}
+
+```
+
+
+# Bonus Exercises
+
+If there's time remaining, we'll practice with these exercises. 
+
+1. In `gapminder`, take all countries in Europe that have a GDP per capita 
+   greater than 10000, and select all variables except `gdpPercap`. 
+   (Hint: use `-`).
+
+2. Take the first three columns of `gapminder` and extract the names.
+
+3. In `gapminder`, convert the population to a number in billions.
+
+4. Take the `palmerpenguins::penguins` data frame and extract all columns that start with the word "bill". 
+    - Hint: take a look at the "Select helpers" documentation by running the 
+      following code: `?tidyselect::select_helpers`.
+
+5. Filter the rows of `palmerpenguins::penguins` for bill_lenth_mm >= 40 and flipper_length_mm >= 200.
