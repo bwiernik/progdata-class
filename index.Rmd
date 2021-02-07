@@ -13,6 +13,11 @@ cover-image: "datasci_prog_class_icon.png"
 favicon: "favicon.ico"
 ---
 
+```{r}
+options("crayon.enabled") <- FALSE
+```
+
+
 # About This Guide {-}
 
 Welcome to the class guide for Programming with Data for Spring 2021! 
