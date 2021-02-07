@@ -1,6 +1,6 @@
 book_filename: "main"
 language:
   ui:
-    chapter_name: "Class Meeting "
+    chapter_name: "Part "
 delete_merged_file: true
 output_dir: "cm"

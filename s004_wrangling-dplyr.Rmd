@@ -35,6 +35,7 @@ package. Specifically, we're going to consider three lessons today:
 ## Resources
 
 STAT 545 chapters:
+
   - [stat545: dplyr-intro](http://stat545.com/block009_dplyr-intro.html)
   - [stat545: dplyr-single](https://stat545.com/dplyr-single.html)
 
@@ -46,16 +47,9 @@ Here are some supplementary resources:
 - Want to read more about piping? See [r4ds: pipes](http://r4ds.had.co.nz/pipes.html).
 
 Some advanced topics you might find useful:
+
 - For window functions and how dplyr handles them, see the [window-functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html) vignette for the `dplyr` package. 
 - For time series data, see the [tsibble demo](https://tsibble.tidyverts.org/)
-
-
-## Participation
-
-To get participation points for today, you will need to:
-  - Make a new folder in your participation repo called `wrangling`
-  - Fill out the worksheet, knit it, and push the files to this folder:
-    - [s04_data-wrangling-exercise.Rmd](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s04_data-wrangling-exercise.Rmd).
 
 
 ## Intro to `dplyr` syntax
