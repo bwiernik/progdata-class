@@ -290,7 +290,7 @@ Be sure to handle `NA`!
 ```{r}
 psych::bfi %>%
   as_tibble(rownames = ".id") %>% 
-  select(.id, A1:A5) %>% 
+  select(.id, A1:A5) %>%
   rowwise() %>% 
   mutate(A_mean = mean(c(A1, A2, A3, A4, A5), na.rm = TRUE)) %>% 
   ungroup()

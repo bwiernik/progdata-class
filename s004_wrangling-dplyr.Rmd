@@ -251,7 +251,7 @@ your papers.) But summarizing is more useful in the context of _grouping_,
 coming up next.
 
 
-## `group_by()` (20 min)
+## `group_by()`
 
 The true power of `dplyr` lies in its ability to group a tibble, with the 
 `group_by()` function. As usual, this function takes in a tibble and returns a 
