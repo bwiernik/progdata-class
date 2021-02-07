@@ -23,18 +23,14 @@ package. Specifically, we're going to consider three lessons today:
 - `filter`; relational/comparison and logical operators in R
 
 - Specific `dplyr` functions we will cover
-  - [ ] `select()`
-  - [ ] `arrange()`
-  - [ ] `filter()`
-  - [ ] `mutate()`
-  - [ ] `summarize()`
-  - [ ] `group_by()`
-      - [ ] grouped `mutate()`
-      - [ ] grouped `summarize()`
-
-Depending on time, we might also talk about:
-- GitHub pages
-
+  - `select()`
+  - `arrange()`
+  - `filter()`
+  - `mutate()`
+  - `summarize()`
+  - `group_by()`
+      - grouped `mutate()`
+      - grouped `summarize()`
 
 ## Resources
 
