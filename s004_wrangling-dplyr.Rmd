@@ -5,7 +5,6 @@
 ### Comments on assignments
 
 - Great job overall!
-- Add `keep_md: TRUE` to the `html_document` output parameters in you `.Rmd` files
 
 __Worksheet__: You can find the worksheet template for today
 [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s04_data-wrangling-exercise.Rmd).
