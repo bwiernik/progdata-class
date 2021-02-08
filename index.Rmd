@@ -14,7 +14,7 @@ favicon: "favicon.ico"
 ---
 
 ```{r}
-options("crayon.enabled") <- FALSE
+options(crayon.enabled = FALSE)
 ```
 
 
