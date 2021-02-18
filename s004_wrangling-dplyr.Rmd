@@ -30,6 +30,9 @@ package. Specifically, we're going to consider three lessons today:
   - `group_by()`
       - grouped `mutate()`
       - grouped `summarize()`
+  - `recode()`
+  - `across()`
+  - `rowwise()`
 
 ## Resources
 
@@ -371,6 +374,174 @@ Here's a summary based on one of three types of functions.
 | Aggregate functions | These take a vector, and return a vector of length 1 | `mean()`, `sd()`, `length()` | `summarize()`, esp with `group_by()`. |
 | Window Functions | these take a vector, and return a vector of the same length that depends on the vector as a whole. | `lag()`, `rank()`, `cumsum()` | `mutate()`, esp with `group_by()` |
 
+
+## `recode()`
+
+`recode()` is useful for recoding categorical variables.
+
+Unlike most of the other function in `dplyr`, `recode()` is backwards in it's syntax:
+
+```
+recode(.x, old = new)
+```
+Lets take a look at recoding different variables using the `psychTools::bfi` dataset:
+
+In the dataset, our `gender` variable has values 1 and 2.
+
+This is a little vague since we don't know what 1 or 2 is in respect to gender.
+
+```{r}
+dat_bfi <- psychTools::bfi %>% 
+  rownames_to_column(var = ".id")
+
+dat_bfi %>%
+  mutate(
+    gender = recode(gender, "1" = "man", "2" = "woman")
+  ) %>%
+  select(.id, gender, education)
+```
+
+*Note that for numeric values, you need to wrap them in "quotes" or `backticks`; however, that's not necessary for character values*
+
+We can also specify a `.default` value within our `recode()`.
+
+For example, say we want to have just "HS or less" versus "more than HS"
+
+```{r}
+dat_bfi %>%
+  mutate(
+    education = recode(education, "1" = "HS", "2" = "HS", .default = "More than HS")
+  ) %>%
+  select(.id, gender, education)
+```
+
+Another neat feature of the `recode()` function is the `.missing` value.
+
+If we would rather convert NA values to something more explicit we can specify that in the `.missing` argument.
+
+```{r}
+dat_bfi %>%
+  mutate(
+    education = recode(education, "1" = "HS", "2" = "HS", .default = "More than HS", .missing = "(Unknown)")
+  ) %>%
+  select(.id, gender, education)
+```
+
+Or we can use `tidyr::replace_na()` 
+
+```{r}
+dat_bfi %>%
+  mutate(
+    education = replace_na(education, replace = "(Unknown)")
+  ) %>%
+  select(.id, gender, education)
+```
+
+
+## `across()`
+
+The `across` function allows us to apply transformations across multiple columns
+
+Say we wanted to look at the mean of each agreeable variable between gender groups:
+
+```{r}
+dat_bfi %>%
+  group_by(gender) %>%
+  summarize(
+    across(
+      A1:A5,
+      ~ mean(.x, na.rm = T)
+    )
+  )
+```
+
+What if we wanted to include the standard deviation as well? We can pass a `list` of functions into `across()`
+
+```{r}
+dat_bfi %>%
+  group_by(gender) %>%
+  summarize(
+    across(
+      A1:A5,
+      list(
+     mean = ~ mean(.x, na.rm = T),
+     sd = ~ sd(.x, na.rm = T)
+      )
+    )
+  )
+```
+
+### Complex `recoding` & `across()`
+
+Now sometimes with our scales we may encounter variables that are reverse scored.
+
+```{r}
+dat_bfi %>%
+  mutate(A1r = recode(A1, "6" = 1, "5" = 2, "4" = 3, "3" = 4, "2" = 5, "1" = 6)) %>%
+  select(A1, A1r)
+
+# or
+
+dat_bfi %>%
+  mutate(A1r = 7 - A1) %>%
+  select(A1, A1r)
+```
+
+However, we can implement some more complex code that will reverse `recode()` in one fell swoop!
+
+We start with either specifying our columns that need reverse coding or get it from a data dictionary:
+
+```{r}
+reversed <- c("A1", "C4", "C5", "E1", "E2", "O2", "O5")
+
+# or
+
+dict <- psychTools::bfi.dictionary %>%
+  as_tibble(rownames = "item")
+
+reversed <- dict %>%
+  filter(Keying == -1) %>%
+  pull(item)
+```
+
+Putting it all together: 
+
+```{r}
+dat_bfi %>%
+  mutate(
+    across(all_of(reversed),
+      ~ recode(.x, "6" = 1, "5" = 2, "4" = 3, "3" = 4, "2" = 5, "1" = 6),
+      .names = "{.col}r"
+    )
+  )
+```
+
+The `.names` argument tells how to name the new columns. If you omit `.names`, the columns will be modified in place. In `.names`, the `{.col}` bit means "the column name", and any text around that (here the letter `r`) is added to the name.
+
+## `rowwise()`
+
+`rowwise()` is a special `group_by()`. It tells R to treat each row of a data frame as its own group.
+
+`rowwise()` is useful for computing summary scores across items for each person.
+For example, to compute total scores for each person in the `dat_bfi` data:
+
+```{r}
+dat_bfi %>%
+  rowwise() %>% 
+  mutate(
+    .id = .id,
+    A_total = mean(c_across(A1:A5), na.rm = TRUE),
+    C_total = mean(c_across(C1:C5), na.rm = TRUE),
+    E_total = mean(c_across(E1:E5), na.rm = TRUE),
+    N_total = mean(c_across(N1:N5), na.rm = TRUE),
+    O_total = mean(c_across(O1:O5), na.rm = TRUE),
+    .before = everything()
+  )
+```
+
+The `c_across()` function is like `c()` but it lets you use the same options for selecting column names as `select()`.
+
+The `.before` argument says where to put the new columns you `mutate()`. `everything()` means "all the columns have I haven't named yet", so `.before = everything()` means put the new columns at the beginning of the data frame.
 
 ## `dplyr` Exercises
 
