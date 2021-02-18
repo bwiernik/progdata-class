@@ -516,26 +516,32 @@ dat_bfi %>%
   )
 ```
 
-*Note that we can use the `.names` argument to aid in the naming of our new columns*
+The `.names` argument tells how to name the new columns. If you omit `.names`, the columns will be modified in place. In `.names`, the `{.col}` bit means "the column name", and any text around that (here the letter `r`) is added to the name.
 
 ## `rowwise()`
 
-The `rowwise()` function lets us look at the data frame one row-at-a-time and apply functions as such.
+`rowwise()` is a special `group_by()`. It tells R to treat each row of a data frame as its own group.
 
-Looking back at `dat_bfi`, say we wanted to get the total score of our scales per response:
+`rowwise()` is useful for computing summary scores across items for each person.
+For example, to compute total scores for each person in the `dat_bfi` data:
 
 ```{r}
 dat_bfi %>%
   rowwise() %>% 
-  summarise(
+  mutate(
     .id = .id,
-    A_sum = sum(c_across(A1:A5)),
-    C_sum = sum(c_across(C1:C5)),
-    E_sum = sum(c_across(E1:E5)),
-    N_sum = sum(c_across(N1:N5)),
-    O_sum = sum(c_across(O1:O5))
+    A_total = mean(c_across(A1:A5), na.rm = TRUE),
+    C_total = mean(c_across(C1:C5), na.rm = TRUE),
+    E_total = mean(c_across(E1:E5), na.rm = TRUE),
+    N_total = mean(c_across(N1:N5), na.rm = TRUE),
+    O_total = mean(c_across(O1:O5), na.rm = TRUE),
+    .before = everything()
   )
 ```
+
+The `c_across()` function is like `c()` but it lets you use the same options for selecting column names as `select()`.
+
+The `.before` argument says where to put the new columns you `mutate()`. `everything()` means "all the columns have I haven't named yet", so `.before = everything()` means put the new columns at the beginning of the data frame.
 
 ## `dplyr` Exercises
 
