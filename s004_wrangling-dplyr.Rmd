@@ -30,9 +30,9 @@ package. Specifically, we're going to consider three lessons today:
   - `group_by()`
       - grouped `mutate()`
       - grouped `summarize()`
+  - `recode()`
   - `across()`
   - `rowwise()`
-  - `recode()`
 
 ## Resources
 
