@@ -813,6 +813,13 @@
       "Repository": "CRAN",
       "Hash": "fb8cedacb2ded44bbfc6c2e028ebecde"
     },
+    "psychTools": {
+      "Package": "psychTools",
+      "Version": "2.0.8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "9b769c354285ae555779994649b1ad63"
+    },
     "purrr": {
       "Package": "purrr",
       "Version": "0.3.4",
