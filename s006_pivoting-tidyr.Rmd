@@ -19,8 +19,6 @@ You can find a worksheet template for today
 
 Today's concept is __tidy data__ and the `tidyr` package.
 
-In fact `tidyr` Version 1.0.0 _just came out_ 19 days ago with some great new additions that we'll be looking at. We'll focus on:
-
 - Reshaping data by pivoting with `tidyr::pivot_longer()` and `tidyr::pivot_wider()`.
 - Making tibbles using `tibble::tibble()` and `tidyr::expand_grid()`.
 
@@ -51,7 +49,8 @@ This means that each value belongs to exactly one variable and one observation.
 
 Why bother? Because doing computations with untidy data can be a nightmare. Computations become simple with tidy data. 
 
-This also means that tidy data is relative, as it depends on how you define your observational unit and variables.
+Whether or not a data set is "tidy" depends on the type of analysis you are doing or plot you are making. 
+It depends on how you define your "observation" and "variables" for the current analysis.
 
 ```{r, echo = FALSE}
 haireye <- as_tibble(HairEyeColor) %>% 
@@ -59,33 +58,38 @@ haireye <- as_tibble(HairEyeColor) %>%
   rename(hair = Hair, eye = Eye)
 ```
 
-As an example, consider this example derived from the `datasets::HairEyeColor` dataset, containing the number of people having a certain hair and eye colour.
+As an example, consider this example derived from the `datasets::HairEyeColor` dataset, containing the number of people having a certain hair and eye color.
 
-If one observation is identified by a _hair-eye colour combination_, then the tidy dataset is:
+If one observation is identified by a _hair-eye color combination_, then the tidy dataset is:
 
 ```{r}
 haireye %>% 
-  knitr::kable()
+  DT::datatable(rownames = FALSE)
 ```
 
-If one observation is identified by a _single person_, then the tidy dataset has one pair of values per person, and one row for each person. We can use the handy `tidyr::uncount()` function, the opposite of `dplyr::count()`:
+If one observation is identified by a _single person_, then the tidy dataset has one pair of values per person, and one row for each person. 
+We can use the handy `tidyr::uncount()` function, the opposite of `dplyr::count()`:
 
 ```{r}
 haireye %>% 
   tidyr::uncount(n) %>% 
-  knitr::kable()
+  DT::datatable(rownames = FALSE)
 ```
 
 
 ### Untidy Examples
 
-The following are examples of untidy data. They're untidy for either of the cases considered above, but for discussion, let's take a hair-eye colour combination to be one observational unit. 
+The following are examples of untidy data. 
+They're untidy for either of the cases considered above, but for discussion, let's take a _hair-eye color combination_ to be one observational unit. 
 
-Note that untidy does not always mean "bad", especially when the data set is too wide.
+Note that untidy does not always mean "bad", just inconvenient for the analysis you want to do.
 
-__Untidy Example 1__: The following table is untidy because there are multiple observations per row. It's _too wide_.
+__Untidy Example 1__: 
+The following table is untidy because there are multiple observations per row. 
+It's _too wide_.
 
-Imagine calculating the total number of people with each hair colour. You can't just `group_by()` and `summarize()`, here!
+Imagine calculating the total number of people with each hair color. 
+You can't just `group_by()` and `summarize()`, here!
 
 ```{r, echo = FALSE}
 haireye_untidy <- haireye %>% 
@@ -94,7 +98,14 @@ haireye_untidy <- haireye %>%
 knitr::kable(haireye_untidy)
 ```
 
-__Untidy Example 2__: The following table is untidy for the same reason as Example 1 -- multiple observations are contained per row. It's _too wide_.
+This sort of table is common when presenting results.
+It's easy for humans to read, but hard for computers to work with.
+Untidy data is usually that way because it was structured for human, not machine, reading.
+
+
+__Untidy Example 2__: 
+The following table is untidy for the same reason as Example 1—multiple observations are contained per row. 
+It's _too wide_.
 
 ```{r, echo = FALSE}
 haireye %>% 
@@ -103,19 +114,29 @@ haireye %>%
   knitr::kable()
 ```
 
-__Untidy Example 3__: This is untidy because each observational unit is spread across multiple columns. It's _too long_. In fact, we needed to add an identifier for each observation, otherwise we would have lost which row belongs to which observation! 
 
-Does red hair ever occur with blue eyes? Can't just `filter(hair == "red", eye == "blue")`!
+__Untidy Example 3__: 
+This is untidy because each observational unit is spread across multiple columns. 
+It's _too long_. 
+
+In fact, we needed to add an identifier for each observation, otherwise we would have lost which row belongs to which observation! 
+
+Does red hair ever occur with blue eyes? 
+Can't just `filter(hair == "red", eye == "blue")`!
 
 ```{r, echo = FALSE}
 haireye %>% 
-  mutate(obs = 1:n()) %>% 
-  pivot_longer(cols = hair:eye, names_to = "body_part", values_to = "colour") %>% 
+  mutate(.id = 1:n()) %>% 
+  pivot_longer(cols = hair:eye, names_to = "body_part", values_to = "color") %>% 
   select(-n, n) %>% 
   DT::datatable(rownames = FALSE)
 ```
 
-__Untidy Example 4__: Just when you thought a data set couldn't get any longer! Now, each variable has its own row: hair colour, eye colour, and `n`. This demonstrates that there's no such thing as "long" and "wide" format, since these terms are relative. 
+
+__Untidy Example 4__: 
+Just when you thought a data set couldn't get any longer! 
+Now, each variable has its own row: hair color, eye color, and `n`. 
+
 
 ```{r, echo = FALSE}
 haireye %>% 
@@ -130,18 +151,36 @@ _This is the sort of format that is common pulling data from the web or other "B
 
 ### Pivoting tools
 
-The task of making tidy data is about making data either _longer_, by stacking two or more rows, or _wider_, by putting one or more columns alongside each other based on groups. This is called __pivoting__ (or, reshaping).
+The task of making tidy data is about making data either _longer_, by stacking two or more rows, or _wider_, by putting one or more columns alongside each other based on groups. 
+This is called __pivoting__.
 
-Sometimes, tidy data is incorrectly referred to as data in _long format_ as opposed to _wide format_, where "length" refers to the number of rows, and "width" the number of columns. But Example 3 of untidy data (above) is in fact too long and needs to be made wider! However, usually the task of tidying data involves lengthening, and usually the task of widening is useful for turning data into something more friendly for human eyes.
+Usually the task of tidying data involves lengthening, and usually the task of widening is useful for turning data into something more friendly for human eyes.
 
-The (new!) easiest and most powerful way to widen or lengthen data are with the functions `tidyr::pivot_wider()` and `tidyr::pivot_longer()`.
+Sometimes, you will see data described as being in "long" or "wide" formats.
+Those terms aren't that useful—"long" and "wide" are relative terms. 
 
-History: R has seen many attempts at reshaping, all that's progressively gotten better. First came the `reshape` package. Then the `reshape2` package. Both were finicky. And they used function names that I could never remember: `melt()` and `cast()`. Then, the `tidyr::spread()` and `tidyr::gather()` functions provided a simple interface (and are still part of the `tidyr` package!), but used awkward terminology and weren't as flexible as they ought to be.
+The easiest and most powerful way to widen or lengthen data are with the functions `tidyr::pivot_wider()` and `tidyr::pivot_longer()`.
+
+History: R has seen many attempts at reshaping that have progressively gotten better. 
+
+First came the `reshape` and `reshape2` packages. 
+
+  - Both were finicky. 
+  - Used function names that I could never remember: `melt()` and `cast()`. 
+  
+Then, `tidyr` package replaced these.
+
+  - The `tidyr::spread()` and `tidyr::gather()` functions provided a simple interface.
+  - I still couldn't remember these names. 
+  - Still a little hard to use.
+  
+We will use `tidyr::pivot_longer()` and `tidyr::pivot_wider()`.
 
 
 ## Univariate Pivoting
 
-Let's start with pivoting in the simplest case where only one variable is "out of place". We'll use the hair and eye colour example from before, using the untidy data version from Example 1:
+Let's start with pivoting in the simplest case where only one variable is "out of place". 
+We'll use the hair and eye color example from before, using the untidy data version from Example 1:
 
 ```{r}
 haireye_untidy <- haireye %>% 
@@ -151,9 +190,10 @@ haireye_untidy <- haireye %>%
 haireye_untidy
 ```
 
-The _eye colour_ variable is spread out across columns. To fix this, we need to convert the eye colour columns to two columns:
+The _eye color_ variable is spread out across columns. 
+To fix this, we need to convert the eye color columns to two columns:
 
-- one column to hold the eye colour (column names),
+- one column to hold the eye color (column names),
 - one column to hold the values.
 
 Doing this, we obtain:
@@ -163,18 +203,22 @@ haireye_untidy %>%
   pivot_longer(contains("eyed"), names_to = "eye", values_to = "n")
 ```
 
-For the reverse operation, we take the column `eye` and make each unique entry a new column, and the values of those columns take on `n`.
-
+Let's dig into that!
 
 ### `pivot_longer()`
 
-`pivot_longer()` takes a data frame, and returns a data frame. The arguments after the data argument that we'll need are:
+`pivot_longer()` takes a data frame, and returns a data frame. 
 
-- `cols` for the column names that we want to turn into a single column.
-- `names_to`: the old column names are going to a new column. What should this new column be named? (optional, but highly recommended)
-- `values_to`: the values underneath the old columns are going to a new column. What should this new column be named? (optional, but highly recommended)
+The main arguments after the data argument that we'll need are:
 
-Possibly the trickiest bit is in identifying the column names. We could list all of them, but it's not robust to changes:
+- `cols`: the columns we want to pivot into a single column. Give the column names
+- `names_to`: the old column _names_ are going to be stored in a new column. 
+  What should this new column be named?
+- `values_to`: the _values_ in the old columns are going to stored in a new column.
+  What should this new column be named?
+
+Possibly the trickiest bit is in identifying the column names. 
+We could list all of them:
 
 ```{r}
 haireye_untidy %>% 
@@ -183,7 +227,9 @@ haireye_untidy %>%
                values_to = "n")
 ```
 
-We could identify a range. This is more robust, but still not very robust.
+That can be a little tedious.
+
+We could identify a range. This is efficient, but not so robust if the data changes.
 
 ```{r}
 haireye_untidy %>% 
@@ -192,7 +238,8 @@ haireye_untidy %>%
                values_to = "n")
 ```
 
-Better is to use helper functions from the `tidyselect` package. In this case, we know the columns contain the text "eyed", so let's use `tidyselect::contains()`:
+Better is to use helper functions from the `tidyselect` package. 
+In this case, we know the columns contain the text "eyed", so let's use `tidyselect::contains()`:
 
 ```{r}
 haireye_untidy %>% 
@@ -213,11 +260,43 @@ haireye_untidy %>%
 
 ### `pivot_wider()`
 
-Like `pivot_longer()`, `pivot_wider()` takes a data frame and returns a data frame. The arguments after the data argument that we'll need are:
+Let's say we want go from a longer data frame to a shorter data frame.
+This is the opposite of what we did above. 
 
-- `id_cols`: The columns you would like to keep. If widening to make data tidy, then this is an identifier for an observation.
-- `names_from`: the new column names are coming from an old column. Which column is this?
-- `values_from`: the values under the new columns are coming from an old column. Which column is this?
+We might want to do this:
+
+  - To make a table for presentation
+  - With longitudinal or family data, to to go from **multilevel models** (which need longer data; each row is an *observation*) to **SEM analyses** (which need wider data; each row is an *individual* or *family*)
+  
+For example, if we want to go from:
+
+```{r, echo = FALSE}
+haireye_untidy %>% 
+  pivot_longer(contains("eyed"), names_to = "eye", values_to = "n")
+```
+
+To: 
+
+```{r, echo = FALSE}
+haireye_untidy
+```
+
+We need to: 
+
+  - Take the column `eye` and make *each unique entry* a new column
+  - Take the column `n` and make these values in the new `eye` columns.
+
+`pivot_wider()` is the reverse of `pivot_longer()`.
+
+Like `pivot_longer()`, `pivot_wider()` takes a data frame and returns a data frame. 
+The main arguments after the data argument that we'll need are:
+
+- `id_cols`: The columns you would like to **keep**. 
+  For example, the identifier number for the observation.
+- `names_from`: The new column names are coming from an old column. 
+  Which column is this?
+- `values_from`: The column values are coming from an old column. 
+  Which column is this?
 
 ```{r}
 haireye %>% 
@@ -229,13 +308,13 @@ haireye %>%
 
 ### Activity
 
-Fill out __Exercise 1: Univariate Pivoting__ in the 
-[worksheet](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
+Fill out the [__Univariate Pivoting Exercise__](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
 
 
 ## Multivariate Pivoting
 
-Now let's consider the case when more than one variable are "out of place" -- perhaps there are multiple variables per row, and/or multiple observations per row.
+Now let's consider the case when more than one variable are "out of place".
+Perhaps there are multiple variables per row and/or multiple observations per row.
 
 For example, consider the (lightly modified) `iris` data set that we'll call `iris2`:
 
