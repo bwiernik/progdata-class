@@ -352,6 +352,10 @@ WHO %>% pivot_longer(
 )
 ```
 
+In the `names_to` argument, we now tell it the names of the new columns that will store each part of the existing column names.
+We give the column names in order corresponding to how they appear in the existing column names.
+
+As with univariate pivoting, `values_to` gives the name of the new column that will store the cell values.
 
 ### Multiple variables in column names
 
@@ -374,8 +378,13 @@ In these data, we have two pieces of information (or values) for each child: the
 These need to go into separate columns in the result. 
 Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. 
 
+The `names_to` vector gives the names of the new columns that will store each part of the existing column names.
+We give the column names in order corresponding to how they appear in the existing column names.
+
 Note the special name `.value`: 
-this tells `pivot_longer()` that that part of the column name specifies the "value" (variable) being measured (which will become a column in the output).
+
+`.value` takes the place of the `values_to` argument.
+It tells `pivot_longer()` to get the name of the column that will hold the cell values from that part of the existing column name.
 
 ```{r}
 fam_dat %>% 
