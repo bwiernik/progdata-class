@@ -20,7 +20,6 @@ You can find a worksheet template for today
 Today's concept is __tidy data__ and the `tidyr` package.
 
 - Reshaping data by pivoting with `tidyr::pivot_longer()` and `tidyr::pivot_wider()`.
-- Making tibbles using `tibble::tibble()` and `tidyr::expand_grid()`.
 
 
 ### Resources
@@ -316,114 +315,112 @@ Fill out the [__Univariate Pivoting Exercise__](https://raw.githubusercontent.co
 Now let's consider the case when more than one variable are "out of place".
 Perhaps there are multiple variables per row and/or multiple observations per row.
 
-For example, consider the (lightly modified) `iris` data set that we'll call `iris2`:
+
+### Multiple variables in column names
+
+Consider this subset of the `who` data:
 
 ```{r, echo = FALSE}
-iris2 <- iris %>%
-  mutate(id = 1:n()) %>% 
-  rename(species = Species) %>% 
-  pivot_longer(c(-species, -id), 
-               names_to  = "variable", 
-               values_to = "measurement") %>% 
-  mutate(variable = variable %>% 
-           str_replace("\\.", "_") %>% 
-           tolower()) %>% 
-  pivot_wider(c(id, species), 
-              names_from  = variable, 
-              values_from = measurement)
-DT::datatable(iris2, rownames = FALSE)
+WHO <- who %>%
+    select(country:year, starts_with("new_")) %>% 
+    rename_with(~ stringr::str_replace(.x, "f", "f_"), starts_with("new_")) %>% 
+    rename_with(~ stringr::str_replace(.x, "m", "m_"), starts_with("new_"))
+DT::datatable(WHO, rownames = FALSE)
 ```
 
-Although we probably wouldn't, we could view this as having _two variables bundled into the column names_:
+`country`, `iso2`, `iso3`, and `year` are already variables, so they can be left as is. 
+But the columns from `new_sp_m_014` to `new_ep_f_65` encode four variables in their names:
 
-- "Plant part", either `sepal` or `petal`.
-- "Dimension", either `length` or `width`.
+* The `new` prefix indicates these are counts of new cases (versus total cases). 
+  This dataset only contains new cases, so we'll ignore it here because it's constant.
+  
+* `sp`/`rel`/`ep` describe how the case was diagnosed.
 
-The resulting tidy data frame would then be:
+* `m`/`f` gives the gender.
 
-```{r, echo = FALSE}
-iris2_longest <- iris2 %>% 
-  pivot_longer(cols      = c(-species, -id), 
-               names_to  = c("part", "dimension"),
-               names_sep = "_",
-               values_to = "measurement")
-```
+* `014`/`1524`/`2535`/`3544`/`4554`/`65` supplies the age range.
+
+We can break these variables up by specifying multiple column names in `names_to`, and then providing `names_sep`.
 
 ```{r}
-iris2_longest
+WHO %>% pivot_longer(
+  cols = new_sp_m_014:new_ep_f_65,
+  names_to = c("diagnosis", "gender", "age"), 
+  names_prefix = "new_",
+  names_sep = "_",
+  values_to = "count"
+)
 ```
 
-More realistic is the situation where there are _multiple observations per row_:
 
-- An observation of (length, width) of the sepal.
-- An observation of (length, width) of the petal.
+### Multiple variables in column names
 
-The resulting tidy data frame has a length that's in between the above two:
-
-```{r, echo = FALSE}
-iris2_longer <- iris2 %>% 
-  pivot_longer(cols      = c(-id, -species), 
-               names_to  = c("part", ".value"), 
-               names_sep = "_")
-```
+Consider these family data. 
 
 ```{r}
-iris2_longer
+fam_dat <- tribble(
+  ~family,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
+       1L, "1998-11-26", "2000-01-29",             1L,             2L,
+       2L, "1996-06-22",           NA,             2L,             NA,
+       3L, "2002-07-11", "2004-04-05",             2L,             2L,
+       4L, "2004-10-10", "2009-08-27",             1L,             1L,
+       5L, "2000-12-05", "2005-02-28",             2L,             1L,
+)
+fam_dat <- fam_dat %>% mutate_at(vars(starts_with("dob")), parse_date)
+fam_dat
 ```
 
+In these data, we have two pieces of information (or values) for each child: their `gender` and their `dob` (date of birth). 
+These need to go into separate columns in the result. 
+Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. 
 
-### `pivot_longer()`
-
-To obtain the case where two (or more) variables are contained in column names, here's how we specify the arguments of `pivot_longer()`:
-
-- `cols`: As usual.
-- `names_sep`: What is separating the variables in the column names?
-- `names_to`: The old columns are going to be put into new columns, after being separated. What should those columns be named?
-- `values_to`: As usual. 
-
-Here is the code:
+Note the special name `.value`: 
+this tells `pivot_longer()` that that part of the column name specifies the "value" (variable) being measured (which will become a column in the output).
 
 ```{r}
-iris2 %>% 
-  pivot_longer(cols      = c(-species, -id), 
-               names_to  = c("part", "dimension"),
-               names_sep = "_",
-               values_to = "measurement")
+fam_dat %>% 
+  pivot_longer(
+    cols = -family,
+    names_to = c(".value", "child"), 
+    names_sep = "_", 
+    values_drop_na = TRUE
+  )
 ```
 
-To obtain the case where multiple observations are contained in one row, here's how to specify the arguments of `pivot_longer()`:
+Let's also clean up the `child` column:
 
-- `cols`: As usual.
-- `names_sep`: As above.
-- `names_to`: As above, except this time, one part of the old column names are going to stay as columns (in this case, "length" and "width"). Indicate `".value"` instead of a new column name.  
-- `values_to`: Not needed! You've already indicated that using the `".value"` placeholder. 
- 
 ```{r}
-iris2 %>% 
-  pivot_longer(cols      = c(-id, -species), 
-               names_to  = c("part", ".value"), 
-               names_sep = "_")
+fam_dat_long <- fam_dat %>% 
+  pivot_longer(
+    cols = -family,
+    names_to = c(".value", "child"), 
+    names_sep = "_", 
+    values_drop_na = TRUE
+  ) %>% 
+  mutate(child = stringr::str_replace(child, "child", "")) %>% 
+  mutate(child = as.integer(child))
 ```
 
 
 ### `pivot_wider()`
 
-If two or more columns contain parts of a variable name (i.e., each unique combination of these columns gives rise to a new variable), here's how we can use `pivot_wider()`:
+You can also `pivot_wider()` while using multiple columns to supply variable names:
 
 - `id_cols`: as usual.
 - `names_from`: the new variable names are coming from old columns. Which old columns?
 - `names_sep`: What character should you separate the entries of the old columns by?
 - `values_from`: as usual.
 
-Here is the code to go from the longest form to the original:
-
 ```{r}
-iris2_longest %>% 
-  pivot_wider(id_cols     = c(id, species),
-              names_from  = c(part, dimension), 
-              names_sep   = "_", 
-              values_from = measurement)
+fam_dat_long %>% 
+  pivot_wider(id_cols     = family,
+              names_from  = c(child, gender), 
+              names_prefix = "child",
+              names_sep   = "_gender", 
+              values_from = dob)
 ```
+
+Or using multiple columns to supply new values:
 
 If variables are spread out amongst rows _and_ columns (for example, "sepal width" has "sepal" in a column, and "width" as a column name), here's how we can use `pivot_wider()`:
 
@@ -432,131 +429,16 @@ If variables are spread out amongst rows _and_ columns (for example, "sepal widt
 - `names_sep`: As before, what character should you separate the entries of the old columns by?
 - `values_from`: Which column names contain the other part of the variable?
 
-Here is the code to go from the "semi-long" form to the original:
-
 ```{r}
-iris2_longer %>% 
-  pivot_wider(id_cols     = c(id, species), 
-              names_from  = part, 
+fam_dat_long %>% 
+  pivot_wider(id_cols     = family, 
+              names_from  = child,
+              names_prefix = "child",
               names_sep   = "_",
-              values_from = c(length, width))
+              values_from = c(dob, gender))
 ```
 
 
 ### Activity
 
-Fill out __Exercise 2: Multivariate Pivoting__ in the 
-[worksheet](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
-
-
-## Making tibbles
-
-In base R, we can make data frames using the `data.frame()` function. The tidyverse version is `tibble::tibble()`, which also has backwards referencing to variables you make on the fly. It's also stricter by not allowing recycling unless the vector is of length 1:
-
-Good:
-
-```{r}
-tibble(x = 1:6,
-       y = min(x))
-```
-
-Bad:
-
-```{r, error = TRUE}
-tibble(x = 1:6,
-       y = 1:2)
-```
-
-Truly manual construction of tibbles is easy with `tibble::tribble()`:
-
-```{r}
-tribble(
-  ~Day, ~Breakfast,
-  1, "Apple",
-  2, "Yogurt",
-  3, "Yogurt"
-)
-```
-
-Check out the `datapasta` package for ways to reproducibly copy-paste data from 
-spreadsheets into R. `datapasta` uses `tribble()`.
-
-List columns are easy with tibbles!
-
-```{r}
-(list_col <- tibble(n = 1:2,
-                    y = list(iris, mtcars)))
-```
-
-Often obtained with `nest()` and `unnest()`:
-
-```{r}
-(iris_nest <- iris %>% 
-  group_by(Species) %>% 
-  nest())
-```
-
-```{r}
-iris_nest %>% 
-  unnest(data)
-```
-
-`expand_grid()` to obtain all combinations:
-
-```{r}
-expand_grid(x = 1:2, y = 1:2, z = 1:2)
-```
-
-In conjunction with `nesting()`:
-
-```{r}
-expand_grid(nesting(x = 1:2, y = 1:2), z = 1:2)
-```
-
-
-## Implicit `NA`'s
-
-Sometimes there's "hidden" missing data in a tibble. Here's an example  
-from the documentation of `tidyr::expand()`:
-
-```{r}
-(df <- tibble(
-  year   = c(2010, 2010, 2010, 2010, 2012, 2012, 2012),
-  qtr    = c(   1,    2,    3,    4,    1,    2,    3),
-  return = rnorm(7)
-))
-```
-
-Here, there are values for `qtr` 1, 2, 3, 4 in `year` 2010 and 
-`qtr` 1, 2, 3 in `year` 2012, but no `qtr` 4 in `year` 2012. 
-The value of `return` in `year` 2012, `qtr` 4 is "implicilty" `NA`.
-
-We can use functions to fill out this data frame and make these "implicit" missing
-values explicit.
-
-We can consider all existing combinations by invoking the column names in 
-`expand()` or `complete()` (which either _drops_ or _keeps_ all other columns):
-
-```{r}
-df %>% 
-  expand(year, qtr)
-df %>% 
-  complete(year, qtr)
-```
-
-We can consider new combinations by specifying an expectation of possible values:
-
-```{r}
-df %>% 
-  expand(year = 2010:2012, qtr)
-df %>% 
-  complete(year = 2010:2012, qtr)
-```
-
-Want to link two or more columns when looking for combinations? Use `nesting()`.
-
-
-## Activity (10 min)
-
-Fill out __Exercise 3: Making tibbles__ in the 
-[worksheet](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
+Fill out the [__Multivariate Pivoting Exercise__](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06b_pivot-exercise-2.Rmd).

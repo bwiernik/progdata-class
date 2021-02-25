@@ -1,0 +1,162 @@
+- Making tibbles using `tibble::tibble()` and `tidyr::expand_grid()`.
+
+## Making tibbles
+
+In base R, we can make data frames using the `data.frame()` function. The tidyverse version is `tibble::tibble()`, which also has backwards referencing to variables you make on the fly. It's also stricter by not allowing recycling unless the vector is of length 1:
+
+Good:
+
+```{r}
+tibble(x = 1:6,
+       y = min(x))
+```
+
+Bad:
+
+```{r, error = TRUE}
+tibble(x = 1:6,
+       y = 1:2)
+```
+
+Truly manual construction of tibbles is easy with `tibble::tribble()`:
+
+```{r}
+tribble(
+  ~Day, ~Breakfast,
+  1, "Apple",
+  2, "Yogurt",
+  3, "Yogurt"
+)
+```
+
+Check out the `datapasta` package for ways to reproducibly copy-paste data from 
+spreadsheets into R. `datapasta` uses `tribble()`.
+
+List columns are easy with tibbles!
+
+```{r}
+(list_col <- tibble(n = 1:2,
+                    y = list(iris, mtcars)))
+```
+
+Often obtained with `nest()` and `unnest()`:
+
+```{r}
+(iris_nest <- iris %>% 
+  group_by(Species) %>% 
+  nest())
+```
+
+```{r}
+iris_nest %>% 
+  unnest(data)
+```
+
+`expand_grid()` to obtain all combinations:
+
+```{r}
+expand_grid(x = 1:2, y = 1:2, z = 1:2)
+```
+
+In conjunction with `nesting()`:
+
+```{r}
+expand_grid(nesting(x = 1:2, y = 1:2), z = 1:2)
+```
+
+
+## Implicit `NA`'s
+
+Sometimes there's "hidden" missing data in a tibble. Here's an example  
+from the documentation of `tidyr::expand()`:
+
+```{r}
+(df <- tibble(
+  year   = c(2010, 2010, 2010, 2010, 2012, 2012, 2012),
+  qtr    = c(   1,    2,    3,    4,    1,    2,    3),
+  return = rnorm(7)
+))
+```
+
+Here, there are values for `qtr` 1, 2, 3, 4 in `year` 2010 and 
+`qtr` 1, 2, 3 in `year` 2012, but no `qtr` 4 in `year` 2012. 
+The value of `return` in `year` 2012, `qtr` 4 is "implicilty" `NA`.
+
+We can use functions to fill out this data frame and make these "implicit" missing
+values explicit.
+
+We can consider all existing combinations by invoking the column names in 
+`expand()` or `complete()` (which either _drops_ or _keeps_ all other columns):
+
+```{r}
+df %>% 
+  expand(year, qtr)
+df %>% 
+  complete(year, qtr)
+```
+
+We can consider new combinations by specifying an expectation of possible values:
+
+```{r}
+df %>% 
+  expand(year = 2010:2012, qtr)
+df %>% 
+  complete(year = 2010:2012, qtr)
+```
+
+Want to link two or more columns when looking for combinations? Use `nesting()`.
+
+
+## Activity (10 min)
+
+Fill out __Exercise 3: Making tibbles__ in the 
+[worksheet](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
+
+
+## Exercise 3: Making tibbles
+
+1. Create a tibble that has the following columns:
+
+- A `label` column with `"Sample A"` in its entries.
+- 100 random observations drawn from the N(0,1) distribution in the column `x`
+  - "N" means the normal distribution. "(0, 1)" means mean = 0, sd = 1.
+  - Use `rnorm()`
+- `y` calculated as the `x` values + N(0,1) error. 
+
+```{r}
+n <- 100
+FILL_THIS_IN(label = FILL_THIS_IN,
+             FILL_THIS_IN = rnorm(n),
+             FILL_THIS_IN)
+```
+
+
+2. Generate a Normal sample of size 100 for each combination of the following 
+means (`mu`) and standard deviations (`sd`).
+
+```{r}
+n <- 100
+mu <- c(-5, 0, 5)
+sd <- c(1, 3, 10)
+FILL_THIS_IN(mu = mu, sd = sd) %>% 
+  group_by_all() %>% 
+  mutate(z = list(rnorm(n, mu, sd))) %>% 
+  FILL_THIS_IN
+```
+
+
+3. Fix the `experiment` tibble below (originally defined in the documentation 
+of the `tidyr::expand()` function) so that all three repeats are displayed for 
+each person, and the measurements are kept. Some code is given, but it doesn't
+quite work. It needs a few adjustments. What are they?
+
+```{r}
+experiment <- tibble(
+  name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
+  trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
+  rep = c(1, 2, 3, 1, 2, 1),
+  measurement_1 = runif(6),
+  measurement_2 = runif(6)
+)
+experiment %>% expand(name, trt, rep)
+```

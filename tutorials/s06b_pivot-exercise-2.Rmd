@@ -1,114 +1,74 @@
-## Exercise 2: Multivariate Pivoting
-
-Congratulations, you're getting married! In addition to the wedding, you've 
-decided to hold two other events: a day-of brunch and a day-before round of 
-golf. You've made a guestlist of attendance so far, along with food preference 
-for the food events (wedding and brunch).
+---
+title: "Exercises: Multivariate pivoting"
+output: 
+  html_document:
+    theme: paper
+---
 
 ```{r}
-guest %>% 
+library(tidyverse)
+set.seed(123)
+missing_w2_parent <- sample(1:500, 30)
+missing_w2_child <- c(missing_w2_parent[1:5], sample(1:500, 25))
+family  <- read_csv(
+  "https://raw.githubusercontent.com/bwiernik/progdata/main/inst/tutorials/data/family_data.csv"
+) %>% 
+  mutate(
+    across(
+      starts_with("w2") & contains("parent"),
+      ~ ifelse(family_id %in% missing_w2_parent, NA_real_, .x)
+    ),
+    across(
+      starts_with("w2") & contains("child"),
+      ~ ifelse(family_id %in% missing_w2_child, NA_real_, .x)
+    )
+  )
+```
+
+<!---The following chunk allows errors when knitting--->
+
+```{r allow errors, echo = FALSE}
+knitr::opts_chunk$set(error = TRUE, warning = FALSE)
+```
+
+You're working on a longitudinal study of parent-child relationships.
+You have collected data from 500 families over 2 waves.
+In each wave, both the child and parent completed measures of **communication behavior** and **relationship satisfaction**. 
+
+```{r}
+family %>% 
   DT::datatable(rownames = FALSE)
 ```
 
-1. Put "meal" and "attendance" as their own columns, with the events living in a new column.
+1. Reshape the dataset to a "longer" format.
+
+  - Make each row **1 score**
+  - Have columns for *family_id*, *family_member*, *wave*, *scale*, and *score*.
 
 ```{r}
-(guest_long <- guest %>% 
-  pivot_longer(cols      = FILL_THIS_IN, 
-               names_to  = FILL_THIS_IN,
-               FILL_THIS_IN))
+family_longest <- family %>% 
+  pivot_longer()
+
+print(family_longest)
 ```
 
-2. Use `tidyr::separate()` to split the name into two columns: "first" and 
-"last". Then, re-unite them with `tidyr::unite()`.
+2. Reshape the dataset to a "longer" format.
+
+  - Make each row **1 person**
+  - Have columns for *family_id*, *family_member*, *wave*, *comm*, and *satis*.
 
 ```{r}
-guest_long %>% 
-  separate(FILL_THIS_IN, into = FILL_THIS_IN)
-  # unite(col = "name", FILL_THIS_IN, sep = FILL_THIS_IN)
+family_long <- family %>% 
+  pivot_longer()
+
+print(family_long)
 ```
 
-3. Which parties still have a "PENDING" status for all members and all events?
+3. Some families are missing wave 2 data for parent, child, or both. 
+   Which families are missing wave 2 data for at least one person?
 
 ```{r}
-FILL_THIS_IN %>% 
-  group_by(party) %>% 
-  summarize(all_pending = all(attendance == "PENDING"))
+
 ```
 
-4. Which parties still have a "PENDING" status for all members for the wedding?
-
-```{r}
-FILL_THIS_IN %>% 
-  group_by(party) %>% 
-  summarize(pending_wedding = all(FILL_THIS_IN == "PENDING"))
-```
-
-
-5. Put the data back to the way it was.
-
-```{r}
-guest_long %>% 
-  pivot_wider(id_cols     = FILL_THIS_IN, 
-              names_from  = FILL_THIS_IN, 
-              names_sep   = "_", 
-              values_from = FILL_THIS_IN)
-```
-
-6. You also have a list of emails for each party, in this worksheet under the 
-   object `email`. Change this so that each person gets their own row. 
-   Use `tidyr::separate_rows()`
-
-```{r}
-email %>% 
-  separate_rows(FILL_THIS_IN, sep = FILL_THIS_IN)
-```
-
-
-## Exercise 3: Making tibbles
-
-1. Create a tibble that has the following columns:
-
-- A `label` column with `"Sample A"` in its entries.
-- 100 random observations drawn from the N(0,1) distribution in the column `x`
-  - "N" means the normal distribution. "(0, 1)" means mean = 0, sd = 1.
-  - Use `rnorm()`
-- `y` calculated as the `x` values + N(0,1) error. 
-
-```{r}
-n <- 100
-FILL_THIS_IN(label = FILL_THIS_IN,
-             FILL_THIS_IN = rnorm(n),
-             FILL_THIS_IN)
-```
-
-
-2. Generate a Normal sample of size 100 for each combination of the following 
-means (`mu`) and standard deviations (`sd`).
-
-```{r}
-n <- 100
-mu <- c(-5, 0, 5)
-sd <- c(1, 3, 10)
-FILL_THIS_IN(mu = mu, sd = sd) %>% 
-  group_by_all() %>% 
-  mutate(z = list(rnorm(n, mu, sd))) %>% 
-  FILL_THIS_IN
-```
-
-
-3. Fix the `experiment` tibble below (originally defined in the documentation 
-of the `tidyr::expand()` function) so that all three repeats are displayed for 
-each person, and the measurements are kept. Some code is given, but it doesn't
-quite work. It needs a few adjustments. What are they?
-
-```{r}
-experiment <- tibble(
-  name = rep(c("Alex", "Robert", "Sam"), c(3, 2, 1)),
-  trt  = rep(c("a", "b", "a"), c(3, 2, 1)),
-  rep = c(1, 2, 3, 1, 2, 1),
-  measurement_1 = runif(6),
-  measurement_2 = runif(6)
-)
-experiment %>% expand(name, trt, rep)
-```
+Question: Is is easier to easier to find the missing data in the wide or long format?
