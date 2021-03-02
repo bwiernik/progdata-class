@@ -32,8 +32,7 @@ scores of 2800 of your closest friends.
 -   [googlesheets4::read_sheet()](https://googlesheets4.tidyverse.org/reference/read_sheet.html)
 -   [haven](https://haven.tidyverse.org/) package for importing SPSS,
     SAS, Stata files
--   [rio::import()](https://cloud.r-project.org/web/packages/rio/vignettes/rio.html)
-    for importing all manner of formats with one command!
+-   [rio::import()](https://cloud.r-project.org/web/packages/rio/vignettes/rio.html) for importing all manner of formats with one command!
 -   [here::here()](https://here.r-lib.org)
 
 <!-- The following chunk allows errors when knitting -->
@@ -162,7 +161,7 @@ article](http://jenrichmond.rbind.io/post/how-to-use-the-here-package/).
 The same csv file that we just saved to disk can be imported into R again by specifying the path where it exists:
 
 ```{r, eval = FALSE}
-dat <- read_csv(here::here("data", "s008_data", "gap_asia_2007.csv"))
+dat <- read_csv(here::here("participation", "data", "gap_asia_2007.csv"))
 dat
 ```
 
@@ -178,7 +177,7 @@ To control the column types, use the `cols()` function:
 
 ```{r, eval = FALSE}
 dat <- read_csv(
-  here::here("data", "s008_data", "gap_asia_2007.csv"),
+  here::here("participation", "data", "gap_asia_2007.csv"),
   col_types = cols(
     country = col_factor(),
     continent = col_factor(),
@@ -266,6 +265,7 @@ download.file(
 If you omit, you will probably get a message about downloading a corrupt file.
 More details about this behavior can be found [here](https://github.com/HenrikBengtsson/Wishlist-for-R/issues/30).
 
+
 Naming a file "some_file" is extremely bad practice (hard to keep track of the files).
 You should **always** give it a more descriptive name. 
 It's also a good idea to avoid spaces in filenames.
@@ -313,7 +313,10 @@ The subset of data here consists of 200 cases, with variables indicating:
 Let's load in the data using the `haven` package.
 
 ```{r, eval = FALSE}
-(clevel <- haven::read_spss(here::here("participation", "data", "clevel.sav")))
+(clevel <- haven::read_spss(
+  here::here("participation", "data", "clevel.sav")
+)
+)
 ```
 
 Notice that this tibble looks a little different for the `language` and `gender` variables than normal. 
@@ -389,7 +392,7 @@ The main arguments are:
 If you want, you can specify a specific format or R graphics device to save with using the `device` argument.
 
 ```{r, eval = FALSE}
-dir.create(here::here("participation", "output", "figures"))
+dir.create(here::here("participation", "output", "figures"), recursive = TRUE)
 ggsave(here::here("participation", "output", "figures", "clevel_extraversion.svg"), 
        clevel_plot
 )
@@ -426,7 +429,7 @@ There are several popular bitmap image formats.
 Let's save to some other formats:
 
 ```{r, eval = FALSE}
-ggsave(here::here("participation", "output", "figures", "clevel_extraversion.pdf"), clevel_plot)
+ggsave(here::here("participation", "output", "figures", "clevel_extraversion.pdf"), clevel_plot, height = 6, width = 4)
 ggsave(here::here("participation", "output", "figures", "clevel_extraversion.tiff"), clevel_plot)
 ggsave(here::here("participation", "output", "figures", "clevel_extraversion.png"), clevel_plot)
 ```
