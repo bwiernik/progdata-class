@@ -1,0 +1,32 @@
+---
+title: "Beer Advocate: ABV and quality ratings"
+author: "Your Name Here"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+For this activity, download the data file at this location to the `data` subfolder in your `participation` folder. 
+This dataset contains information about different catagories of beer as rated on <beeradvocate.com>.
+The data are originally from [here](http://scottjanish.com/relationship-of-abv-to-beer-scores/).
+
+```{r}
+url <- "https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/data/beer-advocate.csv"
+```
+
+The dataset contains 3 variables:
+
+  1. Beer category
+  2. Average alcohol by volume (ABV) in percentage (%)
+  3. Average quality rating (rAVG) on a 1–5 scale
+  
+You should write a script to do the following:
+
+  1. Download the dataset with an appropriate filename.
+  2. Import the dataset into R.
+     Be sure to check for any importing problems and correct as needed.
+  3. Make a figure illustrating the relationship between ABV and beer quality.
+  4. Compute a summary table with the mean and SD of each variable, along with their correlation.
+  5. Describe the results.
