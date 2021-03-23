@@ -194,6 +194,19 @@ Another important option to set is the `na` argument, which specifies what value
 By default, `read_csv()` treats blank cells (i.e., `""`) and cells with `"NA"` as missing. 
 You might need to change this (e.g., if missing values are entered as `-999`). Note that `readxl::read_excel()` by default only has `na = c("")` (no `"NA"`)!
 
+```{r, eval = FALSE}
+dat <- read_csv(
+  here::here("participation", "data", "gap_asia_2007.csv"),
+  col_types = cols(
+    country = col_factor(),
+    continent = col_factor(),
+    year = col_date(format = "%Y"),
+    .default = col_double() # all other columns as numeric (double)
+  ),
+  na = c("", "NA", -99, "No response")
+)
+dat
+```
 
 ## Import a file from the web/cloud
 
@@ -394,7 +407,9 @@ If you want, you can specify a specific format or R graphics device to save with
 ```{r, eval = FALSE}
 dir.create(here::here("participation", "output", "figures"), recursive = TRUE)
 ggsave(here::here("participation", "output", "figures", "clevel_extraversion.svg"), 
-       clevel_plot
+       clevel_plot,
+       height = 6,
+       width = 6
 )
 ```
 

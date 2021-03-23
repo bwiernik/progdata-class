@@ -1,0 +1,25 @@
+#### Colors
+
+- scale_*_identity()
+Colors
+- http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
+  - color vs fill
+- after_scale() for fill transparency
+- viridis, brewer, manual
+- http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
+Shapes and line types
+- my shirt
+- http://www.cookbook-r.com/Graphs/Shapes_and_line_types/
+  Titles
+Themes
+- theme_classic(), theme_minimal()
+- theme()
+- mostly how to change text to markdown and title/caption position
+- ggthemes
+patchwork
+ggtext
+annotations
+
+
+
+?scale_color_identity

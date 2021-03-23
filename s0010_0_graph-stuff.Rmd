@@ -1,0 +1,345 @@
+# All the plot things
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(patchwork)
+```
+
+## Basic elements of ggplot
+
+1. Data
+2. Aesthetics (mapping)
+3. Geoms
+4. Facets
+5. Stats
+
+## Changing the `stat`
+
+In the process of connecting data -> mapping, there is some **statistical computation**. 
+In many cases, this computation is `identity()`. For example, with `geom_point()`, it plots the points directly based on `x` and `y` values.
+Other times, there is more of a computation.
+
+  - `stat_count()`
+  - `stat_bin()`
+  - `stat_density()`
+  
+`geom_*()` functions usually come with a reasonable default `stat_*()` and subsequent mapping.
+For example, `geom_histogram()` does `stat_bin()` to bin the continuous values, then `aes()` maps `y` to the count in each bin.
+
+But sometimes you might want to change this mapping after the stat.
+Do that with `after_stat()` inside `aes()`.
+  
+```{r}
+bw <- .3
+
+h1 <- ggplot(mpg) +
+  aes(x = displ) +
+  geom_histogram(binwidth = bw, fill = "skyblue")
+
+## histogram with density
+h2 <- ggplot(mpg) +
+  aes(x = displ) +
+  geom_histogram(aes(y = after_stat(density)),
+                 binwidth = bw, fill = "skyblue")
+
+## histogram with proportion
+h3 <- ggplot(mpg) +
+  aes(x = displ) +
+  geom_histogram(aes(y = after_stat(count / sum(count))),
+                 binwidth = bw, fill = "skyblue")
+
+h1 + h2 + h3
+
+## histogram with density curve
+ggplot(mpg) +
+  aes(displ) +
+	geom_histogram(aes(y = after_stat(count)), 
+	               binwidth = bw, fill = "skyblue") +
+	geom_density(aes(y = after_stat(count) * bw)) +
+	theme_minimal()
+```
+
+
+## Customizing plots!
+
+You can customize all sorts of stuff in your ggplot plots!
+
+1. Scales
+  - x and y
+  - Colors
+  - Shapes
+  - Line types
+  - Alpha
+2. Guides
+  - Legend (legend, bins, colorbar, colorsteps)
+  - Axis
+  - None
+3. Text
+  - Axis labels
+  - Geom labels
+  - Annotations
+  - Titles and captions
+4. Themes (design features)
+  - Background
+  - Grid lines
+  - Text styling
+  - Alignment
+
+### Scales
+
+A ggplot is constructed with a flow like this:
+
+> data -> stat -> scale -> mapping -> render
+
+The "scale" step concerns how the computed data/stat corresponds to numbers/values on the plot (e.g., "20 mpg" corresponds to a point "3 units up on the y axis"; "4 cylinder" corresponds to "blue").
+
+You control how values are scaled using the `scale_*()` functions.
+Almost every aesthetic you can map to data (e.g., `x`, `y`, `color`, `fill`, `alpha`, `linetype`, `shape`, `size`, `radius`) has corresponding scale functions.
+
+These functions all have the following form:
+
+> `scale_[aesthetic]_[type]`
+
+The `scale_*()` functions include many arguments to control various features of the scale, depending on the aesthetic.
+
+#### Position scales
+
+The scales for `x` and `y` control positioning, limits, breaks, labels, titles, etc. of the axes. 
+
+  - `scale_x_continuous()`
+  - `scale_x_discrete()`
+  - `scale_x_binned()`
+
+##### Arguments
+
+1. `name()`
+  - The name of the scale. Used for the axis/legend title.
+  - Give multiple scales the same name to combine them.
+  - `scale_x_continuous(name = "MPG")`
+2. `breaks`
+  - Where to break the scale (e.g., where to bin or where to place labeled tick marks)
+  - To override the default computed breaks, pass a vector of values
+  - (There are more advanced options as well)
+  - `scale_x_continuous(name = "MPG", breaks = c(0, 10, 20, 30))`
+3. `labels`
+  - Override the existing axis labels
+  - Usually given as a function that transforms the text
+  - e.g.,
+    - Numbers and Dates
+      - scales::label_percent
+      - scales::label_dollar
+      - scales::label_date
+      - scales::label_comma
+      - scales::label_pvalue
+    - Text
+      - stringr::str_to_upper
+      - stringr::str_to_sentence
+      - scales::label_parse / scales::label_math
+4. `limits`
+  - The minimum and maximum values for the scale
+  - e.g., `scale_x_continuous(limits = c(40, 100))`
+5. `oob`
+  - What to do with values outside the `limits`
+  - Defaults
+    - Continuous: `scales::oob_censor`
+    - Binned: `scales::oob_squish`
+  - `scales::oob_keep`: Like zooming, don't remove or change values.
+
+```{r}
+ggplot(mtcars) + 
+  aes(x = hp, y = mpg, color = factor(cyl), shape = hp > 200) + geom_point(size = 3) + scale_x_continuous(limits = c(0, 200), oob = scales::oob_squish)
+```
+
+
+6. `trans`
+  - A transformation function to apply to each value of the scales
+  - Must be a quoted function name
+  - e.g., "sqrt" or "rev" or "log10"
+  - `scale_x_continuous(trans = "sqrt")`
+  - `scale_x_sqrt()`, `scale_x_reverse()`, and `scale_x_log10()` are shortcuts
+7. `position`
+  - "top", "bottom", "left", or "right"
+  - Can also be set in `guide_axis()`
+8. `guide`
+  - A function controlling formatting of the guide
+  - I usually set in `guides()` instead
+9. `na.translate`
+  - TRUE or FALSE, for discrete scales, plot NA?
+  - `scale_x_discrete(na.translate = FALSE)`
+10. `na.value`
+  - What value to replace `NA` with.
+  - `scale_x_discrete(na.translate = TRUE, na.value = "(Missing)")`
+
+#### Color scales
+
+There are a variety of ways to specify colors in R, as well as several nice built-in color palletes.
+
+Some resources on color tools in R:
+
+  1. [R color cheatsheet](https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf)
+  2. [colorspace package](https://colorspace.r-forge.r-project.org/articles/colorspace.html)
+  3. [R cookbook colors](http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/)
+  4. [Another nice ggplot color guide](https://www.datanovia.com/en/blog/ggplot-colors-best-tricks-you-will-love/)
+  5. [Colormind](http://colormind.io/)
+  6. [coolors](https://coolors.co/)
+  7. [Color Designer](https://colordesigner.io/)
+  
+Reminder:
+
+  - `color`: The outline color for lines/points/regions
+  - `fill`: The fill color for regions and point-shapes with a filling (shapes 21-25)
+  
+The color scale functions you should use in ggplot all have the following form:
+
+> `scale_[aesthetic]_[type + pallete]`
+
+For example:
+
+  **Custom Gradients, Color Wheels, and Palettes**
+  - Continuous: `scale_color_gradient()`
+  - Continuous: `scale_color_gradient2()`
+  - Continuous: `scale_color_gradientn()`
+  
+  - Binned: `scale_color_steps()`
+  - Binned: `scale_color_steps2()`
+  - Binned: `scale_color_stepsn()`
+  
+  - Discrete: `scale_color_hue()`
+  - Discrete: `scale_color_manual()`
+  
+  **Viridis**
+  - Continuous: `scale_color_viridis_c()`
+  - Binned: `scale_color_viridis_b()`
+  - Discrete: `scale_color_viridis_d()`
+  
+  **Color Brewer**
+  - Discrete: `scale_color_brewer()`
+  - Continuous: `scale_color_distiller()`
+  - Binned: `scale_color_fermenter()`
+  
+  **Greyscale**
+  - `scale_color_grey()`
+
+  **ggthemes**
+  - `ggthemes::scale_color_excel()`
+  - `ggthemes::economist()`
+  - `ggthemes::scale_color_fivethirtyeight()`
+  - `ggthemes::scale_color_colorblind()`
+  
+  **Other packages**
+  - _wesanderson_
+  - _ggsci_
+
+##### Arguments
+
+All of the arguments that can be used with position scales can also be used with color scales.
+
+
+1. `name()`
+2. `breaks`
+3. `labels`
+4. `limits`
+5. `oob`
+6. `trans`
+7. `position`
+8. `guide`
+9. `na.translate`
+10. `na.value`
+
+**Color-specific arguments**
+
+Color scale functions also have arguments to control how the palettes are constructed.
+The exact arguments vary by scale function.
+Let's look at a few.
+
+`scale_color_viridis_*()`
+
+1. `begin` and `end`
+  - Values between 0 and 1 saying where on the scale to start and stop.
+2. `direction`
+  - Which end to start from?
+  - 1 or -1
+3. `option`
+  - Which of the viridis family palettes to use?
+  - "A", "B", "C", "D", "E"
+4. `aesthetics`
+  - Which aesthetics to apply the palette to?
+  - Useful to do `aesthetics = c("color", "fill")`
+
+  
+`scale_color_brewer()`
+
+1. `direction`
+  - Which end to start from?
+  - 1 or -1
+3. `type`
+  - Which kind of color scale to use?
+  - "seq" (sequential), "div" (diverging), "qual" (qualitative)
+4. `palette`
+  - Which specific palette to use?
+  - Can be a number or one of the named palettes (see `?scale_color_brewer()`)
+5. `aesthetics`
+
+
+`scale_color_manual()`
+
+For specifying your own discrete palettes.
+
+1. `values`
+  - A character vector of colors names or hex codes to use.
+  - If the vector has names, it will match data values to names.
+  - Must be at least as long as the number of unique values.
+2. `aesthetics`
+
+```{r}
+p <- ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(colour = factor(cyl)), size = 8)
+p + scale_colour_manual(values = c("4" = "red", "6" = "blue", "8" = "darkgreen"))
+
+pal <- palette.colors("Okabe-Ito", n = 10)
+p + scale_colour_manual(values = pal)
+
+pal <- palette.colors("R4", n = 4)
+p + scale_colour_manual(values = pal)
+```
+
+`scale_color_gradient()`
+
+For specifying your own gradient.
+
+```{r}
+scale_colour_gradient(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  na.value = "grey50",
+  aesthetics = "colour"
+)
+
+scale_colour_gradient2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  na.value = "grey50",
+  aesthetics = "colour"
+)
+
+scale_colour_gradientn(
+  ...,
+  colours,
+  values = NULL,
+  na.value = "grey50",
+  aesthetics = "colour",
+  colors
+)
+```
+
+
+`scale_color_identity()`
+
+A special scale.
+It doesn't map colors to a specific value, but uses the variable values directly.
+Useful if you want to store the color codes directly in the data.
