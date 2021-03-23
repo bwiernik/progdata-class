@@ -308,7 +308,7 @@ p + scale_colour_manual(values = pal)
 
 For specifying your own gradient.
 
-```{r}
+```{r, eval=FALSE}
 scale_colour_gradient(
   ...,
   low = "#132B43",
