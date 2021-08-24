@@ -398,7 +398,8 @@ dat_bfi %>%
   mutate(
     gender = recode(gender, "1" = "man", "2" = "woman")
   ) %>%
-  select(.id, gender, education)
+  select(.id, gender, education) %>%
+  head()
 ```
 
 *Note that for numeric values, you need to wrap them in "quotes" or `backticks`; however, that's not necessary for character values*
@@ -412,7 +413,8 @@ dat_bfi %>%
   mutate(
     education = recode(education, "1" = "HS", "2" = "HS", .default = "More than HS")
   ) %>%
-  select(.id, gender, education)
+  select(.id, gender, education) %>%
+  head()
 ```
 
 Another neat feature of the `recode()` function is the `.missing` value.
@@ -424,7 +426,8 @@ dat_bfi %>%
   mutate(
     education = recode(education, "1" = "HS", "2" = "HS", .default = "More than HS", .missing = "(Unknown)")
   ) %>%
-  select(.id, gender, education)
+  select(.id, gender, education) %>%
+  head()
 ```
 
 Or we can use `tidyr::replace_na()` 
@@ -434,7 +437,8 @@ dat_bfi %>%
   mutate(
     education = replace_na(education, replace = "(Unknown)")
   ) %>%
-  select(.id, gender, education)
+  select(.id, gender, education) %>%
+  head()
 ```
 
 
@@ -478,13 +482,15 @@ Now sometimes with our scales we may encounter variables that are reverse scored
 ```{r}
 dat_bfi %>%
   mutate(A1r = recode(A1, "6" = 1, "5" = 2, "4" = 3, "3" = 4, "2" = 5, "1" = 6)) %>%
-  select(A1, A1r)
+  select(A1, A1r) %>% 
+  head()
 
 # or
 
 dat_bfi %>%
   mutate(A1r = 7 - A1) %>%
-  select(A1, A1r)
+  select(A1, A1r) %>% 
+  head()
 ```
 
 However, we can implement some more complex code that will reverse `recode()` in one fell swoop!
@@ -513,7 +519,8 @@ dat_bfi %>%
       ~ recode(.x, "6" = 1, "5" = 2, "4" = 3, "3" = 4, "2" = 5, "1" = 6),
       .names = "{.col}r"
     )
-  )
+  ) %>%
+  head()
 ```
 
 The `.names` argument tells how to name the new columns. If you omit `.names`, the columns will be modified in place. In `.names`, the `{.col}` bit means "the column name", and any text around that (here the letter `r`) is added to the name.
@@ -536,7 +543,8 @@ dat_bfi %>%
     N_total = mean(c_across(N1:N5), na.rm = TRUE),
     O_total = mean(c_across(O1:O5), na.rm = TRUE),
     .before = everything()
-  )
+  ) %>%
+  head()
 ```
 
 The `c_across()` function is like `c()` but it lets you use the same options for selecting column names as `select()`.
