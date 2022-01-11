@@ -26,10 +26,13 @@
 
 
 <!--AE Links-->
+<!--
 [ae01a_unvotes]: https://github.com/DataScience4Psych/ae01a_unvotes
 [ae01b_covid]: https://github.com/DataScience4Psych/ae01b_covid
 [ae02_bechdel]: https://github.com/DataScience4Psych/ae-02-bechdel-rmarkdown
 [ae03_starwars]: https://github.com/DataScience4Psych/ae-03-starwars-dataviz
+-->
+[ae02_bechdel]: https://raw.githubusercontent.com/DataScience4Psych/ae-02-bechdel-rmarkdown/main/bechdel.Rmd
 
 
 <!-- Lab Links-->
