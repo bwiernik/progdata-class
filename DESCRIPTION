@@ -5,17 +5,11 @@ Version: 0.0.1
 Imports: 
     bookdown,
     tidyverse,
-    tsibble,
     gapminder,
     scales,
-    ggridges,
     DT,
     lubridate,
     here,
     patchwork,
-    broom,
-    modelr,
-    psychTools,
     palmerpenguins,
     knitr
-    
