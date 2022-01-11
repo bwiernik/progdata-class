@@ -1530,6 +1530,26 @@
         "xfun"
       ]
     },
+    "tweetrmd": {
+      "Package": "tweetrmd",
+      "Version": "0.0.9",
+      "Source": "GitHub",
+      "Remotes": "rstudio/webshot2",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "tweetrmd",
+      "RemoteUsername": "gadenbuie",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "075102b6a02fa4ea26741a9db7ca8afd728350a1",
+      "Hash": "1a923da23a8fd1f1361c46845aaf8452",
+      "Requirements": [
+        "htmltools",
+        "httr",
+        "jsonlite",
+        "knitr",
+        "rmarkdown"
+      ]
+    },
     "tzdb": {
       "Package": "tzdb",
       "Version": "0.2.0",
