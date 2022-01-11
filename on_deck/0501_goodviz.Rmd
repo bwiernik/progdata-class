@@ -1,0 +1,188 @@
+
+# (PART) Module 05 {-}
+
+```{r include = FALSE}
+source("common.R")
+ds4p_funyoutube <- read.csv("admin/csv/ds4p_funyoutube.csv", sep="")
+ds4p_urls <- read.csv("./admin/csv/ds4p_urls.csv")
+```
+
+
+# Welcome to Tips for effective data visualization
+
+This module is designed to introduce ideas related to effective data visualization. Please watch the videos and work your way through the notes. **The videos start on the next page.**  You can find the video playlist for this module [here][pl_05]. Most of the slides used to make the videos in this module can be found in the [slides repo][course_slides].
+
+
+## Module Materials
+
+* Slides
+  * [Tips for effective data visualization][d13_goodviz]
+  * [Deep Diving into ggplot][d13b_moreggplot]
+* Activities
+  * [Brexit](https://github.com/DataScience4Psych/ae-07-brexit-story-dataviz)
+* Lab
+  * [More Dennys](#lab05) 
+* Suggested Readings
+  * [A layered grammar of graphics](http://vita.had.co.nz/papers/layered-grammar.html)
+  * All subchapters of this module
+  * [r4ds](https://r4ds.had.co.nz/)
+    * [Graphics for communication](https://r4ds.had.co.nz/graphics-for-communication.html)
+    * [Data visualisation](https://r4ds.had.co.nz/data-visualisation.html)
+
+## Estimated Video Length
+
+No of videos : 7
+
+Average length of video : 12 minutes, 23 seconds
+
+Total length of playlist : 1 hour, 26 minutes, 46 seconds
+
+
+
+```{r, echo=FALSE}
+library(tweetrmd)
+include_tweet("https://twitter.com/ChelseaParlett/status/1361516386925744129")
+
+
+include_tweet("https://twitter.com/joshuadarr/status/1466150736283242498")
+```
+	
+
+
+# Designing effective visualizations
+
+```{r, echo=FALSE}
+# Designing effective visualizations
+video_url="https://www.youtube.com/watch?v=H9NHHs5VKZc"
+embed_url(video_url) %>%
+  use_align("center")
+```
+
+
+
+You can follow along with the slides [here][d13_goodviz] if they do not appear below.
+
+```{r, echo=FALSE}
+var_url=slide_url(ds4p_urls,"d13_goodviz")
+include_url(var_url, height = "400px")
+```
+
+
+
+## Principles for effective visualizations!
+
+```{r, echo=FALSE}
+# Principles for effective visualizations
+video_url="https://www.youtube.com/watch?v=oxLB5rg3prA"
+embed_url(video_url) %>%
+  use_align("center")
+```
+
+You can follow along with the slides [here][d13_goodviz] if they do not appear below.
+
+```{r, echo=FALSE}
+var_url=slide_url(ds4p_urls,"d13_goodviz","#7")
+include_url(var_url, height = "400px")
+```
+
+```{r, echo=FALSE}
+include_tweet("https://twitter.com/Notawful/status/1457441237787676672?s=20")
+```
+
+
+
+# Deeper Diving into ggplot2!
+
+```{r, echo=FALSE}
+# 503
+video_url="https://www.youtube.com/watch?v=xLBMJMkwc-U"
+embed_url(video_url) %>%
+  use_align("center")
+```
+
+
+You can follow along with the slides [here][d13b_moreggplot] if they do not appear below.
+
+```{r, echo=FALSE}
+var_url=slide_url(ds4p_urls,"d13b_moreggplot")
+include_url(var_url, height = "400px")
+```
+
+## What are the components of a plot?
+
+
+```{r, echo=FALSE}
+# 504
+video_url="https://www.youtube.com/watch?v=Eg6hH-1qX5I"
+embed_url(video_url) %>%
+  use_align("center")
+```
+
+```{r, echo=FALSE}
+var_url=slide_url(ds4p_urls,"d13b_moreggplot","#15")
+include_url(var_url, height = "400px")
+```
+
+
+## Stats, Geoms, and Positions
+
+
+```{r, echo=FALSE}
+# Stats, Geoms, and Positions
+video_url="https://www.youtube.com/watch?v=SklAl8uyuv4"
+embed_url(video_url) %>%
+  use_align("center")
+```
+
+
+```{r, echo=FALSE}
+var_url=slide_url(ds4p_urls,"d13b_moreggplot","#27")
+include_url(var_url, height = "400px")
+```
+
+### Jitter to the rescue!
+
+
+```{r, echo=FALSE}
+include_tweet("https://twitter.com/mijkenijk/status/1365913365755822089")
+```
+
+## Scales and Coordinates
+
+
+```{r, echo=FALSE}
+# Scales and Coordinates
+video_url="https://www.youtube.com/watch?v=vn8RToV1cc4"
+embed_url(video_url) %>%
+  use_align("center")
+```
+
+
+
+```{r, echo=FALSE}
+var_url=slide_url(ds4p_urls,"d13b_moreggplot","#39")
+include_url(var_url, height = "400px")
+```
+
+
+
+## How this all works with Minard
+
+
+```{r, echo=FALSE}
+# Minnard
+video_url="https://www.youtube.com/watch?v=9nWaGrEMA54"
+embed_url(video_url) %>%
+  use_align("center")
+```
+
+
+```{r, echo=FALSE}
+var_url=slide_url(ds4p_urls,"d13b_moreggplot","#57")
+include_url(var_url, height = "400px")
+```
+
+
+
+```{r links, child="admin/md/courselinks.md"}
+```

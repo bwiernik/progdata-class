@@ -142,8 +142,8 @@ ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 Consider the following plot:
 
 ```{r}
-(p <- gapminder %>% 
-     filter(continent != "Oceania") %>% 
+(p <- gapminder |> 
+     filter(continent != "Oceania") |> 
      ggplot(aes(gdpPercap, lifeExp)) +
      geom_point(aes(colour=pop), alpha=0.2) +
      scale_x_log10(labels=dollar_format()) +
@@ -168,8 +168,8 @@ FILL_THIS_IN
     - NOTE: plotly graphs don't seem to show up in Rmd _notebooks_, but they do with Rmd _documents_.
 
 ```{r}
-p %>% 
-    ggplotly() %>% 
+p |> 
+    ggplotly() |> 
     htmlwidgets::saveWidget("LOCATION_GOES_HERE")
 ```
 
@@ -177,8 +177,8 @@ p %>%
 3. Run this code to see the json format underneath:
 
 ```{r}
-p %>% 
-    ggplotly() %>% 
+p |> 
+    ggplotly() |> 
     plotly_json()
 ```
 
@@ -192,7 +192,7 @@ plot_ly(gapminder,
         y = ~lifeExp, 
         type = "scatter",
         mode = "markers",
-        opacity = 0.2) %>% 
+        opacity = 0.2) |> 
     layout(xaxis = list(type = "log"))
 ```
 

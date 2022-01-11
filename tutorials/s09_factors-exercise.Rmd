@@ -31,14 +31,14 @@ Function `case_when()` is a tidier way to vectorise multiple `if_else()` stateme
 You can read more about this function [here](https://dplyr.tidyverse.org/reference/case_when.html).
 
 ```{r}
-gapminder %>% 
-  filter(year == FILL_IN_THIS) %>% 
+gapminder |> 
+  filter(year == FILL_IN_THIS) |> 
   mutate(life_level = case_when(lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 # else
-                                TRUE ~ FILL_IN_THIS)) %>% 
+                                TRUE ~ FILL_IN_THIS)) |> 
   ggplot() + 
   geom_boxplot(aes(x = FILL_IN_THIS, y = FILL_IN_THIS)) +
   labs(y = "GDP per capita, $", x = "Life expectancy level, years") +
@@ -60,15 +60,15 @@ in the call to `factor()`. Use, `drop = FALSE` to tell the plot not to drop
 unused levels.
 
 ```{r}
-gapminder %>% 
-  filter(year == FILL_IN_THIS) %>% 
+gapminder |> 
+  filter(year == FILL_IN_THIS) |> 
   mutate(life_level = case_when(lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 # else
                                 TRUE ~ FILL_IN_THIS) ,
-                      levels = FILL_IN_THIS)) %>% %>% 
+                      levels = FILL_IN_THIS)) |> |> 
   ggplot() + 
   geom_boxplot(aes(x = FILL_IN_THIS, y = FILL_IN_THIS)) +
   labs(y = "GDP per capita, $", x = "Life expectancy level, years") +
@@ -120,7 +120,7 @@ single factor. The function `forcats::fct_drop()` operates on a factor and does
 not drop `NA` values.
 
 ```{r}
-h_gap_dropped <- FILL_IN_THIS %>% 
+h_gap_dropped <- FILL_IN_THIS |> 
   droplevels()
 
 
@@ -143,7 +143,7 @@ Factors are most useful/helpful when plotting data.
 So let's first plot this:
 
 ```{r}
-FILL_IN_THIS %>%
+FILL_IN_THIS |>
   ggplot() +
   geom_bar(aes(FILL_IN_THIS)) +
   coord_flip() +
@@ -164,7 +164,7 @@ However, it is often preferable to order the levels according to some principle:
 - The function `fct_rev()` will sort them in the opposite order.
 
 ```{r}
-gapminder %>%
+gapminder |>
   ggplot() +
   geom_bar(aes(FILL_IN_THIS)) +
   coord_flip() +
@@ -181,7 +181,7 @@ Section 9.6 of Jenny Bryan's [notes](https://stat545.com/factors-boss.html#reord
 
 ```{r}
 ##  default summarizing function is median()
-gapminder %>%
+gapminder |>
   ggplot() +
   geom_bar(aes(FILL_IN_THIS)) +
   coord_flip() +
@@ -206,7 +206,7 @@ This might be useful if you are preparing a report for say, the state of affairs
 in Africa.
 
 ```{r}
-gapminder %>%
+gapminder |>
   ggplot() +
   geom_bar(aes(FILL_IN_THIS)) +
   coord_flip()+

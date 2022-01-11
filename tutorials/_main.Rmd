@@ -37,9 +37,9 @@ knitr::opts_chunk$set(error = TRUE)
 Consider the following plot. Don't concern yourself with the code at this point.
 
 ```{r, fig.width = 5, fig.height = 2}
-gapminder %>% 
-  filter(year == 2007) %>% 
-  mutate(continent = fct_infreq(continent)) %>% 
+gapminder |> 
+  filter(year == 2007) |> 
+  mutate(continent = fct_infreq(continent)) |> 
   ggplot(aes(continent)) +
   geom_bar() +
   theme_bw()
@@ -64,7 +64,7 @@ The following is a tsibble (a special type of tibble containing time series data
 Execute this code to store the data in `mauna`:
 
 ```{r}
-(mauna <- tsibble::as_tsibble(co2) %>% 
+(mauna <- tsibble::as_tsibble(co2) |> 
    rename(month = index, conc = value))
 ```
 
@@ -235,9 +235,9 @@ arrange(gapminder, FILL_THIS_IN)
 arrange(gapminder, FILL_THIS_IN, FILL_THIS_IN)
 ```
 
-## Piping, `%>%` (8 min)
+## Piping, `|>` (8 min)
 
-Note: think of `%>%` as the word "then"!
+Note: think of `|>` as the word "then"!
 
 Demonstration:
 
@@ -266,21 +266,21 @@ Return to guide at section 6.7.
 1. Only take data with population greater than 100 million.
 
 ```{r}
-gapminder %>%
+gapminder |>
   filter(FILL_THIS_IN)
 ```
 
 2. Your turn: of those rows filtered from step 1., only take data from Asia.
 
 ```{r}
-gapminder %>%
+gapminder |>
   filter(FILL_THIS_IN)
 ```
 
 3. Repeat 2, but take data from countries Brazil, and China. 
 
 ```{r}
-gapminder %>%
+gapminder |>
   filter(FILL_THIS_IN)
 ```
 
@@ -300,7 +300,7 @@ Let's get:
 - GDP in billions, named (`gdpBill`), rounded to two decimals.
 
 ```{r}
-gapminder %>%
+gapminder |>
   mutate(FILL_THIS_IN)
 ```
 
@@ -309,7 +309,7 @@ Notice the backwards compatibility! No need for loops!
 Try the same thing, but with `transmute` (drops all other variables). 
 
 ```{r}
-gapminder %>%
+gapminder |>
   transmute(FILL_THIS_IN)
 ```
 
@@ -318,7 +318,7 @@ The `if_else` function is useful for changing certain elements in a data frame.
 Example: Suppose Canada's 1952 life expectancy was mistakenly entered as 68.8 in the data frame, but is actually 70. Fix it using `if_else` and `mutate`. 
 
 ```{r}
-gapminder %>%
+gapminder |>
   mutate(FILL_THIS_IN)
 ```
 
@@ -379,19 +379,19 @@ This worksheet contains exercises aimed for practice with `dplyr`.
 1. (a) What's the minimum life expectancy for each continent and each year? (b) Add the corresponding country to the tibble, too. (c) Arrange by min life expectancy.
 
 ```{r}
-gapminder %>% 
-  group_by(FILL_THIS_IN) %>% 
+gapminder |> 
+  group_by(FILL_THIS_IN) |> 
   FILL_THIS_IN(min_life = min(lifeExp))
 ```
 
 2. Calculate the growth in population since the first year on record _for each country_ by rearranging the following lines, and filling in the `FILL_THIS_IN`. Here's another convenience function for you: `dplyr::first()`. 
 
 ```
-mutate(rel_growth = FILL_THIS_IN) %>% 
-arrange(FILL_THIS_IN) %>% 
-gapminder %>% 
+mutate(rel_growth = FILL_THIS_IN) |> 
+arrange(FILL_THIS_IN) |> 
+gapminder |> 
 DT::datatable()
-group_by(country) %>% 
+group_by(country) |> 
 ```
 
 ```{r}
@@ -402,15 +402,15 @@ group_by(country) %>%
 3. Determine the country that experienced the sharpest 5-year drop in life expectancy, in each continent, sorted by the drop, by rearranging the following lines of code. Ensure there are no `NA`'s. Instead of using `lag()`, use the convenience function provided by the `tsibble` package, `tsibble::difference()`:
 
 ```
-drop_na() %>% 
-ungroup() %>% 
-arrange(year) %>% 
-filter(inc_life_exp == min(inc_life_exp)) %>% 
-gapminder %>% 
-mutate(inc_life_exp = FILL_THIS_IN) %>% 
-arrange(inc_life_exp) %>% 
-group_by(country) %>% 
-group_by(continent) %>% 
+drop_na() |> 
+ungroup() |> 
+arrange(year) |> 
+filter(inc_life_exp == min(inc_life_exp)) |> 
+gapminder |> 
+mutate(inc_life_exp = FILL_THIS_IN) |> 
+arrange(inc_life_exp) |> 
+group_by(country) |> 
+group_by(continent) |> 
 knitr::kable()
 ```
 
@@ -459,7 +459,7 @@ knitr::opts_chunk$set(error = TRUE, warning = FALSE)
 After fixing the error, fix the overlapping problem in the following plot (attribution: ["R for data science"](https://r4ds.had.co.nz/data-visualisation.html)).
 
 ```{r, fig.width = 5, fig.height = 2}
-ggplot(mpg, aes(cty, hwy)) %>% 
+ggplot(mpg, aes(cty, hwy)) |> 
   geom_point()
 ```
 
@@ -469,8 +469,8 @@ ggplot(mpg, aes(cty, hwy)) %>%
 Fix this plot so that it shows life expectancy over time _for each country_. Notice that `ggplot2` ignores the grouping of a tibble!
 
 ```{r, fig.width = 5, fig.height = 2}
-gapminder %>% 
-  group_by(country) %>% 
+gapminder |> 
+  group_by(country) |> 
   ggplot(aes(year, lifeExp)) +
   geom_line()
 ```
@@ -497,8 +497,8 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
 - Use `shape=21` to distinguish between `fill` (interior) and `colour` (exterior). 
 
 ```{r, fig.width = 5, fig.height = 2}
-gapminder %>% 
-  filter(continent != "Oceania") %>% 
+gapminder |> 
+  filter(continent != "Oceania") |> 
   ggplot(aes(gdpPercap, lifeExp)) +
   facet_wrap(~ continent) +
   geom_point(alpha = 0.2) +
@@ -534,7 +534,7 @@ tribble(
   2, 0.8, 0.7,
   3, 0.5, 0.9,
   4, 0.4, 0.5
-) %>% 
+) |> 
   ggplot(aes(x, y)) + 
   geom_line()
 ```
@@ -546,8 +546,8 @@ tribble(
 Fix the plot so that you can actually see the data points. Be sure to solve the problem of overlapping text, without rotating the text.
 
 ```{r, fig.width = 5, fig.height = 2}
-gapminder %>% 
-  filter(continent == "Americas") %>% 
+gapminder |> 
+  filter(continent == "Americas") |> 
   ggplot(aes(country, lifeExp)) + 
   geom_point() +
   geom_boxplot()
@@ -558,8 +558,8 @@ gapminder %>%
 We're starting with the same plot as above, but instead of the points + boxplot, try a ridge plot instead using `ggridges::geom_density_ridges()`, and adjust the `bandwidth`.
 
 ```{r, fig.width = 5, fig.height = 2}
-gapminder %>% 
-  filter(continent == "Americas") %>% 
+gapminder |> 
+  filter(continent == "Americas") |> 
   ggplot(aes(country, lifeExp)) + 
   geom_point() +
   geom_boxplot()
@@ -575,8 +575,8 @@ gapminder %>%
 - Capitalize the legend title.
 
 ```{r, fig.width = 5, fig.height = 2}
-mtcars %>% 
-  mutate(transmission = if_else(am == 0, "automatic", "manual")) %>% 
+mtcars |> 
+  mutate(transmission = if_else(am == 0, "automatic", "manual")) |> 
   ggplot(aes(cyl)) +
   geom_bar(aes(colour = transmission))
 ```
@@ -586,7 +586,7 @@ mtcars %>%
 Here's the number of people having a certain hair colour from a sample of 592 people:
 
 ```{r}
-(hair <- as_tibble(HairEyeColor) %>% 
+(hair <- as_tibble(HairEyeColor) |> 
   count(Hair, wt = n))
 ```
 
@@ -602,7 +602,7 @@ ggplot(hair, aes(Hair, n)) +
 Here's the number of people having a certain hair and eye colour from a sample of 592 people:
 
 ```{r}
-(hair_eye <- as_tibble(HairEyeColor) %>% 
+(hair_eye <- as_tibble(HairEyeColor) |> 
   count(Hair, Eye, wt = n))
 ```
 
@@ -668,7 +668,7 @@ lotr
 2. Widen the data so that we see the words spoken by each race, by putting race as its own column.
 
 ```{r}
-(lotr_wide <- lotr %>% 
+(lotr_wide <- lotr |> 
   pivot_wider(FILL_THIS_IN = c(-Race, -Words), 
               FILL_THIS_IN = Race, 
               FILL_THIS_IN = Words))
@@ -677,7 +677,7 @@ lotr
 3. Re-lengthen the wide LOTR data from Question 2 above.
 
 ```{r}
-lotr_wide %>% 
+lotr_wide |> 
   pivot_longer(FILL_THIS_IN = FILL_THIS_IN, 
                names_to  = FILL_THIS_IN, 
                values_to = FILL_THIS_IN)
@@ -688,14 +688,14 @@ lotr_wide %>%
 Congratulations, you're getting married! In addition to the wedding, you've decided to hold two other events: a day-of brunch and a day-before round of golf.  You've made a guestlist of attendance so far, along with food preference for the food events (wedding and brunch).
 
 ```{r}
-guest %>% 
+guest |> 
   DT::datatable(rownames = FALSE)
 ```
 
 1. Put "meal" and "attendance" as their own columns, with the events living in a new column.
 
 ```{r}
-(guest_long <- guest %>% 
+(guest_long <- guest |> 
   pivot_longer(cols      = FILL_THIS_IN, 
                names_to  = FILL_THIS_IN,
                FILL_THIS_IN))
@@ -704,7 +704,7 @@ guest %>%
 2. Use `tidyr::separate()` to split the name into two columns: "first" and "last". Then, re-unite them with `tidyr::unite()`.
 
 ```{r}
-guest_long %>% 
+guest_long |> 
   separate(FILL_THIS_IN, into = FILL_THIS_IN)
   # unite(col = "name", FILL_THIS_IN, sep = FILL_THIS_IN)
 ```
@@ -712,16 +712,16 @@ guest_long %>%
 3. Which parties still have a "PENDING" status for all members and all events?
 
 ```{r}
-FILL_THIS_IN %>% 
-  group_by(party) %>% 
+FILL_THIS_IN |> 
+  group_by(party) |> 
   summarize(all_pending = all(attendance == "PENDING"))
 ```
 
 4. Which parties still have a "PENDING" status for all members for the wedding?
 
 ```{r}
-FILL_THIS_IN %>% 
-  group_by(party) %>% 
+FILL_THIS_IN |> 
+  group_by(party) |> 
   summarize(pending_wedding = all(FILL_THIS_IN == "PENDING"))
 ```
 
@@ -729,7 +729,7 @@ FILL_THIS_IN %>%
 5. Put the data back to the way it was.
 
 ```{r}
-guest_long %>% 
+guest_long |> 
   pivot_wider(id_cols     = FILL_THIS_IN, 
               names_from  = FILL_THIS_IN, 
               names_sep   = "_", 
@@ -739,7 +739,7 @@ guest_long %>%
 6. You also have a list of emails for each party, in this worksheet under the variable `email`. Change this so that each person gets their own row. Use `tidyr::separate_rows()`
 
 ```{r}
-email %>% 
+email |> 
   separate_rows(FILL_THIS_IN, sep = FILL_THIS_IN)
 ```
 
@@ -766,9 +766,9 @@ FILL_THIS_IN(label = FILL_THIS_IN,
 n <- 100
 mu <- c(-5, 0, 5)
 sd <- c(1, 3, 10)
-FILL_THIS_IN(mu = mu, sd = sd) %>% 
-  group_by_all() %>% 
-  mutate(z = list(rnorm(n, mu, sd))) %>% 
+FILL_THIS_IN(mu = mu, sd = sd) |> 
+  group_by_all() |> 
+  mutate(z = list(rnorm(n, mu, sd))) |> 
   FILL_THIS_IN
 ```
 
@@ -782,7 +782,7 @@ experiment <- tibble(
   measurement_1 = runif(6),
   measurement_2 = runif(6)
 )
-experiment %>% expand(name, trt, rep)
+experiment |> expand(name, trt, rep)
 ```
 
 
@@ -832,13 +832,13 @@ knitr::opts_chunk$set(error = TRUE)
 The package `singer` comes with two smallish data frames about songs. Let's take a look at them (after minor modifications by renaming and shuffling):
 
 ```{r}
-(time <- as_tibble(songs) %>% 
+(time <- as_tibble(songs) |> 
    rename(song = title))
 ```
 
 ```{r}
-(album <- as_tibble(locations) %>% 
-   select(title, everything()) %>% 
+(album <- as_tibble(locations) |> 
+   select(title, everything()) |> 
    rename(album = release,
           song  = title))
 ```
@@ -847,28 +847,28 @@ The package `singer` comes with two smallish data frames about songs. Let's take
 1. We really care about the songs in `time`. But, which of those songs do we know its corresponding album?
 
 ```{r}
-time %>% 
+time |> 
   FILL_THIS_IN(album, by = FILL_THIS_IN)
 ```
 
 2. Go ahead and add the corresponding albums to the `time` tibble, being sure to preserve rows even if album info is not readily available.
 
 ```{r}
-time %>% 
+time |> 
   FILL_THIS_IN(album, by = FILL_THIS_IN)
 ```
 
 3. Which songs do we have "year", but not album info?
 
 ```{r}
-time %>% 
+time |> 
   FILL_THIS_IN(album, by = "song")
 ```
 
 4. Which artists are in `time`, but not in `album`?
 
 ```{r}
-time %>% 
+time |> 
   anti_join(album, by = "FILL_THIS_IN")
 ```
 
@@ -876,7 +876,7 @@ time %>%
 5. You've come across these two tibbles, and just wish all the info was available in one tibble. What would you do?
 
 ```{r}
-FILL_THIS_IN %>% 
+FILL_THIS_IN |> 
   FILL_THIS_IN(FILL_THIS_IN, by = "song")
 ```
 
@@ -900,8 +900,8 @@ FILL_THIS_IN(fell, FILL_THIS_IN)
 2. Which races are present in "The Fellowship of the Ring" (`fell`), but not in any of the other ones?
 
 ```{r}
-fell %>% 
-  anti_join(ttow, by = "Race") %>% 
+fell |> 
+  anti_join(ttow, by = "Race") |> 
   FILL_THIS_IN(FILL_THIS_IN, by = "Race")
 ```
 
@@ -1357,13 +1357,13 @@ knitr::opts_chunk$set(error = TRUE)
 Function `case_when()` is a tidier way to vectorise multiple `if_else()` statements. you can read more about this function [here](https://dplyr.tidyverse.org/reference/case_when.html).
 
 ```{r}
-gapminder %>% 
-  filter(year == FILL_IN_THIS) %>% 
+gapminder |> 
+  filter(year == FILL_IN_THIS) |> 
   mutate(life_level = case_when(lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
-                                TRUE ~ FILL_IN_THIS)) %>% 
+                                TRUE ~ FILL_IN_THIS)) |> 
   ggplot() + geom_boxplot(aes(x = FILL_IN_THIS, y = FILL_IN_THIS)) +
   labs(y = "GDP per capita, $", x= "Life expectancy level, years") +
   theme_bw() 
@@ -1381,14 +1381,14 @@ We can make a few observations:
 
 **1.2** You can correct these issues by explicitly setting the levels parameter in the call to `factor()`. Use, `drop = FALSE` to tell the plot not to drop unused levels 
 ```{r}
-gapminder %>% 
-  filter(year == FILL_IN_THIS) %>% 
+gapminder |> 
+  filter(year == FILL_IN_THIS) |> 
   mutate(life_level = case_when(lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 lifeExp < FILL_IN_THIS ~ FILL_IN_THIS,
                                 TRUE ~ FILL_IN_THIS) ,
-                      levels = FILL_IN_THIS)) %>% %>% 
+                      levels = FILL_IN_THIS)) |> |> 
   ggplot() + geom_boxplot(aes(x = FILL_IN_THIS, y = FILL_IN_THIS)) +
   labs(y = "GDP per capita, $", x= "Life expectancy level, years") +
   theme_bw() 
@@ -1436,7 +1436,7 @@ What if we want to get rid of some levels that are "unused" - how do we do that?
 The function `droplevels()` operates on all the factors in a data frame or on a single factor. The function `forcats::fct_drop()` operates on a factor.
 
 ```{r}
-h_gap_dropped <- FILL_IN_THIS %>% 
+h_gap_dropped <- FILL_IN_THIS |> 
   droplevels()
 
 
@@ -1459,7 +1459,7 @@ Factors are most useful/helpful when plotting data.
 So let's first plot this:
 
 ```{r}
-FILL_IN_THIS %>%
+FILL_IN_THIS |>
   ggplot() +
   geom_bar(aes(FILL_IN_THIS)) +
   coord_flip() +
@@ -1479,7 +1479,7 @@ However, it is preferable to order the levels according to some principle:
 For instance ,
     `  
 ```{r}
-gapminder %>%
+gapminder |>
   ggplot() +
   geom_bar(aes(FILL_IN_THIS)) +
   coord_flip()+
@@ -1495,7 +1495,7 @@ Section 9.6 of Jenny Bryan's [notes](https://stat545.com/factors-boss.html#reord
 
 ```{r}
 ##  default summarizing function is median()
-gapminder %>%
+gapminder |>
   ggplot() +
   geom_bar(aes(FILL_IN_THIS)) +
   coord_flip()+
@@ -1518,7 +1518,7 @@ ggplot(h_gap, aes(x = year, y = lifeExp,
 This might be useful if you are preparing a report for say, the state of affairs in Africa.
 
 ```{r}
-gapminder %>%
+gapminder |>
   ggplot() +
   geom_bar(aes(FILL_IN_THIS)) +
   coord_flip()+
@@ -1707,8 +1707,8 @@ ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 Consider the following plot:
 
 ```{r}
-(p <- gapminder %>% 
-     filter(continent != "Oceania") %>% 
+(p <- gapminder |> 
+     filter(continent != "Oceania") |> 
      ggplot(aes(gdpPercap, lifeExp)) +
      geom_point(aes(colour=pop), alpha=0.2) +
      scale_x_log10(labels=dollar_format()) +
@@ -1733,8 +1733,8 @@ FILL_THIS_IN
     - NOTE: plotly graphs don't seem to show up in Rmd _notebooks_, but they do with Rmd _documents_.
 
 ```{r}
-p %>% 
-    ggplotly() %>% 
+p |> 
+    ggplotly() |> 
     htmlwidgets::saveWidget("LOCATION_GOES_HERE")
 ```
 
@@ -1742,8 +1742,8 @@ p %>%
 3. Run this code to see the json format underneath:
 
 ```{r}
-p %>% 
-    ggplotly() %>% 
+p |> 
+    ggplotly() |> 
     plotly_json()
 ```
 
@@ -1757,7 +1757,7 @@ plot_ly(gapminder,
         y = ~lifeExp, 
         type = "scatter",
         mode = "markers",
-        opacity = 0.2) %>% 
+        opacity = 0.2) |> 
     layout(xaxis = list(type = "log"))
 ```
 
@@ -1922,8 +1922,8 @@ ggplot(iris, aes(Sepal.Width, Sepal.Length)) +
 Consider the following plot:
 
 ```{r}
-(p <- gapminder %>% 
-     filter(continent != "Oceania") %>% 
+(p <- gapminder |> 
+     filter(continent != "Oceania") |> 
      ggplot(aes(gdpPercap, lifeExp)) +
      geom_point(aes(colour=pop), alpha=0.2) +
      scale_x_log10(labels=dollar_format()) +
@@ -1948,8 +1948,8 @@ FILL_THIS_IN
     - NOTE: plotly graphs don't seem to show up in Rmd _notebooks_, but they do with Rmd _documents_.
 
 ```{r}
-p %>% 
-    ggplotly() %>% 
+p |> 
+    ggplotly() |> 
     htmlwidgets::saveWidget("LOCATION_GOES_HERE")
 ```
 
@@ -1957,8 +1957,8 @@ p %>%
 3. Run this code to see the json format underneath:
 
 ```{r}
-p %>% 
-    ggplotly() %>% 
+p |> 
+    ggplotly() |> 
     plotly_json()
 ```
 
@@ -1972,7 +1972,7 @@ plot_ly(gapminder,
         y = ~lifeExp, 
         type = "scatter",
         mode = "markers",
-        opacity = 0.2) %>% 
+        opacity = 0.2) |> 
     layout(xaxis = list(type = "log"))
 ```
 
@@ -2086,7 +2086,7 @@ Exercise:
 
 First, create a subset of the `gapminder` dataset containing only the country of `France
 ```{r}
-(gapminder_France <- gapminder %>% filter(country == "France"))
+(gapminder_France <- gapminder |> filter(country == "France"))
 ```
 
 Now, using the `lm()` function we will create the linear model
@@ -2114,7 +2114,7 @@ summary(my_lm)
 We can use the `predict()` function to make predictions from the model (default is to use fitting/training data). Here are the predictions:
   
   ```{r}
-predict(my_lm) %>% 
+predict(my_lm) |> 
   head()
 ```
 Or we can predict on a new dataset:
@@ -2136,8 +2136,8 @@ ggplot(gapminder, aes(gdpPercap, lifeExp)) +
 ```
 Lets consider another country "Zimbabwe", which has a unique behavior in the `lifeExp` and `year` relationship.
 ```{r}
-gapminder_Zimbabwe <- gapminder %>% filter(country == "Zimbabwe")
-gapminder_Zimbabwe %>% ggplot(aes(year, lifeExp)) + geom_point()
+gapminder_Zimbabwe <- gapminder |> filter(country == "Zimbabwe")
+gapminder_Zimbabwe |> ggplot(aes(year, lifeExp)) + geom_point()
 ```
 Let's try fitting a linear model to this relationship
 ```{r}
@@ -2474,8 +2474,8 @@ Exercise: does this sentence contain all letters of the alphabet? Hints:
 - Use the base R `table()` function.
 
 ```{r}
-fox %>% 
-  str_split(FILL_THIS_IN) %>% 
+fox |> 
+  str_split(FILL_THIS_IN) |> 
   FILL_THIS_IN
 ```
 
@@ -2484,14 +2484,14 @@ Working in a data frame? `tidyr` has its own version of this. Here's an example 
 
 ```{r}
 tibble(fruit)
-tibble(fruit) %>%
+tibble(fruit) |>
   separate(fruit, into = c("pre", "post"), sep = " ")
 ```
 
 Demo: we can substitute, too. Replace the word "fox" with "giraffe" using `str_replace(string, pattern, replacement)`:
 
 ```{r}
-fox %>% 
+fox |> 
     str_replace(FILL_THIS_IN)
 ```
 
@@ -2500,9 +2500,9 @@ Know the position you want to extract/replace? Try `str_sub()`.
 `str_pad()` extends each string to a minimum length:
 
 ```{r}
-fruit %>% head
-fruit %>% 
-    str_pad(width=7, side="right", pad="$") %>% 
+fruit |> head
+fruit |> 
+    str_pad(width=7, side="right", pad="$") |> 
     head()
 ```
 
@@ -2529,7 +2529,7 @@ fruit_df <- tibble(
   fruit1 = fruit[1:4],
   fruit2 = fruit[5:8]
 )
-fruit_df %>% 
+fruit_df |> 
   unite("flavor_combo", fruit1, fruit2, sep = " & ")
 ```
 
@@ -2686,7 +2686,7 @@ str_view_all_match(countries, pattern = "YOUR_REGEX_HERE")
 Beer or bear?
 
 ```{r}
-c("bear", "beer", "bar") %>% 
+c("bear", "beer", "bar") |> 
     str_view_all_match(pattern = "be(e|a)r")
 ```
 
@@ -2806,8 +2806,8 @@ str_view_all_match(countries, "YOUR_REGEX_HERE")
 Find all countries that start with two non-vowels. How is this different from finding all countries that end in _at least_ two non-vowels? Hint: Syria.
 
 ```{r}
-countries %>% 
-    str_to_lower() %>% 
+countries |> 
+    str_to_lower() |> 
     str_view_all_match("YOUR_REGEX_HERE")
 ```
 
@@ -2831,7 +2831,7 @@ Convert `words` to pig latin, which involves:
 ```{r}
 first <- str_sub(words, 1, 1)
 ords <- str_sub(words, 2)
-str_c(ords, first, "ay") %>% head(10)
+str_c(ords, first, "ay") |> head(10)
 ```
 
 Find all countries that end in "y"
@@ -2855,8 +2855,8 @@ str_view_all_match(countries, "[aeiou]{2}$")
 Find all countries that start with two non-vowels. How is this different from finding all countries that end in _at least_ two non-vowels? Hint: Syria.
 
 ```{r}
-countries %>% 
-    str_to_lower() %>% 
+countries |> 
+    str_to_lower() |> 
     str_view_all_match("^[^aeiou]{2,}")
 ```
 
@@ -3038,7 +3038,7 @@ We can do the subsetting much easier with these shortcuts: just replace function
 - name you'd like to subset by.
 
 ```{r}
-map_chr(wesanderson, 1) # %>% unname()
+map_chr(wesanderson, 1) # |> unname()
 ```
 
 
@@ -3069,7 +3069,7 @@ desired_info <- c("name", "born")
 Note: as Jenny says, it's always safer (from a programming perspective) to work with output that's more predictable. The following would be safer, and is still readable:
 
 ```{r}
-got_chars %>% {
+got_chars |> {
     tibble(
         name = map_chr(., "name"),
         born = map_chr(., "born")
@@ -3080,7 +3080,7 @@ got_chars %>% {
 Note the curly braces "tricks" the object prior to the pipe from entering as the first argument to `tibble`, because ` ``{`` ` only returns the last line evaluated. In this case there are two: the above code is equivalent to
 
 ```{r}
-got_chars %>% {
+got_chars |> {
     .
     tibble(
         name = map_chr(., "name"),
@@ -3226,7 +3226,7 @@ This is where `map()` comes in handy! Let's make a tibble using the `got_chars` 
 2. Specify the columns with `purrr` mappings.
 
 ```{r}
-got_alias <- got_chars %>% FILL_THIS_IN
+got_alias <- got_chars |> FILL_THIS_IN
 ```
 
 Write the solution down carefully -- we'll be referring to `got_alias` later. 
@@ -3253,7 +3253,7 @@ Approach 2: With piping
 2. Then, pipe that into a subsetting function to subset Melisandre.
 
 ```{r}
-got_alias %>% FILL_THIS_IN
+got_alias |> FILL_THIS_IN
 ```
 
 ## Nesting/Unnesting; Operating
@@ -3278,7 +3278,7 @@ Let's make a tidy data frame! First, let's take a closer look at `tidyr::unnest(
 I can make a tidy data frame _without_ list columns using `tidyr::unnest()`:
 
 ```{r}
-icecream %>% 
+icecream |> 
     unnest(flav)
 ```
 
@@ -3287,15 +3287,15 @@ How would I subset all people that like strawberry ice cream? We can either use 
 From "normal" tidy data:
 
 ```{r}
-icecream %>% 
-    unnest(flav) %>% 
+icecream |> 
+    unnest(flav) |> 
     filter(flav == "strawberry")
 ```
 
 From list-column data:
 
 ```{r}
-icecream %>% 
+icecream |> 
   filter(map_lgl(flav, ~ FILL_THIS_IN))
 ```
 
@@ -3404,7 +3404,7 @@ simple_page <- FILL_THIS_IN
 2. Pipe the output into `html_structure()`: will print the html to screen.
 
 ```{r}
-simple_page %>% html_structure()
+simple_page |> html_structure()
 ```
 
 3. Apply `html_text()` to `simple_page`: gives me all the text (not the tags).
@@ -3420,11 +3420,11 @@ simple_page %>% html_structure()
 5. Then, pipe into `html_text()`.
 
 ```{r}
-simple_page %>% 
+simple_page |> 
 	html_nodes(FILL_THIS_IN)
-simple_page %>% 
+simple_page |> 
 	html_nodes(FILL_THIS_IN)
-simple_page %>% 
+simple_page |> 
 	html_nodes(FILL_THIS_IN)
 ```
 
@@ -3440,16 +3440,16 @@ Return the text in `simple_page` contained within:
 1. all `<a>` tags within `<p>` tags.
 
 ```{r}
-simple_page %>% 
-	html_nodes(FILL_THIS_IN) %>% 
+simple_page |> 
+	html_nodes(FILL_THIS_IN) |> 
 	FILL_THIS_IN
 ```
 
 2. any tag.
 
 ```{r}
-simple_page %>% 
-	html_nodes(FILL_THIS_IN) %>% 
+simple_page |> 
+	html_nodes(FILL_THIS_IN) |> 
 	FILL_THIS_IN
 ```
 
@@ -3461,21 +3461,21 @@ We can extract other things besides the text between the tags:
 - `html_name()` gives the name of the tags. Try it with `html_nodes(*)`.
 
 ```{r}
-simple_page %>% 
+simple_page |> 
 	html_nodes("*")
 ```
 
 - `html_attrs()` gives all attributes of the tags. Try it with `html_nodes("a")`:
 
 ```{r}
-simple_page %>% 
+simple_page |> 
 	html_nodes("a")
 ```
 
 - `html_attr()` (not plural) extracts a vector of the attribute contents by the `name` argument. Try `name="href"` with `html_nodes("a")`:
 
 ```{r}
-simple_page %>% 
+simple_page |> 
 	html_nodes("a")
 ```
 
@@ -3507,7 +3507,7 @@ Viewing the source to find the CSS is horrendous. In comes [`SelectorGadget`](ht
 Goal: extract the Wikipedia table of the [tallest steel roller coasters](https://en.wikipedia.org/wiki/List_of_roller_coaster_rankings#Tallest_steel_roller_coasters) in the world with `html_table()`.
 
 ```{r}
-read_html("https://en.wikipedia.org/wiki/List_of_roller_coaster_rankings") %>% 
+read_html("https://en.wikipedia.org/wiki/List_of_roller_coaster_rankings") |> 
 	FILL_THIS_IN
 ```
 
@@ -3520,7 +3520,7 @@ We've already seen `readr`, but what about importing other data types?
 
 ```{r}
 fromJSON('{"city" : "Z\\u00FCrich"}') # A list
-fromJSON("https://api.github.com/users/hadley/orgs") %>% 
+fromJSON("https://api.github.com/users/hadley/orgs") |> 
 	glimpse() # A data frame
 toJSON(mtcars, pretty=TRUE)
 ```
@@ -3530,7 +3530,7 @@ toJSON(mtcars, pretty=TRUE)
 	- [Example from w3cshools](https://www.w3schools.com/xml/simple.xml)
 
 ```{r}
-read_xml("https://www.w3schools.com/xml/simple.xml") %>% 
+read_xml("https://www.w3schools.com/xml/simple.xml") |> 
 	as_list()
 ```
 
@@ -3895,10 +3895,10 @@ output: html_document
 Enter the `slide()`, `tile()`, and `stretch()` families. Best explained by the [tsibble demo](https://tsibble.tidyverts.org/), specifically [this rolling window animation](https://tsibble.tidyverts.org/reference/figures/animate-1.gif).
 
 ```{r}
-mauna <- co2 %>% 
-	as_tsibble() %>% 
+mauna <- co2 |> 
+	as_tsibble() |> 
 	rename(yearmonth = index,
-		   co2 = value) %>% 
+		   co2 = value) |> 
 	fill_gaps()
 ggplot(mauna, aes(yearmonth, co2)) +
 	geom_line() +
@@ -3908,8 +3908,8 @@ ggplot(mauna, aes(yearmonth, co2)) +
 To "wash out" the seasonal component (for use in some downstream analysis, such as estimating a trend), we could average-out the data within each year. The `tile()` family makes this easy:
 
 ```{r}
-(mauna_tiled <- mauna %>% 
- 	index_by(year = year(yearmonth)) %>% 
+(mauna_tiled <- mauna |> 
+ 	index_by(year = year(yearmonth)) |> 
  	summarise(tiled_co2 = tile_dbl(
  		co2, mean,
  		na.rm = TRUE,
@@ -3920,7 +3920,7 @@ To "wash out" the seasonal component (for use in some downstream analysis, such 
 But, why just average in chunks defined by January - December? Why not February to the following January? Or March - February? `slide` does all of these.
 
 ```{r}
-(mauna_washed <- mauna %>% 
+(mauna_washed <- mauna |> 
 	mutate(washed_co2 = slide_dbl(
 		co2, mean, 
 		na.rm  = TRUE, 

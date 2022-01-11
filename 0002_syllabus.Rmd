@@ -1,0 +1,79 @@
+# Syllabus {-}
+
+```{r include = FALSE}
+source("common.R")
+```
+
+You can find the [class syllabus here][course_syllabus].
+
+
+## Materials
+
+### Hardware
+
+If you have a laptop that can run R, please bring it to class.
+This class requires that you have access to a computer outside of class.
+This could be a laptop or a computer available in a campus computer lab.
+
+### Books and Videos
+
+In addition to class materials and lab activities, there will also be videos and sections of the book **R for Data Science** that will be shared to support your learning.
+
+* [R for Data Science text][r4ds]
+
+
+### Software {#syllabussoftware}
+
+#### R and RStudio {#syllabusr}
+
+R is a free software environment for statistical computing and graphics. It compiles and runs on a wide variety of UNIX platforms, Windows, and MacOS.
+
+RStudio is a free _integrated development environment_ (IDE), a powerful user interface or dashboard for R.
+
+#### Git and Github {#syllabusgit}
+
+Git is a version control system. Its original purpose was to help groups of developers work collaboratively on big software projects. Git manages the evolution of a set of files – called a repository – in a structured way. Think of it like the "Track Changes" features from Microsoft Word.
+
+Github is a free IDE and hosting service for Git. As a USF student, you should be able to access the [GitHub Student Developer Pack for free](https://education.github.com/benefits?type=student). It includes a free PRO upgrade for your github account.
+
+
+## Assignment Instructions
+
+### Lab Activities
+
+Each week, there will be opportunities to practice your programming skills in guided activities and problems. You should complete these activities each week and submit them via your GitHub repository for the class. Of the 15 lab activities, you must complete 12 to earn an A grade. You may choose which activities (if any) to skip. 
+
+For each lab activity, your code should (1) be able to run on any computer without user input, (2) produce the desired outcome, and (3) use clear coding style and logic so that readers can understand it
+
+### Peer Code Review
+
+Each week, you will be assigned to review 2 classmates’ code and provide constructive feedback. You should both (1) test the code to ensure that it produces correct output and (2) complete a code review report to provide feedback on program design, coding style, and documentation.
+
+Code reviews should be completed in a timely manner so that your classmates’ can benefit from the feedback. You may review either a lab activity or portfolio piece. You must complete 10 code reviews to earn an A grade. You may choose which assigned reviews (if any) to skip. As a class, please ensure that each person gets at least one review for each of their activities. 
+
+### Portfolio Pieces
+
+By the end of the semester, you should also have completed 3 larger “portfolio pieces”. These pieces can be one of the following:
+
+1.	Data analysis report: Explore and analyze a dataset of interest to you to derive useful or interesting insights. You must demonstrate the skills you are learning in the course (data wrangling, data visualization, modeling, web scraping, text mining, etc.) and present one or more key insights that can be learned from the data. Your project should demonstrate good habits with respect to reproducibility, clear coding style and logic, and effective visualization and communication.
+<br>
+You may choose (or construct) any dataset of interest to you. If you are involved in research, please feel free to use data from these projects. Otherwise, there are many datasets available online you can work with, or you can build a dataset from the web yourself. We will explore portfolio piece ideas and potential data sources throughout the semester. 
+
+2.	Professional website: Create and deploy a website highlighting your skills, experience, and professional portfolio, as appropriate to your professional goals.
+
+3.	Cheat sheet: Create a cheat sheet in the style of https://www.rstudio.com/resources/cheatsheets/ for a package, procedure, or workflow. For example, you could make a cheat sheet for a package we discuss in class or another package, or a cheat sheet for a common workflow or procedure for your lab group.
+
+4.	Tutorial or other resource: Write a blog post, tutorial, or other resource teaching readers an analytic, programming, visualization, experimental, or workflow method. 
+
+5.	Shiny app: Build a Shiny app implementing a method of interest (e.g., power analysis, visualizing a certain type of data, fitting a certain type of model).
+
+
+**At least 1 of your portfolio pieces must be a Data Analysis Report. Graduate students must complete an additional portfolio piece; this one must be a website, tutorial, or shiny app.**
+
+## Due dates
+
+All course products are due by the end of the semester, but you should not wait until the last week to start on them! Spaced practice is much more effective for learning than cramming, and I can’t give you useful feedback if I only see things at the end of the semester. Aim to complete lab activities as you go and to complete a portfolio piece every few weeks. 
+
+
+```{r links, child="admin/md/courselinks.md"}
+```

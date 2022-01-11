@@ -12,7 +12,7 @@ missing_w2_parent <- sample(1:500, 30)
 missing_w2_child <- c(missing_w2_parent[1:5], sample(1:500, 25))
 family  <- read_csv(
   "https://raw.githubusercontent.com/bwiernik/progdata/main/inst/tutorials/data/family_data.csv"
-) %>% 
+) |> 
   mutate(
     across(
       starts_with("w2") & contains("parent"),
@@ -36,7 +36,7 @@ You have collected data from 500 families over 2 waves.
 In each wave, both the child and parent completed measures of **communication behavior** and **relationship satisfaction**. 
 
 ```{r}
-family %>% 
+family |> 
   DT::datatable(rownames = FALSE)
 ```
 
@@ -46,7 +46,7 @@ family %>%
   - Have columns for *family_id*, *family_member*, *wave*, *scale*, and *score*.
 
 ```{r}
-family_longest <- family %>% 
+family_longest <- family |> 
   pivot_longer()
 
 print(family_longest)
@@ -58,7 +58,7 @@ print(family_longest)
   - Have columns for *family_id*, *family_member*, *wave*, *comm*, and *satis*.
 
 ```{r}
-family_long <- family %>% 
+family_long <- family |> 
   pivot_longer()
 
 print(family_long)

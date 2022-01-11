@@ -132,7 +132,7 @@ This is where `map()` comes in handy! Let's make a tibble using the `got_chars` 
 2. Specify the columns with `purrr` mappings.
 
 ```{r}
-got_alias <- got_chars %>% FILL_THIS_IN
+got_alias <- got_chars |> FILL_THIS_IN
 ```
 
 Write the solution down carefully -- we'll be referring to `got_alias` later. 
@@ -159,7 +159,7 @@ Approach 2: With piping
 2. Then, pipe that into a subsetting function to subset Melisandre.
 
 ```{r}
-got_alias %>% FILL_THIS_IN
+got_alias |> FILL_THIS_IN
 ```
 
 ## Nesting/Unnesting; Operating
@@ -184,7 +184,7 @@ Let's make a tidy data frame! First, let's take a closer look at `tidyr::unnest(
 I can make a tidy data frame _without_ list columns using `tidyr::unnest()`:
 
 ```{r}
-icecream %>% 
+icecream |> 
     unnest(flav)
 ```
 
@@ -193,15 +193,15 @@ How would I subset all people that like strawberry ice cream? We can either use 
 From "normal" tidy data:
 
 ```{r}
-icecream %>% 
-    unnest(flav) %>% 
+icecream |> 
+    unnest(flav) |> 
     filter(flav == "strawberry")
 ```
 
 From list-column data:
 
 ```{r}
-icecream %>% 
+icecream |> 
   filter(map_lgl(flav, ~ FILL_THIS_IN))
 ```
 

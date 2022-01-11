@@ -37,9 +37,9 @@ knitr::opts_chunk$set(error = TRUE)
 Consider the following plot. Don't concern yourself with the code at this point.
 
 ```{r, fig.width = 5, fig.height = 2}
-gapminder %>% 
-  filter(year == 2007) %>% 
-  mutate(continent = fct_infreq(continent)) %>% 
+gapminder |> 
+  filter(year == 2007) |> 
+  mutate(continent = fct_infreq(continent)) |> 
   ggplot(aes(continent)) +
   geom_bar() +
   theme_bw()
@@ -64,7 +64,7 @@ The following is a tsibble (a special type of tibble containing time series data
 Execute this code to store the data in `mauna`:
 
 ```{r}
-(mauna <- tsibble::as_tsibble(co2) %>% 
+(mauna <- tsibble::as_tsibble(co2) |> 
    rename(month = index, conc = value))
 ```
 

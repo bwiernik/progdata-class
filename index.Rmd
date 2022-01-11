@@ -1,6 +1,6 @@
 ---
 title: "Programming with Data"
-subtitle: "Spring 2021"
+subtitle: "Spring 2022"
 author: "Brenton M. Wiernik"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -8,20 +8,35 @@ output: bookdown::gitbook
 documentclass: book
 biblio-style: apalike
 link-citations: yes
+link-citations: yes
 #github-repo: org/repo
-cover-image: "datasci_prog_class_icon.png"
+cover-image: "progdata_class_icon.png"
 favicon: "favicon.ico"
 ---
 
 ```{r}
-options(crayon.enabled = FALSE)
+source("common.R")
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+
+library(tidyverse)
+library(devtools)
+library(DT)
+library(vembedr)
+library(knitr)
+library(readr)
 ```
 
 
 # About This Guide {-}
 
-Welcome to the class guide for Programming with Data for Spring 2021! 
+Welcome to the class guide for Programming with Data for Spring 2022! 
 This guide organizes what we will be doing in each class meeting. 
 So you can expect it to be updated regularly -- in fact, the date listed above is the last time this guide was updated. 
 
-This course was developed in part based on the resources provided by Jenny Bryan found at <https://stat545.com>.
+This course was developed in part based on the resources provided by Jenny Bryan found at <https://stat545.com> and by Mason Garrison found at <https://datascience4psych.github.io/DataScience4Psych/>.
+
+A playlist of videos from Mason Garrison covering many of the topics we will explore in the course is [available here](https://www.youtube.com/playlist?list=PLKrrdtYgOUYZomNqf-1dtCDW94ySdLv-9).
+
+```{r links, child="admin/md/courselinks.md"}
+```
+

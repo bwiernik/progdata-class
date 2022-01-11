@@ -46,13 +46,13 @@ The package `singer` comes with two smallish data frames about songs.
 Let's take a look at them (after minor modifications by renaming and shuffling):
 
 ```{r}
-(time <- as_tibble(songs) %>% 
+(time <- as_tibble(songs) |> 
    rename(song = title))
 ```
 
 ```{r}
-(album <- as_tibble(locations) %>% 
-   select(title, everything()) %>% 
+(album <- as_tibble(locations) |> 
+   select(title, everything()) |> 
    rename(album = release,
           song  = title))
 ```
@@ -62,7 +62,7 @@ Let's take a look at them (after minor modifications by renaming and shuffling):
    know its corresponding album?
 
 ```{r}
-time %>% 
+time |> 
   FILL_THIS_IN(album, by = FILL_THIS_IN)
 ```
 
@@ -70,21 +70,21 @@ time %>%
    preserve rows even if album info is not readily available.
 
 ```{r}
-time %>% 
+time |> 
   FILL_THIS_IN(album, by = FILL_THIS_IN)
 ```
 
 3. Which songs do we have "year", but not album info?
 
 ```{r}
-time %>% 
+time |> 
   FILL_THIS_IN(album, by = "song")
 ```
 
 4. Which artists are in `time`, but not in `album`?
 
 ```{r}
-time %>% 
+time |> 
   anti_join(album, by = "FILL_THIS_IN")
 ```
 
@@ -93,7 +93,7 @@ time %>%
    available in one tibble. What would you do?
 
 ```{r}
-FILL_THIS_IN %>% 
+FILL_THIS_IN |> 
   FILL_THIS_IN(FILL_THIS_IN, by = "song")
 ```
 
@@ -118,8 +118,8 @@ FILL_THIS_IN(fell, FILL_THIS_IN)
    any of the other ones?
 
 ```{r}
-fell %>% 
-  anti_join(ttow, by = "Race") %>% 
+fell |> 
+  anti_join(ttow, by = "Race") |> 
   FILL_THIS_IN(FILL_THIS_IN, by = "Race")
 ```
 

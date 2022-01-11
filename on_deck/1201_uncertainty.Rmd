@@ -1,0 +1,65 @@
+# (PART) Module 12 {-}
+
+```{r include = FALSE}
+source("common.R")
+ds4p_funyoutube <- read.csv("admin/csv/ds4p_funyoutube.csv", sep="")
+```
+
+# Welcome to Quantifying Uncertainty
+
+This module is designed to introduce ideas related to representing uncertainty. Please watch the videos and work your way through the notes. **The videos start on the next page.**  You can find the video playlist for this module [here][pl_13]. Most of the slides used to make the videos in this module can be found in the [slides repo][course_slides].
+
+
+## Module Materials
+
+* Slides from Lectures
+  * [Quantifying Uncertainty](https://datascience4psych.github.io/slides/d26_quantify/d26_quantify.html)
+  * [Bootstrapping](https://datascience4psych.github.io/slides/d27_bootstrap/d27_bootstrap.html)
+* Suggested Readings
+  * All subchapters of this module
+  * About the Needle
+    	* [The NYT's election forecast needle is stressing people out with fake jitter](https://www.theverge.com/2016/11/8/13571216/new-york-times-election-forecast-jitter-needle)
+	* [Kopf, D. (2020, November 3). Why it's okay to look at the New York Times "election needle". Quartz](https://qz.com/1924611/its-okay-to-look-at-the-new-york-times-election-needle/)
+
+
+# Quantifying Uncertainty!
+
+You can follow along with the slides [here](https://datascience4psych.github.io/slides/d26_quantify/d26_quantify.html) if they do not appear below.  
+
+```{r, echo=FALSE}
+
+video_url="https://www.youtube.com/watch?v=rQp3knI6Pdk"
+embed_url(video_url) %>%
+  use_align("center")
+```
+
+```{r, echo=FALSE}
+var_url="https://datascience4psych.github.io/slides/d26_quantify/d26_quantify.html"
+include_url(var_url, height = "400px")
+```
+
+
+```{r, echo=FALSE}
+include_tweet("https://twitter.com/bmwiernik/status/1451894527187431429")
+```
+
+
+# Bootstrapping
+
+You can follow along with the slides [here](https://datascience4psych.github.io/slides/d27_bootstrap/d27_bootstrap.html) if they do not appear below.
+
+```{r, echo=FALSE}
+# bootstrap
+video_url="https://www.youtube.com/watch?v=j0cfD9290-s"
+embed_url(video_url) %>%
+  use_align("center")
+```
+
+
+```{r, echo=FALSE}
+var_url="https://datascience4psych.github.io/slides/d27_bootstrap/d27_bootstrap.html"
+include_url(var_url, height = "400px")
+```
+
+```{r links, child="admin/md/courselinks.md"}
+```

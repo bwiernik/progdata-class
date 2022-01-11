@@ -168,7 +168,7 @@ We can do the subsetting much easier with these shortcuts: just replace function
 - name you'd like to subset by.
 
 ```{r}
-map_chr(wesanderson, 1) # %>% unname()
+map_chr(wesanderson, 1) # |> unname()
 ```
 
 
@@ -199,7 +199,7 @@ desired_info <- c("name", "born")
 Note: as Jenny says, it's always safer (from a programming perspective) to work with output that's more predictable. The following would be safer, and is still readable:
 
 ```{r}
-got_chars %>% {
+got_chars |> {
     tibble(
         name = map_chr(., "name"),
         born = map_chr(., "born")
@@ -210,7 +210,7 @@ got_chars %>% {
 Note the curly braces "tricks" the object prior to the pipe from entering as the first argument to `tibble`, because ` ``{`` ` only returns the last line evaluated. In this case there are two: the above code is equivalent to
 
 ```{r}
-got_chars %>% {
+got_chars |> {
     .
     tibble(
         name = map_chr(., "name"),

@@ -1,0 +1,546 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+# File input/output (I/O)
+
+Today's class is all about reading into R and writing out data files out
+of R.
+
+Because sometimes you want to work with your own damn data, instead of
+data about penguins, cars, life expectancy, or the Big Five personality
+scores of 2800 of your closest friends.
+
+## Resources
+
+### References and tutorials
+
+-   Jenny Bryan's [notes](https://stat545.com/import-export.html) on
+    file I/O
+-   [Tutorial](https://beanumber.github.io/sds192/lab-import.html#data_from_an_excel_file)
+    on importing Excel files
+-   [Tutorial](http://jenrichmond.rbind.io/post/how-to-use-the-here-package/)
+    on relative paths and how RStudio treats .R script files and .Rmd
+    files
+
+### Package documentation
+
+-   [readr::read_csv()](https://readr.tidyverse.org/reference/read_delim.html)
+-   [readxl::read_excel()](https://readxl.tidyverse.org/reference/read_excel.html)
+-   [googlesheets4::read_sheet()](https://googlesheets4.tidyverse.org/reference/read_sheet.html)
+-   [haven](https://haven.tidyverse.org/) package for importing SPSS,
+    SAS, Stata files
+-   [rio::import()](https://cloud.r-project.org/web/packages/rio/vignettes/rio.html) for importing all manner of formats with one command!
+-   [here::here()](https://here.r-lib.org)
+
+<!-- The following chunk allows errors when knitting -->
+
+```{r allow errors, echo = FALSE}
+knitr::opts_chunk$set(error = TRUE)
+```
+
+## Writing data to disk
+
+Let's first load the built-in gapminder dataset and the tidyverse:
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(gapminder)
+library(tidyverse)
+```
+
+Next, let's filter the data to only 2007 and only the Asia continent and
+save it to a new object.
+
+```{r}
+(gap_asia_2007 <- gapminder |> filter(year == 2007, continent == "Asia"))
+```
+
+We can write this to a comma-separated value (csv) file with the command:
+
+```{r eval=FALSE}
+write_csv(gap_asia_2007, "exported_file.csv")
+```
+
+But where did this file go? 
+We should save the file in a sensible location. 
+We need to practice controlling where R is running, where it looks for files, and where it writes out your files. 
+To that end, let's review the working directory and RStudio Projects.
+
+
+## The working directory and RStudio Projects
+
+When you open R, it "runs" in some folder on your computer. 
+This is the place it will look for files to import and write files as output.
+Think about where your participation and homework files end up when you knit them.
+
+If you have R/RStudio closed, and you open a .R or .Rmd file, R/RStudio will start in the folder holding that file.
+
+If you open R/RStudio from the Windows Start menu, the Mac dock, the Mac Spotlight, etc., R/Studio will start in its default location (probably your user home directory, see Tools → Global Options → General → Default working directory...).
+
+Write all of your R scripts assuming:
+
+1.  You are running them by opening a fresh new R session
+
+    -   Don't use `rm(list = ls())` to clean the workspace--the workspace is already clean
+    -   You need to load required pacakges with `library()`
+    -   Don't work on several different projects in one R session at the same time!
+
+2.  You have all of the necessary packages installed
+
+    -   Don't include `install.packages()` calls unless they are commented out or otherwise set not to run
+
+3.  The script will run without human input
+
+    -   You need to import or load any data you are working with
+    -   Load data and write output using R commands, not `file.choose()`, `read.clipboard()`, the buttons in RStudio, etc.
+
+4.  All of the needed files live in your project folder
+
+    -   Write *relative* paths, rather than *absolute* paths
+    -   `file.path("data", "cats-data_2020-03-04.xlsx")`
+    -   Not:
+        `/Users/brenton/Research/cats_project/data/cats-data_2020-03-04.xlsx`
+        or
+        `C:\\Users\\brenton\\Research\\cats_project\\data\\cats-data_2020-03-04.xlsx`\
+        or`file.path("C:", "Users", "brenton", "Research", "cats_project", "data", "cats-data_2020-03-04.xlsx")`
+
+5.  Your script might run on any system
+
+    -   Write the paths to files using `file.path()` or `here::here()`, rather than typing out the whole path 
+    -   This is because Windows and Mac/Linux have different syntaxes for file paths:
+
+        -   Mac/Linux: `path/to/folder`
+        -   Windows: `path\\to\\folder`
+
+This approach has several advantages:
+
+1.  Frictionless running on different computers
+2.  Less breakage (e.g., if you move a folder around, the relative paths will still work)
+3.  Less surprising or weird behaviors due to session crud
+4.  Easy to tweak data/code and update results
+
+### RStudio projects
+
+RStudio projects can help with following these best practices. 
+
+The best way to work with R is to have a separate Project for each project/paper you are working on. Switch RStudio to that Project whenever you are working on those files. 
+
+You can you are working in a Project because its name will be in the RStudio title bar. 
+One macOS, the Project name will also show on the Dock icon.
+
+
+## here::here()
+
+The *here* package is the best way to refer to files. 
+
+The major function is `here::here()`. 
+Like `file.path()`, `here::here()` lets you specify a path to a file and then adds the system-appropriate separators (`/` or `\\`). 
+
+Where `here::here()` shines is that it figures out where the relative paths should start from. 
+It looks around in the folders in your directory and finds the .Rproj file, then constructs the relative file paths from there.
+
+The .Rproj file is a sign post that says "START HERE".
+
+For example, create a new folder "data" in your participation folder. 
+Then, save `gap_asia_2007` using the `here::here()` and `write_csv()` functions:
+
+```{r, eval = FALSE}
+write_csv(gap_asia_2007, 
+          here::here("participation", "data", "gap_asia_2007.csv")
+)
+```
+
+More details on `here` are available in this [short
+article](http://jenrichmond.rbind.io/post/how-to-use-the-here-package/).
+
+
+## Reading data from disk
+
+The same csv file that we just saved to disk can be imported into R again by specifying the path where it exists:
+
+```{r, eval = FALSE}
+dat <- read_csv(here::here("participation", "data", "gap_asia_2007.csv"))
+dat
+```
+
+Notice that the output of the imported file is the same as the original
+tibble.
+`read_csv()` was intelligent enough to detect the types of the columns. 
+This won't always be true so it's worth checking! 
+In particular, be on the lookout for any columns it imports as `col_character()`!
+
+The [read_csv()](https://readr.tidyverse.org/reference/read_delim.html) function has many additional options including the ability to specify column types (e.g., is "1990" a year or a number?), skip columns, skip rows, rename columns on import, trim whitespace, and more.
+
+To control the column types, use the `cols()` function:
+
+```{r, eval = FALSE}
+dat <- read_csv(
+  here::here("participation", "data", "gap_asia_2007.csv"),
+  col_types = cols(
+    country = col_factor(),
+    continent = col_factor(),
+    year = col_date(format = "%Y"),
+    .default = col_double() # all other columns as numeric (double)
+  )
+)
+dat
+```
+
+By default, it leaves all columns as `col_guess()`, but it's better to be explicit.
+
+Another important option to set is the `na` argument, which specifies what values to treat as `NA` on import. 
+By default, `read_csv()` treats blank cells (i.e., `""`) and cells with `"NA"` as missing. 
+You might need to change this (e.g., if missing values are entered as `-999`). Note that `readxl::read_excel()` by default only has `na = c("")` (no `"NA"`)!
+
+```{r, eval = FALSE}
+dat <- read_csv(
+  here::here("participation", "data", "gap_asia_2007.csv"),
+  col_types = cols(
+    country = col_factor(),
+    continent = col_factor(),
+    year = col_date(format = "%Y"),
+    .default = col_double() # all other columns as numeric (double)
+  ),
+  na = c("", "NA", -99, "No response")
+)
+dat
+```
+
+## Import a file from the web/cloud
+
+### Import a CSV file from the internet
+
+To import a CSV file from a web, assign the URL to a variable
+
+```{r}
+url <- "http://gattonweb.uky.edu/sheather/book/docs/datasets/magazines.csv"
+```
+
+and then apply read_csv file to the `url`.
+
+```{r}
+dat <- read_csv(url)
+```
+
+You can do this in one step if you like:
+
+```{r eval = FALSE}
+read_csv("http://gattonweb.uky.edu/sheather/book/docs/datasets/magazines.csv")
+```
+
+(This doesn't work for all import functions, so I usually keep them separate as two steps.)
+
+### Import an Excel file (.xls or .xlsx) from the internet
+
+First, we'll need the package to load in Excel files:
+
+```{r}
+library(readxl) 
+```
+
+Datafiles from this tutorial were obtained from:
+<https://beanumber.github.io/sds192/lab-import.html#data_from_an_excel_file>
+
+Unlike with a CSV file, to import an .xls or .xlsx file from the internet, you first need to download it locally.
+
+*Note: The folder you want to save the file to _has to exist_!.*
+*If it doesn't, _you will get an error._*
+
+You can create the folder path in one of three ways:
+
+  1. Create them directly in Finder/Windows Explorer
+  2. Use the buttons in the Files tab in RStudio
+  3. Use the `dir.create()` function:
+
+```{r, eval = FALSE}
+if ( !dir.exists( here::here("participation", "data") ) ) {
+  dir.create( here::here("participation", "data"), recursive = TRUE )
+}
+```
+
+Next, you download the file.
+To download it, create a new object called `xls_url` and then use `download.file()` to download it to a specified path.
+
+```{r, eval = FALSE}
+xls_url <- "http://gattonweb.uky.edu/sheather/book/docs/datasets/GreatestGivers.xls"
+download.file(
+  xls_url, 
+  here::here("participation", "data", "some_file.xls"), 
+  mode = "wb"
+)
+```
+
+**NOTE:** Don't assign the result of `download.file()`.
+
+**NOTE:** The `mode = "wb"` argument at the end is really important if you are on Windows. 
+If you omit, you will probably get a message about downloading a corrupt file.
+More details about this behavior can be found [here](https://github.com/HenrikBengtsson/Wishlist-for-R/issues/30).
+
+
+Naming a file "some_file" is extremely bad practice (hard to keep track of the files).
+You should **always** give it a more descriptive name. 
+It's also a good idea to avoid spaces in filenames.
+You should come up with a system for naming your files and use it consistently. 
+My file names look like this: `progdata_example-dataset_2021-03-02_bmw.csv`
+
+
+Often, it's a good idea to name the file similarly (or the same as) the original file (sometimes that might not be a good idea if the original name is non-descriptive).
+
+There's handy trick to extract the filename from the URL:
+
+```{r, eval = FALSE}
+file_name <- basename(xls_url)
+download.file(
+  xls_url, 
+  here::here("participation", "data", file_name), 
+  mode = "wb"
+)
+```
+
+Now we can import the file:
+
+```{r, eval = FALSE}
+dat <- read_excel(
+  here::here("participation", "data", file_name)
+)
+```
+
+
+## Read in a sample SPSS file.
+
+Let's load a sample SPSS file and work with it. 
+Download the file from [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/data/clevel.sav) and save it in your `participation/data` folder.
+
+These data are a random subset of the data used in [this paper](https://doi.org/10.1016/j.jvb.2018.02.005). 
+This was a study looking at personality traits that distinguish C-level executives from lower-level managers among men and women.
+
+The subset of data here consists of 200 cases, with variables indicating: 
+
+  1. The language of assessment (English, Dutch, or French) 
+  2. Gender 
+  3. C-level or not 
+  4. Extraversion level, as well as 4 facet traits (Leading, Communion, Persuasive, Motivating)
+
+Let's load in the data using the `haven` package.
+
+```{r, eval = FALSE}
+(clevel <- haven::read_spss(
+  here::here("participation", "data", "clevel.sav")
+)
+)
+```
+
+Notice that this tibble looks a little different for the `language` and `gender` variables than normal. 
+It has **labels** for the numeric values. 
+This format is what SPSS uses, but it's not standard for R.
+Let's convert those variables, and `isClevel` as well, to factors:
+
+```{r, eval = FALSE}
+clevel_cleaned <-
+  clevel |> 
+  mutate(language = as_factor(language),
+         gender = as_factor(gender),
+         isClevel = factor(isClevel, 
+                           levels = c(0, 1), 
+                           labels = c("No", "Yes"))
+  )
+print(clevel_cleaned)
+```
+
+Notice how the variables are now factors with labels as the entries, instead of the original code numbers.
+
+## Saving Files
+
+### Saving data frames
+
+Let's save this file as a CSV file so that it's a smaller file and easier to import again in the future.
+
+```{r, eval = FALSE}
+write_csv(
+  clevel_cleaned, 
+  here::here("participation", "data", "clevel_cleaned.csv")
+)
+```
+
+### Saving plots
+
+Now let's make a plot.
+
+```{r, eval = FALSE}
+clevel_plot <-
+  clevel_cleaned |> 
+  mutate(isClevel = recode(isClevel, 
+                           No = "Below C-level", 
+                           Yes = "C-level"),
+         gender = recode(gender,
+                         Female = "Women",
+                         Male = "Men")) |> 
+  ggplot(aes(paste(isClevel, gender, sep = "\n"), Extraversion, color = gender)) +
+  geom_boxplot() +
+  geom_jitter(height = .2) +
+  scale_color_manual(values = c("#1b9e77", "#7570b3")) +
+  ggtitle("Extraversion Stan Scores") +
+  scale_y_continuous(breaks = 1:9) +
+  ggthemes::theme_fivethirtyeight()
+
+clevel_plot
+```
+
+Let's save the plot in several formats. 
+This is useful if we want to use the plot outside of Markdown. 
+Save plots using the `ggsave()` funnction.
+
+`ggsave()` has many options. 
+See the help function `?ggsave` for full details. 
+The main arguments are:
+
+  - `filename`
+  - `plot`
+  - `width` and `height` (inches by default)
+  - `dpi` (dots per inch; for bitmap formats).
+
+`ggsave()` will try to guess what format you want based on the file name. 
+If you want, you can specify a specific format or R graphics device to save with using the `device` argument.
+
+```{r, eval = FALSE}
+dir.create(here::here("participation", "output", "figures"), recursive = TRUE)
+ggsave(here::here("participation", "output", "figures", "clevel_extraversion.svg"), 
+       clevel_plot,
+       height = 6,
+       width = 6
+)
+```
+
+You can save to several formats. 
+Generally, work with a *vector* format like `.svg`, `.eps`, or `.pdf`. 
+
+Vector graphics represent the image as a series of data points and equations. 
+This means that they can be made smaller or larger or zoomed in on without damaging the image quality.
+
+If you can't use a vector format for some reason, you can also export to a *bitmap* format. 
+Bitmap graphs represent the image as colored dots or pixels. 
+This means that the image quality will suffer if you make the image larger or zoom in on it (making it smaller can also sometimes compromise quality). 
+With bitmap images, you need to be concerned with *resolution* (how many pixels/dots per inch when printed). 
+Always use at least **300 DPI** resolution.
+
+There are several popular bitmap image formats. 
+
+  - `.tiff`/`.tif` 
+    - Highest quality, but also the largest. 
+    - Use it for print graphics, but you should probably avoid it for images to be hosted on the web. 
+  - `.png` 
+    - A bit smaller, and it should be your go to for charts, figures, line drawings, etc. 
+    - More complex images (e.g., photos) can get pretty big with `.png`, though. 
+  - `.jpg`/`.jpeg`
+    - Probably the most popular bitmap format.
+    - Works well for photographs hosted on the web, but its compression often makes line drawing and charts look terrible.
+    - `.jpg`/`.jpeg` also degrades in quality each time you edit/save it, so don't use it for images you intend to edit. 
+  - `.gif`
+    - Generally avoid `.gif` unless you are making an animation or you need very small file size for a simple image. 
+    - `.gif` supports very few colors, so always check your image quality after making a `.gif`.
+
+Let's save to some other formats:
+
+```{r, eval = FALSE}
+ggsave(here::here("participation", "output", "figures", "clevel_extraversion.pdf"), clevel_plot, height = 6, width = 4)
+ggsave(here::here("participation", "output", "figures", "clevel_extraversion.tiff"), clevel_plot)
+ggsave(here::here("participation", "output", "figures", "clevel_extraversion.png"), clevel_plot)
+```
+
+
+## Organizing Your Project Folders
+
+Follow a consistent folder structure for all of your projects. 
+This will make it easier for you to say organized and make your code, data, and projects easy to share.
+
+In your project's root folder, you should have a README.md file and a .Rproj project. 
+Then, you should have folders that separate different types of files:
+
+-   `data`: Stores all of your data files for a project
+
+    -   Have subfolders for different dates, waves, groups, etc. as needed
+    -   If you plan on saving cleaned data, having separate `data_raw` and `data` folders is a good idea.
+
+-   `output`: Stores any output your scripts generate
+
+    -   Depending on how many figures and other output files you will create, you might want to split/subfolder this into `figures`, `reports`, etc.
+
+You might add additional folders, such as:
+
+-   `tests`: A folder that includes tests to check that your scripts or results are accurate. Check out the `testthat` package.
+
+-   `templates`: A folder to hold template files (e.g., RMarkdown templates, Word templates, CSS files for HTML output, TeX templates for PDF output)
+
+-   `admin`: For administrative documents (e.g., IRB approval, grant information)
+
+-   `doc`: For documentation (e.g., variable codebooks, style guides)
+
+-   `R` or `src` or `scripts`: Folders to store functions and scripts that you call from your markdown (e.g., a data import and cleaning script)
+
+    -   Use folders or subfolders for each language if you are programming in multiple languages: `R`, `python`, `sql`, `C`, etc.
+    -   Can put them all in a generic `scripts` or `src` folder if not too many
+    
+-   `markdown`: If you have multiple RMarkdown documents for your project, consider putting them into a subfolder
+
+
+## Bonus Activity: `rio`
+
+Do the `clevel` activity again, but this time use the `rio::import()` and `rio::export()` functions instead of the `read_*()` and `write_*()` functions. 
+In `rio::import()`, be sure to specify: `rio::import(..., setclass = "tibble")`.
+
+
+## Entering Data Manually
+
+### Making data.frames or tibbles
+
+In base R, we can make data frames using the `data.frame()` function. 
+The tidyverse version is `tibble::tibble()`. `tibble()` is stricter by not allowing recycling unless the vector is of length 1.
+
+Good:
+
+```{r}
+dat <- tibble(
+  x = 1:6,
+  y = min(x)
+)
+```
+
+Bad:
+
+```{r, error = TRUE}
+dat <- tibble(
+  x = 1:6,
+  y = 1:2
+)
+```
+
+
+Manual construction of tibbles is convenient with `tibble::tribble()`:
+
+```{r}
+dat <- tribble(
+  ~Day, ~Breakfast,
+  1, "Apple",
+  2, "Yogurt",
+  3, "Yogurt"
+)
+```
+
+### datapasta
+
+The *datapasta* package helps to reproducibly copy-paste data from spreadsheets into R. 
+`datapasta` uses `tribble()`.
+
+```{r, eval = FALSE}
+install.packages("datapasta")
+```
+
+After you install the package, you can set keyboard shortcuts in RStudio for its functions:
+
+  1. Click Tools → Modify Keyboard Shortcuts…
+  2. Search for 'paste'.
+  3. Set keyboard shortcuts for "Paste as tribble", "Paste as vector", and other functions if you like.
+
+Now, try out pasting a vector and a tibble.

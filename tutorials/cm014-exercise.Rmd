@@ -45,7 +45,7 @@ Let's consider another country "Zimbabwe", which has a unique behavior in the
 
 ```{r}
 gapminder_Zimbabwe <- FILL_THIS_IN
-gapminder_Zimbabwe %>% ggplot(aes(year, lifeExp)) + geom_point()
+gapminder_Zimbabwe |> ggplot(aes(year, lifeExp)) + geom_point()
 ```
 
 Let's try fitting a linear model to this relationship

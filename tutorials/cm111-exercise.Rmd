@@ -47,7 +47,7 @@ simple_page <- FILL_THIS_IN
 2. Pipe the output into `html_structure()`: will print the html to screen.
 
 ```{r}
-simple_page %>% html_structure()
+simple_page |> html_structure()
 ```
 
 3. Apply `html_text()` to `simple_page`: gives me all the text (not the tags).
@@ -63,11 +63,11 @@ simple_page %>% html_structure()
 5. Then, pipe into `html_text()`.
 
 ```{r}
-simple_page %>% 
+simple_page |> 
 	html_nodes(FILL_THIS_IN)
-simple_page %>% 
+simple_page |> 
 	html_nodes(FILL_THIS_IN)
-simple_page %>% 
+simple_page |> 
 	html_nodes(FILL_THIS_IN)
 ```
 
@@ -83,16 +83,16 @@ Return the text in `simple_page` contained within:
 1. all `<a>` tags within `<p>` tags.
 
 ```{r}
-simple_page %>% 
-	html_nodes(FILL_THIS_IN) %>% 
+simple_page |> 
+	html_nodes(FILL_THIS_IN) |> 
 	FILL_THIS_IN
 ```
 
 2. any tag.
 
 ```{r}
-simple_page %>% 
-	html_nodes(FILL_THIS_IN) %>% 
+simple_page |> 
+	html_nodes(FILL_THIS_IN) |> 
 	FILL_THIS_IN
 ```
 
@@ -104,21 +104,21 @@ We can extract other things besides the text between the tags:
 - `html_name()` gives the name of the tags. Try it with `html_nodes(*)`.
 
 ```{r}
-simple_page %>% 
+simple_page |> 
 	html_nodes("*")
 ```
 
 - `html_attrs()` gives all attributes of the tags. Try it with `html_nodes("a")`:
 
 ```{r}
-simple_page %>% 
+simple_page |> 
 	html_nodes("a")
 ```
 
 - `html_attr()` (not plural) extracts a vector of the attribute contents by the `name` argument. Try `name="href"` with `html_nodes("a")`:
 
 ```{r}
-simple_page %>% 
+simple_page |> 
 	html_nodes("a")
 ```
 
@@ -150,7 +150,7 @@ Viewing the source to find the CSS is horrendous. In comes [`SelectorGadget`](ht
 Goal: extract the Wikipedia table of the [tallest steel roller coasters](https://en.wikipedia.org/wiki/List_of_roller_coaster_rankings#Tallest_steel_roller_coasters) in the world with `html_table()`.
 
 ```{r}
-read_html("https://en.wikipedia.org/wiki/List_of_roller_coaster_rankings") %>% 
+read_html("https://en.wikipedia.org/wiki/List_of_roller_coaster_rankings") |> 
 	FILL_THIS_IN
 ```
 
@@ -163,7 +163,7 @@ We've already seen `readr`, but what about importing other data types?
 
 ```{r}
 fromJSON('{"city" : "Z\\u00FCrich"}') # A list
-fromJSON("https://api.github.com/users/hadley/orgs") %>% 
+fromJSON("https://api.github.com/users/hadley/orgs") |> 
 	glimpse() # A data frame
 toJSON(mtcars, pretty=TRUE)
 ```
@@ -173,7 +173,7 @@ toJSON(mtcars, pretty=TRUE)
 	- [Example from w3cshools](https://www.w3schools.com/xml/simple.xml)
 
 ```{r}
-read_xml("https://www.w3schools.com/xml/simple.xml") %>% 
+read_xml("https://www.w3schools.com/xml/simple.xml") |> 
 	as_list()
 ```
 

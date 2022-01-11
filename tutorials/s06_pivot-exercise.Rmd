@@ -7,7 +7,7 @@ output:
 
 ```{r}
 library(tidyverse)
-lotr  <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/lotr_tidy.csv") %>% 
+lotr  <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/lotr_tidy.csv") |> 
   rename(Species = Race)
 ```
 
@@ -33,7 +33,7 @@ lotr
 2. Widen the data so that we see the words spoken by each species, by putting species as its own column.
 
 ```{r}
-(lotr_wide <- lotr %>% 
+(lotr_wide <- lotr |> 
   pivot_wider(FILL_THIS_IN = c(-Species, -Words), 
               FILL_THIS_IN = Species, 
               FILL_THIS_IN = Words))
@@ -42,7 +42,7 @@ lotr
 3. Re-lengthen the wide LOTR data from Question 2 above.
 
 ```{r}
-lotr_wide %>% 
+lotr_wide |> 
   pivot_longer(FILL_THIS_IN = FILL_THIS_IN, 
                names_to  = FILL_THIS_IN, 
                values_to = FILL_THIS_IN)

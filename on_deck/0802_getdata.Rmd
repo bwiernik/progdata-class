@@ -1,0 +1,47 @@
+# Data usually finds me
+
+```{r include = FALSE}
+source("common.R")
+```
+
+Eventually, I'm going to write up my SAM talk on "I don't go looking for Data … Data usually finds me," from last year. However, in the meantime, here is a [link to the slides of that talk](https://github.com/DataScience4Psych/DataScience4Psych/raw/main/admin/pdf/sam_vfinal.pdf).
+
+
+```{r, echo=FALSE}
+library(tweetrmd)
+include_tweet("https://twitter.com/statsepi/status/1323619993263755264")
+```
+
+## I don’t go looking for Data … Data usually finds me
+
+The most interesting aspects of my work (or at least to me) are the aspects related to finding data. However, this part is also the least documented. In my case, it primarily lives in footnotes, personal statements, and appendices.
+
+## List of Data Places
+
+Greatest Hits
+* ICPSR, (http://icpsr.org)
+* Harvard Dataverse (http://dataverse.harvard.edu/),
+* Dryad,(http://datadryad.org/)
+* OSF (http://osf.io/),
+* Figshare (http://figshare.com/)
+* Nature's list of repositories https://www.nature.com/sdata/policies/repositories
+
+Other Places
+
+* [ZSR Guide](https://guides.zsr.wfu.edu/c.php?g=34362&p=7117614)
+* https://osf.io/ra8yg/
+
+
+
+## Great Papers to Get You Started
+
+* If you're interested in neuroimaging,
+
+[Madan, C.R. Scan Once, Analyse Many: Using Large Open-Access Neuroimaging Datasets to Understand the Brain. Neuroinform (2021). https://doi.org/10.1007/s12021-021-09519-6](https://link.springer.com/article/10.1007/s12021-021-09519-6)
+
+```{r, echo=FALSE}
+include_tweet("https://twitter.com/cMadan/status/1392130356988547076")
+```
+
+```{r links, child="admin/md/courselinks.md"}
+```

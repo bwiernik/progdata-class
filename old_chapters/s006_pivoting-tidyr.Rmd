@@ -1,0 +1,453 @@
+# Tidy Data and Pivoting
+
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+
+## Orientation
+
+
+### Worksheet
+
+You can find a worksheet template for today
+[here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
+
+
+### Today
+
+Today's concept is __tidy data__ and the `tidyr` package.
+
+- Reshaping data by pivoting with `tidyr::pivot_longer()` and `tidyr::pivot_wider()`.
+
+
+### Resources
+
+For concepts of tidy data: 
+
+- [Jenny Bryan's intro to tidy data](https://github.com/jennybc/lotr-tidy/blob/master/01-intro.md) is short and sweet.
+  - the repo this links to has some useful exercises too, but uses the older `spread()` and `gather()` functions.
+- `tidyr` [vignette on tidy data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html).
+- [Hadley's paper on tidy data](https://vita.had.co.nz/papers/tidy-data.pdf) provides a thorough investigation.
+
+For pivoting with `tidyr`, check out the [pivot vignette](https://tidyr.tidyverse.org/articles/pivot.html).
+
+I also recommend reading the new additions that come with the new `tidyr` Version 1.0.0 in [this tidyverse article](https://www.tidyverse.org/articles/2019/09/tidyr-1-0-0/).
+
+
+## Tidy Data
+
+A data set is _tidy_ if:
+
+- Each row is an __observation__;
+- Each column is a __variable__;
+- Each cell is a __value__.
+
+This means that each value belongs to exactly one variable and one observation.
+
+Why bother? Because doing computations with untidy data can be a nightmare. Computations become simple with tidy data. 
+
+Whether or not a data set is "tidy" depends on the type of analysis you are doing or plot you are making. 
+It depends on how you define your "observation" and "variables" for the current analysis.
+
+```{r, echo = FALSE}
+haireye <- as_tibble(HairEyeColor) |> 
+  count(Hair, Eye, wt = n) |> 
+  rename(hair = Hair, eye = Eye)
+```
+
+As an example, consider this example derived from the `datasets::HairEyeColor` dataset, containing the number of people having a certain hair and eye color.
+
+If one observation is identified by a _hair-eye color combination_, then the tidy dataset is:
+
+```{r}
+haireye |> 
+  DT::datatable(rownames = FALSE)
+```
+
+If one observation is identified by a _single person_, then the tidy dataset has one pair of values per person, and one row for each person. 
+We can use the handy `tidyr::uncount()` function, the opposite of `dplyr::count()`:
+
+```{r}
+haireye |> 
+  tidyr::uncount(n) |> 
+  DT::datatable(rownames = FALSE)
+```
+
+
+### Untidy Examples
+
+The following are examples of untidy data. 
+They're untidy for either of the cases considered above, but for discussion, let's take a _hair-eye color combination_ to be one observational unit. 
+
+Note that untidy does not always mean "bad", just inconvenient for the analysis you want to do.
+
+__Untidy Example 1__: 
+The following table is untidy because there are multiple observations per row. 
+It's _too wide_.
+
+Imagine calculating the total number of people with each hair color. 
+You can't just `group_by()` and `summarize()`, here!
+
+```{r, echo = FALSE}
+haireye_untidy <- haireye |> 
+  mutate(eye = str_c(eye, "_eyed")) |> 
+  pivot_wider(id_cols = hair, names_from = eye, values_from = n)
+knitr::kable(haireye_untidy)
+```
+
+This sort of table is common when presenting results.
+It's easy for humans to read, but hard for computers to work with.
+Untidy data is usually that way because it was structured for human, not machine, reading.
+
+
+__Untidy Example 2__: 
+The following table is untidy for the same reason as Example 1—multiple observations are contained per row. 
+It's _too wide_.
+
+```{r, echo = FALSE}
+haireye |> 
+  mutate(hair = str_c(hair, "_haired")) |> 
+  pivot_wider(id_cols = eye, names_from = hair, values_from = n) |> 
+  knitr::kable()
+```
+
+
+__Untidy Example 3__: 
+This is untidy because each observational unit is spread across multiple columns. 
+It's _too long_. 
+
+In fact, we needed to add an identifier for each observation, otherwise we would have lost which row belongs to which observation! 
+
+Does red hair ever occur with blue eyes? 
+Can't just `filter(hair == "red", eye == "blue")`!
+
+```{r, echo = FALSE}
+haireye |> 
+  mutate(.id = 1:n()) |> 
+  pivot_longer(cols = hair:eye, names_to = "body_part", values_to = "color") |> 
+  select(-n, n) |> 
+  DT::datatable(rownames = FALSE)
+```
+
+
+__Untidy Example 4__: 
+Just when you thought a data set couldn't get any longer! 
+Now, each variable has its own row: hair color, eye color, and `n`. 
+
+
+```{r, echo = FALSE}
+haireye |> 
+  mutate(obs = 1:n(),
+         n   = as.character(n)) |> 
+  pivot_longer(cols = c(hair, eye, n), names_to = "variable", values_to = "value") |> 
+  DT::datatable(rownames = FALSE)
+```
+
+_This is the sort of format that is common pulling data from the web or other "Big Data" sources._
+
+
+### Pivoting tools
+
+The task of making tidy data is about making data either _longer_, by stacking two or more rows, or _wider_, by putting one or more columns alongside each other based on groups. 
+This is called __pivoting__.
+
+Usually the task of tidying data involves lengthening, and usually the task of widening is useful for turning data into something more friendly for human eyes.
+
+Sometimes, you will see data described as being in "long" or "wide" formats.
+Those terms aren't that useful—"long" and "wide" are relative terms. 
+
+The easiest and most powerful way to widen or lengthen data are with the functions `tidyr::pivot_wider()` and `tidyr::pivot_longer()`.
+
+History: R has seen many attempts at reshaping that have progressively gotten better. 
+
+First came the `reshape` and `reshape2` packages. 
+
+  - Both were finicky. 
+  - Used function names that I could never remember: `melt()` and `cast()`. 
+  
+Then, `tidyr` package replaced these.
+
+  - The `tidyr::spread()` and `tidyr::gather()` functions provided a simple interface.
+  - I still couldn't remember these names. 
+  - Still a little hard to use.
+  
+We will use `tidyr::pivot_longer()` and `tidyr::pivot_wider()`.
+
+
+## Univariate Pivoting
+
+Let's start with pivoting in the simplest case where only one variable is "out of place". 
+We'll use the hair and eye color example from before, using the untidy data version from Example 1:
+
+```{r}
+haireye_untidy <- haireye |> 
+  mutate(eye = str_c(eye, "_eyed")) |> 
+  pivot_wider(id_cols = hair, names_from = eye, values_from = n)
+
+haireye_untidy
+```
+
+The _eye color_ variable is spread out across columns. 
+To fix this, we need to convert the eye color columns to two columns:
+
+- one column to hold the eye color (column names),
+- one column to hold the values.
+
+Doing this, we obtain:
+
+```{r, echo = FALSE}
+haireye_untidy |> 
+  pivot_longer(contains("eyed"), names_to = "eye", values_to = "n")
+```
+
+Let's dig into that!
+
+### `pivot_longer()`
+
+`pivot_longer()` takes a data frame, and returns a data frame. 
+
+The main arguments after the data argument that we'll need are:
+
+- `cols`: the columns we want to pivot into a single column. Give the column names
+- `names_to`: the old column _names_ are going to be stored in a new column. 
+  What should this new column be named?
+- `values_to`: the _values_ in the old columns are going to stored in a new column.
+  What should this new column be named?
+
+Possibly the trickiest bit is in identifying the column names. 
+We could list all of them:
+
+```{r}
+haireye_untidy |> 
+  pivot_longer(cols      = c(Blue_eyed, Brown_eyed, Green_eyed, Hazel_eyed),
+               names_to  = "eye",
+               values_to = "n")
+```
+
+That can be a little tedious.
+
+We could identify a range. This is efficient, but not so robust if the data changes.
+
+```{r}
+haireye_untidy |> 
+  pivot_longer(cols      = Blue_eyed:Hazel_eyed,
+               names_to  = "eye",
+               values_to = "n")
+```
+
+Better is to use helper functions from the `tidyselect` package. 
+In this case, we know the columns contain the text "eyed", so let's use `tidyselect::contains()`:
+
+```{r}
+haireye_untidy |> 
+  pivot_longer(cols      = contains("eyed"),
+               names_to  = "eye",
+               values_to = "n")
+```
+
+Yet another way is to indicate everything except the `hair` column:
+
+```{r}
+haireye_untidy |> 
+  pivot_longer(cols      = -hair,
+               names_to  = "eye",
+               values_to = "n")
+```
+
+
+### `pivot_wider()`
+
+Let's say we want go from a longer data frame to a shorter data frame.
+This is the opposite of what we did above. 
+
+We might want to do this:
+
+  - To make a table for presentation
+  - With longitudinal or family data, to to go from **multilevel models** (which need longer data; each row is an *observation*) to **SEM analyses** (which need wider data; each row is an *individual* or *family*)
+  
+For example, if we want to go from:
+
+```{r, echo = FALSE}
+haireye_untidy |> 
+  pivot_longer(contains("eyed"), names_to = "eye", values_to = "n")
+```
+
+To: 
+
+```{r, echo = FALSE}
+haireye_untidy
+```
+
+We need to: 
+
+  - Take the column `eye` and make *each unique entry* a new column
+  - Take the column `n` and make these values in the new `eye` columns.
+
+`pivot_wider()` is the reverse of `pivot_longer()`.
+
+Like `pivot_longer()`, `pivot_wider()` takes a data frame and returns a data frame. 
+The main arguments after the data argument that we'll need are:
+
+- `id_cols`: The columns you would like to **keep**. 
+  For example, the identifier number for the observation.
+- `names_from`: The new column names are coming from an old column. 
+  Which column is this?
+- `values_from`: The column values are coming from an old column. 
+  Which column is this?
+
+```{r}
+haireye |> 
+  pivot_wider(id_cols     = hair, 
+              names_from  = eye, 
+              values_from = n)
+```
+
+
+### Activity
+
+Fill out the [__Univariate Pivoting Exercise__](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06_pivot-exercise.Rmd).
+
+
+## Multivariate Pivoting
+
+Now let's consider the case when more than one variable are "out of place".
+Perhaps there are multiple variables per row and/or multiple observations per row.
+
+
+### Multiple variables in column names
+
+Consider this subset of the `who` data:
+
+```{r, echo = FALSE}
+WHO <- who |>
+    select(country:year, starts_with("new_")) |> 
+    rename_with(~ stringr::str_replace(.x, "f", "f_"), starts_with("new_")) |> 
+    rename_with(~ stringr::str_replace(.x, "m", "m_"), starts_with("new_"))
+DT::datatable(WHO, rownames = FALSE)
+```
+
+`country`, `iso2`, `iso3`, and `year` are already variables, so they can be left as is. 
+But the columns from `new_sp_m_014` to `new_ep_f_65` encode four variables in their names:
+
+* The `new` prefix indicates these are counts of new cases (versus total cases). 
+  This dataset only contains new cases, so we'll ignore it here because it's constant.
+  
+* `sp`/`rel`/`ep` describe how the case was diagnosed.
+
+* `m`/`f` gives the gender.
+
+* `014`/`1524`/`2535`/`3544`/`4554`/`65` supplies the age range.
+
+We can break these variables up by specifying multiple column names in `names_to`, and then providing `names_sep`.
+
+```{r}
+WHO |> pivot_longer(
+  cols = new_sp_m_014:new_ep_f_65,
+  names_to = c("diagnosis", "gender", "age"), 
+  names_prefix = "new_",
+  names_sep = "_",
+  values_to = "count"
+)
+```
+
+In the `names_to` argument, we now tell it the names of the new columns that will store each part of the existing column names.
+We give the column names in order corresponding to how they appear in the existing column names.
+
+As with univariate pivoting, `values_to` gives the name of the new column that will store the cell values.
+
+### Multiple variables in column names
+
+Consider these family data. 
+
+```{r}
+fam_dat <- tribble(
+  ~family,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
+       1L, "1998-11-26", "2000-01-29",             1L,             2L,
+       2L, "1996-06-22",           NA,             2L,             NA,
+       3L, "2002-07-11", "2004-04-05",             2L,             2L,
+       4L, "2004-10-10", "2009-08-27",             1L,             1L,
+       5L, "2000-12-05", "2005-02-28",             2L,             1L,
+)
+fam_dat <- fam_dat |> mutate_at(vars(starts_with("dob")), parse_date)
+fam_dat
+```
+
+In these data, we have two pieces of information (or values) for each child: their `gender` and their `dob` (date of birth). 
+These need to go into separate columns in the result. 
+Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. 
+
+The `names_to` vector gives the names of the new columns that will store each part of the existing column names.
+We give the column names in order corresponding to how they appear in the existing column names.
+
+Note the special name `.value`: 
+
+`.value` takes the place of the `values_to` argument.
+It tells `pivot_longer()` to get the name of the column that will hold the cell values from that part of the existing column name.
+
+```{r}
+fam_dat |> 
+  pivot_longer(
+    cols = -family,
+    names_to = c(".value", "child"), 
+    names_sep = "_", 
+    values_drop_na = TRUE
+  )
+```
+
+Let's also clean up the `child` column:
+
+```{r}
+fam_dat_long <- fam_dat |> 
+  pivot_longer(
+    cols = -family,
+    names_to = c(".value", "child"), 
+    names_sep = "_", 
+    values_drop_na = TRUE
+  ) |> 
+  mutate(child = stringr::str_replace(child, "child", "")) |> 
+  mutate(child = as.integer(child))
+```
+
+
+### `pivot_wider()`
+
+You can also `pivot_wider()` while using multiple columns to supply variable names:
+
+- `id_cols`: as usual.
+- `names_from`: the new variable names are coming from old columns. Which old columns?
+- `names_sep`: What character should you separate the entries of the old columns by?
+- `values_from`: as usual.
+
+```{r}
+fam_dat_long |> 
+  pivot_wider(id_cols     = family,
+              names_from  = c(child, gender), 
+              names_prefix = "child",
+              names_sep   = "_gender", 
+              values_from = dob)
+```
+
+Or using multiple columns to supply new values:
+
+If variables are spread out amongst rows _and_ columns (for example, "sepal width" has "sepal" in a column, and "width" as a column name), here's how we can use `pivot_wider()`:
+
+- `id_cols`: as usual
+- `names_from`: Which column contains the part of the variable?
+- `names_sep`: As before, what character should you separate the entries of the old columns by?
+- `values_from`: Which column names contain the other part of the variable?
+
+```{r}
+fam_dat_long |> 
+  pivot_wider(id_cols     = family, 
+              names_from  = child,
+              names_prefix = "child",
+              names_sep   = "_",
+              values_from = c(dob, gender))
+```
+
+
+### Activity
+
+Fill out the [__Multivariate Pivoting Exercise__](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/tutorials/s06b_pivot-exercise-2.Rmd).

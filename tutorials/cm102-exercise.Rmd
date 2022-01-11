@@ -47,8 +47,8 @@ Exercise: does this sentence contain all letters of the alphabet? Hints:
 - Use the base R `table()` function.
 
 ```{r}
-fox %>% 
-  str_split(FILL_THIS_IN) %>% 
+fox |> 
+  str_split(FILL_THIS_IN) |> 
   FILL_THIS_IN
 ```
 
@@ -57,14 +57,14 @@ Working in a data frame? `tidyr` has its own version of this. Here's an example 
 
 ```{r}
 tibble(fruit)
-tibble(fruit) %>%
+tibble(fruit) |>
   separate(fruit, into = c("pre", "post"), sep = " ")
 ```
 
 Demo: we can substitute, too. Replace the word "fox" with "giraffe" using `str_replace(string, pattern, replacement)`:
 
 ```{r}
-fox %>% 
+fox |> 
     str_replace(FILL_THIS_IN)
 ```
 
@@ -73,9 +73,9 @@ Know the position you want to extract/replace? Try `str_sub()`.
 `str_pad()` extends each string to a minimum length:
 
 ```{r}
-fruit %>% head
-fruit %>% 
-    str_pad(width=7, side="right", pad="$") %>% 
+fruit |> head
+fruit |> 
+    str_pad(width=7, side="right", pad="$") |> 
     head()
 ```
 
@@ -102,7 +102,7 @@ fruit_df <- tibble(
   fruit1 = fruit[1:4],
   fruit2 = fruit[5:8]
 )
-fruit_df %>% 
+fruit_df |> 
   unite("flavor_combo", fruit1, fruit2, sep = " & ")
 ```
 
@@ -259,7 +259,7 @@ str_view_all_match(countries, pattern = "YOUR_REGEX_HERE")
 Beer or bear?
 
 ```{r}
-c("bear", "beer", "bar") %>% 
+c("bear", "beer", "bar") |> 
     str_view_all_match(pattern = "be(e|a)r")
 ```
 
@@ -379,8 +379,8 @@ str_view_all_match(countries, "YOUR_REGEX_HERE")
 Find all countries that start with two non-vowels. How is this different from finding all countries that end in _at least_ two non-vowels? Hint: Syria.
 
 ```{r}
-countries %>% 
-    str_to_lower() %>% 
+countries |> 
+    str_to_lower() |> 
     str_view_all_match("YOUR_REGEX_HERE")
 ```
 
@@ -404,7 +404,7 @@ Convert `words` to pig latin, which involves:
 ```{r}
 first <- str_sub(words, 1, 1)
 ords <- str_sub(words, 2)
-str_c(ords, first, "ay") %>% head(10)
+str_c(ords, first, "ay") |> head(10)
 ```
 
 Find all countries that end in "y"
@@ -428,8 +428,8 @@ str_view_all_match(countries, "[aeiou]{2}$")
 Find all countries that start with two non-vowels. How is this different from finding all countries that end in _at least_ two non-vowels? Hint: Syria.
 
 ```{r}
-countries %>% 
-    str_to_lower() %>% 
+countries |> 
+    str_to_lower() |> 
     str_view_all_match("^[^aeiou]{2,}")
 ```
 

@@ -1,0 +1,31 @@
+## RStudio projects {#rprojs}
+
+Keeping all the files associated with a project organized together -- input data, R scripts, results, figures -- is such a wise and common practice that RStudio has built-in support for this via its [_projects_](https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects).
+
+Let's make one to use for the rest of this class. Do this: *File > New Project...*. The directory name you choose here will be the project name. Call it whatever you want (or follow me for convenience).
+
+I created a directory and, therefore RStudio project, called `swc` in my `tmp` directory, FYI.
+
+
+
+```r
+setwd("~/tmp/swc")
+```
+
+Now check that the "home" directory for your project is the working directory of our current R process:
+
+```r
+getwd()
+```
+_I can't print my output here because this document itself does not reside in the RStudio Project we just created._
+
+
+
+
+
+This workflow will serve you well in the future:
+
+* Create an RStudio project for an analytical project
+* Keep inputs there (we'll soon talk about importing)
+* Keep scripts there; edit them, run them in bits or as a whole from there
+* Keep outputs there (like the PDF written above)

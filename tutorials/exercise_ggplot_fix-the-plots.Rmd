@@ -181,7 +181,7 @@ ggplot(mtcars2) +
 Here's the number of people having a certain hair colour from a sample of 592 people:
 
 ```{r}
-(hair <- as_tibble(HairEyeColor) %>% 
+(hair <- as_tibble(HairEyeColor) |> 
   count(Hair, wt = n))
 ```
 
@@ -198,7 +198,7 @@ ggplot(hair) +
 Here's the number of people having a certain hair and eye colour from a sample of 592 people:
 
 ```{r}
-(hair_eye <- as_tibble(HairEyeColor) %>% 
+(hair_eye <- as_tibble(HairEyeColor) |> 
   count(Hair, Eye, wt = n))
 ```
 
