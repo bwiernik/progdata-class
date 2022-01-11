@@ -12,4 +12,7 @@ Imports:
     here,
     patchwork,
     palmerpenguins,
-    knitr
+    knitr,
+    tweetrmd
+Remotes: 
+    gadenbuie/tweetrmd

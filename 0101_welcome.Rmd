@@ -3,8 +3,6 @@
 ```{r include = FALSE}
 source("common.R")
 
-
-if (!require("tweetrmd"))  devtools::install_github("gadenbuie/tweetrmd", dependencies = FALSE)
 library(tweetrmd) #... embedding tweets
 library(vembedr)
 ds4p_urls <- read.csv("./admin/csv/ds4p_urls.csv")
