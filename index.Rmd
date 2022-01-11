@@ -8,8 +8,6 @@ output: bookdown::gitbook
 documentclass: book
 biblio-style: apalike
 link-citations: yes
-link-citations: yes
-#github-repo: org/repo
 cover-image: "progdata_class_icon.png"
 favicon: "favicon.ico"
 ---
