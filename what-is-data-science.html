@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 2 What is Data Science? | Programming with Data</title>
+  <meta name="description" content="Part 2 What is Data Science? | Programming with Data" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 2 What is Data Science? | Programming with Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/progdata_class_icon.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 2 What is Data Science? | Programming with Data" />
+  
+  
+  <meta name="twitter:image" content="/progdata_class_icon.png" />
+
+<meta name="author" content="Brenton M. Wiernik" />
+
+
+<meta name="date" content="2022-01-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="welcome-to-data-science.html"/>
+<link rel="next" href="meet-our-toolbox.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.20/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet" />
+<script src="libs/twitter-widget-0.0.1/widgets.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-147022704-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Programming with Data!</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About This Guide</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#brentons-notes"><i class="fa fa-check"></i>Brenton’s Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html"><i class="fa fa-check"></i>Attribution</a>
+<ul>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html#major-attributions"><i class="fa fa-check"></i>Major Attributions</a></li>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html#additional-attributions"><i class="fa fa-check"></i>Additional Attributions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i>License</a></li>
+<li class="chapter" data-level="" data-path="colophon.html"><a href="colophon.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="part"><span><b>Module 00</b></span></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="getting-started.html"><a href="getting-started.html#big-ideas"><i class="fa fa-check"></i><b>0.1</b> Big Ideas</a></li>
+<li class="chapter" data-level="0.2" data-path="getting-started.html"><a href="getting-started.html#course-modality"><i class="fa fa-check"></i><b>0.2</b> Course Modality</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i>Syllabus</a>
+<ul>
+<li class="chapter" data-level="0.3" data-path="syllabus.html"><a href="syllabus.html#materials"><i class="fa fa-check"></i><b>0.3</b> Materials</a></li>
+<li class="chapter" data-level="0.4" data-path="syllabus.html"><a href="syllabus.html#assignment-instructions"><i class="fa fa-check"></i><b>0.4</b> Assignment Instructions</a></li>
+<li class="chapter" data-level="0.5" data-path="syllabus.html"><a href="syllabus.html#due-dates"><i class="fa fa-check"></i><b>0.5</b> Due dates</a></li>
+</ul></li>
+<li class="part"><span><b>I Module 01</b></span></li>
+<li class="chapter" data-level="1" data-path="welcome-to-data-science.html"><a href="welcome-to-data-science.html"><i class="fa fa-check"></i><b>1</b> Welcome to Data Science</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="welcome-to-data-science.html"><a href="welcome-to-data-science.html#module-materials"><i class="fa fa-check"></i><b>1.1</b> Module Materials</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="what-is-data-science.html"><a href="what-is-data-science.html"><i class="fa fa-check"></i><b>2</b> What is Data Science?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="what-is-data-science.html"><a href="what-is-data-science.html#see-for-yourselves"><i class="fa fa-check"></i><b>2.1</b> See for yourselves!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="meet-our-toolbox.html"><a href="meet-our-toolbox.html"><i class="fa fa-check"></i><b>3</b> Meet our toolbox!</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="meet-our-toolbox.html"><a href="meet-our-toolbox.html#r-and-rstudio"><i class="fa fa-check"></i><b>3.1</b> R and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="bechdal.html"><a href="bechdal.html"><i class="fa fa-check"></i><b>4</b> Bechdel Activity</a></li>
+<li class="chapter" data-level="5" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html"><i class="fa fa-check"></i><b>5</b> Thoughtful Workflow</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#rmarkdown"><i class="fa fa-check"></i><b>5.1</b> R Markdown</a></li>
+<li class="chapter" data-level="5.2" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#installgit"><i class="fa fa-check"></i><b>5.2</b> Git and Github</a></li>
+<li class="chapter" data-level="5.3" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#getting-help-with-r"><i class="fa fa-check"></i><b>5.3</b> Getting Help with R</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r_basics.html"><a href="r_basics.html"><i class="fa fa-check"></i><b>6</b> R basics and workflows</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="r_basics.html"><a href="r_basics.html#basics-of-working-with-r-at-the-command-line-and-rstudio-goodies"><i class="fa fa-check"></i><b>6.1</b> Basics of working with R at the command line and RStudio goodies</a></li>
+<li class="chapter" data-level="6.2" data-path="r_basics.html"><a href="r_basics.html#workspace-and-working-directory"><i class="fa fa-check"></i><b>6.2</b> Workspace and working directory</a></li>
+<li class="chapter" data-level="6.3" data-path="r_basics.html"><a href="r_basics.html#saving-an-r-script"><i class="fa fa-check"></i><b>6.3</b> Saving an R script</a></li>
+<li class="chapter" data-level="6.4" data-path="r_basics.html"><a href="r_basics.html#script-housekeeping"><i class="fa fa-check"></i><b>6.4</b> Script housekeeping</a></li>
+<li class="chapter" data-level="6.5" data-path="r_basics.html"><a href="r_basics.html#to-do-before-next-class"><i class="fa fa-check"></i><b>6.5</b> To do before next class</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Programming with Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="what-is-data-science" class="section level1" number="2">
+<h1><span class="header-section-number">Part 2</span> What is Data Science?</h1>
+<div class="vembedr" align="center">
+<div>
+<iframe src="https://www.youtube.com/embed/BpKXkkU-NiY" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+<p>You can follow along with the slides <a href="https://datascience4psych.github.io/slides/d01_welcome/d01_welcome.html">here</a> if they do not appear below.</p>
+<iframe src="https://datascience4psych.github.io/slides/d01_welcome/d01_welcome.html" width="672" height="400px" data-external="1">
+</iframe>
+<div id="see-for-yourselves" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> See for yourselves!</h2>
+<p>I’ve embedded a few examples below.</p>
+<div id="shiny-app" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Shiny App</h3>
+<iframe src="https://minecr.shinyapps.io/unvotes/?showcase=0" width="672" height="400px" data-external="1">
+</iframe>
+</div>
+<div id="hans-rosling" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Hans Rosling</h3>
+<p>The video below is the shorter version. Hans Rosling’s 200 Countries, 200 Years, 4 Minutes - The Joy of Stats</p>
+<div class="vembedr" align="center">
+<div>
+<iframe src="https://www.youtube.com/embed/jbkSRLYSojo" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+<p>You can find a longer talk-length version below.</p>
+<div class="vembedr" align="center">
+<div>
+<iframe src="https://www.youtube.com/embed/hVimVzgtD6w" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+</div>
+</div>
+</div>
+<div id="social-media" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Social Media</h3>
+<p>Social media contains a ton of great (and terrible examples of data science in action. These examples range from entire subreddits, such as
+<a href="https://www.reddit.com/r/dataisbeautiful/">/r/DataisBeautiful</a> (<a href="https://www.reddit.com/r/dataisbeautiful/top/?sort=top&amp;t=all">be sure to check out the highest voted posts</a>) to celebrity tweets about data scientists.</p>
+<blockquote class="twitter-tweet" data-width="550" data-lang="en" data-dnt="true" data-theme="light"><p lang="en" dir="ltr">YASSSSSSSSSS MY LOVE STEVE IS BACK!!! <a href="https://twitter.com/hashtag/KornackiThirstcontinues?src=hash&amp;ref_src=twsrc%5Etfw">#KornackiThirstcontinues</a> <a href="https://t.co/ynK4D87Bhr">pic.twitter.com/ynK4D87Bhr</a></p>&mdash; Leslie Jones 🦋 (@Lesdoggg) <a href="https://twitter.com/Lesdoggg/status/1346584128368508930?ref_src=twsrc%5Etfw">January 5, 2021</a></blockquote>
+
+<blockquote class="twitter-tweet" data-width="550" data-lang="en" data-dnt="true" data-theme="light"><p lang="en" dir="ltr">Good reasons to not be a Data Scientist:<br><br>- It is a lot of work<br>- Literally nobody will know what you&#39;re talking about<br>- In the end, your computer will be your only real friend</p>&mdash; 🔥 Kareem Carr 🔥 (@kareem_carr) <a href="https://twitter.com/kareem_carr/status/1352655262054834182?ref_src=twsrc%5Etfw">January 22, 2021</a></blockquote>
+
+</div>
+<div id="read-for-yourselves" class="section level3" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Read for yourselves!</h3>
+<!-- source: https://raw.githubusercontent.com/academic/awesome-datascience/live/README.md -->
+<table>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Link</th>
+<th>Preview</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><a href="https://www.oreilly.com/ideas/what-is-data-science">What is Data Science @ O’reilly</a></td>
+<td><em>Data scientists combine entrepreneurship with patience, the willingness to build data products incrementally, the ability to explore, and the ability to iterate over a solution. They are inherently interdiscplinary. They can tackle all aspects of a problem, from initial data collection and data conditioning to drawing conclusions. They can think outside the box to come up with new ways to view the problem, or to work with very broadly defined problems: “here’s a lot of data, what can you make from it?”</em></td>
+</tr>
+<tr class="even">
+<td><a href="https://www.quora.com/Data-Science/What-is-data-science">What is Data Science @ Quora</a></td>
+<td>Data Science is a combination of a number of aspects of Data such as Technology, Algorithm development, and data interference to study the data, analyze it, and find innovative solutions to difficult problems. Basically Data Science is all about Analyzing data and driving for business growth by finding creative ways.</td>
+</tr>
+<tr class="odd">
+<td><a href="https://hbr.org/2012/10/data-scientist-the-sexiest-job-of-the-21st-century">The sexiest job of 21st century</a></td>
+<td><em>Data scientists today are akin to Wall Street “quants” of the 1980s and 1990s. In those days people with backgrounds in physics and math streamed to investment banks and hedge funds, where they could devise entirely new algorithms and data strategies. Then a variety of universities developed master’s programs in financial engineering, which churned out a second generation of talent that was more accessible to mainstream firms. The pattern was repeated later in the 1990s with search engineers, whose rarefied skills soon came to be taught in computer science programs.</em></td>
+</tr>
+<tr class="even">
+<td><a href="https://en.wikipedia.org/wiki/Data_science">Wikipedia</a></td>
+<td><em>Data science is an inter-disciplinary field that uses scientific methods, processes, algorithms and systems to extract knowledge and insights from many structural and unstructured data. Data science is related to data mining, machine learning and big data.</em></td>
+</tr>
+<tr class="odd">
+<td><a href="https://www.mastersindatascience.org/careers/data-scientist/">How to Become a Data Scientist</a></td>
+<td><em>Data scientists are big data wranglers, gathering and analyzing large sets of structured and unstructured data. A data scientist’s role combines computer science, statistics, and mathematics. They analyze, process, and model data then interpret the results to create actionable plans for companies and other organizations.</em></td>
+</tr>
+<tr class="even">
+<td><a href="http://www.forbes.com/sites/gilpress/2013/05/28/a-very-short-history-of-data-science/">a very short history of #datascience</a></td>
+<td><em>The story of how data scientists became sexy is mostly the story of the coupling of the mature discipline of statistics with a very young one–computer science. The term “Data Science” has emerged only recently to specifically designate a new profession that is expected to make sense of the vast stores of big data. But making sense of data has a long history and has been discussed by scientists, statisticians, librarians, computer scientists and others for years. The following timeline traces the evolution of the term “Data Science” and its use, attempts to define it, and related terms.</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="welcome-to-data-science.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="meet-our-toolbox.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0101_welcome.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["main.pdf", "main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+</body>
+
+</html>

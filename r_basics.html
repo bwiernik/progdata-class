@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 6 R basics and workflows | Programming with Data</title>
+  <meta name="description" content="Part 6 R basics and workflows | Programming with Data" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 6 R basics and workflows | Programming with Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/progdata_class_icon.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 6 R basics and workflows | Programming with Data" />
+  
+  
+  <meta name="twitter:image" content="/progdata_class_icon.png" />
+
+<meta name="author" content="Brenton M. Wiernik" />
+
+
+<meta name="date" content="2022-01-11" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="thoughtful-workflow.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.20/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet" />
+<script src="libs/twitter-widget-0.0.1/widgets.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-147022704-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Programming with Data!</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About This Guide</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#brentons-notes"><i class="fa fa-check"></i>Brenton’s Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html"><i class="fa fa-check"></i>Attribution</a>
+<ul>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html#major-attributions"><i class="fa fa-check"></i>Major Attributions</a></li>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html#additional-attributions"><i class="fa fa-check"></i>Additional Attributions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i>License</a></li>
+<li class="chapter" data-level="" data-path="colophon.html"><a href="colophon.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="part"><span><b>Module 00</b></span></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="getting-started.html"><a href="getting-started.html#big-ideas"><i class="fa fa-check"></i><b>0.1</b> Big Ideas</a></li>
+<li class="chapter" data-level="0.2" data-path="getting-started.html"><a href="getting-started.html#course-modality"><i class="fa fa-check"></i><b>0.2</b> Course Modality</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i>Syllabus</a>
+<ul>
+<li class="chapter" data-level="0.3" data-path="syllabus.html"><a href="syllabus.html#materials"><i class="fa fa-check"></i><b>0.3</b> Materials</a></li>
+<li class="chapter" data-level="0.4" data-path="syllabus.html"><a href="syllabus.html#assignment-instructions"><i class="fa fa-check"></i><b>0.4</b> Assignment Instructions</a></li>
+<li class="chapter" data-level="0.5" data-path="syllabus.html"><a href="syllabus.html#due-dates"><i class="fa fa-check"></i><b>0.5</b> Due dates</a></li>
+</ul></li>
+<li class="part"><span><b>I Module 01</b></span></li>
+<li class="chapter" data-level="1" data-path="welcome-to-data-science.html"><a href="welcome-to-data-science.html"><i class="fa fa-check"></i><b>1</b> Welcome to Data Science</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="welcome-to-data-science.html"><a href="welcome-to-data-science.html#module-materials"><i class="fa fa-check"></i><b>1.1</b> Module Materials</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="what-is-data-science.html"><a href="what-is-data-science.html"><i class="fa fa-check"></i><b>2</b> What is Data Science?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="what-is-data-science.html"><a href="what-is-data-science.html#see-for-yourselves"><i class="fa fa-check"></i><b>2.1</b> See for yourselves!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="meet-our-toolbox.html"><a href="meet-our-toolbox.html"><i class="fa fa-check"></i><b>3</b> Meet our toolbox!</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="meet-our-toolbox.html"><a href="meet-our-toolbox.html#r-and-rstudio"><i class="fa fa-check"></i><b>3.1</b> R and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="bechdal.html"><a href="bechdal.html"><i class="fa fa-check"></i><b>4</b> Bechdel Activity</a></li>
+<li class="chapter" data-level="5" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html"><i class="fa fa-check"></i><b>5</b> Thoughtful Workflow</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#rmarkdown"><i class="fa fa-check"></i><b>5.1</b> R Markdown</a></li>
+<li class="chapter" data-level="5.2" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#installgit"><i class="fa fa-check"></i><b>5.2</b> Git and Github</a></li>
+<li class="chapter" data-level="5.3" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#getting-help-with-r"><i class="fa fa-check"></i><b>5.3</b> Getting Help with R</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r_basics.html"><a href="r_basics.html"><i class="fa fa-check"></i><b>6</b> R basics and workflows</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="r_basics.html"><a href="r_basics.html#basics-of-working-with-r-at-the-command-line-and-rstudio-goodies"><i class="fa fa-check"></i><b>6.1</b> Basics of working with R at the command line and RStudio goodies</a></li>
+<li class="chapter" data-level="6.2" data-path="r_basics.html"><a href="r_basics.html#workspace-and-working-directory"><i class="fa fa-check"></i><b>6.2</b> Workspace and working directory</a></li>
+<li class="chapter" data-level="6.3" data-path="r_basics.html"><a href="r_basics.html#saving-an-r-script"><i class="fa fa-check"></i><b>6.3</b> Saving an R script</a></li>
+<li class="chapter" data-level="6.4" data-path="r_basics.html"><a href="r_basics.html#script-housekeeping"><i class="fa fa-check"></i><b>6.4</b> Script housekeeping</a></li>
+<li class="chapter" data-level="6.5" data-path="r_basics.html"><a href="r_basics.html#to-do-before-next-class"><i class="fa fa-check"></i><b>6.5</b> To do before next class</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Programming with Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="r_basics" class="section level1" number="6">
+<h1><span class="header-section-number">Part 6</span> R basics and workflows</h1>
+<blockquote class="twitter-tweet" data-width="550" data-lang="en" data-dnt="true" data-theme="light"><p lang="en" dir="ltr">Who is R? Why is R troubling PhD students?<a href="https://twitter.com/AcademicChatter?ref_src=twsrc%5Etfw">@AcademicChatter</a> <a href="https://twitter.com/hashtag/AcademicTwitter?src=hash&amp;ref_src=twsrc%5Etfw">#AcademicTwitter</a></p>&mdash; Dr. Marie Curie (@CurieDr) <a href="https://twitter.com/CurieDr/status/1355911682585931777?ref_src=twsrc%5Etfw">January 31, 2021</a></blockquote>
+
+<p>There is an implicit contract with computer and scripting languages. The computer will do tedious tasks for you. In return, you must be explicit in your instructions. The computer does not have the ability to extrapolate. So we have to work within the range of what it does understand. And that is where this entire course comes into play. We are learning how to communicate in a way that it does understand. So let’s begin!</p>
+<div id="basics-of-working-with-r-at-the-command-line-and-rstudio-goodies" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Basics of working with R at the command line and RStudio goodies</h2>
+<p>Launch RStudio/R.</p>
+<p>Notice the default panes:</p>
+<ul>
+<li>Console (entire left)</li>
+<li>Environment/History (tabbed in upper right)</li>
+<li>Files/Plots/Packages/Help (tabbed in lower right)</li>
+</ul>
+<p>FYI: you can change the default location of the panes, among many other things: <a href="https://support.rstudio.com/hc/en-us/articles/200549016-Customizing-RStudio">Customizing RStudio</a>.</p>
+<p>Go into the Console, where we interact with the live R process.</p>
+<p>Make an assignment and then inspect the object you just created:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="r_basics.html#cb12-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> <span class="dv">4</span></span>
+<span id="cb12-2"><a href="r_basics.html#cb12-2" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb12-3"><a href="r_basics.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 12</span></span></code></pre></div>
+<p>All R statements where you create objects – “assignments” – have this form:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="r_basics.html#cb13-1" aria-hidden="true" tabindex="-1"></a>objectName <span class="ot">&lt;-</span> value</span></code></pre></div>
+<p>and in my head I hear, e.g., “x gets 12”.</p>
+<p>You will make lots of assignments.</p>
+<p>The <code>&lt;-</code> is more commonly used by R programmers. You can also use <code>=</code> instead.
+There are some small differences between the two, but they rarely come up.
+Feel free to use whichever you prefer.
+For typing <code>&lt;-</code>, try RStudio’s keyboard shortcut: Alt + - (the minus sign).</p>
+<p>Notice that RStudio auto-magically surrounds <code>&lt;-</code> with spaces, which demonstrates a useful code formatting practice. Code is miserable to read on a good day. Give your eyes a break and use spaces.</p>
+<p>RStudio offers many handy <a href="https://support.rstudio.com/hc/en-us/articles/200711853-Keyboard-Shortcuts">keyboard shortcuts</a>. Also, Alt+Shift+K brings up a keyboard shortcut reference card.</p>
+<div id="object-names" class="section level3" number="6.1.1">
+<h3><span class="header-section-number">6.1.1</span> Object names</h3>
+<p>Object names cannot start with a digit and cannot contain certain other characters such as a comma or a space. You will be wise to adopt a <a href="https://en.wikipedia.org/wiki/Snake_case">convention for demarcating words</a> in names.</p>
+<pre><code>i_use_snake_case
+evenOthersUseCamelCase
+dont.use.periods</code></pre>
+<p>Don’t use periods. I recommend <code>snake_case</code> or <code>camelCase</code>.</p>
+<p>Make another assignment:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="r_basics.html#cb15-1" aria-hidden="true" tabindex="-1"></a>this_is_a_really_long_name <span class="ot">&lt;-</span> <span class="fl">2.5</span></span></code></pre></div>
+<p>To inspect this assignment, try out RStudio’s completion facility: type the first few characters, press TAB, add characters until you disambiguate, then press return.</p>
+<p>Make another assignment:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="r_basics.html#cb16-1" aria-hidden="true" tabindex="-1"></a>brenton_rocks <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">^</span> <span class="dv">3</span></span></code></pre></div>
+<p>Let’s try to inspect:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="r_basics.html#cb17-1" aria-hidden="true" tabindex="-1"></a>brentonrocks</span>
+<span id="cb17-2"><a href="r_basics.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in eval(expr, envir, enclos): object &#39;brentonrocks&#39; not found</span></span>
+<span id="cb17-3"><a href="r_basics.html#cb17-3" aria-hidden="true" tabindex="-1"></a>brent_rocks</span>
+<span id="cb17-4"><a href="r_basics.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in eval(expr, envir, enclos): object &#39;brent_rocks&#39; not found</span></span></code></pre></div>
+<p>Here’s where that implicit contract comes in. The computer (and R) will do amazing things, if we can ask it to do those things in a way it understands.
+Typos matter. Case matters. Precision matters. We have to work within it’s narrow range of ability.</p>
+</div>
+<div id="functions" class="section level3" number="6.1.2">
+<h3><span class="header-section-number">6.1.2</span> Functions</h3>
+<p>R has a mind-blowing collection of built-in functions that are accessed like so:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="r_basics.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">functionName</span>(<span class="at">arg1 =</span> val1, <span class="at">arg2 =</span> val2, and so on)</span></code></pre></div>
+<p>Let’s try using <code>seq()</code> which makes regular sequences of numbers and, while we’re at it, demo more helpful features of RStudio.</p>
+<p>Type <code>se</code> and hit TAB. A pop up shows you possible completions. Specify <code>seq()</code> by typing more to disambiguate or using the up/down arrows to select. Notice the floating tool-tip-type help that pops up, reminding you of a function’s arguments. If you want even more help, press F1 as directed to get the full documentation in the help tab of the lower right pane. Now open the parentheses and notice the automatic addition of the closing parenthesis and the placement of cursor in the middle. Type the arguments <code>1, 10</code> and hit return. RStudio also exits the parenthetical expression for you. IDEs are great.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="r_basics.html#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb19-2"><a href="r_basics.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
+<p>The above also demonstrates something about how R resolves function arguments. You can always specify in <code>name = value</code> form. But if you do not, R attempts to resolve by position. So above, it is assumed that we want a sequence <code>from = 1</code> that goes <code>to = 10</code>. Because we didn’t specify step size, the default value of <code>by</code> in the function definition is used. In this case, the default is 1. For functions I call often, I might use this resolve by position for the first argument or maybe the first two. After that, I always use <code>name = value</code>.</p>
+<p>Make this assignment and notice similar help with quotation marks.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="r_basics.html#cb20-1" aria-hidden="true" tabindex="-1"></a>yo <span class="ot">&lt;-</span> <span class="st">&quot;hello world&quot;</span></span></code></pre></div>
+<p>If you just make an assignment, you don’t get to see the value, so then you’re tempted to immediately inspect.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="r_basics.html#cb21-1" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>)</span>
+<span id="cb21-2"><a href="r_basics.html#cb21-2" aria-hidden="true" tabindex="-1"></a>y</span>
+<span id="cb21-3"><a href="r_basics.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
+<p>This common action can be shortened by surrounding the assignment with parentheses, which causes assignment and “print to screen” to happen.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="r_basics.html#cb22-1" aria-hidden="true" tabindex="-1"></a>(y <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">10</span>))</span>
+<span id="cb22-2"><a href="r_basics.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
+<p>Not all functions have (or require) arguments:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="r_basics.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span>
+<span id="cb23-2"><a href="r_basics.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Tue Jan 11 04:07:02 2022&quot;</span></span></code></pre></div>
+<p>Now look at your workspace – in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="r_basics.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">objects</span>()</span>
+<span id="cb24-2"><a href="r_basics.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;all_pkgs&quot;                   &quot;brenton_rocks&quot;             </span></span>
+<span id="cb24-3"><a href="r_basics.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;check_quietly&quot;              &quot;ds4p_status&quot;               </span></span>
+<span id="cb24-4"><a href="r_basics.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;ds4p_urls&quot;                  &quot;install_quietly&quot;           </span></span>
+<span id="cb24-5"><a href="r_basics.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;pretty_install&quot;             &quot;sample_no_surprises&quot;       </span></span>
+<span id="cb24-6"><a href="r_basics.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;session&quot;                    &quot;shhh_check&quot;                </span></span>
+<span id="cb24-7"><a href="r_basics.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;slide_url&quot;                  &quot;this_is_a_really_long_name&quot;</span></span>
+<span id="cb24-8"><a href="r_basics.html#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;x&quot;                          &quot;y&quot;                         </span></span>
+<span id="cb24-9"><a href="r_basics.html#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] &quot;yo&quot;</span></span>
+<span id="cb24-10"><a href="r_basics.html#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
+<span id="cb24-11"><a href="r_basics.html#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;all_pkgs&quot;                   &quot;brenton_rocks&quot;             </span></span>
+<span id="cb24-12"><a href="r_basics.html#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;check_quietly&quot;              &quot;ds4p_status&quot;               </span></span>
+<span id="cb24-13"><a href="r_basics.html#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;ds4p_urls&quot;                  &quot;install_quietly&quot;           </span></span>
+<span id="cb24-14"><a href="r_basics.html#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;pretty_install&quot;             &quot;sample_no_surprises&quot;       </span></span>
+<span id="cb24-15"><a href="r_basics.html#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;session&quot;                    &quot;shhh_check&quot;                </span></span>
+<span id="cb24-16"><a href="r_basics.html#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;slide_url&quot;                  &quot;this_is_a_really_long_name&quot;</span></span>
+<span id="cb24-17"><a href="r_basics.html#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;x&quot;                          &quot;y&quot;                         </span></span>
+<span id="cb24-18"><a href="r_basics.html#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] &quot;yo&quot;</span></span></code></pre></div>
+<p>If you want to remove the object named <code>y</code>, you can do this:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="r_basics.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(y)</span></code></pre></div>
+<p>To remove everything:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="r_basics.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span></code></pre></div>
+<p>or click the broom in RStudio’s Environment pane.</p>
+</div>
+</div>
+<div id="workspace-and-working-directory" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Workspace and working directory</h2>
+<p>One day you will need to quit R, go do something else and return to your analysis later.</p>
+<p>One day you will have multiple analyses going that use R and you want to keep them separate.</p>
+<p>One day you will need to bring data from the outside world into R and send numerical results and figures from R back out into the world.</p>
+<p>To handle these real life situations, you need to make two decisions:</p>
+<ul>
+<li>What part your analysis is “real”, i.e. will you save it as your lasting record of what happened?</li>
+<li>Where does your analysis “live”?</li>
+</ul>
+<div id="workspace-.rdata" class="section level3" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Workspace, <code>.RData</code></h3>
+<p>Start to quit RStudio, but don’t finish yet!</p>
+<p>Quit R/RStudio, either from the menu, using a keyboard shortcut, or by typing <code>q()</code> in the Console. You’ll get a prompt like this:</p>
+<blockquote>
+<p>Save workspace image to ~/.Rdata?</p>
+</blockquote>
+<p>This is offering to save your R <strong>workspace</strong> (all of the objects you made) so that you can reload them later. This seems okay, but how are you going to remember where each of those objects came from? It’s a recipe for irreproducible disaster!</p>
+<p>Let’s change some settings in RStudio to encourage a more reliable workflow.</p>
+<p>In RStudio, click Tools -&gt; Global options…</p>
+<p>In the window that pops up, on the General pane,</p>
+<ol style="list-style-type: decimal">
+<li>Uncheck “Restore .RData into workspace at startup</li>
+<li>Set “Save workspace to .RData on exit” to “Never”</li>
+<li>Uncheck “Always save history (even when not saving .RData)”</li>
+</ol>
+</div>
+<div id="working-directory" class="section level3" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Working directory</h3>
+<p>Any process running on your computer has a notion of its “working directory”. In R, this is where R will look, by default, for files you ask it to load. It also where, by default, any files you write to disk will go.</p>
+<p>You can explicitly check your working directory with:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="r_basics.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span></code></pre></div>
+<p>It is also displayed at the top of the RStudio console.</p>
+<p>For right now, we will let R set its own working directory at startup. We will adopt a more reliable workflow for organizing our projects in a few weeks.</p>
+<p>You might sometimes see something like this in someone’s script.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="r_basics.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;C:</span><span class="sc">\\</span><span class="st">Users</span><span class="sc">\\</span><span class="st">brenton</span><span class="sc">\\</span><span class="st">Documents</span><span class="sc">\\</span><span class="st">myCoolProject&quot;</span>)</span></code></pre></div>
+<p>This sets the working directory in the R session to that file path.</p>
+<p><strong>Do not do this! It ensures that the script only works on your computer!</strong></p>
+<p>We will explore more reliable ways to control the working directory in a few weeks.</p>
+</div>
+</div>
+<div id="saving-an-r-script" class="section level2" number="6.3">
+<h2><span class="header-section-number">6.3</span> Saving an R script</h2>
+<p>Usually, we want to save the analyses we run so we can re-run them later or refer back to them. We do that with <strong>scripts</strong>.</p>
+<p>Let’s make an R script. Click File -&gt; New File -&gt; R Script.</p>
+<p>A new part of the RStudio window appears. The Script pane.</p>
+<p>Copy and paste the following code into your new script.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="r_basics.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># what do these lines do?</span></span>
+<span id="cb29-2"><a href="r_basics.html#cb29-2" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb29-3"><a href="r_basics.html#cb29-3" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="sc">-</span><span class="dv">3</span></span>
+<span id="cb29-4"><a href="r_basics.html#cb29-4" aria-hidden="true" tabindex="-1"></a>sig_sq <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb29-5"><a href="r_basics.html#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="r_basics.html#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="co"># what about these?</span></span>
+<span id="cb29-7"><a href="r_basics.html#cb29-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">40</span>)</span>
+<span id="cb29-8"><a href="r_basics.html#cb29-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(sig_sq))</span>
+<span id="cb29-9"><a href="r_basics.html#cb29-9" aria-hidden="true" tabindex="-1"></a>(avg_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x))</span>
+<span id="cb29-10"><a href="r_basics.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.442</span></span>
+<span id="cb29-11"><a href="r_basics.html#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="r_basics.html#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># these lines save some output...</span></span>
+<span id="cb29-13"><a href="r_basics.html#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(avg_x, <span class="st">&quot;avg_x.txt&quot;</span>)</span>
+<span id="cb29-14"><a href="r_basics.html#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
+<span id="cb29-15"><a href="r_basics.html#cb29-15" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(a, b, <span class="at">col =</span> <span class="st">&quot;purple&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/figure-html/toy-line-1.png" width="672" /></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="r_basics.html#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.print</span>(pdf, <span class="st">&quot;toy_line_plot.pdf&quot;</span>)</span>
+<span id="cb30-2"><a href="r_basics.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; quartz_off_screen </span></span>
+<span id="cb30-3"><a href="r_basics.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 2</span></span></code></pre></div>
+<p>Run the lines of your script by selecting them and clicking the Run button in RStudio or by typing Ctrl/Cmd + Shift + Enter/Return.</p>
+<p>Now let’s save the file. Click on the floppy disk to save.</p>
+<p>Give it a name ending in <code>.R</code>, I used <code>toy-line.R</code>. Now which folder the file will be saved in. By default, it will go in the current working directory.</p>
+<p>Quit RStudio. Go to the folder where you saved the file and it there.</p>
+<p>Restart RStudio. Notice that the the files you had open are restored by default. That’s helpful.</p>
+<p>Let’s change our script to make the sample size easily editable.</p>
+<p>At the top of your script, assign a new sample size to <code>n</code>, e.g. <code>n &lt;- 80</code>.
+Then, replace all the hard-coded 40s with <code>n</code>. Change some other minor-but-detectable stuff, e.g. alter the slope of the line <code>b</code>, the color of the line, … whatever.</p>
+<p>Practice the different ways to re-run the code:</p>
+<ul>
+<li>Walk through line by line by keyboard shortcut (Command + Enter)</li>
+<li>Walk line by line with the mouse (click “Run” in the upper right corner of editor pane).</li>
+<li>Select multiple lines and run using the keyboard shortcut or Run button.</li>
+</ul>
+<p>Visit your figure in your computer’s file system and view it to verify that the PDF is changing as you expect.</p>
+<p>Note that you have edited this figure <strong>using only code</strong>. You never clicked your mouse, typed a file name, or used the keyboard. This means that you can reproduce the figure (or change it) easily again in the future with with no head-scratching!</p>
+</div>
+<div id="script-housekeeping" class="section level2" number="6.4">
+<h2><span class="header-section-number">6.4</span> Script housekeeping</h2>
+<p>Always save your R scripts with a <code>.R</code> so that your computer knows what to do with them.</p>
+<p>In R, comments start with one or more <code>#</code> symbols. Use them. RStudio helps you (de)comment selected lines with Ctrl+Shift+C (Windows and Linux) or Command+Shift+C (Mac).</p>
+<p>To be sure your code is doing what you expect, a good habit is to restart your R session and run your script from the top. To do that, click Session -&gt; Restart R. Try it!</p>
+<p>Avoid using the mouse for pieces of your analytical workflow, such as loading a dataset or saving a figure. Terribly important for reproducibility and for making it possible to retrospectively determine how a numerical table or PDF was actually produced (searching on local disk on filename, among <code>.R</code> files, will lead to the relevant script).</p>
+</div>
+<div id="to-do-before-next-class" class="section level2" number="6.5">
+<h2><span class="header-section-number">6.5</span> To do before next class</h2>
+<ul>
+<li><p>Make an account on <a href="https://github.com/">GitHub</a>.</p>
+<ul>
+<li>Make your username recognizable!</li>
+<li>Please put up a profile photo or image on GitHub—it makes the class community more personable and easier to work with.</li>
+</ul></li>
+<li><p>Finish any in-class activities listed in today’s section of the guidebook that you didn’t get done.</p></li>
+<li><p>Install the software stack for this course, as indicated below.</p></li>
+</ul>
+<p>Optionally, register for the <a href="https://education.github.com/pack">Student Developer Pack</a> with GitHub for a bunch of free perks for students!</p>
+<div id="software-stack-installation" class="section level3" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Software Stack Installation</h3>
+<ol style="list-style-type: decimal">
+<li><p>Install R and RStudio.</p>
+<ul>
+<li>R here: <a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a></li>
+<li>RStudio here: <a href="https://www.rstudio.com/products/rstudio/download/" class="uri">https://www.rstudio.com/products/rstudio/download/</a></li>
+<li>Commentary on installing this stuff can be found at <a href="http://stat545.com/block000_r-rstudio-install.html">stat545.com: r-rstudio-install</a></li>
+</ul></li>
+<li><p>Install GitHub: <a href="https://desktop.github.com/" class="uri">https://desktop.github.com/</a></p></li>
+</ol>
+<!-- Video Links-->
+<!-- [pl_00]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaEAnJX20Ryy4OSie375rVY -->
+<!-- 
+[pl_02]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZmr_T3PnuxjVIlj0C0kUNI
+[pl_03]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaHmjzdRvfg0yhOIYQnfjwE
+[pl_04]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYWFcel6_vp8__RUKLxhX4y
+[pl_05]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYMIguiV1F8RagMYibTY4iW
+[pl_06]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYV_KDod3Mk9-RmtFXii9Dv
+[pl_07]: https://www.youtube.com/watch?list=PLKrrdtYgOUYZxvEvQ8-PcWrOY_dwY_ETI
+[pl_08]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZgOzYB_dmauw55M7jXvsdo
+[pl_09]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbaiTmldRY2ddsLrHp3z6yO
+[pl_10]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbPw5iYzYEzoOKa7mJKNIhq
+[pl_11]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZ-u6LzBbanrNFoeLHKaLL6
+[pl_12]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbwRS-9Htmb80_t1NG-021e
+[pl_13]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
+[pl_14]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
+[pl_15]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYa5MoYrV8EsWQ5jIr5ZYMpM
+-->
+<!--AE Links-->
+<!-- Lab Links-->
+<!--Slides-->
+<!--
+[d03_dataviz]: https://datascience4psych.github.io/slides/d03_dataviz/d03_dataviz.html
+[d04_ggplot2]: https://datascience4psych.github.io/slides/d04_ggplot2/d04_ggplot2.html
+[d05_viznum]: https://datascience4psych.github.io/slides/d05_viznum/d05_viznum.html
+[d06_vizcat]: https://datascience4psych.github.io/slides/d06_vizcat/d06_vizcat.html
+[d07_tidy]: https://datascience4psych.github.io/slides/d07_tidy/d07_tidy.html
+[d08_grammar]: https://datascience4psych.github.io/slides/d08_grammar/d08_grammar.html
+[d09_wrangle]: https://datascience4psych.github.io/slides/d09_wrangle/d09_wrangle.html
+[d10_dfs]: https://datascience4psych.github.io/slides/d10_dfs/d10_dfs.html
+[d11_types]: https://datascience4psych.github.io/slides/d11_types/d11_types.html
+[d12_import]: https://datascience4psych.github.io/slides/d12_import/d12_import.html
+[d13_goodviz]: https://datascience4psych.github.io/slides/d13_goodviz/d13_goodviz.html
+[d13b_moreggplot]: https://datascience4psych.github.io/slides/d13_goodviz/d13b_moreggplot.html
+[d14_confound]: https://datascience4psych.github.io/slides/d14_confound/d14_confound.html
+[d15_goodtalk]: https://datascience4psych.github.io/slides/d15_goodtalk/d15_goodtalk.html
+[d16_webscraping]: https://datascience4psych.github.io/slides/d16_webscraping/d16_webscraping.html
+[d17_functions]: https://datascience4psych.github.io/slides/d17_functions/d17_functions.html
+[d18_ethics]: https://datascience4psych.github.io/slides/d18_ethics/d18_ethics.html
+[d19_bias]: https://datascience4psych.github.io/slides/d19_bias/d19_bias.html
+-->
+<!--externals-->
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="thoughtful-workflow.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0102_rbasics.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["main.pdf", "main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+</body>
+
+</html>
