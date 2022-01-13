@@ -1,0 +1,104 @@
+## Lab 1: Getting started with RStudio, Git, and Markdown
+
+In this lab you will do 4 things:
+
+1. Get aquainted with RStudio and customize it to your liking.
+2. Practice writing a document with Markdown.
+3. Practice using some basic functions in R.
+4. Make a GitHub repository to save and share your work.
+
+### Part 1: Set up R and RStudio
+
+First, install two packages we will use a lot in class:
+
+  1. `tidyverse`
+  2. `palmerpenguins`
+  
+Next, customize some RStudio settings:
+
+  1. Click Tools → Global Options…
+    1. On the first page, under **Workspace**:
+      - Uncheck *Restore .RData into workspace at startup*
+      - Set *Save workspace to .RData on exit* to *Never*
+    2. Under **History**:
+      - Uncheck *Always save history (even when not saving .RData)*
+    3. Click the **Advanced** button at the top. Under **Other**:
+      - Check *Show .Last.value in environment listing*
+      
+Now, adjust the appearance of RStudio to your liking:
+
+  1. In the Pane Layout window, you can rearrange RStudio’s 4 panes.
+  2. In the Appearance window, you can change your font size, code typeface, and RStudio color scheme.
+    - I use the Tomorrow Night Bright color scheme.
+  3. In the Code window, you can change various ways about how code is inserted and shown. 
+     Change 3 settings from their defaults:
+       - On the **Editing** page, under **General**, check *Use native pipe operator |> (requires R 4.1+)*
+       - On the **Editing** page, under **Execution** ,set *Ctrl/Cmd+Enter executes* to *Multiple consecutive R lines*
+       - On the **Display** page, check *Rainbow parentheses*
+  4. In the RMarkdown window, you can change how RMarkdown is shown while you edit it.
+    - Uncheck *Show output inline for all RMarkdown documents*.
+       
+Go ahead and customize your RStudio appearance (color theme, font, etc.) and pane layout to whatever you find appealing. 
+You can always come back and change these later until you find a setup you like.
+  
+
+### Part 2: Make a README.md file with Markdown
+
+In RStudio, make a **Markdown** file from the File menu.
+Save this file with the name `README.md`. README should be in all caps.
+This file will be the introduction to your class GitHub repo.
+Use it to introduce yourself and practice your Markdown skills.
+
+The beginning of the README should contain a very brief description as to what the repository is (a sentence or two), so that a visitor landing on the repository can orient themselves. You should also help the visitor navigate your repository (in whatever way you think is most appropriate).
+
+Then, introduce yourself briefly.
+
+When writing your README, be sure to showcase at least five functionalities of GitHub-flavored markdown. The [markdown cheatsheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf) might help here, or, the *Help* menu in RStudio will bring up a Markdown Quick Reference at any time.
+
+Here's a [sample README file](https://github.com/USF-Psych-DataSci/DataSci-home/blob/master/content/evaluation/hw01/sample_readme.md) that goes way above and beyond what I'm looking for (aside from describing the repo).
+
+
+### Part 3: Practice some R fucntions
+
+In RStudio, make an **R script** file from the File menu. 
+In this file, you will explore the `palmerpenguins::penguins` dataset.
+
+Use some R functions to explore this data frame a bit. 
+For example, what is the general structure of the dataset? 
+How many rows does it have? How many colums? 
+What are the descriptive statistics for some of the important variables?
+
+You should:
+  1. Demonstrate the use of at least three functions.
+  2. Write code comments with `#` describing what the functions you are using do.
+  
+Save your R script with a useful name, such as `lab01_exploring-penguins.R`.
+
+
+### Part 4: Make a GitHub Repository for your work
+
+On GitHub.com, make a new repository called "progdata-class".
+As you make it, do the following:
+
+  1. Give your repo a useful description.
+  2. Make it Public.
+  3. Check "Add a README file"
+  4. Check "Add .gitignore" and select "R" from the dropdown.
+  5. Clone your repo to the GitHub Desktop app.
+  
+If you are using a Mac anywhere, also do this:
+  6. In RStudio, open the `.gitignore` file.
+     Add ".DS_Store" (no quotes) to the end of the file.
+     Save the file and commit the change.
+  
+Now, add your files for this lab to your repo and commit them.
+Remember, commit early, commit often! Make small changes at a time.
+Write a useful commit message for each commit.
+
+  1. Add your README.md file and commit it.
+  2. Add your data exploration R script to a folder called "Lab 1" and commit it.
+  3. Add any other scripts or files you made in class to the Lab 1 folder as well.
+  4. Push your changes up to GitHub.
+  
+  
+Finally, copy a link to your repo to the thread on the class Teams.

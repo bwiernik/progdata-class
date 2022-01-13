@@ -34,8 +34,6 @@ You can find the module playlist [here][pl_01]. Most of the slides used to make 
         * If Short Happy Git is too much, start with [Oh My Git](https://ohmygit.org/)
         * For more depth, [Happy Git with R](https://happygitwithr.com/)
 * Activities
-  * [UN Voting][ae01a_unvotes]
-  * [Covid Data][ae01b_covid]
   * [Bechdal Test][ae02_bechdel]
   * [Oh My Git](https://ohmygit.org/)
 * Lab

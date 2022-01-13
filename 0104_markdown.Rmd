@@ -1,0 +1,143 @@
+# Markdown {#markdown}
+
+```{r include = FALSE}
+source("common.R")
+library(tweetrmd) #... embedding tweets
+ds4p_urls <- read.csv("./admin/csv/ds4p_urls.csv")
+```
+
+Markdown is a lightweight syntax for writing documents.
+Markdown documents can contain text, formatting, images, links, and more!
+
+Some cheat sheets for "quick reference":
+
+-   [GitHub's markdown cheatsheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf)
+-   [RStudio's RMarkdown cheatsheet](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
+
+Further reading:
+
+-   The [Rmd website](https://rmarkdown.rstudio.com/) has a fantastic walk-through [tutorial](https://rmarkdown.rstudio.com/lesson-1.html) that gives a great overview of RMarkdown.
+-   There's also a nice [overview video](https://rmarkdown.rstudio.com/authoring_quick_tour.html) on the Rmd website, too.
+-   Yihui's [Rmd book](https://bookdown.org/yihui/rmarkdown/) for lots more on RMarkdown.
+
+Other explorations of this content:
+
+-   Interactive [tutorial](https://commonmark.org/help/tutorial/) for learning markdown.
+-   The [Happy Git with R: Rmd test drive](https://happygitwithr.com/rmd-test-drive.html).
+
+
+## Markdown syntax
+
+Markdown is plain text with a straightforward, readable way of marking up your text.
+Let's see [GitHub's cheat sheet](https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf).
+
+We will use RStudio to convert Markdown to output formats like HTML or PDF.
+
+### Make a Markdown document
+
+1.  Make a new Markdown file in RStudio, then save it as `exploring_markdown.md`.
+2.  Add some text, such as introducing yourself and what your favorite animal is.
+3.  Mark up the text with some markdown features (e.g., bold, italic, bullets, a link to a URL on the internet).
+
+Use the file extension `.md` for regular Markdown files with no R code in them.
+
+### Render `exploring_markdown.Rmd`
+
+We can use RStudio to convert our plain text Markdown document into various output formats.
+Above the script editor in RStudio, click the `Preview` or `Knit` button and convert your file to HTML.
+
+
+### Output formats
+
+There are generally two prominent file types to display documents of various types:
+
+1.  **pdf**: This is useful if you intend to print your work onto a physical sheet of paper, or for presentation slides. If this is not the primary purpose, then try to avoid it, because formatting things so that it fits to the page can be more effort than its worth (unless you're making presentation slides). - Example: Most journals articles and preprints.
+2.  **html**: This is what you see when you visit a webpage. Content does not need to be partitioned to pages. - Example: My [website main page](https://wiernik.org), and its corresponding [html file](https://github.com/bwiernik/wiernik_org/blob/master/public/index.html).
+
+We'll be treating pdf and html files as *output* that should not be edited. Markdown is the **source** that is edited.
+
+
+### Word processor formats
+
+It is also possible to output files to word processor formats, such as Word (.docx), LibreOffice/OpenDocument (.odt), or Rich Text (.rtf).
+You can also output to other slideshow software, such as PowerPoint (.pptx) or LibreOffice/OpenDocument Slides (.odp).
+
+We aren't going to use these in this class because we will focus on making fully reproducible documents. 
+
+
+There are times when you have to use these formats (e.g., a journal requires Word, a conference requires PowerPoint, your advisor or collaborator requires Word).
+If you have to do this, try to avoid *editing your R output in these formats*.
+If you need to make revisions, go back and make changes to the source code, rather than the rendered document.
+In your general work, you can find a balance working with automated output and Word documents, but we are going to focus on fully reproducible documents in this class.
+
+
+### Other Output Formats
+
+RMarkdown can be rended to *many* other formats that we won't have time to cover (see the [RMarkdown documentation](https://bookdown.org/yihui/rmarkdown/output-formats.html) and the [pandoc documentation](https://pandoc.org/MANUAL.html#option--to)).
+
+
+
+## RMarkdown
+
+RMarkdown (Rmd) combines Markdown and R scripts into one!
+
+It includes **code chunks** with R code (or other languages) that is run before the document is knitted.
+
+Here's [RStudio's cheat sheet](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf) on Rmd.
+
+You can see that it has more features than "regular" markdown!
+
+
+### Code Chunks
+
+The parts of your document inside the "fences" <code>\`\`\`</code> are **code chunks**.
+
+When you render the RMarkdown document, R will run the code in the chunks and show the output in the rendered document.
+
+You can run the code from a chunk interactively by placing your cursor on the line and typing Ctrl/Cmd + Enter/Return or by clicking the green "play" button at the top right of the code chunk.
+
+Add a new code chunk by doing one of these:
+
+-   Clicking the Insert button and choosing R or by typing -\> "R"
+-   Typing Mac: `Cmd + Option + I` or Windows: `Ctrl + Alt + I`
+-   Manually typing three back ticks followed by {r} in curly brackets: ```` ```{r} ````, then typing three back ticks on a later line to "close" the code block: ```` ``` ````.
+
+Add a code chunk near the top of the file and load the *tibble* package.
+
+```{r}
+library(tibble)
+library(knitr)
+```
+
+If you don't have *knitr* installed, install it with `install.packages("knitr")`.
+
+
+### Rendering output
+
+In a new code chunk, convert the `mtcars` data frame to a tibble using the `tibble::as_tibble()` function and assign it as a new object (e.g., called `mtcars_tbl`).
+Print it out by typing its name or using the `print()` function.
+
+When you print with just the `print()` function, your table will look like R console script in your output HTML or PDF.
+To make your tables look nicer in the output, use the `knitr::kable()` function to convert the results to a Markdown table.
+
+
+In a new code chunk, print the `mtcars_tbl` using `knitr::kable()`.
+
+We will explore other table tools in future classes.
+
+Add some markdown commentary about the tables you are showing.
+Your markdown commentary needs to go outside of the code chunks.
+
+You can also include R code "in-line" with markdown text.
+This is useful, for example, in your results section of a paper to report the results of your analyses without having to copy-paste them (and make errors).
+
+Add an in-line code chunk specifying the number of rows of the `mtcars` dataset like this:
+
+-   `` The `mtcars` dataset has `r nrow(mtcars)` rows. ``
+
+Now, "Knit" to HTML.
+
+
+
+```{r links, child="admin/md/courselinks.md"}
+```

@@ -1,0 +1,249 @@
+# GitHub and Version Control {#github}
+
+```{r include = FALSE}
+source("common.R")
+library(tweetrmd) #... embedding tweets
+ds4p_urls <- read.csv("./admin/csv/ds4p_urls.csv")
+```
+
+## Learning Objectives
+
+By the end of this module, you will be able to:
+
+- Understand the benefits of a version control workflow 
+- Commit file changes to GitHub
+- Navigate the commit history of a repository and a file on GitHub
+
+
+## Resources
+
+If you want to learn more about Git and GitHub, check out:
+
+- The [GitHub "Hello World"](https://guides.github.com/activities/hello-world/) is a nice intro activity
+- [A short video explaining what GitHub is](https://www.youtube.com/watch?v=w3jLJU7DT5E&feature=youtu.be) 
+- [Git and GitHub learning resources](https://docs.github.com/en/github/getting-started-with-github/git-and-github-learning-resources) 
+- [Understanding the GitHub flow](https://guides.github.com/introduction/flow/)
+- [How to use GitHub branches](https://www.youtube.com/watch?v=H5GJfcp3p4Q&feature=youtu.be)
+- [Interactive Git training materials](https://githubtraining.github.io/training-manual/#/01_getting_ready_for_class)
+
+
+## :octocat: Git and GitHub
+
+We will be using [GitHub](https://github.com) a lot in this course.
+
+GitHub is similar to Dropbox, OneDrive, or other cloud storage services.
+There are 3 key benefits of GitHub compared to those other services.
+
+  1. GitHub is a _version control_ platform. 
+     It is designed to **track** exactly **what changes you make** and **when you make them**.
+     You can browse the history 
+  2. GitHub is designed for code.
+     You can track what changes you make **line by line**
+     You can integrate your code with automated tools for error checking, testing, etc.
+  3. GitHub is designed for _collaborative coding_.
+     
+       - One master copy
+       - People can make simultaneous edits
+       - No emailing files back and forth
+       - Tools for checking and verifying each other's code
+       
+     We will practice using GitHub for collaboration through the weekly homework.
+
+
+## :octocat: Understanding the GitHub flow 
+
+The GitHub flow is a lightweight workflow that allows you to experiment and collaborate on your projects easily, without the risk of losing your previous work.
+
+### Repositories ("Repos")
+
+A repository is where your project work happens--think of it as your project folder. It contains all of your project’s files and revision history. You can work within a repository alone or invite others to collaborate with you on those files.
+
+You should make a new GitHub repo for each project. In this class, you will make a repo for your lab activities and one for each of your portfolio pieces.
+
+### Cloning 
+
+When a repository is created with GitHub, it’s stored remotely in the ☁️. You can clone a repository to create a local copy on your computer and then use Git to sync the two. This is similar to tools like Dropbox, but designed for code with a detail change history. Cloning a repository also pulls down all the repository data that GitHub has at that point in time, including all versions of every file and folder for the project! This can be helpful if you experiment with your project and then realize you liked a previous version more. 
+To learn more about cloning, read ["Cloning a Repository"](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository). 
+
+### Committing and pushing
+
+**Committing** and **pushing** are how you can add the changes you made on your local machine to the remote repository in GitHub. That way your instructor and/or teammates can see your latest work when you’re ready to share it. 
+
+Any changes you make on your local computer aren't "final" until you "commit" them (lock them in and write them into the repo history) and "push" those commits up to the GitHub cloud.
+
+You can make a commit when you have made changes to your project that you want to “checkpoint.” You can also add a helpful **commit message** to remind yourself or your teammates what work you did (e.g. “Added a README with information about our project”).
+
+Once you have a commit or multiple commits that you’re ready to add to your repository, you can use the push command to add those changes to your remote repository. Committing and pushing may feel new at first, but I promise you’ll get used to it 🙂
+
+
+## Making a GitHub Repository
+     
+Let's make a GitHub repository that you will use for this class.
+
+On <https://GitHub.com>, make a new repository called "progdata-class".
+As you make it, do the following:
+
+  1. Give your repo a useful description.
+  2. Make it Public.
+  3. Check "Add a README file"
+  4. Check "Add .gitignore" and select "R" from the dropdown.
+  
+  
+## Navigating a GitHub Repository
+
+Let's take a look at various parts of a GitHub repo.
+
+  1. Files and folders/directories ("code")
+  2. History
+  3. Issues
+  
+There are other important features of GitHub (branches, issues) that we aren't going to use in class for now. Talk to me if you want to learn more.
+  
+Let's practice editing a file with GitHub.
+Make a new file on your participation repository and edit it:
+
+    - Click on the "Create New File" button on your repository's home page.
+    - Call it `navigating_github.md`
+    - Write something (e.g., what's your favorite color?). 
+    - Commit ("save") the file by clicking on green "commit new file" button at the bottom of the page.
+    - Now type something else (e.g., what's your favorite animal?) and commit the change.
+    
+Now look at your commit history in the "History" tab.
+  
+## Cloning a GitHub repo to your computer
+
+You can download a copy of your repository to your computer (**cloning** it), make changes (**commits**) there, then **push** them back to GitHub.
+
+Click big green "Code" button at the top of your repo page and choose "Open with GitHub Desktop". You can also do this from the File menu in GitHub Desktop.
+
+Note where the repository folder is being saved on your computer.
+Save it somewhere easy to find and not in a cloud folder. 
+
+Go to the folder on your computer. Any changes you make to files in this folder are tracked by the GitHub Desktop app and can be committed and pushed up to GitHub.
+
+Open your `navigating_github.md` file, make a change, then save, commit, and push it. Go look at your change on GitHub.
+
+
+## RStudio Projects
+
+RStudio projects are a way to manage which folder R runs in on your computer, where it looks for files to read in, and where it writes its output. 
+
+In RStudio, click File → New Project… → Existing Directory. Navigate to your GitHub repo folder. This will add an RStudio Project (`.Rproj`) file to the folder. 
+
+
+### The working directory
+
+When you open R, it "runs" in some folder on your computer. 
+This is the place it will look for files to import and write files as output. 
+Think about where your Rmd output files end up when you knit them.
+
+If you have R/RStudio closed, and you open a .R or .Rmd file, R/RStudio will start in the folder holding that file.
+
+If you open R/RStudio from the Windows Start menu, the Mac dock, the Mac Spotlight, etc., R/Studio will start in its default location (probably your user home directory, see Tools → Global Options → General → Default working directory…).
+
+When I say "R/Studio will start in…", what I am referring to is R's "working directory". 
+Like I say above, this is the place R will look for files to import and write files as output. 
+You can check what R's current working directory is using the `getwd()` function:
+
+```{r}
+getwd()
+```
+
+You can also change the working directory using the `setwd()` function:
+
+```{r, eval = FALSE}
+setwd(file.path("path", "to", "folder"))
+```
+
+Do not use `setwd()`! 
+You should always write your R scripts so that the entire project is self-contained in a folder. 
+All of the scripts, folders, data, output, etc. should all "live" within this project folder. 
+
+We will talk a lot about how to do this throughout the semester.
+For now, we will start by working with RStudio Projects to make this easier.
+
+When you double click on a .Rproj file, it:
+
+  1. Opens a new fresh R session, with
+  2. The working directory set to the location of the .Rproj file, and
+  3. No connection whatsoever to any other R sessions you already have open
+  
+You can also set specfic options for each RStudio project (e.g., number of spaces to insert when you type Tab, etc.).
+
+Let's practice closing RStudio and re-opening it by opening the RStudio project.
+Run `getwd()` to see where R is running. 
+
+
+## The Version Control Workflow
+
+Now, let's practice the workflow to work with your files with GitHub.
+
+### Editing a file and making a commit
+
+Open the `README.md` file in your local git folder by clicking on it in the Files pane. 
+`README.md` is a special file that will show when viewing a folder on GitHub.
+Use README files to describe the contents of a folder and what's going on there.
+
+Type "Hello world" and save the file.
+
+Now, go back to the GitHub Desktop app. It shows you the files in the git repo folder that **have changed since the last commit**. 
+Any files shown here have had changes made.
+(Remember, you need to save the file in RStudio [so the title on the Source tab isn't blue] before they appear in this list.)
+Changes shown here are not saved in the repo history until you **commit** them.
+
+If you've changed several files but want to only commit changes for some, uncheck the box next to the files you don't want to commit yet.
+
+You can view the changes in more detail by selecting the file name. 
+
+If you want to undo any changes and revert back to the previous committed version of a file, right click on the file name and click "Revert changes".
+
+To **commit** your changes, type a at the bottom of the right column describing what you've changed.
+Always give informative commit messages (help out future you!).
+When you are ready, click the "Commit" button.
+
+Now, you've made the commit locally, but you need to "push" it to GitHub so that it shows up there as well. 
+Click the "Push" (up arrow) button.
+
+Now go check out the file on GitHub online.
+
+
+### Fetching or Pulling Changes from the Remote Repo
+
+One of the amazing things about git is that it can track changes made to a file at different locations or on different computers and reconcile them together.
+(This is how it is so useful for collaboration!)
+
+Let's see how that works.
+
+  1. First, let's make a change directly on the GitHub website.
+     Edit `README.md` and type "oops!" at the top.
+     Commit your change.
+  1. Go back to GitHub Desktop
+  1. Click the "Fetch Origin" button.
+  1. See how the file on your local computer changed to reflect the change you made online.
+  
+Let's fix that "oops!".
+Delete it, commit your change (give an informative commit message), and push your changes back online.
+
+
+### The General Workflow
+
+You will use this basic workflow througout the semester (and your coding career).
+
+When you sit down to start working:
+
+  1. Open GitHub Desktop and select your repo.
+  2. Click the Fetch Origin button to fetch remote changes and get your local repo copy up to date.
+  3. Open you RStudio Project.
+  4. Make changes to your files.
+  5. Commit your changes.
+  6. Push your commits back up to the remote repo (GitHub).
+  
+You should get in the habit of **commit early, commit often**.
+Don't wait until you are completely done with your work to commit the changes.
+Make small commits as you go.
+This makes it much easier to go back if you accidentally break something and need to revert.
+
+
+
+```{r links, child="admin/md/courselinks.md"}
+```
