@@ -24,7 +24,7 @@
 <meta name="author" content="Brenton M. Wiernik" />
 
 
-<meta name="date" content="2022-01-11" />
+<meta name="date" content="2022-01-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="thoughtful-workflow.html"/>
-
+<link rel="next" href="r_scipts.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -213,6 +213,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="r_basics.html"><a href="r_basics.html#script-housekeeping"><i class="fa fa-check"></i><b>6.4</b> Script housekeeping</a></li>
 <li class="chapter" data-level="6.5" data-path="r_basics.html"><a href="r_basics.html#to-do-before-next-class"><i class="fa fa-check"></i><b>6.5</b> To do before next class</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="r_scipts.html"><a href="r_scipts.html"><i class="fa fa-check"></i><b>7</b> R Scripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="r_scipts.html"><a href="r_scipts.html#assign-an-object"><i class="fa fa-check"></i><b>7.1</b> Assign an Object</a></li>
+<li class="chapter" data-level="7.2" data-path="r_scipts.html"><a href="r_scipts.html#types-of-objects-and-operations"><i class="fa fa-check"></i><b>7.2</b> Types of Objects and Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="markdown.html"><a href="markdown.html"><i class="fa fa-check"></i><b>8</b> Markdown</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="markdown.html"><a href="markdown.html#markdown-syntax"><i class="fa fa-check"></i><b>8.1</b> Markdown syntax</a></li>
+<li class="chapter" data-level="8.2" data-path="markdown.html"><a href="markdown.html#rmarkdown-1"><i class="fa fa-check"></i><b>8.2</b> RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="github.html"><a href="github.html"><i class="fa fa-check"></i><b>9</b> GitHub and Version Control</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="github.html"><a href="github.html#learning-objectives"><i class="fa fa-check"></i><b>9.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="github.html"><a href="github.html#resources"><i class="fa fa-check"></i><b>9.2</b> Resources</a></li>
+<li class="chapter" data-level="9.3" data-path="github.html"><a href="github.html#octocat-git-and-github"><i class="fa fa-check"></i><b>9.3</b> :octocat: Git and GitHub</a></li>
+<li class="chapter" data-level="9.4" data-path="github.html"><a href="github.html#octocat-understanding-the-github-flow"><i class="fa fa-check"></i><b>9.4</b> :octocat: Understanding the GitHub flow</a></li>
+<li class="chapter" data-level="9.5" data-path="github.html"><a href="github.html#making-a-github-repository"><i class="fa fa-check"></i><b>9.5</b> Making a GitHub Repository</a></li>
+<li class="chapter" data-level="9.6" data-path="github.html"><a href="github.html#navigating-a-github-repository"><i class="fa fa-check"></i><b>9.6</b> Navigating a GitHub Repository</a></li>
+<li class="chapter" data-level="9.7" data-path="github.html"><a href="github.html#cloning-a-github-repo-to-your-computer"><i class="fa fa-check"></i><b>9.7</b> Cloning a GitHub repo to your computer</a></li>
+<li class="chapter" data-level="9.8" data-path="github.html"><a href="github.html#rstudio-projects"><i class="fa fa-check"></i><b>9.8</b> RStudio Projects</a></li>
+<li class="chapter" data-level="9.9" data-path="github.html"><a href="github.html#the-version-control-workflow"><i class="fa fa-check"></i><b>9.9</b> The Version Control Workflow</a></li>
+<li class="chapter" data-level="9.10" data-path="github.html"><a href="github.html#lab-1-getting-started-with-rstudio-git-and-markdown"><i class="fa fa-check"></i><b>9.10</b> Lab 1: Getting started with RStudio, Git, and Markdown</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
 
@@ -303,26 +326,24 @@ Typos matter. Case matters. Precision matters. We have to work within it’s nar
 <span id="cb22-2"><a href="r_basics.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
 <p>Not all functions have (or require) arguments:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="r_basics.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span>
-<span id="cb23-2"><a href="r_basics.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Tue Jan 11 04:23:02 2022&quot;</span></span></code></pre></div>
+<span id="cb23-2"><a href="r_basics.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thu Jan 13 02:46:15 2022&quot;</span></span></code></pre></div>
 <p>Now look at your workspace – in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="r_basics.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">objects</span>()</span>
 <span id="cb24-2"><a href="r_basics.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;all_pkgs&quot;                   &quot;brenton_rocks&quot;             </span></span>
-<span id="cb24-3"><a href="r_basics.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;check_quietly&quot;              &quot;ds4p_status&quot;               </span></span>
-<span id="cb24-4"><a href="r_basics.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;ds4p_urls&quot;                  &quot;install_quietly&quot;           </span></span>
-<span id="cb24-5"><a href="r_basics.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;pretty_install&quot;             &quot;sample_no_surprises&quot;       </span></span>
-<span id="cb24-6"><a href="r_basics.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;session&quot;                    &quot;shhh_check&quot;                </span></span>
-<span id="cb24-7"><a href="r_basics.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;slide_url&quot;                  &quot;this_is_a_really_long_name&quot;</span></span>
-<span id="cb24-8"><a href="r_basics.html#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;x&quot;                          &quot;y&quot;                         </span></span>
-<span id="cb24-9"><a href="r_basics.html#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] &quot;yo&quot;</span></span>
-<span id="cb24-10"><a href="r_basics.html#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
-<span id="cb24-11"><a href="r_basics.html#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;all_pkgs&quot;                   &quot;brenton_rocks&quot;             </span></span>
-<span id="cb24-12"><a href="r_basics.html#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;check_quietly&quot;              &quot;ds4p_status&quot;               </span></span>
-<span id="cb24-13"><a href="r_basics.html#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;ds4p_urls&quot;                  &quot;install_quietly&quot;           </span></span>
-<span id="cb24-14"><a href="r_basics.html#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;pretty_install&quot;             &quot;sample_no_surprises&quot;       </span></span>
-<span id="cb24-15"><a href="r_basics.html#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;session&quot;                    &quot;shhh_check&quot;                </span></span>
-<span id="cb24-16"><a href="r_basics.html#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;slide_url&quot;                  &quot;this_is_a_really_long_name&quot;</span></span>
-<span id="cb24-17"><a href="r_basics.html#cb24-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;x&quot;                          &quot;y&quot;                         </span></span>
-<span id="cb24-18"><a href="r_basics.html#cb24-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] &quot;yo&quot;</span></span></code></pre></div>
+<span id="cb24-3"><a href="r_basics.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;check_quietly&quot;              &quot;ds4p_urls&quot;                 </span></span>
+<span id="cb24-4"><a href="r_basics.html#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;install_quietly&quot;            &quot;pretty_install&quot;            </span></span>
+<span id="cb24-5"><a href="r_basics.html#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;sample_no_surprises&quot;        &quot;session&quot;                   </span></span>
+<span id="cb24-6"><a href="r_basics.html#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;shhh_check&quot;                 &quot;slide_url&quot;                 </span></span>
+<span id="cb24-7"><a href="r_basics.html#cb24-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;this_is_a_really_long_name&quot; &quot;x&quot;                         </span></span>
+<span id="cb24-8"><a href="r_basics.html#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;y&quot;                          &quot;yo&quot;</span></span>
+<span id="cb24-9"><a href="r_basics.html#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
+<span id="cb24-10"><a href="r_basics.html#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;all_pkgs&quot;                   &quot;brenton_rocks&quot;             </span></span>
+<span id="cb24-11"><a href="r_basics.html#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [3] &quot;check_quietly&quot;              &quot;ds4p_urls&quot;                 </span></span>
+<span id="cb24-12"><a href="r_basics.html#cb24-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [5] &quot;install_quietly&quot;            &quot;pretty_install&quot;            </span></span>
+<span id="cb24-13"><a href="r_basics.html#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;sample_no_surprises&quot;        &quot;session&quot;                   </span></span>
+<span id="cb24-14"><a href="r_basics.html#cb24-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] &quot;shhh_check&quot;                 &quot;slide_url&quot;                 </span></span>
+<span id="cb24-15"><a href="r_basics.html#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [11] &quot;this_is_a_really_long_name&quot; &quot;x&quot;                         </span></span>
+<span id="cb24-16"><a href="r_basics.html#cb24-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] &quot;y&quot;                          &quot;yo&quot;</span></span></code></pre></div>
 <p>If you want to remove the object named <code>y</code>, you can do this:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="r_basics.html#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(y)</span></code></pre></div>
 <p>To remove everything:</p>
@@ -386,7 +407,7 @@ Typos matter. Case matters. Precision matters. We have to work within it’s nar
 <span id="cb29-7"><a href="r_basics.html#cb29-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">40</span>)</span>
 <span id="cb29-8"><a href="r_basics.html#cb29-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(sig_sq))</span>
 <span id="cb29-9"><a href="r_basics.html#cb29-9" aria-hidden="true" tabindex="-1"></a>(avg_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x))</span>
-<span id="cb29-10"><a href="r_basics.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.512</span></span>
+<span id="cb29-10"><a href="r_basics.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.439</span></span>
 <span id="cb29-11"><a href="r_basics.html#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-12"><a href="r_basics.html#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># these lines save some output...</span></span>
 <span id="cb29-13"><a href="r_basics.html#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(avg_x, <span class="st">&quot;avg_x.txt&quot;</span>)</span>
@@ -500,8 +521,8 @@ Then, replace all the hard-coded 40s with <code>n</code>. Change some other mino
           </div>
         </div>
       </div>
-<a href="thoughtful-workflow.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="thoughtful-workflow.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r_scipts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

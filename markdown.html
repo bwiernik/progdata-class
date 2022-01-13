@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 5 Thoughtful Workflow | Programming with Data</title>
-  <meta name="description" content="Part 5 Thoughtful Workflow | Programming with Data" />
+  <title>Part 8 Markdown | Programming with Data</title>
+  <meta name="description" content="Part 8 Markdown | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 5 Thoughtful Workflow | Programming with Data" />
+  <meta property="og:title" content="Part 8 Markdown | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 5 Thoughtful Workflow | Programming with Data" />
+  <meta name="twitter:title" content="Part 8 Markdown | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="bechdal.html"/>
-<link rel="next" href="r_basics.html"/>
+<link rel="prev" href="r_scipts.html"/>
+<link rel="next" href="github.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -256,76 +256,108 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="thoughtful-workflow" class="section level1" number="5">
-<h1><span class="header-section-number">Part 5</span> Thoughtful Workflow</h1>
-<p>At this point, I recommend you pause and think about your workflow. I give you permission to spend some time and energy sorting this out! It can be as or more important than learning a new R function or package. The experts don’t talk about this much, because they’ve already got a workflow; it’s something they do almost without thinking.</p>
-<p>Working through subsequent material in R Markdown documents, possibly using Git and GitHub to track and share your progress, is a great idea and will leave you more prepared for your future data analysis projects. Typing individual lines of R code is but a small part of data analysis and it pays off to think holistically about your workflow.</p>
-<p>If you want a lot more detail on workflows, you can wander over to the optional bit on <a href="r_basics.html#r_basics">r basics and workflow</a>.</p>
-<div id="rmarkdown" class="section level2" number="5.1">
-<h2><span class="header-section-number">5.1</span> R Markdown</h2>
-<div class="vembedr" align="center">
-<div>
-<iframe src="https://www.youtube.com/embed/fIhIqTy8PVw?start=412" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
+<div id="markdown" class="section level1" number="8">
+<h1><span class="header-section-number">Part 8</span> Markdown</h1>
+<p>Markdown is a lightweight syntax for writing documents.
+Markdown documents can contain text, formatting, images, links, and more!</p>
+<p>Some cheat sheets for “quick reference”:</p>
+<ul>
+<li><a href="https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf">GitHub’s markdown cheatsheet</a></li>
+<li><a href="http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">RStudio’s RMarkdown cheatsheet</a></li>
+</ul>
+<p>Further reading:</p>
+<ul>
+<li>The <a href="https://rmarkdown.rstudio.com/">Rmd website</a> has a fantastic walk-through <a href="https://rmarkdown.rstudio.com/lesson-1.html">tutorial</a> that gives a great overview of RMarkdown.</li>
+<li>There’s also a nice <a href="https://rmarkdown.rstudio.com/authoring_quick_tour.html">overview video</a> on the Rmd website, too.</li>
+<li>Yihui’s <a href="https://bookdown.org/yihui/rmarkdown/">Rmd book</a> for lots more on RMarkdown.</li>
+</ul>
+<p>Other explorations of this content:</p>
+<ul>
+<li>Interactive <a href="https://commonmark.org/help/tutorial/">tutorial</a> for learning markdown.</li>
+<li>The <a href="https://happygitwithr.com/rmd-test-drive.html">Happy Git with R: Rmd test drive</a>.</li>
+</ul>
+<div id="markdown-syntax" class="section level2" number="8.1">
+<h2><span class="header-section-number">8.1</span> Markdown syntax</h2>
+<p>Markdown is plain text with a straightforward, readable way of marking up your text.
+Let’s see <a href="https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf">GitHub’s cheat sheet</a>.</p>
+<p>We will use RStudio to convert Markdown to output formats like HTML or PDF.</p>
+<div id="make-a-markdown-document" class="section level3" number="8.1.1">
+<h3><span class="header-section-number">8.1.1</span> Make a Markdown document</h3>
+<ol style="list-style-type: decimal">
+<li>Make a new Markdown file in RStudio, then save it as <code>exploring_markdown.md</code>.</li>
+<li>Add some text, such as introducing yourself and what your favorite animal is.</li>
+<li>Mark up the text with some markdown features (e.g., bold, italic, bullets, a link to a URL on the internet).</li>
+</ol>
+<p>Use the file extension <code>.md</code> for regular Markdown files with no R code in them.</p>
+</div>
+<div id="render-exploring_markdown.rmd" class="section level3" number="8.1.2">
+<h3><span class="header-section-number">8.1.2</span> Render <code>exploring_markdown.Rmd</code></h3>
+<p>We can use RStudio to convert our plain text Markdown document into various output formats.
+Above the script editor in RStudio, click the <code>Preview</code> or <code>Knit</code> button and convert your file to HTML.</p>
+</div>
+<div id="output-formats" class="section level3" number="8.1.3">
+<h3><span class="header-section-number">8.1.3</span> Output formats</h3>
+<p>There are generally two prominent file types to display documents of various types:</p>
+<ol style="list-style-type: decimal">
+<li><strong>pdf</strong>: This is useful if you intend to print your work onto a physical sheet of paper, or for presentation slides. If this is not the primary purpose, then try to avoid it, because formatting things so that it fits to the page can be more effort than its worth (unless you’re making presentation slides). - Example: Most journals articles and preprints.</li>
+<li><strong>html</strong>: This is what you see when you visit a webpage. Content does not need to be partitioned to pages. - Example: My <a href="https://wiernik.org">website main page</a>, and its corresponding <a href="https://github.com/bwiernik/wiernik_org/blob/master/public/index.html">html file</a>.</li>
+</ol>
+<p>We’ll be treating pdf and html files as <em>output</em> that should not be edited. Markdown is the <strong>source</strong> that is edited.</p>
+</div>
+<div id="word-processor-formats" class="section level3" number="8.1.4">
+<h3><span class="header-section-number">8.1.4</span> Word processor formats</h3>
+<p>It is also possible to output files to word processor formats, such as Word (.docx), LibreOffice/OpenDocument (.odt), or Rich Text (.rtf).
+You can also output to other slideshow software, such as PowerPoint (.pptx) or LibreOffice/OpenDocument Slides (.odp).</p>
+<p>We aren’t going to use these in this class because we will focus on making fully reproducible documents.</p>
+<p>There are times when you have to use these formats (e.g., a journal requires Word, a conference requires PowerPoint, your advisor or collaborator requires Word).
+If you have to do this, try to avoid <em>editing your R output in these formats</em>.
+If you need to make revisions, go back and make changes to the source code, rather than the rendered document.
+In your general work, you can find a balance working with automated output and Word documents, but we are going to focus on fully reproducible documents in this class.</p>
+</div>
+<div id="other-output-formats" class="section level3" number="8.1.5">
+<h3><span class="header-section-number">8.1.5</span> Other Output Formats</h3>
+<p>RMarkdown can be rended to <em>many</em> other formats that we won’t have time to cover (see the <a href="https://bookdown.org/yihui/rmarkdown/output-formats.html">RMarkdown documentation</a> and the <a href="https://pandoc.org/MANUAL.html#option--to">pandoc documentation</a>).</p>
 </div>
 </div>
-<p>If you are in the mood to be entertained, start the video from the beginning. But if you’d rather just get on with it, start watching at 6:52.</p>
-<p>You can follow along with the slides <a href="https://datascience4psych.github.io/slides/d02_toolkit/d02_toolkit.html">here</a> if they do not appear below.</p>
-<iframe src="https://datascience4psych.github.io/slides/d02_toolkit/d02_toolkit.html#26" width="672" height="400px" data-external="1">
-</iframe>
-<!--Original content: https://stat545.com/block007_first-use-rmarkdown.html-->
-<p>R Markdown is an accessible way to create computational documents that combine prose and tables and figures produced by R code.</p>
-<p>An introductory R Markdown workflow, including how it intersects with Git, GitHub, and RStudio, is now maintained within the Happy Git site:</p>
-<p><a href="https://happygitwithr.com/rmd-test-drive.html">Test drive R Markdown</a></p>
+<div id="rmarkdown-1" class="section level2" number="8.2">
+<h2><span class="header-section-number">8.2</span> RMarkdown</h2>
+<p>RMarkdown (Rmd) combines Markdown and R scripts into one!</p>
+<p>It includes <strong>code chunks</strong> with R code (or other languages) that is run before the document is knitted.</p>
+<p>Here’s <a href="http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf">RStudio’s cheat sheet</a> on Rmd.</p>
+<p>You can see that it has more features than “regular” markdown!</p>
+<div id="code-chunks" class="section level3" number="8.2.1">
+<h3><span class="header-section-number">8.2.1</span> Code Chunks</h3>
+<p>The parts of your document inside the “fences” <code>```</code> are <strong>code chunks</strong>.</p>
+<p>When you render the RMarkdown document, R will run the code in the chunks and show the output in the rendered document.</p>
+<p>You can run the code from a chunk interactively by placing your cursor on the line and typing Ctrl/Cmd + Enter/Return or by clicking the green “play” button at the top right of the code chunk.</p>
+<p>Add a new code chunk by doing one of these:</p>
+<ul>
+<li>Clicking the Insert button and choosing R or by typing -&gt; “R”</li>
+<li>Typing Mac: <code>Cmd + Option + I</code> or Windows: <code>Ctrl + Alt + I</code></li>
+<li>Manually typing three back ticks followed by {r} in curly brackets: <code>```{r}</code>, then typing three back ticks on a later line to “close” the code block: <code>```</code>.</li>
+</ul>
+<p>Add a code chunk near the top of the file and load the <em>tibble</em> package.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="markdown.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tibble)</span>
+<span id="cb46-2"><a href="markdown.html#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
+<p>If you don’t have <em>knitr</em> installed, install it with <code>install.packages("knitr")</code>.</p>
 </div>
-<div id="installgit" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Git and Github</h2>
-<div class="figure">
-<img src="https://imgs.xkcd.com/comics/git.png" alt="" />
-<p class="caption">XKCD on Git</p>
-</div>
-<!-- source https://github.com/uo-ec607/lectures/blob/master/02-git/02-Git.Rmd -->
-<p>First, it’s important to realize that Git and GitHub are distinct things. GitHub is an online hosting platform that provides an array of services built on top of the Git system. (Similar platforms include Bitbucket and GitLab.) Just like we don’t <em>need</em> Rstudio to run R code, we don’t <em>need</em> GitHub to use Git… But, it will make our lives so much easier.</p>
-<p>Git can be very powerful and useful, but it can also take some getting used to.
-In this class, we are going to work with some of its most basic functions.
-We will do all of our interfacing with Git using the GitHub app and website.</p>
-<p>You can follow along with the slides <a href="https://datascience4psych.github.io/slides/d02_toolkit/d02_toolkit.html">here</a> if they do not appear below.</p>
-<iframe src="https://datascience4psych.github.io/slides/d02_toolkit/d02_toolkit.html#30" width="672" height="400px" data-external="1">
-</iframe>
-<div id="what-is-github" class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> What is Github?</h3>
-<div class="vembedr" align="center">
-<div>
-<iframe src="https://www.youtube.com/embed/w3jLJU7DT5E" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
-</div>
-</div>
-</div>
-<div id="git" class="section level3" number="5.2.2">
-<h3><span class="header-section-number">5.2.2</span> Git</h3>
-<p>Git is a <strong>distributed Version Control System (VCS)</strong>. It is a useful tool for easily tracking changes to your code, collaborating, and sharing.</p>
-<blockquote>
-<p>(Wait, what?)
-Okay, try this: Imagine if Dropbox and the “Track changes” feature in MS Word had a baby. Git would be that baby.
-In fact, it’s even better than that because Git is optimized for the things that social scientists and data scientists spend a lot of time working on (e.g. code).</p>
-</blockquote>
-<p>The learning curve is worth it – I promise you!</p>
-<p>With Git, you can track the changes you make to your project so you always have a record of what you’ve worked on and can easily revert back to an older version if need be. It also makes working with others easier -— groups of people can work together on the same project and merge their changes into one final source!</p>
-<p>GitHub is a way to use the same power of Git all online with an easy-to-use interface. It’s used across the software world and beyond to collaborate and maintain the history of projects.</p>
-<blockquote>
-<p>There’s a high probability that your favorite app, program or package is built using Git-based tools. (RStudio is a case in point.)</p>
-</blockquote>
-<p>Scientists and academic researchers are starting to use it as well. Benefits of version control and collaboration tools aside, Git(Hub) helps to operationalize the ideals of open science and reproducibility. Journals have increasingly strict requirements regarding reproducibility and data access. GH makes this easy (DOI integration, off-the-shelf licenses, etc.). I run my <a href="https://github.com/R-Computing-Lab">entire lab on GH</a>; this entire course is running on github; these lecture notes are hosted on github…</p>
-</div>
-</div>
-<div id="getting-help-with-r" class="section level2" number="5.3">
-<h2><span class="header-section-number">5.3</span> Getting Help with R</h2>
-<p>You can follow along with the slides <a href="https://datascience4psych.github.io/slides/d02_toolkit/d02_toolkit.html">here</a> if they do not appear below.</p>
-<div class="vembedr" align="center">
-<div>
-<iframe src="https://www.youtube.com/embed/O2wfi7Z0Py4" width="533" height="300" frameborder="0" allowfullscreen="" data-external="1"></iframe>
-</div>
-</div>
-<iframe src="https://datascience4psych.github.io/slides/d02_toolkit/d02_toolkit.html#41" width="672" height="400px" data-external="1">
-</iframe>
+<div id="rendering-output" class="section level3" number="8.2.2">
+<h3><span class="header-section-number">8.2.2</span> Rendering output</h3>
+<p>In a new code chunk, convert the <code>mtcars</code> data frame to a tibble using the <code>tibble::as_tibble()</code> function and assign it as a new object (e.g., called <code>mtcars_tbl</code>).
+Print it out by typing its name or using the <code>print()</code> function.</p>
+<p>When you print with just the <code>print()</code> function, your table will look like R console script in your output HTML or PDF.
+To make your tables look nicer in the output, use the <code>knitr::kable()</code> function to convert the results to a Markdown table.</p>
+<p>In a new code chunk, print the <code>mtcars_tbl</code> using <code>knitr::kable()</code>.</p>
+<p>We will explore other table tools in future classes.</p>
+<p>Add some markdown commentary about the tables you are showing.
+Your markdown commentary needs to go outside of the code chunks.</p>
+<p>You can also include R code “in-line” with markdown text.
+This is useful, for example, in your results section of a paper to report the results of your analyses without having to copy-paste them (and make errors).</p>
+<p>Add an in-line code chunk specifying the number of rows of the <code>mtcars</code> dataset like this:</p>
+<ul>
+<li><code>The `mtcars` dataset has 32 rows.</code></li>
+</ul>
+<p>Now, “Knit” to HTML.</p>
 <!-- Video Links-->
 <!-- [pl_00]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaEAnJX20Ryy4OSie375rVY -->
 <!-- 
@@ -377,13 +409,14 @@ In fact, it’s even better than that because Git is optimized for the things th
 
 </div>
 </div>
+</div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="bechdal.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="r_basics.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="r_scipts.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="github.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -414,7 +447,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0101_welcome.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0104_markdown.Rmd",
 "text": "Edit"
 },
 "history": {
