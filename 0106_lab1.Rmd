@@ -1,4 +1,4 @@
-## Lab 1: Getting started with RStudio, Git, and Markdown
+# Lab 1: Getting started with RStudio, Git, and Markdown
 
 In this lab you will do 4 things:
 
@@ -7,7 +7,7 @@ In this lab you will do 4 things:
 3. Practice using some basic functions in R.
 4. Make a GitHub repository to save and share your work.
 
-### Part 1: Set up R and RStudio
+## Part 1: Set up R and RStudio
 
 First, install two packages we will use a lot in class:
 
@@ -42,7 +42,7 @@ Go ahead and customize your RStudio appearance (color theme, font, etc.) and pan
 You can always come back and change these later until you find a setup you like.
   
 
-### Part 2: Make a README.md file with Markdown
+## Part 2: Make a README.md file with Markdown
 
 In RStudio, make a **Markdown** file from the File menu.
 Save this file with the name `README.md`. README should be in all caps.
@@ -58,7 +58,7 @@ When writing your README, be sure to showcase at least five functionalities of G
 Here's a [sample README file](https://github.com/USF-Psych-DataSci/DataSci-home/blob/master/content/evaluation/hw01/sample_readme.md) that goes way above and beyond what I'm looking for (aside from describing the repo).
 
 
-### Part 3: Practice some R fucntions
+## Part 3: Practice some R fucntions
 
 In RStudio, make an **R script** file from the File menu. 
 In this file, you will explore the `palmerpenguins::penguins` dataset.
@@ -75,7 +75,7 @@ You should:
 Save your R script with a useful name, such as `lab01_exploring-penguins.R`.
 
 
-### Part 4: Make a GitHub Repository for your work
+## Part 4: Make a GitHub Repository for your work
 
 On GitHub.com, make a new repository called "progdata-class".
 As you make it, do the following:
