@@ -234,7 +234,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7" data-path="github.html"><a href="github.html#cloning-a-github-repo-to-your-computer"><i class="fa fa-check"></i><b>9.7</b> Cloning a GitHub repo to your computer</a></li>
 <li class="chapter" data-level="9.8" data-path="github.html"><a href="github.html#rstudio-projects"><i class="fa fa-check"></i><b>9.8</b> RStudio Projects</a></li>
 <li class="chapter" data-level="9.9" data-path="github.html"><a href="github.html#the-version-control-workflow"><i class="fa fa-check"></i><b>9.9</b> The Version Control Workflow</a></li>
-<li class="chapter" data-level="9.10" data-path="github.html"><a href="github.html#lab-1-getting-started-with-rstudio-git-and-markdown"><i class="fa fa-check"></i><b>9.10</b> Lab 1: Getting started with RStudio, Git, and Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html"><i class="fa fa-check"></i><b>10</b> Lab 1: Getting started with RStudio, Git, and Markdown</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-1-set-up-r-and-rstudio"><i class="fa fa-check"></i><b>10.1</b> Part 1: Set up R and RStudio</a></li>
+<li class="chapter" data-level="10.2" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-2-make-a-readme.md-file-with-markdown"><i class="fa fa-check"></i><b>10.2</b> Part 2: Make a README.md file with Markdown</a></li>
+<li class="chapter" data-level="10.3" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-3-practice-some-r-fucntions"><i class="fa fa-check"></i><b>10.3</b> Part 3: Practice some R fucntions</a></li>
+<li class="chapter" data-level="10.4" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-4-make-a-github-repository-for-your-work"><i class="fa fa-check"></i><b>10.4</b> Part 4: Make a GitHub Repository for your work</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
@@ -326,7 +332,7 @@ Typos matter. Case matters. Precision matters. We have to work within it’s nar
 <span id="cb22-2"><a href="r_basics.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
 <p>Not all functions have (or require) arguments:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="r_basics.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span>
-<span id="cb23-2"><a href="r_basics.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thu Jan 13 02:46:15 2022&quot;</span></span></code></pre></div>
+<span id="cb23-2"><a href="r_basics.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thu Jan 13 02:55:37 2022&quot;</span></span></code></pre></div>
 <p>Now look at your workspace – in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="r_basics.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">objects</span>()</span>
 <span id="cb24-2"><a href="r_basics.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;all_pkgs&quot;                   &quot;brenton_rocks&quot;             </span></span>
@@ -407,7 +413,7 @@ Typos matter. Case matters. Precision matters. We have to work within it’s nar
 <span id="cb29-7"><a href="r_basics.html#cb29-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">40</span>)</span>
 <span id="cb29-8"><a href="r_basics.html#cb29-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(sig_sq))</span>
 <span id="cb29-9"><a href="r_basics.html#cb29-9" aria-hidden="true" tabindex="-1"></a>(avg_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x))</span>
-<span id="cb29-10"><a href="r_basics.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.439</span></span>
+<span id="cb29-10"><a href="r_basics.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.478</span></span>
 <span id="cb29-11"><a href="r_basics.html#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-12"><a href="r_basics.html#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># these lines save some output...</span></span>
 <span id="cb29-13"><a href="r_basics.html#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(avg_x, <span class="st">&quot;avg_x.txt&quot;</span>)</span>

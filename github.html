@@ -32,7 +32,7 @@
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="markdown.html"/>
-
+<link rel="next" href="lab-1-getting-started-with-rstudio-git-and-markdown.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -234,7 +234,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7" data-path="github.html"><a href="github.html#cloning-a-github-repo-to-your-computer"><i class="fa fa-check"></i><b>9.7</b> Cloning a GitHub repo to your computer</a></li>
 <li class="chapter" data-level="9.8" data-path="github.html"><a href="github.html#rstudio-projects"><i class="fa fa-check"></i><b>9.8</b> RStudio Projects</a></li>
 <li class="chapter" data-level="9.9" data-path="github.html"><a href="github.html#the-version-control-workflow"><i class="fa fa-check"></i><b>9.9</b> The Version Control Workflow</a></li>
-<li class="chapter" data-level="9.10" data-path="github.html"><a href="github.html#lab-1-getting-started-with-rstudio-git-and-markdown"><i class="fa fa-check"></i><b>9.10</b> Lab 1: Getting started with RStudio, Git, and Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html"><i class="fa fa-check"></i><b>10</b> Lab 1: Getting started with RStudio, Git, and Markdown</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-1-set-up-r-and-rstudio"><i class="fa fa-check"></i><b>10.1</b> Part 1: Set up R and RStudio</a></li>
+<li class="chapter" data-level="10.2" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-2-make-a-readme.md-file-with-markdown"><i class="fa fa-check"></i><b>10.2</b> Part 2: Make a README.md file with Markdown</a></li>
+<li class="chapter" data-level="10.3" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-3-practice-some-r-fucntions"><i class="fa fa-check"></i><b>10.3</b> Part 3: Practice some R fucntions</a></li>
+<li class="chapter" data-level="10.4" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-4-make-a-github-repository-for-your-work"><i class="fa fa-check"></i><b>10.4</b> Part 4: Make a GitHub Repository for your work</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
@@ -501,117 +507,14 @@ This makes it much easier to go back if you accidentally break something and nee
 
 </div>
 </div>
-<div id="lab-1-getting-started-with-rstudio-git-and-markdown" class="section level2" number="9.10">
-<h2><span class="header-section-number">9.10</span> Lab 1: Getting started with RStudio, Git, and Markdown</h2>
-<p>In this lab you will do 4 things:</p>
-<ol style="list-style-type: decimal">
-<li>Get aquainted with RStudio and customize it to your liking.</li>
-<li>Practice writing a document with Markdown.</li>
-<li>Practice using some basic functions in R.</li>
-<li>Make a GitHub repository to save and share your work.</li>
-</ol>
-<div id="part-1-set-up-r-and-rstudio" class="section level3" number="9.10.1">
-<h3><span class="header-section-number">9.10.1</span> Part 1: Set up R and RStudio</h3>
-<p>First, install two packages we will use a lot in class:</p>
-<ol style="list-style-type: decimal">
-<li><code>tidyverse</code></li>
-<li><code>palmerpenguins</code></li>
-</ol>
-<p>Next, customize some RStudio settings:</p>
-<ol style="list-style-type: decimal">
-<li>Click Tools → Global Options…
-1. On the first page, under <strong>Workspace</strong>:
-<ul>
-<li>Uncheck <em>Restore .RData into workspace at startup</em></li>
-<li>Set <em>Save workspace to .RData on exit</em> to <em>Never</em>
-<ol start="2" style="list-style-type: decimal">
-<li>Under <strong>History</strong>:</li>
-</ol></li>
-<li>Uncheck <em>Always save history (even when not saving .RData)</em>
-<ol start="3" style="list-style-type: decimal">
-<li>Click the <strong>Advanced</strong> button at the top. Under <strong>Other</strong>:</li>
-</ol></li>
-<li>Check <em>Show .Last.value in environment listing</em></li>
-</ul></li>
-</ol>
-<p>Now, adjust the appearance of RStudio to your liking:</p>
-<ol style="list-style-type: decimal">
-<li>In the Pane Layout window, you can rearrange RStudio’s 4 panes.</li>
-<li>In the Appearance window, you can change your font size, code typeface, and RStudio color scheme.
-- I use the Tomorrow Night Bright color scheme.</li>
-<li>In the Code window, you can change various ways about how code is inserted and shown.
-Change 3 settings from their defaults:
-<ul>
-<li>On the <strong>Editing</strong> page, under <strong>General</strong>, check <em>Use native pipe operator |&gt; (requires R 4.1+)</em></li>
-<li>On the <strong>Editing</strong> page, under <strong>Execution</strong> ,set <em>Ctrl/Cmd+Enter executes</em> to <em>Multiple consecutive R lines</em></li>
-<li>On the <strong>Display</strong> page, check <em>Rainbow parentheses</em></li>
-</ul></li>
-<li>In the RMarkdown window, you can change how RMarkdown is shown while you edit it.
-- Uncheck <em>Show output inline for all RMarkdown documents</em>.</li>
-</ol>
-<p>Go ahead and customize your RStudio appearance (color theme, font, etc.) and pane layout to whatever you find appealing.
-You can always come back and change these later until you find a setup you like.</p>
-</div>
-<div id="part-2-make-a-readme.md-file-with-markdown" class="section level3" number="9.10.2">
-<h3><span class="header-section-number">9.10.2</span> Part 2: Make a README.md file with Markdown</h3>
-<p>In RStudio, make a <strong>Markdown</strong> file from the File menu.
-Save this file with the name <code>README.md</code>. README should be in all caps.
-This file will be the introduction to your class GitHub repo.
-Use it to introduce yourself and practice your Markdown skills.</p>
-<p>The beginning of the README should contain a very brief description as to what the repository is (a sentence or two), so that a visitor landing on the repository can orient themselves. You should also help the visitor navigate your repository (in whatever way you think is most appropriate).</p>
-<p>Then, introduce yourself briefly.</p>
-<p>When writing your README, be sure to showcase at least five functionalities of GitHub-flavored markdown. The <a href="https://guides.github.com/pdfs/markdown-cheatsheet-online.pdf">markdown cheatsheet</a> might help here, or, the <em>Help</em> menu in RStudio will bring up a Markdown Quick Reference at any time.</p>
-<p>Here’s a <a href="https://github.com/USF-Psych-DataSci/DataSci-home/blob/master/content/evaluation/hw01/sample_readme.md">sample README file</a> that goes way above and beyond what I’m looking for (aside from describing the repo).</p>
-</div>
-<div id="part-3-practice-some-r-fucntions" class="section level3" number="9.10.3">
-<h3><span class="header-section-number">9.10.3</span> Part 3: Practice some R fucntions</h3>
-<p>In RStudio, make an <strong>R script</strong> file from the File menu.
-In this file, you will explore the <code>palmerpenguins::penguins</code> dataset.</p>
-<p>Use some R functions to explore this data frame a bit.
-For example, what is the general structure of the dataset?
-How many rows does it have? How many colums?
-What are the descriptive statistics for some of the important variables?</p>
-<p>You should:
-1. Demonstrate the use of at least three functions.
-2. Write code comments with <code>#</code> describing what the functions you are using do.</p>
-<p>Save your R script with a useful name, such as <code>lab01_exploring-penguins.R</code>.</p>
-</div>
-<div id="part-4-make-a-github-repository-for-your-work" class="section level3" number="9.10.4">
-<h3><span class="header-section-number">9.10.4</span> Part 4: Make a GitHub Repository for your work</h3>
-<p>On GitHub.com, make a new repository called “progdata-class”.
-As you make it, do the following:</p>
-<ol style="list-style-type: decimal">
-<li>Give your repo a useful description.</li>
-<li>Make it Public.</li>
-<li>Check “Add a README file”</li>
-<li>Check “Add .gitignore” and select “R” from the dropdown.</li>
-<li>Clone your repo to the GitHub Desktop app.</li>
-</ol>
-<p>If you are using a Mac anywhere, also do this:
-6. In RStudio, open the <code>.gitignore</code> file.
-Add “.DS_Store” (no quotes) to the end of the file.
-Save the file and commit the change.</p>
-<p>Now, add your files for this lab to your repo and commit them.
-Remember, commit early, commit often! Make small changes at a time.
-Write a useful commit message for each commit.</p>
-<ol style="list-style-type: decimal">
-<li>Add your README.md file and commit it.</li>
-<li>Add your data exploration R script to a folder called “Lab 1” and commit it.</li>
-<li>Add any other scripts or files you made in class to the Lab 1 folder as well.</li>
-<li>Push your changes up to GitHub.</li>
-</ol>
-<p>Finally, copy a link to your repo to the thread on the class Teams.</p>
-
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="markdown.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="markdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lab-1-getting-started-with-rstudio-git-and-markdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
