@@ -27,7 +27,7 @@ If you want to learn more about Git and GitHub, check out:
 - [Interactive Git training materials](https://githubtraining.github.io/training-manual/#/01_getting_ready_for_class)
 
 
-## :octocat: Git and GitHub
+## Git and GitHub
 
 We will be using [GitHub](https://github.com) a lot in this course.
 
@@ -50,7 +50,7 @@ There are 3 key benefits of GitHub compared to those other services.
      We will practice using GitHub for collaboration through the weekly homework.
 
 
-## :octocat: Understanding the GitHub flow 
+## Understanding the GitHub flow 
 
 The GitHub flow is a lightweight workflow that allows you to experiment and collaborate on your projects easily, without the risk of losing your previous work.
 

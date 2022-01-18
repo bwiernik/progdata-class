@@ -2,7 +2,7 @@
 
 In this lab you will do 4 things:
 
-1. Get aquainted with RStudio and customize it to your liking.
+1. Get acquainted with RStudio and customize it to your liking.
 2. Practice writing a document with Markdown.
 3. Practice using some basic functions in R.
 4. Make a GitHub repository to save and share your work.
