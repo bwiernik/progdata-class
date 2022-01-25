@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 13 Working with ggplot2 | Programming with Data</title>
+  <meta name="description" content="Part 13 Working with ggplot2 | Programming with Data" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 13 Working with ggplot2 | Programming with Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/progdata_class_icon.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 13 Working with ggplot2 | Programming with Data" />
+  
+  
+  <meta name="twitter:image" content="/progdata_class_icon.png" />
+
+<meta name="author" content="Brenton M. Wiernik" />
+
+
+<meta name="date" content="2022-01-25" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="the-grammar-of-graphics.html"/>
+<link rel="next" href="activity-build-some-plots.html"/>
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.20/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<link href="libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet" />
+<script src="libs/twitter-widget-0.0.1/widgets.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-147022704-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Programming with Data!</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About This Guide</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#brentons-notes"><i class="fa fa-check"></i>Brenton’s Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html"><i class="fa fa-check"></i>Attribution</a>
+<ul>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html#major-attributions"><i class="fa fa-check"></i>Major Attributions</a></li>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html#additional-attributions"><i class="fa fa-check"></i>Additional Attributions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i>License</a></li>
+<li class="chapter" data-level="" data-path="colophon.html"><a href="colophon.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="part"><span><b>Module 00</b></span></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="getting-started.html"><a href="getting-started.html#big-ideas"><i class="fa fa-check"></i><b>0.1</b> Big Ideas</a></li>
+<li class="chapter" data-level="0.2" data-path="getting-started.html"><a href="getting-started.html#course-modality"><i class="fa fa-check"></i><b>0.2</b> Course Modality</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i>Syllabus</a>
+<ul>
+<li class="chapter" data-level="0.3" data-path="syllabus.html"><a href="syllabus.html#materials"><i class="fa fa-check"></i><b>0.3</b> Materials</a></li>
+<li class="chapter" data-level="0.4" data-path="syllabus.html"><a href="syllabus.html#assignment-instructions"><i class="fa fa-check"></i><b>0.4</b> Assignment Instructions</a></li>
+<li class="chapter" data-level="0.5" data-path="syllabus.html"><a href="syllabus.html#due-dates"><i class="fa fa-check"></i><b>0.5</b> Due dates</a></li>
+</ul></li>
+<li class="part"><span><b>I Module 01</b></span></li>
+<li class="chapter" data-level="1" data-path="welcome-to-data-science.html"><a href="welcome-to-data-science.html"><i class="fa fa-check"></i><b>1</b> Welcome to Data Science</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="welcome-to-data-science.html"><a href="welcome-to-data-science.html#module-materials"><i class="fa fa-check"></i><b>1.1</b> Module Materials</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="what-is-data-science.html"><a href="what-is-data-science.html"><i class="fa fa-check"></i><b>2</b> What is Data Science?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="what-is-data-science.html"><a href="what-is-data-science.html#see-for-yourselves"><i class="fa fa-check"></i><b>2.1</b> See for yourselves!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="meet-our-toolbox.html"><a href="meet-our-toolbox.html"><i class="fa fa-check"></i><b>3</b> Meet our toolbox!</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="meet-our-toolbox.html"><a href="meet-our-toolbox.html#r-and-rstudio"><i class="fa fa-check"></i><b>3.1</b> R and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="bechdal.html"><a href="bechdal.html"><i class="fa fa-check"></i><b>4</b> Bechdel Activity</a></li>
+<li class="chapter" data-level="5" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html"><i class="fa fa-check"></i><b>5</b> Thoughtful Workflow</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#rmarkdown"><i class="fa fa-check"></i><b>5.1</b> R Markdown</a></li>
+<li class="chapter" data-level="5.2" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#installgit"><i class="fa fa-check"></i><b>5.2</b> Git and Github</a></li>
+<li class="chapter" data-level="5.3" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#getting-help-with-r"><i class="fa fa-check"></i><b>5.3</b> Getting Help with R</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r_basics.html"><a href="r_basics.html"><i class="fa fa-check"></i><b>6</b> R basics and workflows</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="r_basics.html"><a href="r_basics.html#basics-of-working-with-r-at-the-command-line-and-rstudio-goodies"><i class="fa fa-check"></i><b>6.1</b> Basics of working with R at the command line and RStudio goodies</a></li>
+<li class="chapter" data-level="6.2" data-path="r_basics.html"><a href="r_basics.html#workspace-and-working-directory"><i class="fa fa-check"></i><b>6.2</b> Workspace and working directory</a></li>
+<li class="chapter" data-level="6.3" data-path="r_basics.html"><a href="r_basics.html#saving-an-r-script"><i class="fa fa-check"></i><b>6.3</b> Saving an R script</a></li>
+<li class="chapter" data-level="6.4" data-path="r_basics.html"><a href="r_basics.html#script-housekeeping"><i class="fa fa-check"></i><b>6.4</b> Script housekeeping</a></li>
+<li class="chapter" data-level="6.5" data-path="r_basics.html"><a href="r_basics.html#to-do-before-next-class"><i class="fa fa-check"></i><b>6.5</b> To do before next class</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="r_scipts.html"><a href="r_scipts.html"><i class="fa fa-check"></i><b>7</b> R Scripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="r_scipts.html"><a href="r_scipts.html#assign-an-object"><i class="fa fa-check"></i><b>7.1</b> Assign an Object</a></li>
+<li class="chapter" data-level="7.2" data-path="r_scipts.html"><a href="r_scipts.html#types-of-objects-and-operations"><i class="fa fa-check"></i><b>7.2</b> Types of Objects and Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="markdown.html"><a href="markdown.html"><i class="fa fa-check"></i><b>8</b> Markdown</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="markdown.html"><a href="markdown.html#markdown-syntax"><i class="fa fa-check"></i><b>8.1</b> Markdown syntax</a></li>
+<li class="chapter" data-level="8.2" data-path="markdown.html"><a href="markdown.html#rmarkdown-1"><i class="fa fa-check"></i><b>8.2</b> RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="github.html"><a href="github.html"><i class="fa fa-check"></i><b>9</b> GitHub and Version Control</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="github.html"><a href="github.html#learning-objectives"><i class="fa fa-check"></i><b>9.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="github.html"><a href="github.html#resources"><i class="fa fa-check"></i><b>9.2</b> Resources</a></li>
+<li class="chapter" data-level="9.3" data-path="github.html"><a href="github.html#git-and-github"><i class="fa fa-check"></i><b>9.3</b> Git and GitHub</a></li>
+<li class="chapter" data-level="9.4" data-path="github.html"><a href="github.html#understanding-the-github-flow"><i class="fa fa-check"></i><b>9.4</b> Understanding the GitHub flow</a></li>
+<li class="chapter" data-level="9.5" data-path="github.html"><a href="github.html#making-a-github-repository"><i class="fa fa-check"></i><b>9.5</b> Making a GitHub Repository</a></li>
+<li class="chapter" data-level="9.6" data-path="github.html"><a href="github.html#navigating-a-github-repository"><i class="fa fa-check"></i><b>9.6</b> Navigating a GitHub Repository</a></li>
+<li class="chapter" data-level="9.7" data-path="github.html"><a href="github.html#cloning-a-github-repo-to-your-computer"><i class="fa fa-check"></i><b>9.7</b> Cloning a GitHub repo to your computer</a></li>
+<li class="chapter" data-level="9.8" data-path="github.html"><a href="github.html#rstudio-projects"><i class="fa fa-check"></i><b>9.8</b> RStudio Projects</a></li>
+<li class="chapter" data-level="9.9" data-path="github.html"><a href="github.html#the-version-control-workflow"><i class="fa fa-check"></i><b>9.9</b> The Version Control Workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html"><i class="fa fa-check"></i><b>10</b> Lab 1: Getting started with RStudio, Git, and Markdown</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-1-set-up-r-and-rstudio"><i class="fa fa-check"></i><b>10.1</b> Part 1: Set up R and RStudio</a></li>
+<li class="chapter" data-level="10.2" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-2-make-a-readme.md-file-with-markdown"><i class="fa fa-check"></i><b>10.2</b> Part 2: Make a README.md file with Markdown</a></li>
+<li class="chapter" data-level="10.3" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-3-practice-some-r-fucntions"><i class="fa fa-check"></i><b>10.3</b> Part 3: Practice some R fucntions</a></li>
+<li class="chapter" data-level="10.4" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-4-make-a-github-repository-for-your-work"><i class="fa fa-check"></i><b>10.4</b> Part 4: Make a GitHub Repository for your work</a></li>
+</ul></li>
+<li class="part"><span><b>II Module 02</b></span></li>
+<li><a href="plotting-with-ggplot2.html#plotting-with-ggplot2">Plotting with <strong>ggplot2</strong></a>
+<ul>
+<li class="chapter" data-level="10.5" data-path="plotting-with-ggplot2.html"><a href="plotting-with-ggplot2.html"><i class="fa fa-check"></i><b>10.5</b> Learning Objectives</a></li>
+<li class="chapter" data-level="10.6" data-path="plotting-with-ggplot2.html"><a href="plotting-with-ggplot2.html#resources-1"><i class="fa fa-check"></i><b>10.6</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="plotting-in-r.html"><a href="plotting-in-r.html"><i class="fa fa-check"></i><b>11</b> Plotting in R</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="plotting-in-r.html"><a href="plotting-in-r.html#just-plot-it"><i class="fa fa-check"></i><b>11.1</b> Just Plot It</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="the-grammar-of-graphics.html"><a href="the-grammar-of-graphics.html"><i class="fa fa-check"></i><b>12</b> The Grammar of Graphics</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="the-grammar-of-graphics.html"><a href="the-grammar-of-graphics.html#example-scatterplot-grammar"><i class="fa fa-check"></i><b>12.1</b> Example: Scatterplot grammar</a></li>
+<li class="chapter" data-level="12.2" data-path="the-grammar-of-graphics.html"><a href="the-grammar-of-graphics.html#activity-bar-chart-grammar"><i class="fa fa-check"></i><b>12.2</b> Activity: Bar chart grammar</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="working-with-ggplot2.html"><a href="working-with-ggplot2.html"><i class="fa fa-check"></i><b>13</b> Working with <strong>ggplot2</strong></a></li>
+<li class="chapter" data-level="14" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html"><i class="fa fa-check"></i><b>14</b> Activity: Build some plots!</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html#make-a-line-chart"><i class="fa fa-check"></i><b>14.1</b> Make a Line Chart</a></li>
+<li class="chapter" data-level="14.2" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html#make-a-scatterplot"><i class="fa fa-check"></i><b>14.2</b> Make a Scatterplot</a></li>
+<li class="chapter" data-level="14.3" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html#assigning-a-ggplot2-object-and-adding-to-it"><i class="fa fa-check"></i><b>14.3</b> Assigning a <strong>ggplot2</strong> object and adding to it</a></li>
+<li class="chapter" data-level="14.4" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html#fix-me"><i class="fa fa-check"></i><b>14.4</b> Fix Me!</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html"><i class="fa fa-check"></i><b>15</b> Example <em>geoms</em> and Plots</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#bar-chart"><i class="fa fa-check"></i><b>15.1</b> Bar chart</a></li>
+<li class="chapter" data-level="15.2" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#stacked-bar-chart"><i class="fa fa-check"></i><b>15.2</b> Stacked bar chart</a></li>
+<li class="chapter" data-level="15.3" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#pie-chart"><i class="fa fa-check"></i><b>15.3</b> Pie chart</a></li>
+<li class="chapter" data-level="15.4" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#histogram"><i class="fa fa-check"></i><b>15.4</b> Histogram</a></li>
+<li class="chapter" data-level="15.5" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#density"><i class="fa fa-check"></i><b>15.5</b> Density</a></li>
+<li class="chapter" data-level="15.6" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#dot-plot"><i class="fa fa-check"></i><b>15.6</b> Dot plot</a></li>
+<li class="chapter" data-level="15.7" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#scatterplots"><i class="fa fa-check"></i><b>15.7</b> Scatterplots</a></li>
+<li class="chapter" data-level="15.8" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#more-scatterplots"><i class="fa fa-check"></i><b>15.8</b> More scatterplots</a></li>
+<li class="chapter" data-level="15.9" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#building-complex-plots"><i class="fa fa-check"></i><b>15.9</b> Building complex plots</a></li>
+<li class="chapter" data-level="15.10" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#scatterplots-for-change"><i class="fa fa-check"></i><b>15.10</b> Scatterplots for change</a></li>
+<li class="chapter" data-level="15.11" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#comparing-distributions"><i class="fa fa-check"></i><b>15.11</b> Comparing distributions</a></li>
+<li class="chapter" data-level="15.12" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#scatterplot-matrix"><i class="fa fa-check"></i><b>15.12</b> Scatterplot matrix</a></li>
+<li class="chapter" data-level="15.13" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#smoothers-and-exploratory-data-analysis"><i class="fa fa-check"></i><b>15.13</b> Smoothers and Exploratory Data Analysis</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Programming with Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="working-with-ggplot2" class="section level1" number="13">
+<h1><span class="header-section-number">Part 13</span> Working with <strong>ggplot2</strong></h1>
+<p>First, the <strong>ggplot2</strong> package comes with the <strong>tidyverse</strong> meta-package.
+You can just load <strong>tidyverse</strong>, and it will also load <strong>ggplot2</strong>.</p>
+<p>Let’s use the above scatterplot as an example to see how to use the <code>ggplot()</code> function.</p>
+<p>First, we will pass one argument to <code>ggplot()</code> function itself:
+- <code>data</code>: the data frame containing your plotting data</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="working-with-ggplot2.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-74-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>After this, we <strong>add</strong> additional functions as <strong>layers</strong> to add features to the plot and control their appearance. The first thing we will add is <code>aes()</code>. The <code>aes()</code> function tells R to look in the <code>data</code> for variable names to <em>map</em> them to different <em>aesthetic features</em>, such as x-position, y-position, or color.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="working-with-ggplot2.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb55-2"><a href="working-with-ggplot2.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-75-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>Next, we want to add some <strong>geometric shapes</strong> to the plot.
+These use functions with the form <code>geom_SOMETHING()</code>.
+Different plot shapes (<code>geom_SOMETHING</code>) accept different <code>aes()</code> arguments.
+These are listed in the help file for the geom function:
+<code>?geom_point</code>, <code>?geom_line</code>, etc.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="working-with-ggplot2.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb56-2"><a href="working-with-ggplot2.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
+<span id="cb56-3"><a href="working-with-ggplot2.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-76-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>You can control aesthetics using constants or variables from outside <code>data</code> by specifying them outside of <code>aes()</code>.
+For example, to make all of the shapes of plot blue, you can add: <code>color = "blue"</code>.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="working-with-ggplot2.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb57-2"><a href="working-with-ggplot2.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
+<span id="cb57-3"><a href="working-with-ggplot2.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-77-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>There’s a bit of overplotting (overlapping symbols), so let’s also make the points semi-transparent.
+This is controlled using the <code>alpha</code> argument
+(you need <code>1/alpha</code> points overlaid to achieve a solid point).</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="working-with-ggplot2.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb58-2"><a href="working-with-ggplot2.html#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
+<span id="cb58-3"><a href="working-with-ggplot2.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> .<span class="dv">1</span>)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-78-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>For now, that’s the only <code>geom</code> that we want to add.
+Now, let’s specify a scale transformation, because the plot would really benefit if the x-axis is on a logarithmic
+scale.
+These functions take the form <code>scale_AESTHETIC_TYPE()</code>.</p>
+<p>As usual, you can tweak this layer, too, using this function’s arguments.
+In this example, we’re re-naming the x-axis (the <code>name</code> argument),
+transform the values (the <code>trans</code> argument),
+and changing the labels to have a dollar format (the <code>labels</code> argument).</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="working-with-ggplot2.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb59-2"><a href="working-with-ggplot2.html#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
+<span id="cb59-3"><a href="working-with-ggplot2.html#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb59-4"><a href="working-with-ggplot2.html#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb59-5"><a href="working-with-ggplot2.html#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;GDP per capita&quot;</span>, </span>
+<span id="cb59-6"><a href="working-with-ggplot2.html#cb59-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trans =</span> <span class="st">&quot;log10&quot;</span>, </span>
+<span id="cb59-7"><a href="working-with-ggplot2.html#cb59-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()</span>
+<span id="cb59-8"><a href="working-with-ggplot2.html#cb59-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-79-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>I’m tired of seeing the ugly default gray background, so I’ll add a <code>theme()</code>
+layer.
+I like <code>theme_bw()</code> (you can tweak themes later, too!).
+Then, I’ll re-label the y-axis using the <code>ylab()</code> function.
+Et voilà!</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="working-with-ggplot2.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
+<span id="cb60-2"><a href="working-with-ggplot2.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
+<span id="cb60-3"><a href="working-with-ggplot2.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb60-4"><a href="working-with-ggplot2.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb60-5"><a href="working-with-ggplot2.html#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;GDP per capita&quot;</span>, </span>
+<span id="cb60-6"><a href="working-with-ggplot2.html#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trans =</span> <span class="st">&quot;log10&quot;</span>, </span>
+<span id="cb60-7"><a href="working-with-ggplot2.html#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()</span>
+<span id="cb60-8"><a href="working-with-ggplot2.html#cb60-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb60-9"><a href="working-with-ggplot2.html#cb60-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-10"><a href="working-with-ggplot2.html#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Life expectancy&quot;</span>)</span></code></pre></div>
+<p><img src="main_files/figure-html/unnamed-chunk-80-1.png" width="480" style="display: block; margin: auto;" /></p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="the-grammar-of-graphics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="activity-build-some-plots.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0201_plotting-ggplot2.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["main.pdf", "main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
