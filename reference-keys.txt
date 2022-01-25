@@ -87,6 +87,7 @@ part-1-set-up-r-and-rstudio
 part-2-make-a-readme.md-file-with-markdown
 part-3-practice-some-r-fucntions
 part-4-make-a-github-repository-for-your-work
+plotting-with-ggplot2
 learning-objectives-1
 resources-1
 plotting-in-r
