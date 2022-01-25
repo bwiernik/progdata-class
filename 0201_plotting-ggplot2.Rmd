@@ -368,7 +368,7 @@ You can store the output of the plot in a variable.
 Assign the `mauan` plot above to a variable named `p`, 
 then add a layer to `p` that adds a dark green smoothed line to the plot.
 
-```{r, fig.width = 5, fig.height = 2}
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
 FILL_THIS_IN
 
 p +
@@ -380,19 +380,19 @@ p +
 
 What's wrong with the following code? Fix it.
 
-```{r, fig.width = 5, fig.height = 2}
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
 ggplot(gapminder) +
   geom_point(x = gdpPercap, y = lifeExp, alpha = 0.1)
 ```
 
+What's wrong with this code? Fix it.
 
-
-```{r, fig.width = 5, fig.height = 2}
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
 ggplot(cars) +
   geom_point(aes(x = speed, y = dist, color = "blue"))
 ```
 
-# Example geoms and Plots
+# Example *geoms* and Plots
 
 ## Bar chart
 
