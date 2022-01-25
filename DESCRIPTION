@@ -18,5 +18,5 @@ Imports:
     ggdist,
     easystats
 Remotes: 
-    gadenbuie/tweetrmd
+    gadenbuie/tweetrmd,
     easystats/easystats
