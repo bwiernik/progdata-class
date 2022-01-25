@@ -13,6 +13,10 @@ Imports:
     patchwork,
     palmerpenguins,
     knitr,
-    tweetrmd
+    tweetrmd,
+    tsibble,
+    ggdist,
+    easystats
 Remotes: 
     gadenbuie/tweetrmd
+    easystats/easystats
