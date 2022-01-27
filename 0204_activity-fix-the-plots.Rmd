@@ -1,0 +1,118 @@
+# Activity: Build some plots!
+
+## Make a Line Chart
+
+The following code makes a data frame called `mauna` that contains time series data of CO$_2$ concentrations collected monthly at the Mauna Loa vocanic observation station.
+
+Execute this code to store the data in `mauna`:
+
+```{r}
+(mauna <- tsibble::as_tsibble(co2) |> 
+   rename(month = index, conc = value))
+```
+
+Produce a line chart showing the concentration over time. 
+Specifically, the plot should have the following grammar components:
+
+| Grammar Component     | Specification |
+|-----------------------|---------------|
+| __data__              | `mauna` |
+| __aesthetic mapping__ | x: month, y: conc |
+| __geometric object__  | lines |
+| scale                 | yearmonth |
+| statistical transform | none |
+| coordinate system     | rectangular |
+| faceting              | none |
+
+Fill in the blanks to obtain the plot:
+
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
+ggplot(FILL_THIS_IN) +
+  aes(FILL_THIS_IN, FILL_THIS_IN)
+  FILL_THIS_IN() + 
+  tsibble::scale_x_yearmonth()
+```
+
+## Make a Scatterplot
+
+Use the `palmerpenguins::penguins` data to make a scatterplot with the following specifications:
+
+| Grammar Component     | Specification |
+|-----------------------|---------------|
+| __data__              | `palmerpenguins::penguins` |
+| __aesthetic mapping__ | x: body_mass_g, y: bill_depth_mm |
+| __geometric object__  | points, smoothed lines |
+| scale                 | linear |
+| statistical transform | none |
+| coordinate system     | rectangular |
+| faceting              | none |
+
+
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
+ggplot(FILL_THIS_IN) +
+  aes(FILL_THIS_IN, FILL_THIS_IN)
+  FILL_THIS_IN() + 
+  geom_smooth()
+```
+
+You can control aesthetics for individual layers by adding an `aes()` inside the layer function, like this:
+
+```
+geom_point(aes(color = COLOR_VARIABLE))
+````
+
+Modify your code above so that the points (but not the smooth line) have their `color` mapped to `species`:
+
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
+ggplot(FILL_THIS_IN) +
+  aes(FILL_THIS_IN, FILL_THIS_IN)
+  FILL_THIS_IN() + 
+  geom_smooth()
+```
+
+Now, instead, map `color` in the global `aes()` call for the plot.
+What happens?
+
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
+ggplot(FILL_THIS_IN) +
+  aes(FILL_THIS_IN, FILL_THIS_IN)
+  FILL_THIS_IN() + 
+  geom_smooth()
+```
+
+Things to keep in mind:
+
+- Aesthetics mapped outside of a specific layer apply **globally**
+- Aesthetics mapped inside a `geom` layer apply only to that layer.
+- If the same aesthetic appears both globally and in a layer, the layer-specific one wins
+
+
+## Assigning a **ggplot2** object and adding to it
+
+You can store the output of the plot in a variable. 
+Assign the `mauan` plot above to a variable named `p`, 
+then add a layer to `p` that adds a dark green smoothed line to the plot.
+
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
+FILL_THIS_IN
+
+p +
+  FILL_THIS_IN()
+```
+
+
+## Fix Me!
+
+What's wrong with the following code? Fix it.
+
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
+ggplot(gapminder) +
+  geom_point(x = gdpPercap, y = lifeExp, alpha = 0.1)
+```
+
+What's wrong with this code? Fix it.
+
+```{r, fig.width = 5, fig.height = 2, eval = FALSE}
+ggplot(cars) +
+  geom_point(aes(x = speed, y = dist, color = "blue"))
+```
