@@ -2,7 +2,7 @@
 
 
 ```{r, include = FALSE}
-knitr::opts_chunk$u(eval = FALSE)
+knitr::opts_chunk$set(eval = FALSE)
 ```
 
 Plastic pollution is a major and growing problem, negatively affecting oceans and wildlife health.
