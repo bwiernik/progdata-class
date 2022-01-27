@@ -1,7 +1,7 @@
 # Lab 2: Global plastic waste {#lab02}
 
 
-```{r include = FALSE}
+```{r, include = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
@@ -31,7 +31,7 @@ Additionally, National Geographic ran a data visualization communication contest
 We'll use the **tidyverse** package for this analysis.
 Add code to load the **tidyverse** package to the `setup` chunk at the top of the document.
 
-```{r load-packages, message=FALSE, eval=TRUE, include=FALSE, echo=FALSE}
+```{r setup, message=FALSE, eval=TRUE, include=FALSE, echo=FALSE}
 library(tidyverse)
 ```
 
@@ -162,7 +162,7 @@ plastic_waste |>
   mutate(coastal_pop_prop = coastal_pop / total_pop) |>
   filter(plastic_waste_per_cap < 3) |>
   ggplot() + 
-  aes(x = coastal_pop_prop, y = plastic_waste_per_cap, color = continent)  
+  aes(x = coastal_pop_prop, y = plastic_waste_per_cap, color = continent) + 
   geom_point() +
     geom_smooth(color = "black") +
     scale_color_viridis_d() +
