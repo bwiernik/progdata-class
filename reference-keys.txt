@@ -115,3 +115,15 @@ scatterplots-for-change
 comparing-distributions
 scatterplot-matrix
 smoothers-and-exploratory-data-analysis
+lab02
+learning-goals
+getting-started-1
+packages
+data
+warm-up
+exercises
+exercise-1
+exercise-2
+exercise-3
+bonus
+finishing-up

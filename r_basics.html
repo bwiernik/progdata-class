@@ -24,7 +24,7 @@
 <meta name="author" content="Brenton M. Wiernik" />
 
 
-<meta name="date" content="2022-01-25" />
+<meta name="date" content="2022-01-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -281,6 +281,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.12" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#scatterplot-matrix"><i class="fa fa-check"></i><b>16.12</b> Scatterplot matrix</a></li>
 <li class="chapter" data-level="16.13" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#smoothers-and-exploratory-data-analysis"><i class="fa fa-check"></i><b>16.13</b> Smoothers and Exploratory Data Analysis</a></li>
 </ul></li>
+<li class="chapter" data-level="17" data-path="lab02.html"><a href="lab02.html"><i class="fa fa-check"></i><b>17</b> Lab 2: Global plastic waste</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="lab02.html"><a href="lab02.html#learning-goals"><i class="fa fa-check"></i><b>17.1</b> Learning goals</a></li>
+<li class="chapter" data-level="17.2" data-path="lab02.html"><a href="lab02.html#getting-started-1"><i class="fa fa-check"></i><b>17.2</b> Getting started</a></li>
+<li class="chapter" data-level="17.3" data-path="lab02.html"><a href="lab02.html#warm-up"><i class="fa fa-check"></i><b>17.3</b> Warm up</a></li>
+<li class="chapter" data-level="17.4" data-path="lab02.html"><a href="lab02.html#exercises"><i class="fa fa-check"></i><b>17.4</b> Exercises</a></li>
+<li class="chapter" data-level="17.5" data-path="lab02.html"><a href="lab02.html#finishing-up"><i class="fa fa-check"></i><b>17.5</b> Finishing Up</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
 
@@ -371,7 +379,7 @@ Typos matter. Case matters. Precision matters. We have to work within it’s nar
 <span id="cb22-2"><a href="r_basics.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
 <p>Not all functions have (or require) arguments:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="r_basics.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span>
-<span id="cb23-2"><a href="r_basics.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Tue Jan 25 03:28:55 2022&quot;</span></span></code></pre></div>
+<span id="cb23-2"><a href="r_basics.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thu Jan 27 14:11:02 2022&quot;</span></span></code></pre></div>
 <p>Now look at your workspace – in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="r_basics.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">objects</span>()</span>
 <span id="cb24-2"><a href="r_basics.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;all_pkgs&quot;                   &quot;brenton_rocks&quot;             </span></span>
@@ -452,7 +460,7 @@ Typos matter. Case matters. Precision matters. We have to work within it’s nar
 <span id="cb29-7"><a href="r_basics.html#cb29-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">40</span>)</span>
 <span id="cb29-8"><a href="r_basics.html#cb29-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(sig_sq))</span>
 <span id="cb29-9"><a href="r_basics.html#cb29-9" aria-hidden="true" tabindex="-1"></a>(avg_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x))</span>
-<span id="cb29-10"><a href="r_basics.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.46</span></span>
+<span id="cb29-10"><a href="r_basics.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.527</span></span>
 <span id="cb29-11"><a href="r_basics.html#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-12"><a href="r_basics.html#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># these lines save some output...</span></span>
 <span id="cb29-13"><a href="r_basics.html#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(avg_x, <span class="st">&quot;avg_x.txt&quot;</span>)</span>
