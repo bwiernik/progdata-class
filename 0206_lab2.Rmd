@@ -2,7 +2,7 @@
 
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(eval = FALSE)
+knitr::opts_chunk$u(eval = FALSE)
 ```
 
 Plastic pollution is a major and growing problem, negatively affecting oceans and wildlife health.
@@ -31,7 +31,7 @@ Additionally, National Geographic ran a data visualization communication contest
 We'll use the **tidyverse** package for this analysis.
 Add code to load the **tidyverse** package to the `setup` chunk at the top of the document.
 
-```{r setup, message=FALSE, eval=TRUE, include=FALSE, echo=FALSE}
+```{r, message=FALSE, eval=TRUE, include=FALSE, echo=FALSE}
 library(tidyverse)
 ```
 
