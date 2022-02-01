@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Syllabus | Programming with Data</title>
-  <meta name="description" content="Syllabus | Programming with Data" />
+  <title>Part 22 Grouping and summarizing data | Programming with Data</title>
+  <meta name="description" content="Part 22 Grouping and summarizing data | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Syllabus | Programming with Data" />
+  <meta property="og:title" content="Part 22 Grouping and summarizing data | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Syllabus | Programming with Data" />
+  <meta name="twitter:title" content="Part 22 Grouping and summarizing data | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="getting-started.html"/>
-<link rel="next" href="welcome-to-data-science.html"/>
+<link rel="prev" href="filtering-and-mutating-data-frames.html"/>
+<link rel="next" href="advanced-dplyr-functions.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -350,129 +350,156 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="syllabus" class="section level1 unnumbered">
-<h1>Syllabus</h1>
-<p>You can find the <a href="https://1drv.ms/w/s!Aq5hTi4P2Wf5jf5rZWkVbIbSnoIzzw?e=2dJuWe">class syllabus here</a>.</p>
-<div id="materials" class="section level2" number="0.3">
-<h2><span class="header-section-number">0.3</span> Materials</h2>
-<div id="hardware" class="section level3" number="0.3.1">
-<h3><span class="header-section-number">0.3.1</span> Hardware</h3>
-<p>If you have a laptop that can run R, please bring it to class.
-This class requires that you have access to a computer outside of class.
-This could be a laptop or a computer available in a campus computer lab.</p>
+<div id="grouping-and-summarizing-data" class="section level1" number="22">
+<h1><span class="header-section-number">Part 22</span> Grouping and summarizing data</h1>
+<div id="summarize" class="section level2" number="22.1">
+<h2><span class="header-section-number">22.1</span> <code>summarize()</code></h2>
+<p>Like <code>mutate()</code>, the <code>summarize()</code> function also creates new columns,
+but the calculations that make the new columns must reduce down to a single number.</p>
+<p>For example, let’s compute the mean and standard deviation of life expectancy
+in the <code>gapminder</code> data set:</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="grouping-and-summarizing-data.html#cb102-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb102-2"><a href="grouping-and-summarizing-data.html#cb102-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb102-3"><a href="grouping-and-summarizing-data.html#cb102-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb102-4"><a href="grouping-and-summarizing-data.html#cb102-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">sd</span>(lifeExp)</span>
+<span id="cb102-5"><a href="grouping-and-summarizing-data.html#cb102-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Notice that all other columns were dropped.
+This is necessary, because there’s no obvious way to compress the other columns down to a single row.
+This is unlike <code>mutate()</code>, which keeps all columns,
+and more like <code>transmute()</code>, which drops all other columns.</p>
+<p>As it is, this is useful for creating summary tables,
+but it’s more useful in the context of <em>grouping</em>, coming up next.</p>
 </div>
-<div id="books-and-videos" class="section level3" number="0.3.2">
-<h3><span class="header-section-number">0.3.2</span> Books and Videos</h3>
-<p>In addition to class materials and lab activities, there will also be videos and sections of the book <strong>R for Data Science</strong> that will be shared to support your learning.</p>
+<div id="group_by" class="section level2" number="22.2">
+<h2><span class="header-section-number">22.2</span> <code>group_by()</code></h2>
+<p>The true power of <strong>dplyr</strong> lies in its ability to group a tibble, with the
+<code>group_by()</code> function. As usual, this function takes in a tibble and returns a
+(grouped) tibble.</p>
+<p>Let’s group the gapminder dataset by continent and year:</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="grouping-and-summarizing-data.html#cb103-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb103-2"><a href="grouping-and-summarizing-data.html#cb103-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent, year)</span></code></pre></div>
+<p>The only thing different from a regular tibble is the indication of grouping
+variables above the tibble. This means that the tibble is recognized as having
+“chunks” defined by unique combinations of continent and year:</p>
 <ul>
-<li><a href="https://r4ds.had.co.nz">R for Data Science text</a></li>
+<li>Asia in 1952 is one chunk.</li>
+<li>Asia in 1957 is another chunk.</li>
+<li>Europe in 1952 is another chunk.</li>
+<li>etc…</li>
 </ul>
+<p>Notice that the data frame isn’t <em>rearranged</em> by chunk! The grouping is something
+stored internally about the grouped tibble.</p>
+<p>Now that the tibble is grouped, operations that you do on a grouped tibble
+<em>will be done independently within each chunk</em>, as if no other chunks exist.</p>
+<p>You can also create new variables and group by that variable simultaneously.
+Try splitting life expectancy by “small” and “large” using 60 as a threshold:</p>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="grouping-and-summarizing-data.html#cb104-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb104-2"><a href="grouping-and-summarizing-data.html#cb104-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(<span class="at">smallLifeExp =</span> lifeExp <span class="sc">&lt;</span> <span class="dv">60</span>)</span></code></pre></div>
 </div>
-<div id="syllabussoftware" class="section level3" number="0.3.3">
-<h3><span class="header-section-number">0.3.3</span> Software</h3>
-<div id="syllabusr" class="section level4" number="0.3.3.1">
-<h4><span class="header-section-number">0.3.3.1</span> R and RStudio</h4>
-<p>R is a free software environment for statistical computing and graphics. It compiles and runs on a wide variety of UNIX platforms, Windows, and MacOS.</p>
-<p>RStudio is a free <em>integrated development environment</em> (IDE), a powerful user interface or dashboard for R.</p>
+<div id="grouped-summarize" class="section level2" number="22.3">
+<h2><span class="header-section-number">22.3</span> Grouped <code>summarize()</code></h2>
+<p>Want to compute the mean and standard deviation for each year for every
+continent? No problem:</p>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="grouping-and-summarizing-data.html#cb105-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb105-2"><a href="grouping-and-summarizing-data.html#cb105-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(continent, year) <span class="sc">|&gt;</span> </span>
+<span id="cb105-3"><a href="grouping-and-summarizing-data.html#cb105-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mu    =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb105-4"><a href="grouping-and-summarizing-data.html#cb105-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sigma =</span> <span class="fu">sd</span>(lifeExp))</span></code></pre></div>
+<p>Notice:</p>
+<ul>
+<li>The grouping variables are kept in the tibble, because their values are unique
+within each chunk (by definition of the chunk!)</li>
+<li>With each call to <code>summarize()</code>, the grouping variables are “peeled back” from
+last grouping variable to first.</li>
+</ul>
+<p>This means the above tibble is now only grouped by continent. What happens when
+we reverse the grouping?</p>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="grouping-and-summarizing-data.html#cb106-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb106-2"><a href="grouping-and-summarizing-data.html#cb106-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, continent) <span class="sc">|&gt;</span>    <span class="co"># Different order</span></span>
+<span id="cb106-3"><a href="grouping-and-summarizing-data.html#cb106-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">mu    =</span> <span class="fu">mean</span>(lifeExp),</span>
+<span id="cb106-4"><a href="grouping-and-summarizing-data.html#cb106-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sigma =</span> <span class="fu">sd</span>(lifeExp))</span></code></pre></div>
+<p>The grouping columns are switched, and now the tibble is grouped by year instead
+of continent.</p>
+<p><strong>dplyr</strong> has a bunch of convenience functions that help us write code more
+eloquently. We could use <code>group_by()</code> and <code>summarize()</code> with <code>length()</code> to find
+the number of entries each country has:</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="grouping-and-summarizing-data.html#cb107-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb107-2"><a href="grouping-and-summarizing-data.html#cb107-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span> </span>
+<span id="cb107-3"><a href="grouping-and-summarizing-data.html#cb107-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">n =</span> <span class="fu">length</span>(country))</span></code></pre></div>
+<p>Or, we can use the more elegant <code>dplyr::n()</code> to count the number of rows in each
+group:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="grouping-and-summarizing-data.html#cb108-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb108-2"><a href="grouping-and-summarizing-data.html#cb108-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span> </span>
+<span id="cb108-3"><a href="grouping-and-summarizing-data.html#cb108-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n =</span> <span class="fu">n</span>())</span></code></pre></div>
+<p>Or better yet, if this is all we want, just use <code>dplyr::count()</code>:</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="grouping-and-summarizing-data.html#cb109-1" aria-hidden="true" tabindex="-1"></a>gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb109-2"><a href="grouping-and-summarizing-data.html#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(country)</span></code></pre></div>
 </div>
-<div id="syllabusgit" class="section level4" number="0.3.3.2">
-<h4><span class="header-section-number">0.3.3.2</span> Git and Github</h4>
-<p>Git is a version control system. Its original purpose was to help groups of developers work collaboratively on big software projects. Git manages the evolution of a set of files – called a repository – in a structured way. Think of it like the “Track Changes” features from Microsoft Word.</p>
-<p>Github is a free IDE and hosting service for Git. As a USF student, you should be able to access the <a href="https://education.github.com/benefits?type=student">GitHub Student Developer Pack for free</a>. It includes a free PRO upgrade for your github account.</p>
+<div id="grouped-mutate" class="section level2" number="22.4">
+<h2><span class="header-section-number">22.4</span> Grouped <code>mutate()</code></h2>
+<p>Want to get the increase in GDP per capita for each country? No problem:</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="grouping-and-summarizing-data.html#cb110-1" aria-hidden="true" tabindex="-1"></a>gap_inc <span class="ot">&lt;-</span> gapminder <span class="sc">|&gt;</span> </span>
+<span id="cb110-2"><a href="grouping-and-summarizing-data.html#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb110-3"><a href="grouping-and-summarizing-data.html#cb110-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(country) <span class="sc">|&gt;</span></span>
+<span id="cb110-4"><a href="grouping-and-summarizing-data.html#cb110-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdpPercap_inc =</span> gdpPercap <span class="sc">-</span> <span class="fu">lag</span>(gdpPercap))</span>
+<span id="cb110-5"><a href="grouping-and-summarizing-data.html#cb110-5" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gap_inc)</span></code></pre></div>
+<p>The tibble is still grouped by country.</p>
+<p>Drop the <code>NA</code>s with another convenience function, this time supplied by the
+<code>tidyr</code> package (another tidyverse package that we’ll see soon):</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="grouping-and-summarizing-data.html#cb111-1" aria-hidden="true" tabindex="-1"></a>gap_inc <span class="sc">|&gt;</span> </span>
+<span id="cb111-2"><a href="grouping-and-summarizing-data.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">drop_na</span>()</span></code></pre></div>
+<p>You can specify specific columns to drop <code>NA</code>s from in the <code>drop_na()</code> function.</p>
 </div>
-</div>
-</div>
-<div id="assignment-instructions" class="section level2" number="0.4">
-<h2><span class="header-section-number">0.4</span> Assignment Instructions</h2>
-<div id="lab-activities" class="section level3" number="0.4.1">
-<h3><span class="header-section-number">0.4.1</span> Lab Activities</h3>
-<p>Each week, there will be opportunities to practice your programming skills in guided activities and problems. You should complete these activities each week and submit them via your GitHub repository for the class. Of the 15 lab activities, you must complete 12 to earn an A grade. You may choose which activities (if any) to skip.</p>
-<p>For each lab activity, your code should (1) be able to run on any computer without user input, (2) produce the desired outcome, and (3) use clear coding style and logic so that readers can understand it</p>
-</div>
-<div id="peer-code-review" class="section level3" number="0.4.2">
-<h3><span class="header-section-number">0.4.2</span> Peer Code Review</h3>
-<p>Each week, you will be assigned to review 2 classmates’ code and provide constructive feedback. You should both (1) test the code to ensure that it produces correct output and (2) complete a code review report to provide feedback on program design, coding style, and documentation.</p>
-<p>Code reviews should be completed in a timely manner so that your classmates’ can benefit from the feedback. You may review either a lab activity or portfolio piece. You must complete 10 code reviews to earn an A grade. You may choose which assigned reviews (if any) to skip. As a class, please ensure that each person gets at least one review for each of their activities.</p>
-</div>
-<div id="portfolio-pieces" class="section level3" number="0.4.3">
-<h3><span class="header-section-number">0.4.3</span> Portfolio Pieces</h3>
-<p>By the end of the semester, you should also have completed 3 larger “portfolio pieces”. These pieces can be one of the following:</p>
-<ol style="list-style-type: decimal">
-<li><p>Data analysis report: Explore and analyze a dataset of interest to you to derive useful or interesting insights. You must demonstrate the skills you are learning in the course (data wrangling, data visualization, modeling, web scraping, text mining, etc.) and present one or more key insights that can be learned from the data. Your project should demonstrate good habits with respect to reproducibility, clear coding style and logic, and effective visualization and communication.
-<br>
-You may choose (or construct) any dataset of interest to you. If you are involved in research, please feel free to use data from these projects. Otherwise, there are many datasets available online you can work with, or you can build a dataset from the web yourself. We will explore portfolio piece ideas and potential data sources throughout the semester.</p></li>
-<li><p>Professional website: Create and deploy a website highlighting your skills, experience, and professional portfolio, as appropriate to your professional goals.</p></li>
-<li><p>Cheat sheet: Create a cheat sheet in the style of <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a> for a package, procedure, or workflow. For example, you could make a cheat sheet for a package we discuss in class or another package, or a cheat sheet for a common workflow or procedure for your lab group.</p></li>
-<li><p>Tutorial or other resource: Write a blog post, tutorial, or other resource teaching readers an analytic, programming, visualization, experimental, or workflow method.</p></li>
-<li><p>Shiny app: Build a Shiny app implementing a method of interest (e.g., power analysis, visualizing a certain type of data, fitting a certain type of model).</p></li>
-</ol>
-<p><strong>At least 1 of your portfolio pieces must be a Data Analysis Report. Graduate students must complete an additional portfolio piece; this one must be a website, tutorial, or shiny app.</strong></p>
-</div>
-</div>
-<div id="due-dates" class="section level2" number="0.5">
-<h2><span class="header-section-number">0.5</span> Due dates</h2>
-<p>All course products are due by the end of the semester, but you should not wait until the last week to start on them! Spaced practice is much more effective for learning than cramming, and I can’t give you useful feedback if I only see things at the end of the semester. Aim to complete lab activities as you go and to complete a portfolio piece every few weeks.</p>
-<!-- Video Links-->
-<!-- [pl_00]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaEAnJX20Ryy4OSie375rVY -->
-<!-- 
-[pl_02]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZmr_T3PnuxjVIlj0C0kUNI
-[pl_03]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaHmjzdRvfg0yhOIYQnfjwE
-[pl_04]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYWFcel6_vp8__RUKLxhX4y
-[pl_05]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYMIguiV1F8RagMYibTY4iW
-[pl_06]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYV_KDod3Mk9-RmtFXii9Dv
-[pl_07]: https://www.youtube.com/watch?list=PLKrrdtYgOUYZxvEvQ8-PcWrOY_dwY_ETI
-[pl_08]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZgOzYB_dmauw55M7jXvsdo
-[pl_09]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbaiTmldRY2ddsLrHp3z6yO
-[pl_10]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbPw5iYzYEzoOKa7mJKNIhq
-[pl_11]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZ-u6LzBbanrNFoeLHKaLL6
-[pl_12]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbwRS-9Htmb80_t1NG-021e
-[pl_13]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
-[pl_14]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
-[pl_15]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYa5MoYrV8EsWQ5jIr5ZYMpM
--->
-<!--AE Links-->
-<!--
-[ae01a_unvotes]: https://github.com/DataScience4Psych/ae01a_unvotes
-[ae01b_covid]: https://github.com/DataScience4Psych/ae01b_covid
-[ae02_bechdel]: https://github.com/DataScience4Psych/ae-02-bechdel-rmarkdown
-[ae03_starwars]: https://github.com/DataScience4Psych/ae-03-starwars-dataviz
--->
-<!-- Lab Links-->
-<!--Slides-->
-<!--
-[d03_dataviz]: https://datascience4psych.github.io/slides/d03_dataviz/d03_dataviz.html
-[d04_ggplot2]: https://datascience4psych.github.io/slides/d04_ggplot2/d04_ggplot2.html
-[d05_viznum]: https://datascience4psych.github.io/slides/d05_viznum/d05_viznum.html
-[d06_vizcat]: https://datascience4psych.github.io/slides/d06_vizcat/d06_vizcat.html
-[d07_tidy]: https://datascience4psych.github.io/slides/d07_tidy/d07_tidy.html
-[d08_grammar]: https://datascience4psych.github.io/slides/d08_grammar/d08_grammar.html
-[d09_wrangle]: https://datascience4psych.github.io/slides/d09_wrangle/d09_wrangle.html
-[d10_dfs]: https://datascience4psych.github.io/slides/d10_dfs/d10_dfs.html
-[d11_types]: https://datascience4psych.github.io/slides/d11_types/d11_types.html
-[d12_import]: https://datascience4psych.github.io/slides/d12_import/d12_import.html
-[d13_goodviz]: https://datascience4psych.github.io/slides/d13_goodviz/d13_goodviz.html
-[d13b_moreggplot]: https://datascience4psych.github.io/slides/d13_goodviz/d13b_moreggplot.html
-[d14_confound]: https://datascience4psych.github.io/slides/d14_confound/d14_confound.html
-[d15_goodtalk]: https://datascience4psych.github.io/slides/d15_goodtalk/d15_goodtalk.html
-[d16_webscraping]: https://datascience4psych.github.io/slides/d16_webscraping/d16_webscraping.html
-[d17_functions]: https://datascience4psych.github.io/slides/d17_functions/d17_functions.html
-[d18_ethics]: https://datascience4psych.github.io/slides/d18_ethics/d18_ethics.html
-[d19_bias]: https://datascience4psych.github.io/slides/d19_bias/d19_bias.html
--->
-<!--externals-->
+<div id="function-types" class="section level2" number="22.5">
+<h2><span class="header-section-number">22.5</span> Function types</h2>
+<p>We’ve seen cases of transforming variables using <code>mutate()</code> and <code>summarize()</code>,
+both with and without <code>group_by()</code>. How can you know what combination to use?
+Here’s a summary based on one of three types of functions.</p>
+<table>
+<colgroup>
+<col width="31%" />
+<col width="26%" />
+<col width="21%" />
+<col width="21%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function type</th>
+<th>Explanation</th>
+<th>Examples</th>
+<th>In <strong>dplyr</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Vectorized functions</td>
+<td>These take a <em>vector</em>, and operate on each component independently to return a vector of the same length. In other words, they work element-wise.</td>
+<td><code>cos()</code>, <code>sin()</code>, <code>log()</code>, <code>exp()</code>, <code>round()</code></td>
+<td><code>mutate()</code></td>
+</tr>
+<tr class="even">
+<td>Aggregate functions</td>
+<td>These take a vector, and return a vector of length 1</td>
+<td><code>mean()</code>, <code>sd()</code>, <code>length()</code></td>
+<td><code>summarize()</code>, esp with <code>group_by()</code>.</td>
+</tr>
+<tr class="odd">
+<td>Window Functions</td>
+<td>these take a vector, and return a vector of the same length that depends on the vector as a whole.</td>
+<td><code>lag()</code>, <code>rank()</code>, <code>cumsum()</code></td>
+<td><code>mutate()</code>, esp with <code>group_by()</code></td>
+</tr>
+</tbody>
+</table>
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="getting-started.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="welcome-to-data-science.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="filtering-and-mutating-data-frames.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="advanced-dplyr-functions.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -503,7 +530,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0002_syllabus.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0305_group-and-summarize.Rmd",
 "text": "Edit"
 },
 "history": {

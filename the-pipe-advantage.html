@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Syllabus | Programming with Data</title>
-  <meta name="description" content="Syllabus | Programming with Data" />
+  <title>Part 20 The pipe advantage | Programming with Data</title>
+  <meta name="description" content="Part 20 The pipe advantage | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Syllabus | Programming with Data" />
+  <meta property="og:title" content="Part 20 The pipe advantage | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Syllabus | Programming with Data" />
+  <meta name="twitter:title" content="Part 20 The pipe advantage | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="getting-started.html"/>
-<link rel="next" href="welcome-to-data-science.html"/>
+<link rel="prev" href="selecting-and-sorting-data-frames.html"/>
+<link rel="next" href="filtering-and-mutating-data-frames.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -350,129 +350,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="syllabus" class="section level1 unnumbered">
-<h1>Syllabus</h1>
-<p>You can find the <a href="https://1drv.ms/w/s!Aq5hTi4P2Wf5jf5rZWkVbIbSnoIzzw?e=2dJuWe">class syllabus here</a>.</p>
-<div id="materials" class="section level2" number="0.3">
-<h2><span class="header-section-number">0.3</span> Materials</h2>
-<div id="hardware" class="section level3" number="0.3.1">
-<h3><span class="header-section-number">0.3.1</span> Hardware</h3>
-<p>If you have a laptop that can run R, please bring it to class.
-This class requires that you have access to a computer outside of class.
-This could be a laptop or a computer available in a campus computer lab.</p>
-</div>
-<div id="books-and-videos" class="section level3" number="0.3.2">
-<h3><span class="header-section-number">0.3.2</span> Books and Videos</h3>
-<p>In addition to class materials and lab activities, there will also be videos and sections of the book <strong>R for Data Science</strong> that will be shared to support your learning.</p>
+<div id="the-pipe-advantage" class="section level1" number="20">
+<h1><span class="header-section-number">Part 20</span> The pipe advantage</h1>
+<div id="learning-objectives-3" class="section level2" number="20.1">
+<h2><span class="header-section-number">20.1</span> Learning Objectives</h2>
+<p>By the end of this lesson, you will:</p>
 <ul>
-<li><a href="https://r4ds.had.co.nz">R for Data Science text</a></li>
+<li>Have a sense of why <strong>dplyr</strong> is advantageous compared to the “base R” way with respect to good coding practice.</li>
+</ul>
+<p>Why?</p>
+<ul>
+<li>Having this in the back of your mind will help you identify qualities of and produce a readable analysis.</li>
 </ul>
 </div>
-<div id="syllabussoftware" class="section level3" number="0.3.3">
-<h3><span class="header-section-number">0.3.3</span> Software</h3>
-<div id="syllabusr" class="section level4" number="0.3.3.1">
-<h4><span class="header-section-number">0.3.3.1</span> R and RStudio</h4>
-<p>R is a free software environment for statistical computing and graphics. It compiles and runs on a wide variety of UNIX platforms, Windows, and MacOS.</p>
-<p>RStudio is a free <em>integrated development environment</em> (IDE), a powerful user interface or dashboard for R.</p>
+<div id="compare-nested-functions-to-pipe-chains" class="section level2" number="20.2">
+<h2><span class="header-section-number">20.2</span> Compare nested functions to pipe chains</h2>
+<p><strong>Self-documenting code</strong>.</p>
+<p>This is where the tidyverse shines.</p>
+<p>Example of <strong>dplyr</strong> vs base R:</p>
+<pre><code>gapminder[gapminder$country == &quot;Cambodia&quot;, c(&quot;year&quot;, &quot;lifeExp&quot;)]</code></pre>
+<p>vs.</p>
+<pre><code>gapminder |&gt;
+  filter(country == &quot;Cambodia&quot;) |&gt;
+  select(year, lifeExp)</code></pre>
+<div class="figure">
+<img src="img/pipe_routine.jpg" alt="" />
+<p class="caption">Morning Routine Pipie</p>
 </div>
-<div id="syllabusgit" class="section level4" number="0.3.3.2">
-<h4><span class="header-section-number">0.3.3.2</span> Git and Github</h4>
-<p>Git is a version control system. Its original purpose was to help groups of developers work collaboratively on big software projects. Git manages the evolution of a set of files – called a repository – in a structured way. Think of it like the “Track Changes” features from Microsoft Word.</p>
-<p>Github is a free IDE and hosting service for Git. As a USF student, you should be able to access the <a href="https://education.github.com/benefits?type=student">GitHub Student Developer Pack for free</a>. It includes a free PRO upgrade for your github account.</p>
 </div>
-</div>
-</div>
-<div id="assignment-instructions" class="section level2" number="0.4">
-<h2><span class="header-section-number">0.4</span> Assignment Instructions</h2>
-<div id="lab-activities" class="section level3" number="0.4.1">
-<h3><span class="header-section-number">0.4.1</span> Lab Activities</h3>
-<p>Each week, there will be opportunities to practice your programming skills in guided activities and problems. You should complete these activities each week and submit them via your GitHub repository for the class. Of the 15 lab activities, you must complete 12 to earn an A grade. You may choose which activities (if any) to skip.</p>
-<p>For each lab activity, your code should (1) be able to run on any computer without user input, (2) produce the desired outcome, and (3) use clear coding style and logic so that readers can understand it</p>
-</div>
-<div id="peer-code-review" class="section level3" number="0.4.2">
-<h3><span class="header-section-number">0.4.2</span> Peer Code Review</h3>
-<p>Each week, you will be assigned to review 2 classmates’ code and provide constructive feedback. You should both (1) test the code to ensure that it produces correct output and (2) complete a code review report to provide feedback on program design, coding style, and documentation.</p>
-<p>Code reviews should be completed in a timely manner so that your classmates’ can benefit from the feedback. You may review either a lab activity or portfolio piece. You must complete 10 code reviews to earn an A grade. You may choose which assigned reviews (if any) to skip. As a class, please ensure that each person gets at least one review for each of their activities.</p>
-</div>
-<div id="portfolio-pieces" class="section level3" number="0.4.3">
-<h3><span class="header-section-number">0.4.3</span> Portfolio Pieces</h3>
-<p>By the end of the semester, you should also have completed 3 larger “portfolio pieces”. These pieces can be one of the following:</p>
+<div id="the-workflow" class="section level2" number="20.3">
+<h2><span class="header-section-number">20.3</span> The workflow:</h2>
 <ol style="list-style-type: decimal">
-<li><p>Data analysis report: Explore and analyze a dataset of interest to you to derive useful or interesting insights. You must demonstrate the skills you are learning in the course (data wrangling, data visualization, modeling, web scraping, text mining, etc.) and present one or more key insights that can be learned from the data. Your project should demonstrate good habits with respect to reproducibility, clear coding style and logic, and effective visualization and communication.
-<br>
-You may choose (or construct) any dataset of interest to you. If you are involved in research, please feel free to use data from these projects. Otherwise, there are many datasets available online you can work with, or you can build a dataset from the web yourself. We will explore portfolio piece ideas and potential data sources throughout the semester.</p></li>
-<li><p>Professional website: Create and deploy a website highlighting your skills, experience, and professional portfolio, as appropriate to your professional goals.</p></li>
-<li><p>Cheat sheet: Create a cheat sheet in the style of <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a> for a package, procedure, or workflow. For example, you could make a cheat sheet for a package we discuss in class or another package, or a cheat sheet for a common workflow or procedure for your lab group.</p></li>
-<li><p>Tutorial or other resource: Write a blog post, tutorial, or other resource teaching readers an analytic, programming, visualization, experimental, or workflow method.</p></li>
-<li><p>Shiny app: Build a Shiny app implementing a method of interest (e.g., power analysis, visualizing a certain type of data, fitting a certain type of model).</p></li>
+<li>Wrangle your data with <strong>dplyr</strong> first
+<ul>
+<li>Separate steps with <code>|&gt;</code></li>
+</ul></li>
+<li>Pipe <code>|&gt;</code> your data into a plot/analysis</li>
 </ol>
-<p><strong>At least 1 of your portfolio pieces must be a Data Analysis Report. Graduate students must complete an additional portfolio piece; this one must be a website, tutorial, or shiny app.</strong></p>
 </div>
+<div id="basic-principles" class="section level2" number="20.4">
+<h2><span class="header-section-number">20.4</span> Basic principles:</h2>
+<ol style="list-style-type: decimal">
+<li>Do one thing at a time</li>
+</ol>
+<ul>
+<li>Transform variables OR select variables OR filter cases</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Chain multiple operations together using the pipe <code>|&gt;</code></li>
+<li>Use readable object and variable names</li>
+<li>Subset a dataset (i.e., select variables) by <strong>name</strong>, not by “magic numbers”</li>
+<li><em>Note that you need to use the assignment operator <code>&lt;-</code> to store changes!</em></li>
+</ol>
 </div>
-<div id="due-dates" class="section level2" number="0.5">
-<h2><span class="header-section-number">0.5</span> Due dates</h2>
-<p>All course products are due by the end of the semester, but you should not wait until the last week to start on them! Spaced practice is much more effective for learning than cramming, and I can’t give you useful feedback if I only see things at the end of the semester. Aim to complete lab activities as you go and to complete a portfolio piece every few weeks.</p>
-<!-- Video Links-->
-<!-- [pl_00]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaEAnJX20Ryy4OSie375rVY -->
-<!-- 
-[pl_02]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZmr_T3PnuxjVIlj0C0kUNI
-[pl_03]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaHmjzdRvfg0yhOIYQnfjwE
-[pl_04]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYWFcel6_vp8__RUKLxhX4y
-[pl_05]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYMIguiV1F8RagMYibTY4iW
-[pl_06]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYV_KDod3Mk9-RmtFXii9Dv
-[pl_07]: https://www.youtube.com/watch?list=PLKrrdtYgOUYZxvEvQ8-PcWrOY_dwY_ETI
-[pl_08]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZgOzYB_dmauw55M7jXvsdo
-[pl_09]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbaiTmldRY2ddsLrHp3z6yO
-[pl_10]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbPw5iYzYEzoOKa7mJKNIhq
-[pl_11]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZ-u6LzBbanrNFoeLHKaLL6
-[pl_12]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbwRS-9Htmb80_t1NG-021e
-[pl_13]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
-[pl_14]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
-[pl_15]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYa5MoYrV8EsWQ5jIr5ZYMpM
--->
-<!--AE Links-->
-<!--
-[ae01a_unvotes]: https://github.com/DataScience4Psych/ae01a_unvotes
-[ae01b_covid]: https://github.com/DataScience4Psych/ae01b_covid
-[ae02_bechdel]: https://github.com/DataScience4Psych/ae-02-bechdel-rmarkdown
-[ae03_starwars]: https://github.com/DataScience4Psych/ae-03-starwars-dataviz
--->
-<!-- Lab Links-->
-<!--Slides-->
-<!--
-[d03_dataviz]: https://datascience4psych.github.io/slides/d03_dataviz/d03_dataviz.html
-[d04_ggplot2]: https://datascience4psych.github.io/slides/d04_ggplot2/d04_ggplot2.html
-[d05_viznum]: https://datascience4psych.github.io/slides/d05_viznum/d05_viznum.html
-[d06_vizcat]: https://datascience4psych.github.io/slides/d06_vizcat/d06_vizcat.html
-[d07_tidy]: https://datascience4psych.github.io/slides/d07_tidy/d07_tidy.html
-[d08_grammar]: https://datascience4psych.github.io/slides/d08_grammar/d08_grammar.html
-[d09_wrangle]: https://datascience4psych.github.io/slides/d09_wrangle/d09_wrangle.html
-[d10_dfs]: https://datascience4psych.github.io/slides/d10_dfs/d10_dfs.html
-[d11_types]: https://datascience4psych.github.io/slides/d11_types/d11_types.html
-[d12_import]: https://datascience4psych.github.io/slides/d12_import/d12_import.html
-[d13_goodviz]: https://datascience4psych.github.io/slides/d13_goodviz/d13_goodviz.html
-[d13b_moreggplot]: https://datascience4psych.github.io/slides/d13_goodviz/d13b_moreggplot.html
-[d14_confound]: https://datascience4psych.github.io/slides/d14_confound/d14_confound.html
-[d15_goodtalk]: https://datascience4psych.github.io/slides/d15_goodtalk/d15_goodtalk.html
-[d16_webscraping]: https://datascience4psych.github.io/slides/d16_webscraping/d16_webscraping.html
-[d17_functions]: https://datascience4psych.github.io/slides/d17_functions/d17_functions.html
-[d18_ethics]: https://datascience4psych.github.io/slides/d18_ethics/d18_ethics.html
-[d19_bias]: https://datascience4psych.github.io/slides/d19_bias/d19_bias.html
--->
-<!--externals-->
+<div id="tangent-base-r-workflow" class="section level2" number="20.5">
+<h2><span class="header-section-number">20.5</span> Tangent: Base R workflow</h2>
+<p>We are jumping right into the tidyverse way of doing things in R,
+instead of the base R way of doing things.
+Our first week was about “just enough” base R to get you started.
+If you feel that you want more practice here,
+take a look at <a href="https://www.youtube.com/playlist?list=PLqzoL9-eJTNARFXxgwbqGo56NtbJnB37A">the R intro stat videos by MarinStatsLectures</a>.</p>
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="getting-started.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="welcome-to-data-science.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="selecting-and-sorting-data-frames.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="filtering-and-mutating-data-frames.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -503,7 +450,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0002_syllabus.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0303_the-pipe.Rmd",
 "text": "Edit"
 },
 "history": {

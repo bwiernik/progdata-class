@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Syllabus | Programming with Data</title>
-  <meta name="description" content="Syllabus | Programming with Data" />
+  <title>Part 23 Advanced dplyr functions | Programming with Data</title>
+  <meta name="description" content="Part 23 Advanced dplyr functions | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Syllabus | Programming with Data" />
+  <meta property="og:title" content="Part 23 Advanced dplyr functions | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Syllabus | Programming with Data" />
+  <meta name="twitter:title" content="Part 23 Advanced dplyr functions | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="getting-started.html"/>
-<link rel="next" href="welcome-to-data-science.html"/>
+<link rel="prev" href="grouping-and-summarizing-data.html"/>
+
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -350,129 +350,173 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="syllabus" class="section level1 unnumbered">
-<h1>Syllabus</h1>
-<p>You can find the <a href="https://1drv.ms/w/s!Aq5hTi4P2Wf5jf5rZWkVbIbSnoIzzw?e=2dJuWe">class syllabus here</a>.</p>
-<div id="materials" class="section level2" number="0.3">
-<h2><span class="header-section-number">0.3</span> Materials</h2>
-<div id="hardware" class="section level3" number="0.3.1">
-<h3><span class="header-section-number">0.3.1</span> Hardware</h3>
-<p>If you have a laptop that can run R, please bring it to class.
-This class requires that you have access to a computer outside of class.
-This could be a laptop or a computer available in a campus computer lab.</p>
+<div id="advanced-dplyr-functions" class="section level1" number="23">
+<h1><span class="header-section-number">Part 23</span> Advanced <strong>dplyr</strong> functions</h1>
+<div id="recode" class="section level2" number="23.1">
+<h2><span class="header-section-number">23.1</span> <code>recode()</code></h2>
+<p><code>recode()</code> is useful for recoding categorical variables.</p>
+<p>Unlike most of the other function in <strong>dplyr</strong>, <code>recode()</code> is backwards in it’s syntax:</p>
+<pre><code>recode(.x, old = new)</code></pre>
+<p>Lets take a look at recoding different variables using the <code>psychTools::bfi</code> dataset:</p>
+<p>In the dataset, our <code>gender</code> variable has values 1 and 2.</p>
+<p>This is a little vague since we don’t know what 1 or 2 is in respect to gender.</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="advanced-dplyr-functions.html#cb113-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="ot">&lt;-</span> psychTools<span class="sc">::</span>bfi <span class="sc">|&gt;</span> </span>
+<span id="cb113-2"><a href="advanced-dplyr-functions.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rownames_to_column</span>(<span class="at">var =</span> <span class="st">&quot;.id&quot;</span>)</span>
+<span id="cb113-3"><a href="advanced-dplyr-functions.html#cb113-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb113-4"><a href="advanced-dplyr-functions.html#cb113-4" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb113-5"><a href="advanced-dplyr-functions.html#cb113-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb113-6"><a href="advanced-dplyr-functions.html#cb113-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">gender =</span> <span class="fu">recode</span>(gender, <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;man&quot;</span>, <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="st">&quot;woman&quot;</span>)</span>
+<span id="cb113-7"><a href="advanced-dplyr-functions.html#cb113-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb113-8"><a href="advanced-dplyr-functions.html#cb113-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.id, gender, education) <span class="sc">|&gt;</span></span>
+<span id="cb113-9"><a href="advanced-dplyr-functions.html#cb113-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p><em>Note that for numeric values on the left side of <code>=</code>,</em>
+<em>you need to wrap them in “quotes” or <code>backticks</code>;</em>
+<em>however, that’s not necessary for character values</em></p>
+<p>We can also specify a <code>.default</code> value within our <code>recode()</code>.</p>
+<p>For example, say we want to have just “HS or less” versus “more than HS”</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="advanced-dplyr-functions.html#cb114-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb114-2"><a href="advanced-dplyr-functions.html#cb114-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb114-3"><a href="advanced-dplyr-functions.html#cb114-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">education =</span> <span class="fu">recode</span>(education, <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;HS&quot;</span>, <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="st">&quot;HS&quot;</span>, <span class="at">.default =</span> <span class="st">&quot;More than HS&quot;</span>)</span>
+<span id="cb114-4"><a href="advanced-dplyr-functions.html#cb114-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb114-5"><a href="advanced-dplyr-functions.html#cb114-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.id, gender, education) <span class="sc">|&gt;</span></span>
+<span id="cb114-6"><a href="advanced-dplyr-functions.html#cb114-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>Another neat feature of the <code>recode()</code> function is the <code>.missing</code> value.</p>
+<p>If we would rather convert NA values to something more explicit,
+we can specify that in the <code>.missing</code> argument.</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="advanced-dplyr-functions.html#cb115-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb115-2"><a href="advanced-dplyr-functions.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb115-3"><a href="advanced-dplyr-functions.html#cb115-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">education =</span> <span class="fu">recode</span>(</span>
+<span id="cb115-4"><a href="advanced-dplyr-functions.html#cb115-4" aria-hidden="true" tabindex="-1"></a>      education, </span>
+<span id="cb115-5"><a href="advanced-dplyr-functions.html#cb115-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;HS&quot;</span>, </span>
+<span id="cb115-6"><a href="advanced-dplyr-functions.html#cb115-6" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="st">&quot;HS&quot;</span>, </span>
+<span id="cb115-7"><a href="advanced-dplyr-functions.html#cb115-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">.default =</span> <span class="st">&quot;More than HS&quot;</span>, </span>
+<span id="cb115-8"><a href="advanced-dplyr-functions.html#cb115-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">.missing =</span> <span class="st">&quot;(Unknown)&quot;</span></span>
+<span id="cb115-9"><a href="advanced-dplyr-functions.html#cb115-9" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb115-10"><a href="advanced-dplyr-functions.html#cb115-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb115-11"><a href="advanced-dplyr-functions.html#cb115-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.id, gender, education) <span class="sc">|&gt;</span></span>
+<span id="cb115-12"><a href="advanced-dplyr-functions.html#cb115-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>Or we can use <code>tidyr::replace_na()</code></p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="advanced-dplyr-functions.html#cb116-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb116-2"><a href="advanced-dplyr-functions.html#cb116-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb116-3"><a href="advanced-dplyr-functions.html#cb116-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">education =</span> <span class="fu">replace_na</span>(education, <span class="at">replace =</span> <span class="st">&quot;(Unknown)&quot;</span>)</span>
+<span id="cb116-4"><a href="advanced-dplyr-functions.html#cb116-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb116-5"><a href="advanced-dplyr-functions.html#cb116-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(.id, gender, education) <span class="sc">|&gt;</span></span>
+<span id="cb116-6"><a href="advanced-dplyr-functions.html#cb116-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
 </div>
-<div id="books-and-videos" class="section level3" number="0.3.2">
-<h3><span class="header-section-number">0.3.2</span> Books and Videos</h3>
-<p>In addition to class materials and lab activities, there will also be videos and sections of the book <strong>R for Data Science</strong> that will be shared to support your learning.</p>
-<ul>
-<li><a href="https://r4ds.had.co.nz">R for Data Science text</a></li>
-</ul>
+<div id="across" class="section level2" number="23.2">
+<h2><span class="header-section-number">23.2</span> <code>across()</code></h2>
+<p>The <code>across</code> function allows us to apply transformations across multiple columns</p>
+<p>Say we wanted to look at the mean of each agreeable variable between gender groups:</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="advanced-dplyr-functions.html#cb117-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb117-2"><a href="advanced-dplyr-functions.html#cb117-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span></span>
+<span id="cb117-3"><a href="advanced-dplyr-functions.html#cb117-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb117-4"><a href="advanced-dplyr-functions.html#cb117-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb117-5"><a href="advanced-dplyr-functions.html#cb117-5" aria-hidden="true" tabindex="-1"></a>      A1<span class="sc">:</span>A5,</span>
+<span id="cb117-6"><a href="advanced-dplyr-functions.html#cb117-6" aria-hidden="true" tabindex="-1"></a>      mean,</span>
+<span id="cb117-7"><a href="advanced-dplyr-functions.html#cb117-7" aria-hidden="true" tabindex="-1"></a>      <span class="at">na.rm =</span> <span class="cn">TRUE</span></span>
+<span id="cb117-8"><a href="advanced-dplyr-functions.html#cb117-8" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb117-9"><a href="advanced-dplyr-functions.html#cb117-9" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>If we want to put the function name <code>mean</code>, togther with all of its arguments,
+we can write it as an <strong>anonymous function</strong>:</p>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="advanced-dplyr-functions.html#cb118-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb118-2"><a href="advanced-dplyr-functions.html#cb118-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span></span>
+<span id="cb118-3"><a href="advanced-dplyr-functions.html#cb118-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb118-4"><a href="advanced-dplyr-functions.html#cb118-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb118-5"><a href="advanced-dplyr-functions.html#cb118-5" aria-hidden="true" tabindex="-1"></a>      A1<span class="sc">:</span>A5,</span>
+<span id="cb118-6"><a href="advanced-dplyr-functions.html#cb118-6" aria-hidden="true" tabindex="-1"></a>      \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb118-7"><a href="advanced-dplyr-functions.html#cb118-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb118-8"><a href="advanced-dplyr-functions.html#cb118-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>What if we wanted to include the standard deviation as well? We can pass a <code>list</code> of functions into <code>across()</code></p>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="advanced-dplyr-functions.html#cb119-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb119-2"><a href="advanced-dplyr-functions.html#cb119-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(gender) <span class="sc">|&gt;</span></span>
+<span id="cb119-3"><a href="advanced-dplyr-functions.html#cb119-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb119-4"><a href="advanced-dplyr-functions.html#cb119-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb119-5"><a href="advanced-dplyr-functions.html#cb119-5" aria-hidden="true" tabindex="-1"></a>      A1<span class="sc">:</span>A5,</span>
+<span id="cb119-6"><a href="advanced-dplyr-functions.html#cb119-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(</span>
+<span id="cb119-7"><a href="advanced-dplyr-functions.html#cb119-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">mean =</span> \(x) <span class="fu">mean</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb119-8"><a href="advanced-dplyr-functions.html#cb119-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> \(x) <span class="fu">sd</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb119-9"><a href="advanced-dplyr-functions.html#cb119-9" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb119-10"><a href="advanced-dplyr-functions.html#cb119-10" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb119-11"><a href="advanced-dplyr-functions.html#cb119-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 </div>
-<div id="syllabussoftware" class="section level3" number="0.3.3">
-<h3><span class="header-section-number">0.3.3</span> Software</h3>
-<div id="syllabusr" class="section level4" number="0.3.3.1">
-<h4><span class="header-section-number">0.3.3.1</span> R and RStudio</h4>
-<p>R is a free software environment for statistical computing and graphics. It compiles and runs on a wide variety of UNIX platforms, Windows, and MacOS.</p>
-<p>RStudio is a free <em>integrated development environment</em> (IDE), a powerful user interface or dashboard for R.</p>
+<div id="complex-recoding-plus-across" class="section level2" number="23.3">
+<h2><span class="header-section-number">23.3</span> Complex <code>recoding</code> plus <code>across()</code></h2>
+<p>Now sometimes with our scales we may encounter variables that are reverse scored.</p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="advanced-dplyr-functions.html#cb120-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb120-2"><a href="advanced-dplyr-functions.html#cb120-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb120-3"><a href="advanced-dplyr-functions.html#cb120-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">A1r =</span> <span class="fu">recode</span>(</span>
+<span id="cb120-4"><a href="advanced-dplyr-functions.html#cb120-4" aria-hidden="true" tabindex="-1"></a>      A1, </span>
+<span id="cb120-5"><a href="advanced-dplyr-functions.html#cb120-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;6&quot;</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">&quot;5&quot;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">&quot;4&quot;</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">&quot;3&quot;</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="dv">6</span></span>
+<span id="cb120-6"><a href="advanced-dplyr-functions.html#cb120-6" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb120-7"><a href="advanced-dplyr-functions.html#cb120-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb120-8"><a href="advanced-dplyr-functions.html#cb120-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(A1, A1r) <span class="sc">|&gt;</span> </span>
+<span id="cb120-9"><a href="advanced-dplyr-functions.html#cb120-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span>
+<span id="cb120-10"><a href="advanced-dplyr-functions.html#cb120-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-11"><a href="advanced-dplyr-functions.html#cb120-11" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb120-12"><a href="advanced-dplyr-functions.html#cb120-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb120-13"><a href="advanced-dplyr-functions.html#cb120-13" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb120-14"><a href="advanced-dplyr-functions.html#cb120-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">A1r =</span> <span class="fu">max</span>(A1, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">-</span> A1 <span class="sc">+</span> <span class="fu">min</span>(A1, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb120-15"><a href="advanced-dplyr-functions.html#cb120-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(A1, A1r) <span class="sc">|&gt;</span> </span>
+<span id="cb120-16"><a href="advanced-dplyr-functions.html#cb120-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>However, we can implement some more complex code that will reverse <code>recode()</code> in one fell swoop!</p>
+<p>We start with either specifying our columns that need reverse coding or get it from a data dictionary:</p>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="advanced-dplyr-functions.html#cb121-1" aria-hidden="true" tabindex="-1"></a>reversed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A1&quot;</span>, <span class="st">&quot;C4&quot;</span>, <span class="st">&quot;C5&quot;</span>, <span class="st">&quot;E1&quot;</span>, <span class="st">&quot;E2&quot;</span>, <span class="st">&quot;O2&quot;</span>, <span class="st">&quot;O5&quot;</span>)</span>
+<span id="cb121-2"><a href="advanced-dplyr-functions.html#cb121-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-3"><a href="advanced-dplyr-functions.html#cb121-3" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb121-4"><a href="advanced-dplyr-functions.html#cb121-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-5"><a href="advanced-dplyr-functions.html#cb121-5" aria-hidden="true" tabindex="-1"></a>dict <span class="ot">&lt;-</span> psychTools<span class="sc">::</span>bfi.dictionary <span class="sc">|&gt;</span></span>
+<span id="cb121-6"><a href="advanced-dplyr-functions.html#cb121-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>(<span class="at">rownames =</span> <span class="st">&quot;item&quot;</span>)</span>
+<span id="cb121-7"><a href="advanced-dplyr-functions.html#cb121-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-8"><a href="advanced-dplyr-functions.html#cb121-8" aria-hidden="true" tabindex="-1"></a>reversed <span class="ot">&lt;-</span> dict <span class="sc">|&gt;</span></span>
+<span id="cb121-9"><a href="advanced-dplyr-functions.html#cb121-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Keying <span class="sc">==</span> <span class="sc">-</span><span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb121-10"><a href="advanced-dplyr-functions.html#cb121-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(item)</span></code></pre></div>
+<p>Putting it all together:</p>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="advanced-dplyr-functions.html#cb122-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb122-2"><a href="advanced-dplyr-functions.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(</span>
+<span id="cb122-3"><a href="advanced-dplyr-functions.html#cb122-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">all_of</span>(reversed),</span>
+<span id="cb122-4"><a href="advanced-dplyr-functions.html#cb122-4" aria-hidden="true" tabindex="-1"></a>    \(x) <span class="fu">recode</span>(x, <span class="st">&quot;6&quot;</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">&quot;5&quot;</span> <span class="ot">=</span> <span class="dv">2</span>, <span class="st">&quot;4&quot;</span> <span class="ot">=</span> <span class="dv">3</span>, <span class="st">&quot;3&quot;</span> <span class="ot">=</span> <span class="dv">4</span>, <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="dv">5</span>, <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="dv">6</span>),</span>
+<span id="cb122-5"><a href="advanced-dplyr-functions.html#cb122-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">.names =</span> <span class="st">&quot;{.col}r&quot;</span></span>
+<span id="cb122-6"><a href="advanced-dplyr-functions.html#cb122-6" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">|&gt;</span></span>
+<span id="cb122-7"><a href="advanced-dplyr-functions.html#cb122-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>The <code>.names</code> argument tells how to name the new columns.
+If you omit <code>.names</code>, the columns will be modified in place.
+In <code>.names</code>, the <code>{.col}</code> bit means “the column name”,
+and any text around that (here the letter <code>r</code>) is added to the name.</p>
 </div>
-<div id="syllabusgit" class="section level4" number="0.3.3.2">
-<h4><span class="header-section-number">0.3.3.2</span> Git and Github</h4>
-<p>Git is a version control system. Its original purpose was to help groups of developers work collaboratively on big software projects. Git manages the evolution of a set of files – called a repository – in a structured way. Think of it like the “Track Changes” features from Microsoft Word.</p>
-<p>Github is a free IDE and hosting service for Git. As a USF student, you should be able to access the <a href="https://education.github.com/benefits?type=student">GitHub Student Developer Pack for free</a>. It includes a free PRO upgrade for your github account.</p>
-</div>
-</div>
-</div>
-<div id="assignment-instructions" class="section level2" number="0.4">
-<h2><span class="header-section-number">0.4</span> Assignment Instructions</h2>
-<div id="lab-activities" class="section level3" number="0.4.1">
-<h3><span class="header-section-number">0.4.1</span> Lab Activities</h3>
-<p>Each week, there will be opportunities to practice your programming skills in guided activities and problems. You should complete these activities each week and submit them via your GitHub repository for the class. Of the 15 lab activities, you must complete 12 to earn an A grade. You may choose which activities (if any) to skip.</p>
-<p>For each lab activity, your code should (1) be able to run on any computer without user input, (2) produce the desired outcome, and (3) use clear coding style and logic so that readers can understand it</p>
-</div>
-<div id="peer-code-review" class="section level3" number="0.4.2">
-<h3><span class="header-section-number">0.4.2</span> Peer Code Review</h3>
-<p>Each week, you will be assigned to review 2 classmates’ code and provide constructive feedback. You should both (1) test the code to ensure that it produces correct output and (2) complete a code review report to provide feedback on program design, coding style, and documentation.</p>
-<p>Code reviews should be completed in a timely manner so that your classmates’ can benefit from the feedback. You may review either a lab activity or portfolio piece. You must complete 10 code reviews to earn an A grade. You may choose which assigned reviews (if any) to skip. As a class, please ensure that each person gets at least one review for each of their activities.</p>
-</div>
-<div id="portfolio-pieces" class="section level3" number="0.4.3">
-<h3><span class="header-section-number">0.4.3</span> Portfolio Pieces</h3>
-<p>By the end of the semester, you should also have completed 3 larger “portfolio pieces”. These pieces can be one of the following:</p>
-<ol style="list-style-type: decimal">
-<li><p>Data analysis report: Explore and analyze a dataset of interest to you to derive useful or interesting insights. You must demonstrate the skills you are learning in the course (data wrangling, data visualization, modeling, web scraping, text mining, etc.) and present one or more key insights that can be learned from the data. Your project should demonstrate good habits with respect to reproducibility, clear coding style and logic, and effective visualization and communication.
-<br>
-You may choose (or construct) any dataset of interest to you. If you are involved in research, please feel free to use data from these projects. Otherwise, there are many datasets available online you can work with, or you can build a dataset from the web yourself. We will explore portfolio piece ideas and potential data sources throughout the semester.</p></li>
-<li><p>Professional website: Create and deploy a website highlighting your skills, experience, and professional portfolio, as appropriate to your professional goals.</p></li>
-<li><p>Cheat sheet: Create a cheat sheet in the style of <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a> for a package, procedure, or workflow. For example, you could make a cheat sheet for a package we discuss in class or another package, or a cheat sheet for a common workflow or procedure for your lab group.</p></li>
-<li><p>Tutorial or other resource: Write a blog post, tutorial, or other resource teaching readers an analytic, programming, visualization, experimental, or workflow method.</p></li>
-<li><p>Shiny app: Build a Shiny app implementing a method of interest (e.g., power analysis, visualizing a certain type of data, fitting a certain type of model).</p></li>
-</ol>
-<p><strong>At least 1 of your portfolio pieces must be a Data Analysis Report. Graduate students must complete an additional portfolio piece; this one must be a website, tutorial, or shiny app.</strong></p>
-</div>
-</div>
-<div id="due-dates" class="section level2" number="0.5">
-<h2><span class="header-section-number">0.5</span> Due dates</h2>
-<p>All course products are due by the end of the semester, but you should not wait until the last week to start on them! Spaced practice is much more effective for learning than cramming, and I can’t give you useful feedback if I only see things at the end of the semester. Aim to complete lab activities as you go and to complete a portfolio piece every few weeks.</p>
-<!-- Video Links-->
-<!-- [pl_00]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaEAnJX20Ryy4OSie375rVY -->
-<!-- 
-[pl_02]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZmr_T3PnuxjVIlj0C0kUNI
-[pl_03]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaHmjzdRvfg0yhOIYQnfjwE
-[pl_04]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYWFcel6_vp8__RUKLxhX4y
-[pl_05]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYMIguiV1F8RagMYibTY4iW
-[pl_06]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYV_KDod3Mk9-RmtFXii9Dv
-[pl_07]: https://www.youtube.com/watch?list=PLKrrdtYgOUYZxvEvQ8-PcWrOY_dwY_ETI
-[pl_08]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZgOzYB_dmauw55M7jXvsdo
-[pl_09]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbaiTmldRY2ddsLrHp3z6yO
-[pl_10]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbPw5iYzYEzoOKa7mJKNIhq
-[pl_11]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZ-u6LzBbanrNFoeLHKaLL6
-[pl_12]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbwRS-9Htmb80_t1NG-021e
-[pl_13]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
-[pl_14]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
-[pl_15]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYa5MoYrV8EsWQ5jIr5ZYMpM
--->
-<!--AE Links-->
-<!--
-[ae01a_unvotes]: https://github.com/DataScience4Psych/ae01a_unvotes
-[ae01b_covid]: https://github.com/DataScience4Psych/ae01b_covid
-[ae02_bechdel]: https://github.com/DataScience4Psych/ae-02-bechdel-rmarkdown
-[ae03_starwars]: https://github.com/DataScience4Psych/ae-03-starwars-dataviz
--->
-<!-- Lab Links-->
-<!--Slides-->
-<!--
-[d03_dataviz]: https://datascience4psych.github.io/slides/d03_dataviz/d03_dataviz.html
-[d04_ggplot2]: https://datascience4psych.github.io/slides/d04_ggplot2/d04_ggplot2.html
-[d05_viznum]: https://datascience4psych.github.io/slides/d05_viznum/d05_viznum.html
-[d06_vizcat]: https://datascience4psych.github.io/slides/d06_vizcat/d06_vizcat.html
-[d07_tidy]: https://datascience4psych.github.io/slides/d07_tidy/d07_tidy.html
-[d08_grammar]: https://datascience4psych.github.io/slides/d08_grammar/d08_grammar.html
-[d09_wrangle]: https://datascience4psych.github.io/slides/d09_wrangle/d09_wrangle.html
-[d10_dfs]: https://datascience4psych.github.io/slides/d10_dfs/d10_dfs.html
-[d11_types]: https://datascience4psych.github.io/slides/d11_types/d11_types.html
-[d12_import]: https://datascience4psych.github.io/slides/d12_import/d12_import.html
-[d13_goodviz]: https://datascience4psych.github.io/slides/d13_goodviz/d13_goodviz.html
-[d13b_moreggplot]: https://datascience4psych.github.io/slides/d13_goodviz/d13b_moreggplot.html
-[d14_confound]: https://datascience4psych.github.io/slides/d14_confound/d14_confound.html
-[d15_goodtalk]: https://datascience4psych.github.io/slides/d15_goodtalk/d15_goodtalk.html
-[d16_webscraping]: https://datascience4psych.github.io/slides/d16_webscraping/d16_webscraping.html
-[d17_functions]: https://datascience4psych.github.io/slides/d17_functions/d17_functions.html
-[d18_ethics]: https://datascience4psych.github.io/slides/d18_ethics/d18_ethics.html
-[d19_bias]: https://datascience4psych.github.io/slides/d19_bias/d19_bias.html
--->
-<!--externals-->
+<div id="rowwise" class="section level2" number="23.4">
+<h2><span class="header-section-number">23.4</span> <code>rowwise()</code></h2>
+<p><code>rowwise()</code> is a special <code>group_by()</code>.
+It tells R to treat each row of a data frame as its own group.</p>
+<p><code>rowwise()</code> is useful for computing summary scores across items for each person.
+For example, to compute total scores for each person in the <code>dat_bfi</code> data:</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="advanced-dplyr-functions.html#cb123-1" aria-hidden="true" tabindex="-1"></a>dat_bfi <span class="sc">|&gt;</span></span>
+<span id="cb123-2"><a href="advanced-dplyr-functions.html#cb123-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb123-3"><a href="advanced-dplyr-functions.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb123-4"><a href="advanced-dplyr-functions.html#cb123-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">.id =</span> .id,</span>
+<span id="cb123-5"><a href="advanced-dplyr-functions.html#cb123-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">A_total =</span> <span class="fu">mean</span>(<span class="fu">c_across</span>(A1<span class="sc">:</span>A5), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb123-6"><a href="advanced-dplyr-functions.html#cb123-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">C_total =</span> <span class="fu">mean</span>(<span class="fu">c_across</span>(C1<span class="sc">:</span>C5), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb123-7"><a href="advanced-dplyr-functions.html#cb123-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">E_total =</span> <span class="fu">mean</span>(<span class="fu">c_across</span>(E1<span class="sc">:</span>E5), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb123-8"><a href="advanced-dplyr-functions.html#cb123-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">N_total =</span> <span class="fu">mean</span>(<span class="fu">c_across</span>(N1<span class="sc">:</span>N5), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb123-9"><a href="advanced-dplyr-functions.html#cb123-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">O_total =</span> <span class="fu">mean</span>(<span class="fu">c_across</span>(O1<span class="sc">:</span>O5), <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb123-10"><a href="advanced-dplyr-functions.html#cb123-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">.before =</span> <span class="fu">everything</span>()</span>
+<span id="cb123-11"><a href="advanced-dplyr-functions.html#cb123-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb123-12"><a href="advanced-dplyr-functions.html#cb123-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>The <code>c_across()</code> function combines <code>c()</code> and <code>across()</code> into one.
+It is like <code>c()</code> and creates a vector ala <code>c(1, 3, 5, 7)</code>,
+but you can use the same options for selecting column names as <code>select()</code>.</p>
+<p>The <code>.before</code> argument says where to put the new columns you <code>mutate()</code>.</p>
+<p><code>everything()</code> means “all the columns have I haven’t named yet”,
+so <code>.before = everything()</code> means put the new columns at the beginning of the data frame.</p>
 
 </div>
 </div>
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="getting-started.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="welcome-to-data-science.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="grouping-and-summarizing-data.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -503,7 +547,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0002_syllabus.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0306_advanced-dplyr.Rmd",
 "text": "Edit"
 },
 "history": {
