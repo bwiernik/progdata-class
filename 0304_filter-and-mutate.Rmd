@@ -1,0 +1,68 @@
+# Filtering and mutating data frames
+
+## Learning Objectives
+
+Here are the concepts we'll be exploring in this lesson:
+
+- Relational/comparison operators
+- Logical operators
+- **dplyr** functions:
+    - filter
+    - mutate
+
+By the end of this lesson, you will be able to:
+
+- Predict the output of R code containing the above operators.
+- Explain the difference between `&`/`&&` and `|`/`||`, and name a situation 
+  where one should be used over the other.
+- Subsetting and transforming data using filter and mutate
+
+## R Operators
+
+**Arithmetic** operators allow us to carry out mathematical operations:
+
+| Operator | Description |
+|------|:---------|
+| + | Add |
+| - | Subtract |
+| * | Multiply |
+| / | Divide |
+| ^ | Exponent |
+| %/% | Integer division |
+| %% | Modulus (remainder from integer division) |
+
+**Relational** operators allow us to compare values:
+
+| Operator | Description |
+|------|:---------|
+| < | Less than |
+| > | Greater than |
+| <= | Less than or equal to |
+| >= | Greater than or equal to |
+| == | Equal to |
+| != | Not equal to |
+
+* Arithmetic and relational operators work on vectors.
+
+There is another very useful relational function, `%in%`:
+
+```{r}
+c(1, 2, 3, 4, 5) %in% c(1, 2)
+```
+
+**Logical** operators allow us to carry out boolean operations:
+
+| Operator | Description |
+|---|:---|
+| ! | Not |
+| \| | Or (element_wise) |
+| & | And (element-wise) |
+| \|\| | Or |
+| && | And |
+
+* The difference between `|` and `||` is that `||` evaluates only the first 
+element of the two vectors, whereas `|` evaluates element-wise. 
+
+## Demonstration
+
+Continue along with the worksheet until **Back to Guide Again**.

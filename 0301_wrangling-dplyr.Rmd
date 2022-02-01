@@ -1,0 +1,45 @@
+# (PART) Module 02 {-}
+
+# Wrangle yo' data with **dplyr**
+
+
+## Today's Topics
+
+Today we'll get started with learning to "wrangle" data—
+that is, to subset it, rearrange it, transform it, summarize it, 
+and otherwise make it ready for analysis. 
+We are going to be working with the [**dplyr**](https://dplyr.tidyverse.org/) package.
+Specifically, we're going to consider three lessons today:
+
+- Intro to **dplyr** syntax
+- The `|>` pipe and the **dplyr** advantage
+- `filter`; relational/comparison and logical operators in R
+
+- Specific **dplyr** functions we will cover
+  - `select()`
+  - `arrange()`
+  - `filter()`
+  - `mutate()`
+  - `summarize()`
+  - `group_by()`
+      - grouped `mutate()`
+      - grouped `summarize()`
+  - `recode()`
+  - `across()`
+  - `rowwise()`
+
+## Resources
+
+  - [stat545: dplyr-intro](http://stat545.com/block009_dplyr-intro.html)
+  - [stat545: dplyr-single](https://stat545.com/dplyr-single.html)
+  - [r4ds: transform](http://r4ds.had.co.nz/transform.html) chapter.
+
+Here are some supplementary resources:
+
+- A similar resource to the r4ds one above is the [intro to dplyr vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html).
+- Want to read more about piping? See [r4ds: pipes](http://r4ds.had.co.nz/pipes.html).
+
+Some advanced topics you might find useful:
+
+- For window functions and how dplyr handles them, see the [window-functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html) vignette for the **dplyr** package. 
+- For time series data, see the [tsibble demo](https://tsibble.tidyverts.org/)

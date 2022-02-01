@@ -1,0 +1,37 @@
+# Selecting and sorting data frames
+
+## Learning Objectives
+
+Here are the concepts we'll be exploring in this lesson:
+
+- tidyverse
+- **dplyr** functions:
+    - `select()`
+    - `arrange()`
+- piping
+
+By the end of this lesson, students are expected to be able to:
+
+- subset and rearrange data with **dplyr**
+- use piping (`|>`) when implementing function chains
+
+## Preamble
+
+Let's talk about:
+
+- The history of **dplyr**: **plyr**
+  - Don't use both in one script!
+  - My recommendation, don't use **plyr** at all at this point.
+- tibbles are a special type of data frame
+- The [tidyverse](https://www.tidyverse.org/)
+- Package functions and masking
+  - Load the **tidyverse** package: `library(tidyverse)`
+
+## Demonstration
+
+Let's get started with an exercise:
+
+  1. Download [this Rmd worksheet](https://github.com/bwiernik/progdata-class/raw/master/templates/exercise-dplyr.Rmd). 
+  2. Save it to your class GitHub repo with a name like `exercise-dplyr.Rmd`.
+  3. Open the worksheet in RStudio.
+  4. Follow along in the `.Rmd` file until the *Back to Guide* section.
