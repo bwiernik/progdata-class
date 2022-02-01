@@ -1,4 +1,4 @@
-# (PART) Module 02 {-}
+# (PART) Module 03 {-}
 
 # Wrangle yo' data with **dplyr**
 
