@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 14 Working with ggplot2 | Programming with Data</title>
-  <meta name="description" content="Part 14 Working with ggplot2 | Programming with Data" />
+  <title>Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data</title>
+  <meta name="description" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 14 Working with ggplot2 | Programming with Data" />
+  <meta property="og:title" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 14 Working with ggplot2 | Programming with Data" />
+  <meta name="twitter:title" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="the-grammar-of-graphics.html"/>
-<link rel="next" href="activity-build-some-plots.html"/>
+<link rel="prev" href="advanced-dplyr-functions.html"/>
+
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -357,83 +357,91 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="working-with-ggplot2" class="section level1" number="14">
-<h1><span class="header-section-number">Part 14</span> Working with <strong>ggplot2</strong></h1>
-<p>First, the <strong>ggplot2</strong> package comes with the <strong>tidyverse</strong> meta-package.
-You can just load <strong>tidyverse</strong>, and it will also load <strong>ggplot2</strong>.</p>
-<p>Let’s use the above scatterplot as an example to see how to use the <code>ggplot()</code> function.</p>
-<p>First, we will pass one argument to <code>ggplot()</code> function itself:
-- <code>data</code>: the data frame containing your plotting data</p>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="working-with-ggplot2.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder)</span></code></pre></div>
-<p><img src="main_files/figure-html/unnamed-chunk-74-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>After this, we <strong>add</strong> additional functions as <strong>layers</strong> to add features to the plot and control their appearance. The first thing we will add is <code>aes()</code>. The <code>aes()</code> function tells R to look in the <code>data</code> for variable names to <em>map</em> them to different <em>aesthetic features</em>, such as x-position, y-position, or color.</p>
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="working-with-ggplot2.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb55-2"><a href="working-with-ggplot2.html#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp)</span></code></pre></div>
-<p><img src="main_files/figure-html/unnamed-chunk-75-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>Next, we want to add some <strong>geometric shapes</strong> to the plot.
-These use functions with the form <code>geom_SOMETHING()</code>.
-Different plot shapes (<code>geom_SOMETHING</code>) accept different <code>aes()</code> arguments.
-These are listed in the help file for the geom function:
-<code>?geom_point</code>, <code>?geom_line</code>, etc.</p>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="working-with-ggplot2.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb56-2"><a href="working-with-ggplot2.html#cb56-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
-<span id="cb56-3"><a href="working-with-ggplot2.html#cb56-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="main_files/figure-html/unnamed-chunk-76-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>You can control aesthetics using constants or variables from outside <code>data</code> by specifying them outside of <code>aes()</code>.
-For example, to make all of the shapes of plot blue, you can add: <code>color = "blue"</code>.</p>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="working-with-ggplot2.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb57-2"><a href="working-with-ggplot2.html#cb57-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
-<span id="cb57-3"><a href="working-with-ggplot2.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="main_files/figure-html/unnamed-chunk-77-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>There’s a bit of overplotting (overlapping symbols), so let’s also make the points semi-transparent.
-This is controlled using the <code>alpha</code> argument
-(you need <code>1/alpha</code> points overlaid to achieve a solid point).</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="working-with-ggplot2.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb58-2"><a href="working-with-ggplot2.html#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
-<span id="cb58-3"><a href="working-with-ggplot2.html#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> .<span class="dv">1</span>)</span></code></pre></div>
-<p><img src="main_files/figure-html/unnamed-chunk-78-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>For now, that’s the only <code>geom</code> that we want to add.
-Now, let’s specify a scale transformation, because the plot would really benefit if the x-axis is on a logarithmic
-scale.
-These functions take the form <code>scale_AESTHETIC_TYPE()</code>.</p>
-<p>As usual, you can tweak this layer, too, using this function’s arguments.
-In this example, we’re re-naming the x-axis (the <code>name</code> argument),
-transform the values (the <code>trans</code> argument),
-and changing the labels to have a dollar format (the <code>labels</code> argument).</p>
-<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="working-with-ggplot2.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb59-2"><a href="working-with-ggplot2.html#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
-<span id="cb59-3"><a href="working-with-ggplot2.html#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb59-4"><a href="working-with-ggplot2.html#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb59-5"><a href="working-with-ggplot2.html#cb59-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;GDP per capita&quot;</span>, </span>
-<span id="cb59-6"><a href="working-with-ggplot2.html#cb59-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trans =</span> <span class="st">&quot;log10&quot;</span>, </span>
-<span id="cb59-7"><a href="working-with-ggplot2.html#cb59-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()</span>
-<span id="cb59-8"><a href="working-with-ggplot2.html#cb59-8" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p><img src="main_files/figure-html/unnamed-chunk-79-1.png" width="480" style="display: block; margin: auto;" /></p>
-<p>I’m tired of seeing the ugly default gray background, so I’ll add a <code>theme()</code>
-layer.
-I like <code>theme_bw()</code> (you can tweak themes later, too!).
-Then, I’ll re-label the y-axis using the <code>ylab()</code> function.
-Et voilà!</p>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="working-with-ggplot2.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(gapminder) <span class="sc">+</span></span>
-<span id="cb60-2"><a href="working-with-ggplot2.html#cb60-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp) <span class="sc">+</span> </span>
-<span id="cb60-3"><a href="working-with-ggplot2.html#cb60-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> .<span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb60-4"><a href="working-with-ggplot2.html#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb60-5"><a href="working-with-ggplot2.html#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;GDP per capita&quot;</span>, </span>
-<span id="cb60-6"><a href="working-with-ggplot2.html#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">trans =</span> <span class="st">&quot;log10&quot;</span>, </span>
-<span id="cb60-7"><a href="working-with-ggplot2.html#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">dollar_format</span>()</span>
-<span id="cb60-8"><a href="working-with-ggplot2.html#cb60-8" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb60-9"><a href="working-with-ggplot2.html#cb60-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
-<span id="cb60-10"><a href="working-with-ggplot2.html#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Life expectancy&quot;</span>)</span></code></pre></div>
-<p><img src="main_files/figure-html/unnamed-chunk-80-1.png" width="480" style="display: block; margin: auto;" /></p>
+<div id="lab03" class="section level1" number="24">
+<h1><span class="header-section-number">Part 24</span> Lab 3: Explore <strong>gapminder</strong> with <strong>ggplot2</strong> and <strong>dplyr</strong></h1>
+<p>In this lab, you will explore the <strong>gapminder</strong> dataset by making summary tables and visualizations.</p>
+<div id="getting-started-2" class="section level2" number="24.1">
+<h2><span class="header-section-number">24.1</span> Getting started</h2>
+<p>Make a new RMarkdown script for this lab.
+In the <em>setup</em> chunk at the top of your scripts,
+load the packages needed for this lab.</p>
+<p>These include <strong>tidyverse</strong> and <strong>gapminder</strong>.</p>
+</div>
+<div id="exercise-1-basic-dplyr" class="section level2" number="24.2">
+<h2><span class="header-section-number">24.2</span> Exercise 1: Basic <strong>dplyr</strong></h2>
+<p>Use <strong>dplyr</strong> functions to achieve the following.
+For each exercise, print your result.</p>
+<div id="section" class="section level3" number="24.2.1">
+<h3><span class="header-section-number">24.2.1</span> 1.1</h3>
+<p>Use <code>filter()</code> to subset the <code>gapminder</code> data to three countries of your choice in the 1970’s.</p>
+</div>
+<div id="section-1" class="section level3" number="24.2.2">
+<h3><span class="header-section-number">24.2.2</span> 1.2</h3>
+<p>Start with the original <code>gapminder</code> data and use the pipe operator <code>|&gt;</code> to first do the above filter and then select the “country” and “gdpPercap” variables.</p>
+</div>
+<div id="section-2" class="section level3" number="24.2.3">
+<h3><span class="header-section-number">24.2.3</span> 1.3</h3>
+<p>Make a new variable in <code>gapminder</code> for the change in life expectancy from the previous measurement <strong>for that country</strong>.
+Filter this table to show all of the entries that have experienced a <strong>drop</strong> in life expectancy.
+Save this result as a new object.</p>
+<p><strong>Hint</strong>: you might find the <code>lag()</code> or <code>diff()</code> functions useful.</p>
+</div>
+<div id="section-3" class="section level3" number="24.2.4">
+<h3><span class="header-section-number">24.2.4</span> 1.4</h3>
+<p>Filter <code>gapminder</code> so that it shows the max GDP per capita experienced <strong>by each country</strong>.</p>
+<p><strong>Hint</strong>: you might find the <code>max()</code> function useful here.</p>
+</div>
+<div id="section-4" class="section level3" number="24.2.5">
+<h3><span class="header-section-number">24.2.5</span> 1.5</h3>
+<p>Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using <code>ggplot2</code>.</p>
+<p>In your plot, put GDP per capita on a <strong>log scale</strong>.</p>
+</div>
+</div>
+<div id="exercise-2-explore-two-variables-with-dplyr-and-ggplot2" class="section level2" number="24.3">
+<h2><span class="header-section-number">24.3</span> Exercise 2: Explore two variables with <strong>dplyr</strong> and <code>ggplot2</code></h2>
+<p>Use <code>gapminder</code>, <code>palmerpenguins::penguins</code>, or another dataset of your choice.
+(Check out a dataset from the <strong>datasets</strong> or <strong>psych</strong> R package if you want!</p>
+<div id="section-5" class="section level3" number="24.3.1">
+<h3><span class="header-section-number">24.3.1</span> 2.1</h3>
+<p>Pick two <strong>quantitative</strong> variables to explore.</p>
+<ul>
+<li>Make a summary table of descriptive statistics for these variables using <code>summarize()</code>.
+<ul>
+<li>Include whatever staistics you feel appropriate (mean, median sd, range, etc.).</li>
+</ul></li>
+<li>Make a scatterplot of these variables using <code>ggplot()</code>.</li>
+</ul>
+</div>
+<div id="section-6" class="section level3" number="24.3.2">
+<h3><span class="header-section-number">24.3.2</span> 2.2</h3>
+<p>Pick one <em>categorical</em> variable and one <em>quantitative</em> variable to explore.</p>
+<ul>
+<li>Make a summary table giving the sample size (hint: <code>n()</code>) and descriptive statistics for the quantitative variable by group.</li>
+<li>Make one or more useful plots to visualize these variables.
+<ul>
+<li>Try to make a raincloud plot with points,
+boxplots, and densities for each group.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="bonus-exercise-recycling-optional" class="section level2" number="24.4">
+<h2><span class="header-section-number">24.4</span> Bonus Exercise: Recycling (Optional)</h2>
+<p>Evaluate this code and describe the result.
+The goal was to get the data for Rwanda and Afghanistan.
+Does this work? Why or why not?
+If not, what is the correct way to do this?</p>
+<pre><code>filter(gapminder, country == c(&quot;Rwanda&quot;, &quot;Afghanistan&quot;))</code></pre>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="the-grammar-of-graphics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="activity-build-some-plots.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="advanced-dplyr-functions.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -464,7 +472,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0203_working-with-ggplot2.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0307_lab3.Rmd",
 "text": "Edit"
 },
 "history": {

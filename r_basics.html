@@ -24,7 +24,7 @@
 <meta name="author" content="Brenton M. Wiernik" />
 
 
-<meta name="date" content="2022-02-01" />
+<meta name="date" content="2022-02-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -330,6 +330,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="23.3" data-path="advanced-dplyr-functions.html"><a href="advanced-dplyr-functions.html#complex-recoding-plus-across"><i class="fa fa-check"></i><b>23.3</b> Complex <code>recoding</code> plus <code>across()</code></a></li>
 <li class="chapter" data-level="23.4" data-path="advanced-dplyr-functions.html"><a href="advanced-dplyr-functions.html#rowwise"><i class="fa fa-check"></i><b>23.4</b> <code>rowwise()</code></a></li>
 </ul></li>
+<li class="chapter" data-level="24" data-path="lab03.html"><a href="lab03.html"><i class="fa fa-check"></i><b>24</b> Lab 3: Explore <strong>gapminder</strong> with <strong>ggplot2</strong> and <strong>dplyr</strong></a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="lab03.html"><a href="lab03.html#getting-started-2"><i class="fa fa-check"></i><b>24.1</b> Getting started</a></li>
+<li class="chapter" data-level="24.2" data-path="lab03.html"><a href="lab03.html#exercise-1-basic-dplyr"><i class="fa fa-check"></i><b>24.2</b> Exercise 1: Basic <strong>dplyr</strong></a></li>
+<li class="chapter" data-level="24.3" data-path="lab03.html"><a href="lab03.html#exercise-2-explore-two-variables-with-dplyr-and-ggplot2"><i class="fa fa-check"></i><b>24.3</b> Exercise 2: Explore two variables with <strong>dplyr</strong> and <code>ggplot2</code></a></li>
+<li class="chapter" data-level="24.4" data-path="lab03.html"><a href="lab03.html#bonus-exercise-recycling-optional"><i class="fa fa-check"></i><b>24.4</b> Bonus Exercise: Recycling (Optional)</a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
 
@@ -420,7 +427,7 @@ Typos matter. Case matters. Precision matters. We have to work within it’s nar
 <span id="cb22-2"><a href="r_basics.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  1  2  3  4  5  6  7  8  9 10</span></span></code></pre></div>
 <p>Not all functions have (or require) arguments:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="r_basics.html#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">date</span>()</span>
-<span id="cb23-2"><a href="r_basics.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Tue Feb  1 01:26:33 2022&quot;</span></span></code></pre></div>
+<span id="cb23-2"><a href="r_basics.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;Thu Feb  3 14:39:14 2022&quot;</span></span></code></pre></div>
 <p>Now look at your workspace – in the upper right pane. The workspace is where user-defined objects accumulate. You can also get a listing of these objects with commands:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="r_basics.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">objects</span>()</span>
 <span id="cb24-2"><a href="r_basics.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;all_pkgs&quot;                   &quot;brenton_rocks&quot;             </span></span>
@@ -501,7 +508,7 @@ Typos matter. Case matters. Precision matters. We have to work within it’s nar
 <span id="cb29-7"><a href="r_basics.html#cb29-7" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">40</span>)</span>
 <span id="cb29-8"><a href="r_basics.html#cb29-8" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> a <span class="sc">+</span> b <span class="sc">*</span> x <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="at">sd =</span> <span class="fu">sqrt</span>(sig_sq))</span>
 <span id="cb29-9"><a href="r_basics.html#cb29-9" aria-hidden="true" tabindex="-1"></a>(avg_x <span class="ot">&lt;-</span> <span class="fu">mean</span>(x))</span>
-<span id="cb29-10"><a href="r_basics.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.488</span></span>
+<span id="cb29-10"><a href="r_basics.html#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.49</span></span>
 <span id="cb29-11"><a href="r_basics.html#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-12"><a href="r_basics.html#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># these lines save some output...</span></span>
 <span id="cb29-13"><a href="r_basics.html#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="fu">write</span>(avg_x, <span class="st">&quot;avg_x.txt&quot;</span>)</span>
