@@ -167,3 +167,5 @@ exercise-2-explore-two-variables-with-dplyr-and-ggplot2
 section-5
 section-6
 bonus-exercise-recycling-optional
+lab04
+getting-started-3
