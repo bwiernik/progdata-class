@@ -1,0 +1,37 @@
+﻿Item,Content,Options,Keying
+green1,"Overall, I am regarded as an environmentally conscious person.","1-5; SD, D, NAD, A, SA",1
+green2,I am not particularly known for protecting the environment.,"1-5; SD, D, NAD, A, SA",-1
+green3,My friends know I enjoy nature.,"1-5; SD, D, NAD, A, SA",1
+green4,I have a reputation for living in harmony with the environment.,"1-5; SD, D, NAD, A, SA",1
+green5,"Among people I know, I seem to be the one most concerned with sustainability.","1-5; SD, D, NAD, A, SA",1
+comp1,I feel others' emotions.,"1-5; SD, D, NAD, A, SA",1
+comp2,I inquire about others' well-being.,"1-5; SD, D, NAD, A, SA",1
+comp3,I sympathize with others' feelings.,"1-5; SD, D, NAD, A, SA",1
+comp4,I take an interest in other people's lives.,"1-5; SD, D, NAD, A, SA",1
+comp5,I like to do things for others.,"1-5; SD, D, NAD, A, SA",1
+comp6,I am not interested in other people's problems.,"1-5; SD, D, NAD, A, SA",-1
+comp7,I can't be bothered with others' needs.,"1-5; SD, D, NAD, A, SA",-1
+comp8,I am indifferent to the feelings of others.,"1-5; SD, D, NAD, A, SA",-1
+comp9,I take no time for others.,"1-5; SD, D, NAD, A, SA",-1
+comp10,I don't have a soft side.,"1-5; SD, D, NAD, A, SA",-1
+intel1,I am quick to understand things.,"1-5; SD, D, NAD, A, SA",1
+intel2,I can handle a lot of information.,"1-5; SD, D, NAD, A, SA",1
+intel3,I like to solve complex problems.,"1-5; SD, D, NAD, A, SA",1
+intel4,I have a rich vocabulary.,"1-5; SD, D, NAD, A, SA",1
+intel5,I think quickly.,"1-5; SD, D, NAD, A, SA",1
+intel6,I formulate ideas clearly.,"1-5; SD, D, NAD, A, SA",1
+intel7,I have difficulty understanding abstract ideas.,"1-5; SD, D, NAD, A, SA",-1
+intel8,I avoid philosophical discussions.,"1-5; SD, D, NAD, A, SA",-1
+intel9,I avoid difficult reading material.,"1-5; SD, D, NAD, A, SA",-1
+intel10,I learn things slowly.,"1-5; SD, D, NAD, A, SA",-1
+open1,I enjoy the beauty of nature.,"1-5; SD, D, NAD, A, SA",1
+open2,I believe in the importance of art.,"1-5; SD, D, NAD, A, SA",1
+open3,I love to reflect on things.,"1-5; SD, D, NAD, A, SA",1
+open4,I get deeply immersed in music.,"1-5; SD, D, NAD, A, SA",1
+open5,I see beauty in things that others might not notice.,"1-5; SD, D, NAD, A, SA",1
+open6,I need a creative outlet.,"1-5; SD, D, NAD, A, SA",1
+open7,I do not like poetry.,"1-5; SD, D, NAD, A, SA",-1
+open8,I seldom get lost in thought.,"1-5; SD, D, NAD, A, SA",-1
+open9,I seldom daydream.,"1-5; SD, D, NAD, A, SA",-1
+open10,I seldom notice the emotional aspects of paintings and pictures.,"1-5; SD, D, NAD, A, SA",-1
+student,student,1 not a student; 2 student,

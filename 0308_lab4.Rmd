@@ -1,0 +1,40 @@
+# Lab 4: Personality and green reputation {#lab04}
+
+In this lab, You will analyze data looking at the relationship between 
+**green reputation** and three personality traits--
+**compassion**, **intellectual curiosity**, and **openness to experiences**.
+The dataset includes data from **students** and **non-students**.
+
+## Getting started
+
+Make a new RMarkdown script for this lab. 
+In the *setup* chunk at the top of your scripts,
+load the packages needed for this lab. 
+
+Download the 2 data files for this lab and save them in the `data` folder of your
+GitHub folder.
+
+  1. [green_dictionary](https://raw.githubusercontent.com/bwiernik/progdata-class/master/data/green_dictionary.csv)
+  2. [green_data](https://raw.githubusercontent.com/bwiernik/progdata-class/master/data/green_data.csv)
+  
+Add a chunk with these lines chunk to your RMarkdown script to import the data.
+
+```{r, eval = FALSE}
+dictionary <- readr::read_csv(here::here("data", "green_dictionary.csv"))
+green_data <- readr::read_csv(here::here("data", "green_data.csv"))
+```
+
+For your assignment, do the following.
+
+  1. Inspect the item responses (e.g., with graphs or by summarizing distinct values). 
+     Is anything unusual?
+  2. Compute total scores for the four scales. 
+     Recode variables as needed.
+  3. Rescale the variables so that they go from 0-100 instead of the original range.
+     Name the recaled variables `*_pomp`.
+  4. Make plots that illustrate the distributions of the 4 POMP-scored variables.
+  5. Make scatterplots showing the relationships between **green reputation** and each personality trait.
+     Include trend lines for **students** and **non-students**.
+     What do these plots show?
+  6. Compare **green reputation** for students and non-students using a **rainfall plot** (bar + density + data points).
+  7. Compute a summary table of means, SDs, medians, minima, and maxima for the four total scores for students and non-students.
