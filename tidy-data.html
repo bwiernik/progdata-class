@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data</title>
-  <meta name="description" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
+  <title>Part 27 Tidy data | Programming with Data</title>
+  <meta name="description" content="Part 27 Tidy data | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
+  <meta property="og:title" content="Part 27 Tidy data | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
+  <meta name="twitter:title" content="Part 27 Tidy data | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="advanced-dplyr-functions.html"/>
-<link rel="next" href="lab04.html"/>
+<link rel="prev" href="tidy-data-and-pivoting.html"/>
+<link rel="next" href="pivoting-data.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -385,81 +385,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lab03" class="section level1" number="24">
-<h1><span class="header-section-number">Part 24</span> Lab 3: Explore <strong>gapminder</strong> with <strong>ggplot2</strong> and <strong>dplyr</strong></h1>
-<p>In this lab, you will explore the <strong>gapminder</strong> dataset by making summary tables and visualizations.</p>
-<div id="getting-started-2" class="section level2" number="24.1">
-<h2><span class="header-section-number">24.1</span> Getting started</h2>
-<p>Make a new RMarkdown script for this lab.
-In the <em>setup</em> chunk at the top of your scripts,
-load the packages needed for this lab.</p>
-<p>These include <strong>tidyverse</strong> and <strong>gapminder</strong>.</p>
-</div>
-<div id="exercise-1-basic-dplyr" class="section level2" number="24.2">
-<h2><span class="header-section-number">24.2</span> Exercise 1: Basic <strong>dplyr</strong></h2>
-<p>Use <strong>dplyr</strong> functions to achieve the following.
-For each exercise, print your result.</p>
-<div id="section" class="section level3" number="24.2.1">
-<h3><span class="header-section-number">24.2.1</span> 1.1</h3>
-<p>Use <code>filter()</code> to subset the <code>gapminder</code> data to three countries of your choice in the 1970’s.</p>
-</div>
-<div id="section-1" class="section level3" number="24.2.2">
-<h3><span class="header-section-number">24.2.2</span> 1.2</h3>
-<p>Start with the original <code>gapminder</code> data and use the pipe operator <code>|&gt;</code> to first do the above filter and then select the “country” and “gdpPercap” variables.</p>
-</div>
-<div id="section-2" class="section level3" number="24.2.3">
-<h3><span class="header-section-number">24.2.3</span> 1.3</h3>
-<p>Make a new variable in <code>gapminder</code> for the change in life expectancy from the previous measurement <strong>for that country</strong>.
-Filter this table to show all of the entries that have experienced a <strong>drop</strong> in life expectancy.
-Save this result as a new object.</p>
-<p><strong>Hint</strong>: you might find the <code>lag()</code> or <code>diff()</code> functions useful.</p>
-</div>
-<div id="section-3" class="section level3" number="24.2.4">
-<h3><span class="header-section-number">24.2.4</span> 1.4</h3>
-<p>Filter <code>gapminder</code> so that it shows the max GDP per capita experienced <strong>by each country</strong>.</p>
-<p><strong>Hint</strong>: you might find the <code>max()</code> function useful here.</p>
-</div>
-<div id="section-4" class="section level3" number="24.2.5">
-<h3><span class="header-section-number">24.2.5</span> 1.5</h3>
-<p>Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using <code>ggplot2</code>.</p>
-<p>In your plot, put GDP per capita on a <strong>log scale</strong>.</p>
-</div>
-</div>
-<div id="exercise-2-explore-two-variables-with-dplyr-and-ggplot2" class="section level2" number="24.3">
-<h2><span class="header-section-number">24.3</span> Exercise 2: Explore two variables with <strong>dplyr</strong> and <code>ggplot2</code></h2>
-<p>Use <code>gapminder</code>, <code>palmerpenguins::penguins</code>, or another dataset of your choice.
-(Check out a dataset from the <strong>datasets</strong> or <strong>psych</strong> R package if you want!</p>
-<div id="section-5" class="section level3" number="24.3.1">
-<h3><span class="header-section-number">24.3.1</span> 2.1</h3>
-<p>Pick two <strong>quantitative</strong> variables to explore.</p>
+<div id="tidy-data" class="section level1" number="27">
+<h1><span class="header-section-number">Part 27</span> Tidy data</h1>
+<p>A data set is <em>tidy</em> if:</p>
 <ul>
-<li>Make a summary table of descriptive statistics for these variables using <code>summarize()</code>.
-<ul>
-<li>Include whatever staistics you feel appropriate (mean, median sd, range, etc.).</li>
-</ul></li>
-<li>Make a scatterplot of these variables using <code>ggplot()</code>.</li>
+<li>Each row is an <strong>observation</strong> appropriate for the analysis;</li>
+<li>Each column is a <strong>variable</strong>;</li>
+<li>Each cell is a <strong>value</strong>.</li>
 </ul>
-</div>
-<div id="section-6" class="section level3" number="24.3.2">
-<h3><span class="header-section-number">24.3.2</span> 2.2</h3>
-<p>Pick one <em>categorical</em> variable and one <em>quantitative</em> variable to explore.</p>
-<ul>
-<li>Make a summary table giving the sample size (hint: <code>n()</code>) and descriptive statistics for the quantitative variable by group.</li>
-<li>Make one or more useful plots to visualize these variables.
-<ul>
-<li>Try to make a raincloud plot with points,
-boxplots, and densities for each group.</li>
-</ul></li>
-</ul>
-</div>
-</div>
-<div id="bonus-exercise-recycling-optional" class="section level2" number="24.4">
-<h2><span class="header-section-number">24.4</span> Bonus Exercise: Recycling (Optional)</h2>
-<p>Evaluate this code and describe the result.
-The goal was to get the data for Rwanda and Afghanistan.
-Does this work? Why or why not?
-If not, what is the correct way to do this?</p>
-<pre><code>filter(gapminder, country == c(&quot;Rwanda&quot;, &quot;Afghanistan&quot;))</code></pre>
+<p>This means that each value belongs to exactly one variable and one observation.</p>
+<p>Why bother? Because doing computations with untidy data can be a nightmare.
+Computations become simple with tidy data.</p>
+<p>Whether or not a data set is “tidy” depends on the type of analysis you are doing or plot you are making.
+It depends on how you define your “observation” and “variables” for the current analysis.</p>
+<p>As an example, consider this example derived from the <code>datasets::HairEyeColor</code> dataset, containing the number of people having a certain hair and eye color.</p>
+<p>If one observation is identified by a <em>hair-eye color combination</em>, then the tidy dataset is:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="tidy-data.html#cb127-1" aria-hidden="true" tabindex="-1"></a>haireye <span class="sc">|&gt;</span> </span>
+<span id="cb127-2"><a href="tidy-data.html#cb127-2" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p>If one observation is identified by a <em>single person</em>, then the tidy dataset has one pair of values per person, and one row for each person.
+We can use the handy <code>tidyr::uncount()</code> function, the opposite of <code>dplyr::count()</code>:</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="tidy-data.html#cb128-1" aria-hidden="true" tabindex="-1"></a>haireye <span class="sc">|&gt;</span> </span>
+<span id="cb128-2"><a href="tidy-data.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">uncount</span>(n) <span class="sc">|&gt;</span> </span>
+<span id="cb128-3"><a href="tidy-data.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div id="untidy-examples" class="section level2" number="27.1">
+<h2><span class="header-section-number">27.1</span> Untidy Examples</h2>
+<p>The following are examples of untidy data.
+They’re untidy for either of the cases considered above, but for discussion, let’s take a <em>hair-eye color combination</em> to be one observational unit.</p>
+<p>Note that untidy does not always mean “bad”, just inconvenient for the analysis you want to do.</p>
+<p><strong>Untidy Example 1</strong>:
+The following table is untidy because there are multiple observations per row.
+It’s <em>too wide</em>.</p>
+<p>Imagine calculating the total number of people with each hair color.
+You can’t just <code>group_by()</code> and <code>summarize()</code>, here!</p>
+<p>This sort of table is common when presenting results.
+It’s easy for humans to read, but hard for computers to work with.
+Untidy data is usually that way because it was structured for human, not machine, reading.</p>
+<p><strong>Untidy Example 2</strong>:
+The following table is untidy for the same reason as Example 1—multiple observations are contained per row.
+It’s <em>too wide</em>.</p>
+<p><strong>Untidy Example 3</strong>:
+This is untidy because each observational unit is spread across multiple columns.
+It’s <em>too long</em>.</p>
+<p>In fact, we needed to add an identifier for each observation, otherwise we would have lost which row belongs to which observation!</p>
+<p>Does red hair ever occur with blue eyes?
+Can’t just <code>filter(hair == "red", eye == "blue")</code>!</p>
+<p><strong>Untidy Example 4</strong>:
+Just when you thought a data set couldn’t get any longer!
+Now, each variable has its own row: hair color, eye color, and <code>n</code>.</p>
+<p><em>This is the sort of format that is common pulling data from the web or other “Big Data” sources.</em></p>
 
 </div>
 </div>
@@ -468,8 +441,8 @@ If not, what is the correct way to do this?</p>
           </div>
         </div>
       </div>
-<a href="advanced-dplyr-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lab04.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tidy-data-and-pivoting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="pivoting-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -500,7 +473,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0307_lab3.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0402_tidy-data.Rmd",
 "text": "Edit"
 },
 "history": {

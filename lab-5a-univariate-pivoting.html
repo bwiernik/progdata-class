@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data</title>
-  <meta name="description" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
+  <title>Part 29 Lab 5A: Univariate pivoting | Programming with Data</title>
+  <meta name="description" content="Part 29 Lab 5A: Univariate pivoting | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
+  <meta property="og:title" content="Part 29 Lab 5A: Univariate pivoting | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
+  <meta name="twitter:title" content="Part 29 Lab 5A: Univariate pivoting | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="advanced-dplyr-functions.html"/>
-<link rel="next" href="lab04.html"/>
+<link rel="prev" href="pivoting-data.html"/>
+<link rel="next" href="multivariate-pivoting.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -385,81 +385,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lab03" class="section level1" number="24">
-<h1><span class="header-section-number">Part 24</span> Lab 3: Explore <strong>gapminder</strong> with <strong>ggplot2</strong> and <strong>dplyr</strong></h1>
-<p>In this lab, you will explore the <strong>gapminder</strong> dataset by making summary tables and visualizations.</p>
-<div id="getting-started-2" class="section level2" number="24.1">
-<h2><span class="header-section-number">24.1</span> Getting started</h2>
-<p>Make a new RMarkdown script for this lab.
-In the <em>setup</em> chunk at the top of your scripts,
-load the packages needed for this lab.</p>
-<p>These include <strong>tidyverse</strong> and <strong>gapminder</strong>.</p>
-</div>
-<div id="exercise-1-basic-dplyr" class="section level2" number="24.2">
-<h2><span class="header-section-number">24.2</span> Exercise 1: Basic <strong>dplyr</strong></h2>
-<p>Use <strong>dplyr</strong> functions to achieve the following.
-For each exercise, print your result.</p>
-<div id="section" class="section level3" number="24.2.1">
-<h3><span class="header-section-number">24.2.1</span> 1.1</h3>
-<p>Use <code>filter()</code> to subset the <code>gapminder</code> data to three countries of your choice in the 1970’s.</p>
-</div>
-<div id="section-1" class="section level3" number="24.2.2">
-<h3><span class="header-section-number">24.2.2</span> 1.2</h3>
-<p>Start with the original <code>gapminder</code> data and use the pipe operator <code>|&gt;</code> to first do the above filter and then select the “country” and “gdpPercap” variables.</p>
-</div>
-<div id="section-2" class="section level3" number="24.2.3">
-<h3><span class="header-section-number">24.2.3</span> 1.3</h3>
-<p>Make a new variable in <code>gapminder</code> for the change in life expectancy from the previous measurement <strong>for that country</strong>.
-Filter this table to show all of the entries that have experienced a <strong>drop</strong> in life expectancy.
-Save this result as a new object.</p>
-<p><strong>Hint</strong>: you might find the <code>lag()</code> or <code>diff()</code> functions useful.</p>
-</div>
-<div id="section-3" class="section level3" number="24.2.4">
-<h3><span class="header-section-number">24.2.4</span> 1.4</h3>
-<p>Filter <code>gapminder</code> so that it shows the max GDP per capita experienced <strong>by each country</strong>.</p>
-<p><strong>Hint</strong>: you might find the <code>max()</code> function useful here.</p>
-</div>
-<div id="section-4" class="section level3" number="24.2.5">
-<h3><span class="header-section-number">24.2.5</span> 1.5</h3>
-<p>Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using <code>ggplot2</code>.</p>
-<p>In your plot, put GDP per capita on a <strong>log scale</strong>.</p>
-</div>
-</div>
-<div id="exercise-2-explore-two-variables-with-dplyr-and-ggplot2" class="section level2" number="24.3">
-<h2><span class="header-section-number">24.3</span> Exercise 2: Explore two variables with <strong>dplyr</strong> and <code>ggplot2</code></h2>
-<p>Use <code>gapminder</code>, <code>palmerpenguins::penguins</code>, or another dataset of your choice.
-(Check out a dataset from the <strong>datasets</strong> or <strong>psych</strong> R package if you want!</p>
-<div id="section-5" class="section level3" number="24.3.1">
-<h3><span class="header-section-number">24.3.1</span> 2.1</h3>
-<p>Pick two <strong>quantitative</strong> variables to explore.</p>
-<ul>
-<li>Make a summary table of descriptive statistics for these variables using <code>summarize()</code>.
-<ul>
-<li>Include whatever staistics you feel appropriate (mean, median sd, range, etc.).</li>
-</ul></li>
-<li>Make a scatterplot of these variables using <code>ggplot()</code>.</li>
-</ul>
-</div>
-<div id="section-6" class="section level3" number="24.3.2">
-<h3><span class="header-section-number">24.3.2</span> 2.2</h3>
-<p>Pick one <em>categorical</em> variable and one <em>quantitative</em> variable to explore.</p>
-<ul>
-<li>Make a summary table giving the sample size (hint: <code>n()</code>) and descriptive statistics for the quantitative variable by group.</li>
-<li>Make one or more useful plots to visualize these variables.
-<ul>
-<li>Try to make a raincloud plot with points,
-boxplots, and densities for each group.</li>
-</ul></li>
-</ul>
-</div>
-</div>
-<div id="bonus-exercise-recycling-optional" class="section level2" number="24.4">
-<h2><span class="header-section-number">24.4</span> Bonus Exercise: Recycling (Optional)</h2>
-<p>Evaluate this code and describe the result.
-The goal was to get the data for Rwanda and Afghanistan.
-Does this work? Why or why not?
-If not, what is the correct way to do this?</p>
-<pre><code>filter(gapminder, country == c(&quot;Rwanda&quot;, &quot;Afghanistan&quot;))</code></pre>
+<div id="lab-5a-univariate-pivoting" class="section level1" number="29">
+<h1><span class="header-section-number">Part 29</span> Lab 5A: Univariate pivoting</h1>
+<p>Copy this code into your script to import the data for this lab.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="lab-5a-univariate-pivoting.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb135-2"><a href="lab-5a-univariate-pivoting.html#cb135-2" aria-hidden="true" tabindex="-1"></a>lotr  <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/lotr_tidy.csv&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb135-3"><a href="lab-5a-univariate-pivoting.html#cb135-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Species =</span> Race)</span></code></pre></div>
+<!---The following chunk allows errors when knitting--->
+<div id="exercise-1-univariate-pivoting" class="section level2" number="29.1">
+<h2><span class="header-section-number">29.1</span> Exercise 1: Univariate Pivoting</h2>
+<p>Consider the Lord of the Rings data:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="lab-5a-univariate-pivoting.html#cb136-1" aria-hidden="true" tabindex="-1"></a>lotr</span></code></pre></div>
+<ol style="list-style-type: decimal">
+<li><p>Would you say this data is in tidy format?</p>
+<!-- Describe why or why not in this space. --></li>
+<li><p>Widen the data so that we see the words spoken by each species, by putting species as its own column.</p></li>
+</ol>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="lab-5a-univariate-pivoting.html#cb137-1" aria-hidden="true" tabindex="-1"></a>(lotr_wide <span class="ot">&lt;-</span> lotr <span class="sc">|&gt;</span> </span>
+<span id="cb137-2"><a href="lab-5a-univariate-pivoting.html#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">FILL_THIS_IN =</span> <span class="fu">c</span>(<span class="sc">-</span>Species, <span class="sc">-</span>Words), </span>
+<span id="cb137-3"><a href="lab-5a-univariate-pivoting.html#cb137-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">FILL_THIS_IN =</span> Species, </span>
+<span id="cb137-4"><a href="lab-5a-univariate-pivoting.html#cb137-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">FILL_THIS_IN =</span> Words))</span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>Re-lengthen the wide LOTR data from Question 2 above.</li>
+</ol>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="lab-5a-univariate-pivoting.html#cb138-1" aria-hidden="true" tabindex="-1"></a>lotr_wide <span class="sc">|&gt;</span> </span>
+<span id="cb138-2"><a href="lab-5a-univariate-pivoting.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">FILL_THIS_IN =</span> FILL_THIS_IN, </span>
+<span id="cb138-3"><a href="lab-5a-univariate-pivoting.html#cb138-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to  =</span> FILL_THIS_IN, </span>
+<span id="cb138-4"><a href="lab-5a-univariate-pivoting.html#cb138-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> FILL_THIS_IN)</span></code></pre></div>
 
 </div>
 </div>
@@ -468,8 +420,8 @@ If not, what is the correct way to do this?</p>
           </div>
         </div>
       </div>
-<a href="advanced-dplyr-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lab04.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="pivoting-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="multivariate-pivoting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -500,7 +452,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0307_lab3.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0404_lab5a.Rmd",
 "text": "Edit"
 },
 "history": {

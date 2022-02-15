@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data</title>
-  <meta name="description" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
+  <title>Part 26 Tidy Data and Pivoting | Programming with Data</title>
+  <meta name="description" content="Part 26 Tidy Data and Pivoting | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
+  <meta property="og:title" content="Part 26 Tidy Data and Pivoting | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 24 Lab 3: Explore gapminder with ggplot2 and dplyr | Programming with Data" />
+  <meta name="twitter:title" content="Part 26 Tidy Data and Pivoting | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="advanced-dplyr-functions.html"/>
-<link rel="next" href="lab04.html"/>
+<link rel="prev" href="lab04.html"/>
+<link rel="next" href="tidy-data.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -385,82 +385,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="lab03" class="section level1" number="24">
-<h1><span class="header-section-number">Part 24</span> Lab 3: Explore <strong>gapminder</strong> with <strong>ggplot2</strong> and <strong>dplyr</strong></h1>
-<p>In this lab, you will explore the <strong>gapminder</strong> dataset by making summary tables and visualizations.</p>
-<div id="getting-started-2" class="section level2" number="24.1">
-<h2><span class="header-section-number">24.1</span> Getting started</h2>
-<p>Make a new RMarkdown script for this lab.
-In the <em>setup</em> chunk at the top of your scripts,
-load the packages needed for this lab.</p>
-<p>These include <strong>tidyverse</strong> and <strong>gapminder</strong>.</p>
-</div>
-<div id="exercise-1-basic-dplyr" class="section level2" number="24.2">
-<h2><span class="header-section-number">24.2</span> Exercise 1: Basic <strong>dplyr</strong></h2>
-<p>Use <strong>dplyr</strong> functions to achieve the following.
-For each exercise, print your result.</p>
-<div id="section" class="section level3" number="24.2.1">
-<h3><span class="header-section-number">24.2.1</span> 1.1</h3>
-<p>Use <code>filter()</code> to subset the <code>gapminder</code> data to three countries of your choice in the 1970’s.</p>
-</div>
-<div id="section-1" class="section level3" number="24.2.2">
-<h3><span class="header-section-number">24.2.2</span> 1.2</h3>
-<p>Start with the original <code>gapminder</code> data and use the pipe operator <code>|&gt;</code> to first do the above filter and then select the “country” and “gdpPercap” variables.</p>
-</div>
-<div id="section-2" class="section level3" number="24.2.3">
-<h3><span class="header-section-number">24.2.3</span> 1.3</h3>
-<p>Make a new variable in <code>gapminder</code> for the change in life expectancy from the previous measurement <strong>for that country</strong>.
-Filter this table to show all of the entries that have experienced a <strong>drop</strong> in life expectancy.
-Save this result as a new object.</p>
-<p><strong>Hint</strong>: you might find the <code>lag()</code> or <code>diff()</code> functions useful.</p>
-</div>
-<div id="section-3" class="section level3" number="24.2.4">
-<h3><span class="header-section-number">24.2.4</span> 1.4</h3>
-<p>Filter <code>gapminder</code> so that it shows the max GDP per capita experienced <strong>by each country</strong>.</p>
-<p><strong>Hint</strong>: you might find the <code>max()</code> function useful here.</p>
-</div>
-<div id="section-4" class="section level3" number="24.2.5">
-<h3><span class="header-section-number">24.2.5</span> 1.5</h3>
-<p>Produce a scatterplot of Canada’s life expectancy vs. GDP per capita using <code>ggplot2</code>.</p>
-<p>In your plot, put GDP per capita on a <strong>log scale</strong>.</p>
-</div>
-</div>
-<div id="exercise-2-explore-two-variables-with-dplyr-and-ggplot2" class="section level2" number="24.3">
-<h2><span class="header-section-number">24.3</span> Exercise 2: Explore two variables with <strong>dplyr</strong> and <code>ggplot2</code></h2>
-<p>Use <code>gapminder</code>, <code>palmerpenguins::penguins</code>, or another dataset of your choice.
-(Check out a dataset from the <strong>datasets</strong> or <strong>psych</strong> R package if you want!</p>
-<div id="section-5" class="section level3" number="24.3.1">
-<h3><span class="header-section-number">24.3.1</span> 2.1</h3>
-<p>Pick two <strong>quantitative</strong> variables to explore.</p>
+<div id="tidy-data-and-pivoting" class="section level1" number="26">
+<h1><span class="header-section-number">Part 26</span> Tidy Data and Pivoting</h1>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="tidy-data-and-pivoting.html#cb126-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div id="orientation" class="section level2" number="26.1">
+<h2><span class="header-section-number">26.1</span> Orientation</h2>
+<div id="today" class="section level3" number="26.1.1">
+<h3><span class="header-section-number">26.1.1</span> Today</h3>
+<p>Today’s concept is <strong>tidy data</strong> and the <code>tidyr</code> package.</p>
 <ul>
-<li>Make a summary table of descriptive statistics for these variables using <code>summarize()</code>.
-<ul>
-<li>Include whatever staistics you feel appropriate (mean, median sd, range, etc.).</li>
-</ul></li>
-<li>Make a scatterplot of these variables using <code>ggplot()</code>.</li>
+<li>Reshaping data by pivoting with <code>tidyr::pivot_longer()</code> and <code>tidyr::pivot_wider()</code>.</li>
 </ul>
 </div>
-<div id="section-6" class="section level3" number="24.3.2">
-<h3><span class="header-section-number">24.3.2</span> 2.2</h3>
-<p>Pick one <em>categorical</em> variable and one <em>quantitative</em> variable to explore.</p>
+<div id="resources-3" class="section level3" number="26.1.2">
+<h3><span class="header-section-number">26.1.2</span> Resources</h3>
+<p>For concepts of tidy data:</p>
 <ul>
-<li>Make a summary table giving the sample size (hint: <code>n()</code>) and descriptive statistics for the quantitative variable by group.</li>
-<li>Make one or more useful plots to visualize these variables.
+<li><a href="https://github.com/jennybc/lotr-tidy/blob/master/01-intro.md">Jenny Bryan’s intro to tidy data</a> is short and sweet.
 <ul>
-<li>Try to make a raincloud plot with points,
-boxplots, and densities for each group.</li>
+<li>the repo this links to has some useful exercises too, but uses the older <code>spread()</code> and <code>gather()</code> functions.</li>
 </ul></li>
+<li><code>tidyr</code> <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html">vignette on tidy data</a>.</li>
+<li><a href="https://vita.had.co.nz/papers/tidy-data.pdf">Hadley’s paper on tidy data</a> provides a thorough investigation.</li>
 </ul>
-</div>
-</div>
-<div id="bonus-exercise-recycling-optional" class="section level2" number="24.4">
-<h2><span class="header-section-number">24.4</span> Bonus Exercise: Recycling (Optional)</h2>
-<p>Evaluate this code and describe the result.
-The goal was to get the data for Rwanda and Afghanistan.
-Does this work? Why or why not?
-If not, what is the correct way to do this?</p>
-<pre><code>filter(gapminder, country == c(&quot;Rwanda&quot;, &quot;Afghanistan&quot;))</code></pre>
+<p>For pivoting with <code>tidyr</code>, check out the <a href="https://tidyr.tidyverse.org/articles/pivot.html">pivot vignette</a>.</p>
 
+</div>
 </div>
 </div>
             </section>
@@ -468,8 +418,8 @@ If not, what is the correct way to do this?</p>
           </div>
         </div>
       </div>
-<a href="advanced-dplyr-functions.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lab04.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lab04.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="tidy-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -500,7 +450,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0307_lab3.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0401_pivoting-tidyr.Rmd",
 "text": "Edit"
 },
 "history": {
