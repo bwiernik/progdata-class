@@ -1,0 +1,164 @@
+# Pivoting data
+
+The task of making tidy data is about making data either _longer_, by stacking two or more rows, or _wider_, by putting one or more columns alongside each other based on groups. 
+This is called __pivoting__.
+
+Usually the task of tidying data involves lengthening, and usually the task of widening is useful for turning data into something more friendly for human eyes.
+
+Sometimes, you will see data described as being in "long" or "wide" formats.
+Those terms aren't that useful—"long" and "wide" are relative terms. 
+
+The easiest and most powerful way to widen or lengthen data are with the functions `tidyr::pivot_wider()` and `tidyr::pivot_longer()`.
+
+History: R has seen many attempts at reshaping that have progressively gotten better. 
+
+First came the `reshape` and `reshape2` packages. 
+
+  - Both were finicky. 
+  - Used function names that I could never remember: `melt()` and `cast()`. 
+  
+Then, `tidyr` package replaced these.
+
+  - The `tidyr::spread()` and `tidyr::gather()` functions provided a simple interface.
+  - I still couldn't remember these names. 
+  
+We will use `tidyr::pivot_longer()` and `tidyr::pivot_wider()`.
+
+The "pivot" functions also have similar names to the SQL "PIVOT" and "UNPIVOT" functions.
+
+
+## Univariate pivoting
+
+Let's start with pivoting in the simplest case where only one variable is "out of place". 
+We'll use the hair and eye color example from before, using the untidy data version from Example 1:
+
+```{r}
+haireye_untidy <- haireye |> 
+  mutate(eye = str_c(eye, "_eyed")) |> 
+  pivot_wider(id_cols = hair, names_from = eye, values_from = n)
+
+haireye_untidy
+```
+
+The _eye color_ variable is spread out across columns. 
+To fix this, we need to convert the eye color columns to two columns:
+
+- one column to hold the eye color (column names),
+- one column to hold the values.
+
+Doing this, we obtain:
+
+```{r, echo = FALSE}
+haireye_untidy |> 
+  pivot_longer(
+    contains("eyed"), 
+    names_to = "eye", 
+    values_to = "n"
+  )
+```
+
+Let's dig into that!
+
+### `pivot_longer()`
+
+`pivot_longer()` takes a data frame, and returns a data frame. 
+
+The main arguments after the data argument that we'll need are:
+
+- `cols`: the columns we want to pivot into a single column. Give the column names
+- `names_to`: the old column _names_ are going to be stored in a new column. 
+  What should this new column be named?
+- `values_to`: the _values_ in the old columns are going to stored in a new column.
+  What should this new column be named?
+
+Possibly the trickiest bit is in identifying the column names. 
+We could list all of them:
+
+```{r}
+haireye_untidy |> 
+  pivot_longer(cols      = c(Blue_eyed, Brown_eyed, Green_eyed, Hazel_eyed),
+               names_to  = "eye",
+               values_to = "n")
+```
+
+That can be a little tedious.
+
+We could identify a range. This is efficient, but not so robust if the data changes.
+
+```{r}
+haireye_untidy |> 
+  pivot_longer(cols      = Blue_eyed:Hazel_eyed,
+               names_to  = "eye",
+               values_to = "n")
+```
+
+Better is to use helper functions from the `tidyselect` package. 
+In this case, we know the columns contain the text "eyed", so let's use `tidyselect::contains()`:
+
+```{r}
+haireye_untidy |> 
+  pivot_longer(cols      = contains("eyed"),
+               names_to  = "eye",
+               values_to = "n")
+```
+
+Yet another way is to indicate everything except the `hair` column:
+
+```{r}
+haireye_untidy |> 
+  pivot_longer(cols      = -hair,
+               names_to  = "eye",
+               values_to = "n")
+```
+
+
+### `pivot_wider()`
+
+Let's say we want go from a longer data frame to a shorter data frame.
+This is the opposite of what we did above. 
+
+We might want to do this:
+
+  - To make a table for presentation
+  - With longitudinal or family data, to to go from **multilevel models** (which need longer data; each row is an *observation*) to **SEM analyses** (which need wider data; each row is an *individual* or *family*)
+  
+For example, if we want to go from:
+
+```{r, echo = FALSE}
+haireye_untidy |> 
+  pivot_longer(
+    contains("eyed"), 
+    names_to = "eye", 
+    values_to = "n"
+  )
+```
+
+To: 
+
+```{r, echo = FALSE}
+haireye_untidy
+```
+
+We need to: 
+
+  - Take the column `eye` and make *each unique entry* a new column
+  - Take the column `n` and make these values in the new `eye` columns.
+
+`pivot_wider()` is the reverse of `pivot_longer()`.
+
+Like `pivot_longer()`, `pivot_wider()` takes a data frame and returns a data frame. 
+The main arguments after the data argument that we'll need are:
+
+- `id_cols`: The columns you would like to **keep**. 
+  For example, the identifier number for the observation.
+- `names_from`: The new column names are coming from an old column. 
+  Which column is this?
+- `values_from`: The column values are coming from an old column. 
+  Which column is this?
+
+```{r}
+haireye |> 
+  pivot_wider(id_cols     = hair, 
+              names_from  = eye, 
+              values_from = n)
+```

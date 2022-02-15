@@ -1,0 +1,46 @@
+# Lab 5A: Univariate pivoting
+
+Copy this code into your script to import the data for this lab.
+
+```{r, eval = FALSE}
+library(tidyverse)
+lotr  <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/lotr_tidy.csv") |> 
+  rename(Species = Race)
+```
+
+<!---The following chunk allows errors when knitting--->
+
+```{r allow errors, echo = FALSE}
+knitr::opts_chunk$set(error = TRUE, warning = FALSE)
+```
+
+
+## Exercise 1: Univariate Pivoting
+
+Consider the Lord of the Rings data:
+
+```{r, eval = FALSE}
+lotr
+```
+
+1. Would you say this data is in tidy format?
+
+   <!-- Describe why or why not in this space. -->
+
+2. Widen the data so that we see the words spoken by each species, by putting species as its own column.
+
+```{r, eval = FALSE}
+(lotr_wide <- lotr |> 
+  pivot_wider(FILL_THIS_IN = c(-Species, -Words), 
+              FILL_THIS_IN = Species, 
+              FILL_THIS_IN = Words))
+```
+
+3. Re-lengthen the wide LOTR data from Question 2 above.
+
+```{r, eval = FALSE}
+lotr_wide |> 
+  pivot_longer(FILL_THIS_IN = FILL_THIS_IN, 
+               names_to  = FILL_THIS_IN, 
+               values_to = FILL_THIS_IN)
+```

@@ -1,0 +1,111 @@
+# Tidy data
+
+A data set is _tidy_ if:
+
+- Each row is an __observation__ appropriate for the analysis;
+- Each column is a __variable__;
+- Each cell is a __value__.
+
+This means that each value belongs to exactly one variable and one observation.
+
+Why bother? Because doing computations with untidy data can be a nightmare. 
+Computations become simple with tidy data. 
+
+Whether or not a data set is "tidy" depends on the type of analysis you are doing or plot you are making. 
+It depends on how you define your "observation" and "variables" for the current analysis.
+
+```{r, echo = FALSE}
+haireye <- as_tibble(HairEyeColor) |> 
+  count(Hair, Eye, wt = n) |> 
+  rename(hair = Hair, eye = Eye)
+```
+
+As an example, consider this example derived from the `datasets::HairEyeColor` dataset, containing the number of people having a certain hair and eye color.
+
+If one observation is identified by a _hair-eye color combination_, then the tidy dataset is:
+
+```{r}
+haireye |> 
+  DT::datatable(rownames = FALSE)
+```
+
+If one observation is identified by a _single person_, then the tidy dataset has one pair of values per person, and one row for each person. 
+We can use the handy `tidyr::uncount()` function, the opposite of `dplyr::count()`:
+
+```{r}
+haireye |> 
+  tidyr::uncount(n) |> 
+  DT::datatable(rownames = FALSE)
+```
+
+
+## Untidy Examples
+
+The following are examples of untidy data. 
+They're untidy for either of the cases considered above, but for discussion, let's take a _hair-eye color combination_ to be one observational unit. 
+
+Note that untidy does not always mean "bad", just inconvenient for the analysis you want to do.
+
+__Untidy Example 1__: 
+The following table is untidy because there are multiple observations per row. 
+It's _too wide_.
+
+Imagine calculating the total number of people with each hair color. 
+You can't just `group_by()` and `summarize()`, here!
+
+```{r, echo = FALSE}
+haireye_untidy <- haireye |> 
+  mutate(eye = str_c(eye, "_eyed")) |> 
+  pivot_wider(id_cols = hair, names_from = eye, values_from = n)
+knitr::kable(haireye_untidy)
+```
+
+This sort of table is common when presenting results.
+It's easy for humans to read, but hard for computers to work with.
+Untidy data is usually that way because it was structured for human, not machine, reading.
+
+
+__Untidy Example 2__: 
+The following table is untidy for the same reason as Example 1—multiple observations are contained per row. 
+It's _too wide_.
+
+```{r, echo = FALSE}
+haireye |> 
+  mutate(hair = str_c(hair, "_haired")) |> 
+  pivot_wider(id_cols = eye, names_from = hair, values_from = n) |> 
+  knitr::kable()
+```
+
+
+__Untidy Example 3__: 
+This is untidy because each observational unit is spread across multiple columns. 
+It's _too long_. 
+
+In fact, we needed to add an identifier for each observation, otherwise we would have lost which row belongs to which observation! 
+
+Does red hair ever occur with blue eyes? 
+Can't just `filter(hair == "red", eye == "blue")`!
+
+```{r, echo = FALSE}
+haireye |> 
+  mutate(.id = 1:n()) |> 
+  pivot_longer(cols = hair:eye, names_to = "body_part", values_to = "color") |> 
+  select(-n, n) |> 
+  DT::datatable(rownames = FALSE)
+```
+
+
+__Untidy Example 4__: 
+Just when you thought a data set couldn't get any longer! 
+Now, each variable has its own row: hair color, eye color, and `n`. 
+
+
+```{r, echo = FALSE}
+haireye |> 
+  mutate(obs = 1:n(),
+         n   = as.character(n)) |> 
+  pivot_longer(cols = c(hair, eye, n), names_to = "variable", values_to = "value") |> 
+  DT::datatable(rownames = FALSE)
+```
+
+_This is the sort of format that is common pulling data from the web or other "Big Data" sources._

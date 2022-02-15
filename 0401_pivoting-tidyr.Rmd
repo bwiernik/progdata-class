@@ -1,0 +1,30 @@
+# (PART) Module 03 {-}
+
+# Tidy Data and Pivoting
+
+
+```{r, warning = FALSE, message = FALSE}
+library(tidyverse)
+```
+
+
+## Orientation
+
+
+### Today
+
+Today's concept is __tidy data__ and the `tidyr` package.
+
+- Reshaping data by pivoting with `tidyr::pivot_longer()` and `tidyr::pivot_wider()`.
+
+
+### Resources
+
+For concepts of tidy data: 
+
+- [Jenny Bryan's intro to tidy data](https://github.com/jennybc/lotr-tidy/blob/master/01-intro.md) is short and sweet.
+  - the repo this links to has some useful exercises too, but uses the older `spread()` and `gather()` functions.
+- `tidyr` [vignette on tidy data](https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html).
+- [Hadley's paper on tidy data](https://vita.had.co.nz/papers/tidy-data.pdf) provides a thorough investigation.
+
+For pivoting with `tidyr`, check out the [pivot vignette](https://tidyr.tidyverse.org/articles/pivot.html).

@@ -1,0 +1,136 @@
+# Multivariate pivoting
+
+Now let's consider the case when more than one variable are "out of place".
+Perhaps there are multiple variables per row and/or multiple observations per row.
+
+
+## Multiple variables in column names
+
+Consider this subset of the `who` data:
+
+```{r, echo = FALSE}
+WHO <- who |>
+    select(country:year, starts_with("new_")) |> 
+    rename_with(~ stringr::str_replace(.x, "f", "f_"), starts_with("new_")) |> 
+    rename_with(~ stringr::str_replace(.x, "m", "m_"), starts_with("new_"))
+DT::datatable(WHO, rownames = FALSE)
+```
+
+`country`, `iso2`, `iso3`, and `year` are already variables, so they can be left as is. 
+But the columns from `new_sp_m_014` to `new_ep_f_65` encode four variables in their names:
+
+* The `new` prefix indicates these are counts of new cases (versus total cases). 
+  This dataset only contains new cases, so we'll ignore it here because it's constant.
+  
+* `sp`/`rel`/`ep` describe how the case was diagnosed.
+
+* `m`/`f` gives the gender.
+
+* `014`/`1524`/`2535`/`3544`/`4554`/`65` supplies the age range.
+
+We can break these variables up by specifying multiple column names in `names_to`, and then providing `names_sep`.
+
+```{r}
+WHO |> pivot_longer(
+  cols = new_sp_m_014:new_ep_f_65,
+  names_to = c("diagnosis", "gender", "age"), 
+  names_prefix = "new_",
+  names_sep = "_",
+  values_to = "count"
+)
+```
+
+In the `names_to` argument, we now tell it the names of the new columns that will store each part of the existing column names.
+We give the column names in order corresponding to how they appear in the existing column names.
+
+As with univariate pivoting, `values_to` gives the name of the new column that will store the cell values.
+
+## Multiple variables in column names
+
+Consider these family data. 
+
+```{r}
+fam_dat <- tribble(
+  ~family,  ~dob_child1,  ~dob_child2, ~gender_child1, ~gender_child2,
+       1L, "1998-11-26", "2000-01-29",             1L,             2L,
+       2L, "1996-06-22",           NA,             2L,             NA,
+       3L, "2002-07-11", "2004-04-05",             2L,             2L,
+       4L, "2004-10-10", "2009-08-27",             1L,             1L,
+       5L, "2000-12-05", "2005-02-28",             2L,             1L,
+)
+fam_dat <- fam_dat |> mutate_at(vars(starts_with("dob")), parse_date)
+fam_dat
+```
+
+In these data, we have two pieces of information (or values) for each child: their `gender` and their `dob` (date of birth). 
+These need to go into separate columns in the result. 
+Again we supply multiple variables to `names_to`, using `names_sep` to split up each variable name. 
+
+The `names_to` vector gives the names of the new columns that will store each part of the existing column names.
+We give the column names in order corresponding to how they appear in the existing column names.
+
+Note the special name `.value`: 
+
+`.value` takes the place of the `values_to` argument.
+It tells `pivot_longer()` to get the name of the column that will hold the cell values from that part of the existing column name.
+
+```{r}
+fam_dat |> 
+  pivot_longer(
+    cols = -family,
+    names_to = c(".value", "child"), 
+    names_sep = "_", 
+    values_drop_na = TRUE
+  )
+```
+
+Let's also clean up the `child` column:
+
+```{r}
+fam_dat_long <- fam_dat |> 
+  pivot_longer(
+    cols = -family,
+    names_to = c(".value", "child"), 
+    names_sep = "_", 
+    values_drop_na = TRUE
+  ) |> 
+  mutate(child = stringr::str_replace(child, "child", "")) |> 
+  mutate(child = as.integer(child))
+```
+
+
+## `pivot_wider()`
+
+You can also `pivot_wider()` while using multiple columns to supply variable names:
+
+- `id_cols`: as usual.
+- `names_from`: the new variable names are coming from old columns. Which old columns?
+- `names_sep`: What character should you separate the entries of the old columns by?
+- `values_from`: as usual.
+
+```{r}
+fam_dat_long |> 
+  pivot_wider(id_cols     = family,
+              names_from  = c(child, gender), 
+              names_prefix = "child",
+              names_sep   = "_gender", 
+              values_from = dob)
+```
+
+Or using multiple columns to supply new values:
+
+If variables are spread out amongst rows _and_ columns (for example, "sepal width" has "sepal" in a column, and "width" as a column name), here's how we can use `pivot_wider()`:
+
+- `id_cols`: as usual
+- `names_from`: Which column contains the part of the variable?
+- `names_sep`: As before, what character should you separate the entries of the old columns by?
+- `values_from`: Which column names contain the other part of the variable?
+
+```{r}
+fam_dat_long |> 
+  pivot_wider(id_cols     = family, 
+              names_from  = child,
+              names_prefix = "child",
+              names_sep   = "_",
+              values_from = c(dob, gender))
+```
