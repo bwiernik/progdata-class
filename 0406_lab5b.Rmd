@@ -24,7 +24,7 @@ family  <- read_csv(
 
 <!---The following chunk allows errors when knitting--->
 
-```{r allow errors, echo = FALSE}
+```{r, echo = FALSE}
 knitr::opts_chunk$set(error = TRUE, warning = FALSE)
 ```
 

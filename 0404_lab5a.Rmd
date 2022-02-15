@@ -10,7 +10,7 @@ lotr  <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/da
 
 <!---The following chunk allows errors when knitting--->
 
-```{r allow errors, echo = FALSE}
+```{r, echo = FALSE}
 knitr::opts_chunk$set(error = TRUE, warning = FALSE)
 ```
 
