@@ -478,7 +478,8 @@ This is the opposite of what we did above.</p>
 <p>Like <code>pivot_longer()</code>, <code>pivot_wider()</code> takes a data frame and returns a data frame.
 The main arguments after the data argument that we’ll need are:</p>
 <ul>
-<li><code>id_cols</code>: The columns you would like to <strong>keep</strong>.
+<li><code>id_cols</code>: The columns you would like to <strong>keep</strong> in place.
+By default, everything except the ones in <code>names_from</code> and <code>values_from</code>.
 For example, the identifier number for the observation.</li>
 <li><code>names_from</code>: The new column names are coming from an old column.
 Which column is this?</li>
