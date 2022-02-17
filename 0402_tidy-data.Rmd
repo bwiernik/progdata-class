@@ -14,7 +14,7 @@ Computations become simple with tidy data.
 Whether or not a data set is "tidy" depends on the type of analysis you are doing or plot you are making. 
 It depends on how you define your "observation" and "variables" for the current analysis.
 
-```{r, echo = FALSE}
+```{r}
 haireye <- as_tibble(HairEyeColor) |> 
   count(Hair, Eye, wt = n) |> 
   rename(hair = Hair, eye = Eye)
@@ -26,7 +26,7 @@ If one observation is identified by a _hair-eye color combination_, then the tid
 
 ```{r}
 haireye |> 
-  DT::datatable(rownames = FALSE)
+  print()
 ```
 
 If one observation is identified by a _single person_, then the tidy dataset has one pair of values per person, and one row for each person. 
@@ -35,7 +35,7 @@ We can use the handy `tidyr::uncount()` function, the opposite of `dplyr::count(
 ```{r}
 haireye |> 
   tidyr::uncount(n) |> 
-  DT::datatable(rownames = FALSE)
+  print()
 ```
 
 
@@ -57,7 +57,7 @@ You can't just `group_by()` and `summarize()`, here!
 haireye_untidy <- haireye |> 
   mutate(eye = str_c(eye, "_eyed")) |> 
   pivot_wider(id_cols = hair, names_from = eye, values_from = n)
-knitr::kable(haireye_untidy)
+print(haireye_untidy)
 ```
 
 This sort of table is common when presenting results.
@@ -73,7 +73,7 @@ It's _too wide_.
 haireye |> 
   mutate(hair = str_c(hair, "_haired")) |> 
   pivot_wider(id_cols = eye, names_from = hair, values_from = n) |> 
-  knitr::kable()
+  print()
 ```
 
 
@@ -91,7 +91,7 @@ haireye |>
   mutate(.id = 1:n()) |> 
   pivot_longer(cols = hair:eye, names_to = "body_part", values_to = "color") |> 
   select(-n, n) |> 
-  DT::datatable(rownames = FALSE)
+  print()
 ```
 
 
@@ -105,7 +105,7 @@ haireye |>
   mutate(obs = 1:n(),
          n   = as.character(n)) |> 
   pivot_longer(cols = c(hair, eye, n), names_to = "variable", values_to = "value") |> 
-  DT::datatable(rownames = FALSE)
+  print()
 ```
 
 _This is the sort of format that is common pulling data from the web or other "Big Data" sources._
