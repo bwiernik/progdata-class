@@ -31,7 +31,7 @@ lotr
 
 ```{r, eval = FALSE}
 (lotr_wide <- lotr |> 
-  pivot_wider(FILL_THIS_IN = c(-Species, -Words), 
+  pivot_wider(FILL_THIS_IN = c(Film, Gender), 
               FILL_THIS_IN = Species, 
               FILL_THIS_IN = Words))
 ```
