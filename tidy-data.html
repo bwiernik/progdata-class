@@ -24,7 +24,7 @@
 <meta name="author" content="Brenton M. Wiernik" />
 
 
-<meta name="date" content="2022-02-15" />
+<meta name="date" content="2022-02-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -398,15 +398,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Computations become simple with tidy data.</p>
 <p>Whether or not a data set is “tidy” depends on the type of analysis you are doing or plot you are making.
 It depends on how you define your “observation” and “variables” for the current analysis.</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="tidy-data.html#cb127-1" aria-hidden="true" tabindex="-1"></a>haireye <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(HairEyeColor) <span class="sc">|&gt;</span> </span>
+<span id="cb127-2"><a href="tidy-data.html#cb127-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(Hair, Eye, <span class="at">wt =</span> n) <span class="sc">|&gt;</span> </span>
+<span id="cb127-3"><a href="tidy-data.html#cb127-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">hair =</span> Hair, <span class="at">eye =</span> Eye)</span></code></pre></div>
 <p>As an example, consider this example derived from the <code>datasets::HairEyeColor</code> dataset, containing the number of people having a certain hair and eye color.</p>
 <p>If one observation is identified by a <em>hair-eye color combination</em>, then the tidy dataset is:</p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="tidy-data.html#cb127-1" aria-hidden="true" tabindex="-1"></a>haireye <span class="sc">|&gt;</span> </span>
-<span id="cb127-2"><a href="tidy-data.html#cb127-2" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="tidy-data.html#cb128-1" aria-hidden="true" tabindex="-1"></a>haireye <span class="sc">|&gt;</span> </span>
+<span id="cb128-2"><a href="tidy-data.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
 <p>If one observation is identified by a <em>single person</em>, then the tidy dataset has one pair of values per person, and one row for each person.
 We can use the handy <code>tidyr::uncount()</code> function, the opposite of <code>dplyr::count()</code>:</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="tidy-data.html#cb128-1" aria-hidden="true" tabindex="-1"></a>haireye <span class="sc">|&gt;</span> </span>
-<span id="cb128-2"><a href="tidy-data.html#cb128-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">uncount</span>(n) <span class="sc">|&gt;</span> </span>
-<span id="cb128-3"><a href="tidy-data.html#cb128-3" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="tidy-data.html#cb129-1" aria-hidden="true" tabindex="-1"></a>haireye <span class="sc">|&gt;</span> </span>
+<span id="cb129-2"><a href="tidy-data.html#cb129-2" aria-hidden="true" tabindex="-1"></a>  tidyr<span class="sc">::</span><span class="fu">uncount</span>(n) <span class="sc">|&gt;</span> </span>
+<span id="cb129-3"><a href="tidy-data.html#cb129-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
 <div id="untidy-examples" class="section level2" number="27.1">
 <h2><span class="header-section-number">27.1</span> Untidy Examples</h2>
 <p>The following are examples of untidy data.

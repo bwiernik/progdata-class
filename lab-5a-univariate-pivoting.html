@@ -24,7 +24,7 @@
 <meta name="author" content="Brenton M. Wiernik" />
 
 
-<meta name="date" content="2022-02-15" />
+<meta name="date" content="2022-02-17" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -388,30 +388,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="lab-5a-univariate-pivoting" class="section level1" number="29">
 <h1><span class="header-section-number">Part 29</span> Lab 5A: Univariate pivoting</h1>
 <p>Copy this code into your script to import the data for this lab.</p>
-<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="lab-5a-univariate-pivoting.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb135-2"><a href="lab-5a-univariate-pivoting.html#cb135-2" aria-hidden="true" tabindex="-1"></a>lotr  <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/lotr_tidy.csv&quot;</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb135-3"><a href="lab-5a-univariate-pivoting.html#cb135-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Species =</span> Race)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="lab-5a-univariate-pivoting.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb136-2"><a href="lab-5a-univariate-pivoting.html#cb136-2" aria-hidden="true" tabindex="-1"></a>lotr  <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/lotr_tidy.csv&quot;</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb136-3"><a href="lab-5a-univariate-pivoting.html#cb136-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">Species =</span> Race)</span></code></pre></div>
 <!---The following chunk allows errors when knitting--->
 <div id="exercise-1-univariate-pivoting" class="section level2" number="29.1">
 <h2><span class="header-section-number">29.1</span> Exercise 1: Univariate Pivoting</h2>
 <p>Consider the Lord of the Rings data:</p>
-<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="lab-5a-univariate-pivoting.html#cb136-1" aria-hidden="true" tabindex="-1"></a>lotr</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="lab-5a-univariate-pivoting.html#cb137-1" aria-hidden="true" tabindex="-1"></a>lotr</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Would you say this data is in tidy format?</p>
 <!-- Describe why or why not in this space. --></li>
 <li><p>Widen the data so that we see the words spoken by each species, by putting species as its own column.</p></li>
 </ol>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="lab-5a-univariate-pivoting.html#cb137-1" aria-hidden="true" tabindex="-1"></a>(lotr_wide <span class="ot">&lt;-</span> lotr <span class="sc">|&gt;</span> </span>
-<span id="cb137-2"><a href="lab-5a-univariate-pivoting.html#cb137-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">FILL_THIS_IN =</span> <span class="fu">c</span>(<span class="sc">-</span>Species, <span class="sc">-</span>Words), </span>
-<span id="cb137-3"><a href="lab-5a-univariate-pivoting.html#cb137-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">FILL_THIS_IN =</span> Species, </span>
-<span id="cb137-4"><a href="lab-5a-univariate-pivoting.html#cb137-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">FILL_THIS_IN =</span> Words))</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="lab-5a-univariate-pivoting.html#cb138-1" aria-hidden="true" tabindex="-1"></a>(lotr_wide <span class="ot">&lt;-</span> lotr <span class="sc">|&gt;</span> </span>
+<span id="cb138-2"><a href="lab-5a-univariate-pivoting.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">FILL_THIS_IN =</span> <span class="fu">c</span>(<span class="sc">-</span>Species, <span class="sc">-</span>Words), </span>
+<span id="cb138-3"><a href="lab-5a-univariate-pivoting.html#cb138-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">FILL_THIS_IN =</span> Species, </span>
+<span id="cb138-4"><a href="lab-5a-univariate-pivoting.html#cb138-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">FILL_THIS_IN =</span> Words))</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Re-lengthen the wide LOTR data from Question 2 above.</li>
 </ol>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="lab-5a-univariate-pivoting.html#cb138-1" aria-hidden="true" tabindex="-1"></a>lotr_wide <span class="sc">|&gt;</span> </span>
-<span id="cb138-2"><a href="lab-5a-univariate-pivoting.html#cb138-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">FILL_THIS_IN =</span> FILL_THIS_IN, </span>
-<span id="cb138-3"><a href="lab-5a-univariate-pivoting.html#cb138-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to  =</span> FILL_THIS_IN, </span>
-<span id="cb138-4"><a href="lab-5a-univariate-pivoting.html#cb138-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> FILL_THIS_IN)</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="lab-5a-univariate-pivoting.html#cb139-1" aria-hidden="true" tabindex="-1"></a>lotr_wide <span class="sc">|&gt;</span> </span>
+<span id="cb139-2"><a href="lab-5a-univariate-pivoting.html#cb139-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">FILL_THIS_IN =</span> FILL_THIS_IN, </span>
+<span id="cb139-3"><a href="lab-5a-univariate-pivoting.html#cb139-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to  =</span> FILL_THIS_IN, </span>
+<span id="cb139-4"><a href="lab-5a-univariate-pivoting.html#cb139-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> FILL_THIS_IN)</span></code></pre></div>
 
 </div>
 </div>
