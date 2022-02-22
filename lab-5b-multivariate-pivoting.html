@@ -24,7 +24,7 @@
 <meta name="author" content="Brenton M. Wiernik" />
 
 
-<meta name="date" content="2022-02-17" />
+<meta name="date" content="2022-02-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -388,29 +388,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="lab-5b-multivariate-pivoting" class="section level1" number="31">
 <h1><span class="header-section-number">Part 31</span> Lab 5B: Multivariate pivoting</h1>
 <p>Copy this code into your script to import the data for this lab.</p>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="lab-5b-multivariate-pivoting.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb146-2"><a href="lab-5b-multivariate-pivoting.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb146-3"><a href="lab-5b-multivariate-pivoting.html#cb146-3" aria-hidden="true" tabindex="-1"></a>missing_w2_parent <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">30</span>)</span>
-<span id="cb146-4"><a href="lab-5b-multivariate-pivoting.html#cb146-4" aria-hidden="true" tabindex="-1"></a>missing_w2_child <span class="ot">&lt;-</span> <span class="fu">c</span>(missing_w2_parent[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">25</span>))</span>
-<span id="cb146-5"><a href="lab-5b-multivariate-pivoting.html#cb146-5" aria-hidden="true" tabindex="-1"></a>family  <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb146-6"><a href="lab-5b-multivariate-pivoting.html#cb146-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://raw.githubusercontent.com/bwiernik/progdata/main/inst/tutorials/data/family_data.csv&quot;</span></span>
-<span id="cb146-7"><a href="lab-5b-multivariate-pivoting.html#cb146-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
-<span id="cb146-8"><a href="lab-5b-multivariate-pivoting.html#cb146-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb146-9"><a href="lab-5b-multivariate-pivoting.html#cb146-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
-<span id="cb146-10"><a href="lab-5b-multivariate-pivoting.html#cb146-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">starts_with</span>(<span class="st">&quot;w2&quot;</span>) <span class="sc">&amp;</span> <span class="fu">contains</span>(<span class="st">&quot;parent&quot;</span>),</span>
-<span id="cb146-11"><a href="lab-5b-multivariate-pivoting.html#cb146-11" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">ifelse</span>(family_id <span class="sc">%in%</span> missing_w2_parent, <span class="cn">NA_real_</span>, .x)</span>
-<span id="cb146-12"><a href="lab-5b-multivariate-pivoting.html#cb146-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb146-13"><a href="lab-5b-multivariate-pivoting.html#cb146-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
-<span id="cb146-14"><a href="lab-5b-multivariate-pivoting.html#cb146-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">starts_with</span>(<span class="st">&quot;w2&quot;</span>) <span class="sc">&amp;</span> <span class="fu">contains</span>(<span class="st">&quot;child&quot;</span>),</span>
-<span id="cb146-15"><a href="lab-5b-multivariate-pivoting.html#cb146-15" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">ifelse</span>(family_id <span class="sc">%in%</span> missing_w2_child, <span class="cn">NA_real_</span>, .x)</span>
-<span id="cb146-16"><a href="lab-5b-multivariate-pivoting.html#cb146-16" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb146-17"><a href="lab-5b-multivariate-pivoting.html#cb146-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="lab-5b-multivariate-pivoting.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb147-2"><a href="lab-5b-multivariate-pivoting.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb147-3"><a href="lab-5b-multivariate-pivoting.html#cb147-3" aria-hidden="true" tabindex="-1"></a>missing_w2_parent <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">30</span>)</span>
+<span id="cb147-4"><a href="lab-5b-multivariate-pivoting.html#cb147-4" aria-hidden="true" tabindex="-1"></a>missing_w2_child <span class="ot">&lt;-</span> <span class="fu">c</span>(missing_w2_parent[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>], <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">500</span>, <span class="dv">25</span>))</span>
+<span id="cb147-5"><a href="lab-5b-multivariate-pivoting.html#cb147-5" aria-hidden="true" tabindex="-1"></a>family  <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb147-6"><a href="lab-5b-multivariate-pivoting.html#cb147-6" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://raw.githubusercontent.com/bwiernik/progdata/main/inst/tutorials/data/family_data.csv&quot;</span></span>
+<span id="cb147-7"><a href="lab-5b-multivariate-pivoting.html#cb147-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb147-8"><a href="lab-5b-multivariate-pivoting.html#cb147-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb147-9"><a href="lab-5b-multivariate-pivoting.html#cb147-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb147-10"><a href="lab-5b-multivariate-pivoting.html#cb147-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">starts_with</span>(<span class="st">&quot;w2&quot;</span>) <span class="sc">&amp;</span> <span class="fu">contains</span>(<span class="st">&quot;parent&quot;</span>),</span>
+<span id="cb147-11"><a href="lab-5b-multivariate-pivoting.html#cb147-11" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">ifelse</span>(family_id <span class="sc">%in%</span> missing_w2_parent, <span class="cn">NA_real_</span>, .x)</span>
+<span id="cb147-12"><a href="lab-5b-multivariate-pivoting.html#cb147-12" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb147-13"><a href="lab-5b-multivariate-pivoting.html#cb147-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">across</span>(</span>
+<span id="cb147-14"><a href="lab-5b-multivariate-pivoting.html#cb147-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">starts_with</span>(<span class="st">&quot;w2&quot;</span>) <span class="sc">&amp;</span> <span class="fu">contains</span>(<span class="st">&quot;child&quot;</span>),</span>
+<span id="cb147-15"><a href="lab-5b-multivariate-pivoting.html#cb147-15" aria-hidden="true" tabindex="-1"></a>      <span class="sc">~</span> <span class="fu">ifelse</span>(family_id <span class="sc">%in%</span> missing_w2_child, <span class="cn">NA_real_</span>, .x)</span>
+<span id="cb147-16"><a href="lab-5b-multivariate-pivoting.html#cb147-16" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb147-17"><a href="lab-5b-multivariate-pivoting.html#cb147-17" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <!---The following chunk allows errors when knitting--->
 <p>You’re working on a longitudinal study of parent-child relationships.
 You have collected data from 500 families over 2 waves.
 In each wave, both the child and parent completed measures of <strong>communication behavior</strong> and <strong>relationship satisfaction</strong>.</p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="lab-5b-multivariate-pivoting.html#cb147-1" aria-hidden="true" tabindex="-1"></a>family <span class="sc">|&gt;</span> </span>
-<span id="cb147-2"><a href="lab-5b-multivariate-pivoting.html#cb147-2" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="lab-5b-multivariate-pivoting.html#cb148-1" aria-hidden="true" tabindex="-1"></a>family <span class="sc">|&gt;</span> </span>
+<span id="cb148-2"><a href="lab-5b-multivariate-pivoting.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  DT<span class="sc">::</span><span class="fu">datatable</span>(<span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Reshape the dataset to a “longer” format.</li>
 </ol>
@@ -418,10 +418,10 @@ In each wave, both the child and parent completed measures of <strong>communicat
 <li>Make each row <strong>1 score</strong></li>
 <li>Have columns for <em>family_id</em>, <em>family_member</em>, <em>wave</em>, <em>scale</em>, and <em>score</em>.</li>
 </ul>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="lab-5b-multivariate-pivoting.html#cb148-1" aria-hidden="true" tabindex="-1"></a>family_longest <span class="ot">&lt;-</span> family <span class="sc">|&gt;</span> </span>
-<span id="cb148-2"><a href="lab-5b-multivariate-pivoting.html#cb148-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>()</span>
-<span id="cb148-3"><a href="lab-5b-multivariate-pivoting.html#cb148-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb148-4"><a href="lab-5b-multivariate-pivoting.html#cb148-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(family_longest)</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="lab-5b-multivariate-pivoting.html#cb149-1" aria-hidden="true" tabindex="-1"></a>family_longest <span class="ot">&lt;-</span> family <span class="sc">|&gt;</span> </span>
+<span id="cb149-2"><a href="lab-5b-multivariate-pivoting.html#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>()</span>
+<span id="cb149-3"><a href="lab-5b-multivariate-pivoting.html#cb149-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb149-4"><a href="lab-5b-multivariate-pivoting.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(family_longest)</span></code></pre></div>
 <ol start="2" style="list-style-type: decimal">
 <li>Reshape the dataset to a “longer” format.</li>
 </ol>
@@ -429,10 +429,10 @@ In each wave, both the child and parent completed measures of <strong>communicat
 <li>Make each row <strong>1 person</strong></li>
 <li>Have columns for <em>family_id</em>, <em>family_member</em>, <em>wave</em>, <em>comm</em>, and <em>satis</em>.</li>
 </ul>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="lab-5b-multivariate-pivoting.html#cb149-1" aria-hidden="true" tabindex="-1"></a>family_long <span class="ot">&lt;-</span> family <span class="sc">|&gt;</span> </span>
-<span id="cb149-2"><a href="lab-5b-multivariate-pivoting.html#cb149-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>()</span>
-<span id="cb149-3"><a href="lab-5b-multivariate-pivoting.html#cb149-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb149-4"><a href="lab-5b-multivariate-pivoting.html#cb149-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(family_long)</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="lab-5b-multivariate-pivoting.html#cb150-1" aria-hidden="true" tabindex="-1"></a>family_long <span class="ot">&lt;-</span> family <span class="sc">|&gt;</span> </span>
+<span id="cb150-2"><a href="lab-5b-multivariate-pivoting.html#cb150-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>()</span>
+<span id="cb150-3"><a href="lab-5b-multivariate-pivoting.html#cb150-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb150-4"><a href="lab-5b-multivariate-pivoting.html#cb150-4" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(family_long)</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>Some families are missing wave 2 data for parent, child, or both.
 Which families are missing wave 2 data for at least one person?</li>

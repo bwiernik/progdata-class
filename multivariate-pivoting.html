@@ -24,7 +24,7 @@
 <meta name="author" content="Brenton M. Wiernik" />
 
 
-<meta name="date" content="2022-02-17" />
+<meta name="date" content="2022-02-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -392,6 +392,11 @@ Perhaps there are multiple variables per row and/or multiple observations per ro
 <div id="multiple-variables-in-column-names" class="section level2" number="30.1">
 <h2><span class="header-section-number">30.1</span> Multiple variables in column names</h2>
 <p>Consider this subset of the <code>who</code> data:</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="multivariate-pivoting.html#cb140-1" aria-hidden="true" tabindex="-1"></a>WHO <span class="ot">&lt;-</span> who <span class="sc">|&gt;</span></span>
+<span id="cb140-2"><a href="multivariate-pivoting.html#cb140-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(country<span class="sc">:</span>year, <span class="fu">starts_with</span>(<span class="st">&quot;new_&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb140-3"><a href="multivariate-pivoting.html#cb140-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename_with</span>(<span class="sc">~</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(.x, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;f_&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;new_&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb140-4"><a href="multivariate-pivoting.html#cb140-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename_with</span>(<span class="sc">~</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(.x, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m_&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;new_&quot;</span>))</span>
+<span id="cb140-5"><a href="multivariate-pivoting.html#cb140-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(WHO, <span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><code>country</code>, <code>iso2</code>, <code>iso3</code>, and <code>year</code> are already variables, so they can be left as is.
 But the columns from <code>new_sp_m_014</code> to <code>new_ep_f_65</code> encode four variables in their names:</p>
 <ul>
@@ -402,13 +407,13 @@ This dataset only contains new cases, so we’ll ignore it here because it’s c
 <li><p><code>014</code>/<code>1524</code>/<code>2535</code>/<code>3544</code>/<code>4554</code>/<code>65</code> supplies the age range.</p></li>
 </ul>
 <p>We can break these variables up by specifying multiple column names in <code>names_to</code>, and then providing <code>names_sep</code>.</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="multivariate-pivoting.html#cb140-1" aria-hidden="true" tabindex="-1"></a>WHO <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(</span>
-<span id="cb140-2"><a href="multivariate-pivoting.html#cb140-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> new_sp_m_014<span class="sc">:</span>new_ep_f_65,</span>
-<span id="cb140-3"><a href="multivariate-pivoting.html#cb140-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;diagnosis&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;age&quot;</span>), </span>
-<span id="cb140-4"><a href="multivariate-pivoting.html#cb140-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_prefix =</span> <span class="st">&quot;new_&quot;</span>,</span>
-<span id="cb140-5"><a href="multivariate-pivoting.html#cb140-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb140-6"><a href="multivariate-pivoting.html#cb140-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;count&quot;</span></span>
-<span id="cb140-7"><a href="multivariate-pivoting.html#cb140-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="multivariate-pivoting.html#cb141-1" aria-hidden="true" tabindex="-1"></a>WHO <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb141-2"><a href="multivariate-pivoting.html#cb141-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> new_sp_m_014<span class="sc">:</span>new_ep_f_65,</span>
+<span id="cb141-3"><a href="multivariate-pivoting.html#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;diagnosis&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;age&quot;</span>), </span>
+<span id="cb141-4"><a href="multivariate-pivoting.html#cb141-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_prefix =</span> <span class="st">&quot;new_&quot;</span>,</span>
+<span id="cb141-5"><a href="multivariate-pivoting.html#cb141-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb141-6"><a href="multivariate-pivoting.html#cb141-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;count&quot;</span></span>
+<span id="cb141-7"><a href="multivariate-pivoting.html#cb141-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>In the <code>names_to</code> argument, we now tell it the names of the new columns that will store each part of the existing column names.
 We give the column names in order corresponding to how they appear in the existing column names.</p>
 <p>As with univariate pivoting, <code>values_to</code> gives the name of the new column that will store the cell values.</p>
@@ -416,16 +421,16 @@ We give the column names in order corresponding to how they appear in the existi
 <div id="multiple-variables-in-column-names-1" class="section level2" number="30.2">
 <h2><span class="header-section-number">30.2</span> Multiple variables in column names</h2>
 <p>Consider these family data.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="multivariate-pivoting.html#cb141-1" aria-hidden="true" tabindex="-1"></a>fam_dat <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb141-2"><a href="multivariate-pivoting.html#cb141-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>family,  <span class="sc">~</span>dob_child1,  <span class="sc">~</span>dob_child2, <span class="sc">~</span>gender_child1, <span class="sc">~</span>gender_child2,</span>
-<span id="cb141-3"><a href="multivariate-pivoting.html#cb141-3" aria-hidden="true" tabindex="-1"></a>       1L, <span class="st">&quot;1998-11-26&quot;</span>, <span class="st">&quot;2000-01-29&quot;</span>,             1L,             2L,</span>
-<span id="cb141-4"><a href="multivariate-pivoting.html#cb141-4" aria-hidden="true" tabindex="-1"></a>       2L, <span class="st">&quot;1996-06-22&quot;</span>,           <span class="cn">NA</span>,             2L,             <span class="cn">NA</span>,</span>
-<span id="cb141-5"><a href="multivariate-pivoting.html#cb141-5" aria-hidden="true" tabindex="-1"></a>       3L, <span class="st">&quot;2002-07-11&quot;</span>, <span class="st">&quot;2004-04-05&quot;</span>,             2L,             2L,</span>
-<span id="cb141-6"><a href="multivariate-pivoting.html#cb141-6" aria-hidden="true" tabindex="-1"></a>       4L, <span class="st">&quot;2004-10-10&quot;</span>, <span class="st">&quot;2009-08-27&quot;</span>,             1L,             1L,</span>
-<span id="cb141-7"><a href="multivariate-pivoting.html#cb141-7" aria-hidden="true" tabindex="-1"></a>       5L, <span class="st">&quot;2000-12-05&quot;</span>, <span class="st">&quot;2005-02-28&quot;</span>,             2L,             1L,</span>
-<span id="cb141-8"><a href="multivariate-pivoting.html#cb141-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb141-9"><a href="multivariate-pivoting.html#cb141-9" aria-hidden="true" tabindex="-1"></a>fam_dat <span class="ot">&lt;-</span> fam_dat <span class="sc">|&gt;</span> <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">starts_with</span>(<span class="st">&quot;dob&quot;</span>)), parse_date)</span>
-<span id="cb141-10"><a href="multivariate-pivoting.html#cb141-10" aria-hidden="true" tabindex="-1"></a>fam_dat</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="multivariate-pivoting.html#cb142-1" aria-hidden="true" tabindex="-1"></a>fam_dat <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb142-2"><a href="multivariate-pivoting.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>family,  <span class="sc">~</span>dob_child1,  <span class="sc">~</span>dob_child2, <span class="sc">~</span>gender_child1, <span class="sc">~</span>gender_child2,</span>
+<span id="cb142-3"><a href="multivariate-pivoting.html#cb142-3" aria-hidden="true" tabindex="-1"></a>       1L, <span class="st">&quot;1998-11-26&quot;</span>, <span class="st">&quot;2000-01-29&quot;</span>,             1L,             2L,</span>
+<span id="cb142-4"><a href="multivariate-pivoting.html#cb142-4" aria-hidden="true" tabindex="-1"></a>       2L, <span class="st">&quot;1996-06-22&quot;</span>,           <span class="cn">NA</span>,             2L,             <span class="cn">NA</span>,</span>
+<span id="cb142-5"><a href="multivariate-pivoting.html#cb142-5" aria-hidden="true" tabindex="-1"></a>       3L, <span class="st">&quot;2002-07-11&quot;</span>, <span class="st">&quot;2004-04-05&quot;</span>,             2L,             2L,</span>
+<span id="cb142-6"><a href="multivariate-pivoting.html#cb142-6" aria-hidden="true" tabindex="-1"></a>       4L, <span class="st">&quot;2004-10-10&quot;</span>, <span class="st">&quot;2009-08-27&quot;</span>,             1L,             1L,</span>
+<span id="cb142-7"><a href="multivariate-pivoting.html#cb142-7" aria-hidden="true" tabindex="-1"></a>       5L, <span class="st">&quot;2000-12-05&quot;</span>, <span class="st">&quot;2005-02-28&quot;</span>,             2L,             1L,</span>
+<span id="cb142-8"><a href="multivariate-pivoting.html#cb142-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb142-9"><a href="multivariate-pivoting.html#cb142-9" aria-hidden="true" tabindex="-1"></a>fam_dat <span class="ot">&lt;-</span> fam_dat <span class="sc">|&gt;</span> <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">starts_with</span>(<span class="st">&quot;dob&quot;</span>)), parse_date)</span>
+<span id="cb142-10"><a href="multivariate-pivoting.html#cb142-10" aria-hidden="true" tabindex="-1"></a>fam_dat</span></code></pre></div>
 <p>In these data, we have two pieces of information (or values) for each child: their <code>gender</code> and their <code>dob</code> (date of birth).
 These need to go into separate columns in the result.
 Again we supply multiple variables to <code>names_to</code>, using <code>names_sep</code> to split up each variable name.</p>
@@ -434,23 +439,23 @@ We give the column names in order corresponding to how they appear in the existi
 <p>Note the special name <code>.value</code>:</p>
 <p><code>.value</code> takes the place of the <code>values_to</code> argument.
 It tells <code>pivot_longer()</code> to get the name of the column that will hold the cell values from that part of the existing column name.</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="multivariate-pivoting.html#cb142-1" aria-hidden="true" tabindex="-1"></a>fam_dat <span class="sc">|&gt;</span> </span>
-<span id="cb142-2"><a href="multivariate-pivoting.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb142-3"><a href="multivariate-pivoting.html#cb142-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>family,</span>
-<span id="cb142-4"><a href="multivariate-pivoting.html#cb142-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;.value&quot;</span>, <span class="st">&quot;child&quot;</span>), </span>
-<span id="cb142-5"><a href="multivariate-pivoting.html#cb142-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
-<span id="cb142-6"><a href="multivariate-pivoting.html#cb142-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
-<span id="cb142-7"><a href="multivariate-pivoting.html#cb142-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p>Let’s also clean up the <code>child</code> column:</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="multivariate-pivoting.html#cb143-1" aria-hidden="true" tabindex="-1"></a>fam_dat_long <span class="ot">&lt;-</span> fam_dat <span class="sc">|&gt;</span> </span>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="multivariate-pivoting.html#cb143-1" aria-hidden="true" tabindex="-1"></a>fam_dat <span class="sc">|&gt;</span> </span>
 <span id="cb143-2"><a href="multivariate-pivoting.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
 <span id="cb143-3"><a href="multivariate-pivoting.html#cb143-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>family,</span>
 <span id="cb143-4"><a href="multivariate-pivoting.html#cb143-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;.value&quot;</span>, <span class="st">&quot;child&quot;</span>), </span>
 <span id="cb143-5"><a href="multivariate-pivoting.html#cb143-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
 <span id="cb143-6"><a href="multivariate-pivoting.html#cb143-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
-<span id="cb143-7"><a href="multivariate-pivoting.html#cb143-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb143-8"><a href="multivariate-pivoting.html#cb143-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">child =</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(child, <span class="st">&quot;child&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb143-9"><a href="multivariate-pivoting.html#cb143-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">child =</span> <span class="fu">as.integer</span>(child))</span></code></pre></div>
+<span id="cb143-7"><a href="multivariate-pivoting.html#cb143-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Let’s also clean up the <code>child</code> column:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="multivariate-pivoting.html#cb144-1" aria-hidden="true" tabindex="-1"></a>fam_dat_long <span class="ot">&lt;-</span> fam_dat <span class="sc">|&gt;</span> </span>
+<span id="cb144-2"><a href="multivariate-pivoting.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb144-3"><a href="multivariate-pivoting.html#cb144-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>family,</span>
+<span id="cb144-4"><a href="multivariate-pivoting.html#cb144-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;.value&quot;</span>, <span class="st">&quot;child&quot;</span>), </span>
+<span id="cb144-5"><a href="multivariate-pivoting.html#cb144-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
+<span id="cb144-6"><a href="multivariate-pivoting.html#cb144-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
+<span id="cb144-7"><a href="multivariate-pivoting.html#cb144-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
+<span id="cb144-8"><a href="multivariate-pivoting.html#cb144-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">child =</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(child, <span class="st">&quot;child&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb144-9"><a href="multivariate-pivoting.html#cb144-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">child =</span> <span class="fu">as.integer</span>(child))</span></code></pre></div>
 </div>
 <div id="pivot_wider-1" class="section level2" number="30.3">
 <h2><span class="header-section-number">30.3</span> <code>pivot_wider()</code></h2>
@@ -461,12 +466,12 @@ It tells <code>pivot_longer()</code> to get the name of the column that will hol
 <li><code>names_sep</code>: What character should you separate the entries of the old columns by?</li>
 <li><code>values_from</code>: as usual.</li>
 </ul>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="multivariate-pivoting.html#cb144-1" aria-hidden="true" tabindex="-1"></a>fam_dat_long <span class="sc">|&gt;</span> </span>
-<span id="cb144-2"><a href="multivariate-pivoting.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols     =</span> family,</span>
-<span id="cb144-3"><a href="multivariate-pivoting.html#cb144-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from  =</span> <span class="fu">c</span>(child, gender), </span>
-<span id="cb144-4"><a href="multivariate-pivoting.html#cb144-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;child&quot;</span>,</span>
-<span id="cb144-5"><a href="multivariate-pivoting.html#cb144-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_sep   =</span> <span class="st">&quot;_gender&quot;</span>, </span>
-<span id="cb144-6"><a href="multivariate-pivoting.html#cb144-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> dob)</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="multivariate-pivoting.html#cb145-1" aria-hidden="true" tabindex="-1"></a>fam_dat_long <span class="sc">|&gt;</span> </span>
+<span id="cb145-2"><a href="multivariate-pivoting.html#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols     =</span> family,</span>
+<span id="cb145-3"><a href="multivariate-pivoting.html#cb145-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from  =</span> <span class="fu">c</span>(child, gender), </span>
+<span id="cb145-4"><a href="multivariate-pivoting.html#cb145-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;child&quot;</span>,</span>
+<span id="cb145-5"><a href="multivariate-pivoting.html#cb145-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_sep   =</span> <span class="st">&quot;_gender&quot;</span>, </span>
+<span id="cb145-6"><a href="multivariate-pivoting.html#cb145-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> dob)</span></code></pre></div>
 <p>Or using multiple columns to supply new values:</p>
 <p>If variables are spread out amongst rows <em>and</em> columns (for example, “sepal width” has “sepal” in a column, and “width” as a column name), here’s how we can use <code>pivot_wider()</code>:</p>
 <ul>
@@ -475,12 +480,12 @@ It tells <code>pivot_longer()</code> to get the name of the column that will hol
 <li><code>names_sep</code>: As before, what character should you separate the entries of the old columns by?</li>
 <li><code>values_from</code>: Which column names contain the other part of the variable?</li>
 </ul>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="multivariate-pivoting.html#cb145-1" aria-hidden="true" tabindex="-1"></a>fam_dat_long <span class="sc">|&gt;</span> </span>
-<span id="cb145-2"><a href="multivariate-pivoting.html#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols     =</span> family, </span>
-<span id="cb145-3"><a href="multivariate-pivoting.html#cb145-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from  =</span> child,</span>
-<span id="cb145-4"><a href="multivariate-pivoting.html#cb145-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;child&quot;</span>,</span>
-<span id="cb145-5"><a href="multivariate-pivoting.html#cb145-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_sep   =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb145-6"><a href="multivariate-pivoting.html#cb145-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(dob, gender))</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="multivariate-pivoting.html#cb146-1" aria-hidden="true" tabindex="-1"></a>fam_dat_long <span class="sc">|&gt;</span> </span>
+<span id="cb146-2"><a href="multivariate-pivoting.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols     =</span> family, </span>
+<span id="cb146-3"><a href="multivariate-pivoting.html#cb146-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from  =</span> child,</span>
+<span id="cb146-4"><a href="multivariate-pivoting.html#cb146-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;child&quot;</span>,</span>
+<span id="cb146-5"><a href="multivariate-pivoting.html#cb146-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_sep   =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb146-6"><a href="multivariate-pivoting.html#cb146-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(dob, gender))</span></code></pre></div>
 
 </div>
 </div>
