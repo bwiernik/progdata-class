@@ -8,12 +8,12 @@ Perhaps there are multiple variables per row and/or multiple observations per ro
 
 Consider this subset of the `who` data:
 
-```{r, echo = FALSE}
+```{r, echo = TRUE}
 WHO <- who |>
     select(country:year, starts_with("new_")) |> 
     rename_with(~ stringr::str_replace(.x, "f", "f_"), starts_with("new_")) |> 
     rename_with(~ stringr::str_replace(.x, "m", "m_"), starts_with("new_"))
-DT::datatable(WHO, rownames = FALSE)
+knitr::kable(WHO, rownames = FALSE)
 ```
 
 `country`, `iso2`, `iso3`, and `year` are already variables, so they can be left as is. 
