@@ -186,3 +186,10 @@ multiple-variables-in-column-names
 multiple-variables-in-column-names-1
 pivot_wider-1
 lab-5b-multivariate-pivoting
+tibble-joins-a-tale-of-two-tibbles
+resources-4
+join-functions
+lab-06-join-those-tables
+exercise-1-singer
+exercise-2-lotr
+exercise-3-set-operations

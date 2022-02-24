@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 20 The pipe advantage | Programming with Data</title>
-  <meta name="description" content="Part 20 The pipe advantage | Programming with Data" />
+  <title>Part 33 Join Functions | Programming with Data</title>
+  <meta name="description" content="Part 33 Join Functions | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 20 The pipe advantage | Programming with Data" />
+  <meta property="og:title" content="Part 33 Join Functions | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 20 The pipe advantage | Programming with Data" />
+  <meta name="twitter:title" content="Part 33 Join Functions | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="selecting-and-sorting-data-frames.html"/>
-<link rel="next" href="filtering-and-mutating-data-frames.html"/>
+<link rel="prev" href="tibble-joins-a-tale-of-two-tibbles.html"/>
+<link rel="next" href="lab-06-join-those-tables.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -397,76 +397,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="the-pipe-advantage" class="section level1" number="20">
-<h1><span class="header-section-number">Part 20</span> The pipe advantage</h1>
-<div id="learning-objectives-3" class="section level2" number="20.1">
-<h2><span class="header-section-number">20.1</span> Learning Objectives</h2>
-<p>By the end of this lesson, you will:</p>
+<div id="join-functions" class="section level1" number="33">
+<h1><span class="header-section-number">Part 33</span> Join Functions</h1>
+<p>Often, we need to work with data living in more than one table.</p>
+<p>There are four main types of operations that can be done with two tables
+(as elaborated in <a href="https://r4ds.had.co.nz/relational-data.html#introduction-7">r4ds Chapter 13 Introduction</a>):</p>
 <ul>
-<li>Have a sense of why <strong>dplyr</strong> is advantageous compared to the “base R” way with respect to good coding practice.</li>
+<li><a href="https://r4ds.had.co.nz/relational-data.html#mutating-joins"><strong>Mutating joins</strong></a>
+add new columns to the “original” tibble.</li>
+<li><a href="https://r4ds.had.co.nz/relational-data.html#filtering-joins"><strong>Filtering joins</strong></a>
+filter the “original” tibble’s rows.</li>
+<li><a href="https://r4ds.had.co.nz/relational-data.html#set-operations"><strong>Set operations</strong></a>
+work as if each row is an element in a set.</li>
+<li><strong>Binding</strong> stacks tables on top of or beside each other, with
+<code>bind_rows()</code> and <code>bind_cols()</code>.</li>
 </ul>
-<p>Why?</p>
-<ul>
-<li>Having this in the back of your mind will help you identify qualities of and produce a readable analysis.</li>
-</ul>
-</div>
-<div id="compare-nested-functions-to-pipe-chains" class="section level2" number="20.2">
-<h2><span class="header-section-number">20.2</span> Compare nested functions to pipe chains</h2>
-<p><strong>Self-documenting code</strong>.</p>
-<p>This is where the tidyverse shines.</p>
-<p>Example of <strong>dplyr</strong> vs base R:</p>
-<pre><code>gapminder[gapminder$country == &quot;Cambodia&quot;, c(&quot;year&quot;, &quot;lifeExp&quot;)]</code></pre>
-<p>vs.</p>
-<pre><code>gapminder |&gt;
-  filter(country == &quot;Cambodia&quot;) |&gt;
-  select(year, lifeExp)</code></pre>
-<div class="figure">
-<img src="img/pipe_routine.jpg" alt="" />
-<p class="caption">Morning Routine Pipie</p>
-</div>
-</div>
-<div id="the-workflow" class="section level2" number="20.3">
-<h2><span class="header-section-number">20.3</span> The workflow:</h2>
-<ol style="list-style-type: decimal">
-<li>Wrangle your data with <strong>dplyr</strong> first
-<ul>
-<li>Separate steps with <code>|&gt;</code></li>
-</ul></li>
-<li>Pipe <code>|&gt;</code> your data into a plot/analysis</li>
-</ol>
-</div>
-<div id="basic-principles" class="section level2" number="20.4">
-<h2><span class="header-section-number">20.4</span> Basic principles:</h2>
-<ol style="list-style-type: decimal">
-<li>Do one thing at a time</li>
-</ol>
-<ul>
-<li>Transform variables OR select variables OR filter cases</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Chain multiple operations together using the pipe <code>|&gt;</code></li>
-<li>Use readable object and variable names</li>
-<li>Subset a dataset (i.e., select variables) by <strong>name</strong>, not by “magic numbers”</li>
-<li><em>Note that you need to use the assignment operator <code>&lt;-</code> to store changes!</em></li>
-</ol>
-</div>
-<div id="tangent-base-r-workflow" class="section level2" number="20.5">
-<h2><span class="header-section-number">20.5</span> Tangent: Base R workflow</h2>
-<p>We are jumping right into the tidyverse way of doing things in R,
-instead of the base R way of doing things.
-Our first week was about “just enough” base R to get you started.
-If you feel that you want more practice here,
-take a look at <a href="https://www.youtube.com/playlist?list=PLqzoL9-eJTNARFXxgwbqGo56NtbJnB37A">the R intro stat videos by MarinStatsLectures</a>.</p>
+<p>Let’s navigate to each of these three links, which lead to the relevant r4ds
+chapters, and go through the concepts there. These have excellent visuals to
+explain what’s going on.</p>
+<p>We will also look at the visuals of these concepts <a href="https://github.com/gadenbuie/tidyexplain">here</a>.</p>
+<p>Then, let’s go through <a href="https://stat545.com/join-cheatsheet.html">Jenny Bryans’s join cheatsheet</a> for examples.</p>
 
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="selecting-and-sorting-data-frames.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="filtering-and-mutating-data-frames.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="tibble-joins-a-tale-of-two-tibbles.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="lab-06-join-those-tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -497,7 +456,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0303_the-pipe.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0502_table-join-resources.Rmd",
 "text": "Edit"
 },
 "history": {
