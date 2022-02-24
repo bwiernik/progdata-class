@@ -1,0 +1,129 @@
+# Lab 06: Join those tables!
+
+Load required packages:
+
+```{r, echo = TRUE}
+library(tidyverse)
+```
+
+## Exercise 1: `singer`
+
+The package `singer` comes with two smallish data frames about songs. 
+Let's take a look at them (after minor modifications by renaming and shuffling):
+
+You can download the singer data from the class repo:
+
+```{r, eval = FALSE}
+songs <- read_csv("https://raw.githubusercontent.com/bwiernik/progdata-class/master/data/singer/songs.csv")
+locations <- read_csv("https://raw.githubusercontent.com/bwiernik/progdata-class/master/data/singer/loc.csv")
+
+(time <- as_tibble(songs) |> 
+   rename(song = title))
+
+(album <- as_tibble(locations) |> 
+   select(title, everything()) |> 
+   rename(album = release,
+          song  = title))
+```
+
+
+1. We really care about the songs in `time`. But, for which of those songs do we 
+   know its corresponding album?
+
+```{r, eval = FALSE}
+time |> 
+  FILL_THIS_IN(album, by = FILL_THIS_IN)
+```
+
+2. Go ahead and add the corresponding albums to the `time` tibble, being sure to 
+   preserve rows even if album info is not readily available.
+
+```{r, eval = FALSE}
+time |> 
+  FILL_THIS_IN(album, by = FILL_THIS_IN)
+```
+
+3. Which songs do we have "year", but not album info?
+
+```{r, eval = FALSE}
+time |> 
+  FILL_THIS_IN(album, by = "song")
+```
+
+4. Which artists are in `time`, but not in `album`?
+
+```{r, eval = FALSE}
+time |> 
+  anti_join(album, by = "FILL_THIS_IN")
+```
+
+
+5. You've come across these two tibbles, and just wish all the info was 
+   available in one tibble. What would you do?
+
+```{r, eval = FALSE}
+FILL_THIS_IN |> 
+  FILL_THIS_IN(FILL_THIS_IN, by = "song")
+```
+
+
+## Exercise 2: LOTR
+
+Load in three tibbles of data on the Lord of the Rings:
+
+```{r, eval = FALSE}
+fell <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/The_Fellowship_Of_The_Ring.csv")
+ttow <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/The_Two_Towers.csv")
+retk <- read_csv("https://raw.githubusercontent.com/jennybc/lotr-tidy/master/data/The_Return_Of_The_King.csv")
+```
+
+1. Stack these into a single tibble.
+
+```{r}
+FILL_THIS_IN(fell, FILL_THIS_IN)
+```
+
+2. Which races are present in "The Fellowship of the Ring" (`fell`), but not in 
+   any of the other ones?
+
+```{r}
+fell |> 
+  FILL_THIS_IN(FILL_THIS_IN, by = "Race") |> 
+  FILL_THIS_IN(FILL_THIS_IN, by = "Race")
+```
+
+
+## Exercise 3: Set Operations
+
+Let's use three set functions: `intersect`, `union` and `setdiff`. We'll work 
+with two toy tibbles named `y` and `z`, similar to Data Wrangling Cheatsheet
+
+```{r}
+(y <-  tibble(x1 = LETTERS[1:3], x2 = 1:3))
+```
+
+```{r}
+(z <- tibble(x1 = c("B", "C", "D"), x2 = 2:4))
+```
+
+1. Rows that appear in both `y` and `z`
+
+```{r}
+FILL_THIS_IN(y, z)
+```
+
+2. You collected the data in `y` on Day 1, and `z` in Day 2. 
+   Make a data set to reflect that.
+
+```{r}
+FILL_THIS_IN(
+  mutate(y, day = "Day 1"),
+  mutate(z, day = "Day 2")
+)
+```
+
+3. The rows contained in `z` are bad! Remove those rows from `y`.
+
+```{r}
+FILL_THIS_IN(FILL_THIS_IN, FILL_THIS_IN)
+```

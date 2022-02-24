@@ -1,0 +1,23 @@
+# Join Functions
+
+Often, we need to work with data living in more than one table. 
+
+There are four main types of operations that can be done with two tables 
+(as elaborated in [r4ds Chapter 13 Introduction](https://r4ds.had.co.nz/relational-data.html#introduction-7)):
+
+- [__Mutating joins__](https://r4ds.had.co.nz/relational-data.html#mutating-joins) 
+  add new columns to the "original" tibble.
+- [__Filtering joins__](https://r4ds.had.co.nz/relational-data.html#filtering-joins) 
+  filter the "original" tibble's rows.
+- [__Set operations__](https://r4ds.had.co.nz/relational-data.html#set-operations) 
+  work as if each row is an element in a set. 
+- __Binding__ stacks tables on top of or beside each other, with 
+  `bind_rows()` and `bind_cols()`.
+
+Let's navigate to each of these three links, which lead to the relevant r4ds 
+chapters, and go through the concepts there. These have excellent visuals to 
+explain what's going on.
+
+We will also look at the visuals of these concepts [here](https://github.com/gadenbuie/tidyexplain).
+
+Then, let's go through [Jenny Bryans's join cheatsheet](https://stat545.com/join-cheatsheet.html) for examples. 

@@ -1,0 +1,22 @@
+# (PART) Module 05 {-}
+
+# Tibble Joins: A Tale of Two Tibbles
+
+Today's topic is on operations with two or more tables. 
+These operations are are used to combine two different data tables, 
+compare two different data tables,
+verify or filter data in one data table against another, etc.
+
+
+## Resources
+
+- [Jenny Bryan's join cheatsheet](https://stat545.com/join-cheatsheet.html)
+- The `dplyr` "two-table verbs" [vignette](https://cran.r-project.org/web/packages/dplyr/vignettes/two-table.html)
+- [Relational Data chapter](https://r4ds.had.co.nz/relational-data.html) in "R for Data Science".
+- [dplyr cheatsheet](https://rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf)
+
+For an overview of operations involving multiple tibbles, check out Jenny Bryan's 
+[Chapter 14](https://stat545.com/multiple-tibbles.html) in stat545.com.
+
+For more activities, see the matrials from  
+[Rashedul Islam](https://github.com/Rashedul/stat545_guest_lecture).
