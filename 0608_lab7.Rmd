@@ -45,6 +45,7 @@ All of these folders should be described in your README.md file for this project
 
 In this step, you need to identify a dataset you want to work with for your final project. 
 Some potential sources for datasets include:
+
   - [ICPSR](https://www.icpsr.umich.edu/icpsrweb/)
   - [Google Datasets](https://www.blog.google/products/search/discovering-millions-datasets-web/)
   - [Harvard Dataverse](https://dataverse.harvard.edu/)
@@ -52,6 +53,7 @@ Some potential sources for datasets include:
   - Data from your own research work or experience
   
 The requirements for this dataset:
+
   - It cannot be already available as an R package like `gapminder`, `nycflights13`, or one of the datasets in `datasets`
     - It's okay if there is any R package you use to download the data, such as
       `rtweet`, so long as it isn't already a neatly packaged dataset for you.
@@ -61,6 +63,7 @@ The requirements for this dataset:
 Talk to me if you are having trouble finding an interesting or suitable dataset!
 
 Once you have identified a dataset, download it and place it in your `data` folder.
+
   - Bonus: If this is data you are downloading from the internet, write and run a .R script to download the dataset
     - Hint: Try to write this as a separate .R file from your homework .Rmd file
       and call it in your .Rmd using `source()`.
