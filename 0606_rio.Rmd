@@ -1,0 +1,4 @@
+# Bonus Activity: `rio`
+
+Do the `clevel` activity again, but this time use the `rio::import()` and `rio::export()` functions instead of the `read_*()` and `write_*()` functions. 
+In `rio::import()`, be sure to specify: `rio::import(..., setclass = "tibble")`.

@@ -1,0 +1,33 @@
+# Organizing Your Project Folders
+
+Follow a consistent folder structure for all of your projects. 
+This will make it easier for you to say organized and make your code, data, and projects easy to share.
+
+In your project's root folder, you should have a README.md file and a .Rproj project. 
+Then, you should have folders that separate different types of files:
+
+-   `data`: Stores all of your data files for a project
+
+    -   Have subfolders for different dates, waves, groups, etc. as needed
+    -   If you plan on saving cleaned data, having separate `data_raw` and `data` folders is a good idea.
+
+-   `output`: Stores any output your scripts generate
+
+    -   Depending on how many figures and other output files you will create, you might want to split/subfolder this into `figures`, `reports`, etc.
+
+You might add additional folders, such as:
+
+-   `tests`: A folder that includes tests to check that your scripts or results are accurate. Check out the `testthat` package.
+
+-   `templates`: A folder to hold template files (e.g., RMarkdown templates, Word templates, CSS files for HTML output, TeX templates for PDF output)
+
+-   `admin`: For administrative documents (e.g., IRB approval, grant information)
+
+-   `doc`: For documentation (e.g., variable codebooks, style guides)
+
+-   `R` or `src` or `scripts`: Folders to store functions and scripts that you call from your markdown (e.g., a data import and cleaning script)
+
+    -   Use folders or subfolders for each language if you are programming in multiple languages: `R`, `python`, `sql`, `C`, etc.
+    -   Can put them all in a generic `scripts` or `src` folder if not too many
+    
+-   `markdown`: If you have multiple RMarkdown documents for your project, consider putting them into a subfolder

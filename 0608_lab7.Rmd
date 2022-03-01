@@ -1,0 +1,101 @@
+# Lab 07: Make a portfolio piece
+
+For this week's activities, make a portfolio piece for class.
+
+Do the following:
+
+1. Make a new GitHub repo for your project and clone it to your computer.
+2. Make an appropriate file structure for your portfolio project, including, e.g., 
+    1. An RStudio project file.
+    2. A `data` folder
+    3. A `figures` folder
+    4. Other folders as appropriate.
+3. Choose a dataset of interest to you 
+
+## Step 1: Make a new GitHub repo
+
+Make a new GitHub repo for your project. 
+It's a good habit to make a new repo for each different project/paper you work on.
+
+Add a link to this new project repo to you main class repo README.
+
+Clone your new project repo down to your computer. 
+
+## Step 2: Set up your folder structure
+
+In your new repo, prepare your folder structure. 
+Folders and files you should probably include in this folder structure are:
+  
+  - A `README.md` file describing the project and the contents of the subfolders
+  - An RStudio Project .Rproj file in the folder root
+  - A `data` folder that holds the relevant data files for the project
+    - Could also have separate `data_raw` and `data` folders
+  - One or more RMarkdown manuscripts
+  - An `output` folder that will hold your output files
+    - Depending on how many figures and other output files you may have, 
+      you might want to split/subfolder this into `figures`, `reports`, etc.
+  - Other subfolders as needed, e.g.:
+    - `admin` for adminstrative documents (e.g., IRB approval, grant information)
+    - `doc` for documentation (e.g., variable codebooks), 
+    - `R` as a place to store functions and scripts that you call from your markdown (e.g., a data import and cleaning script)
+      
+All of these folders should be described in your README.md file for this project (e.g., make a markdown table describing the folders).
+
+## Step 3: Find, download, and document a dataset
+
+In this step, you need to identify a dataset you want to work with for your final project. 
+Some potential sources for datasets include:
+  - [ICPSR](https://www.icpsr.umich.edu/icpsrweb/)
+  - [Google Datasets](https://www.blog.google/products/search/discovering-millions-datasets-web/)
+  - [Harvard Dataverse](https://dataverse.harvard.edu/)
+  - [FiveThirtyEight's GitHub repos](https://github.com/fivethirtyeight/data)
+  - Data from your own research work or experience
+  
+The requirements for this dataset:
+  - It cannot be already available as an R package like `gapminder`, `nycflights13`, or one of the datasets in `datasets`
+    - It's okay if there is any R package you use to download the data, such as
+      `rtweet`, so long as it isn't already a neatly packaged dataset for you.
+  - It should be a dataset that needs some cleaning, reshaping, wrangling before it's ready for analysis. 
+    This is the case for almost any real-world data.
+  
+Talk to me if you are having trouble finding an interesting or suitable dataset!
+
+Once you have identified a dataset, download it and place it in your `data` folder.
+  - Bonus: If this is data you are downloading from the internet, write and run a .R script to download the dataset
+    - Hint: Try to write this as a separate .R file from your homework .Rmd file
+      and call it in your .Rmd using `source()`.
+  - Your data file should have a useful descriptive name (no `data.xlsx`!). 
+    It should include:
+    - A description of the file (e.g., "gapminder-data-all-countries")
+    - A date in a sortable format (e.g., "2020-03-04")
+    - No spaces
+    - The file extension (e.g., ".csv" or ".xlsx")
+    
+Document your data. 
+Describe the key variables, their types (e.g., character, integrer, numeric), their possible values (e.g., for a personality item, maybe integers from 1-5), etc. 
+Describe how missing data is indicated (blank cells, "NA", "-999", etc.). 
+This documentation could be in the main project README.md file or in a README.md or other .md file in the `data` folder.
+
+
+## Step 4: Practice input, process, output
+
+In your .Rmd file for this homework assignment (call it `hw04.Rmd`), practice reading your data file into R, processing the imported data, and outputting files.
+
+Import your file using R functions (not the buttons in RStudio). 
+
+You will want to output two things:
+
+  1. A data file, such as cleaned dataset and/or a summarized dataset/table
+  2. A plot, in several formats, including (1) a bitmap format, (2) a vector format, and (3) PDF
+
+Save your data file and plots to your `output` folder (or other more specific folders if that is your structure). 
+Be sure to use descriptive file names and document what these files are with a .md file.
+Save your data file using `write_csv()` or a similar function. 
+Save your images using `ggsave()`. 
+Do not use the buttons in RStudio.
+
+## Step 5: Finish your data exploration report
+
+Finish writing your RMarkdown document to describe the data, 
+conduct your analyses, and describe your interpretations or conclusions.
+

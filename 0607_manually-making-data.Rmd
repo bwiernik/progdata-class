@@ -1,0 +1,54 @@
+# Entering Data Manually
+
+## Making data.frames or tibbles
+
+In base R, we can make data frames using the `data.frame()` function. 
+The tidyverse version is `tibble::tibble()`. 
+`tibble()` is stricter by not allowing recycling unless the vector is of length 1.
+
+Good:
+
+```{r}
+dat <- tibble(
+  x = 1:6,
+  y = min(x)
+)
+```
+
+Bad:
+
+```{r, error = TRUE}
+dat <- tibble(
+  x = 1:6,
+  y = 1:2
+)
+```
+
+
+Manual construction of tibbles is convenient with `tibble::tribble()`:
+
+```{r}
+dat <- tribble(
+  ~Day, ~Breakfast,
+  1, "Apple",
+  2, "Yogurt",
+  3, "Yogurt"
+)
+```
+
+## datapasta
+
+The *datapasta* package helps to reproducibly copy-paste data from spreadsheets into R. 
+`datapasta` uses `tribble()`.
+
+```{r, eval = FALSE}
+install.packages("datapasta")
+```
+
+After you install the package, you can set keyboard shortcuts in RStudio for its functions:
+
+  1. Click Tools → Modify Keyboard Shortcuts…
+  2. Search for 'paste'.
+  3. Set keyboard shortcuts for "Paste as tribble", "Paste as vector", and other functions if you like.
+
+Now, try out pasting a vector and a tibble.

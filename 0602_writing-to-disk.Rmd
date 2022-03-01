@@ -1,0 +1,113 @@
+# Filesystems and paths
+
+Let's first load the built-in gapminder dataset and the tidyverse:
+
+```{r, echo = FALSE, warning = FALSE, message = FALSE}
+library(gapminder)
+library(tidyverse)
+```
+
+Next, let's filter the data to only 2007 and only the Asia continent and
+save it to a new object.
+
+```{r}
+(gap_asia_2007 <- gapminder |> filter(year == 2007, continent == "Asia"))
+```
+
+We can write this to a comma-separated value (csv) file with the command:
+
+```{r eval=FALSE}
+write_csv(gap_asia_2007, "exported_file.csv")
+```
+
+But where did this file go? 
+We should save the file in a sensible location. 
+We need to practice controlling where R is running, where it looks for files, and where it writes out your files. 
+To that end, let's review the working directory and RStudio Projects.
+
+
+# The working directory and RStudio Projects
+
+When you open R, it "runs" in some folder on your computer. 
+This is the place it will look for files to import and write files as output.
+Think about where your class files end up when you knit them.
+
+If you have R/RStudio closed, and you open a .R or .Rmd file, R/RStudio will start in the folder holding that file.
+
+If you open R/RStudio from the Windows Start menu, the Mac dock, the Mac Spotlight, etc., R/Studio will start in its default location (probably your user home directory, see Tools → Global Options → General → Default working directory...).
+
+Write all of your R scripts assuming:
+
+1.  You are running them by opening a fresh new R session
+
+    -   Don't use `rm(list = ls())` to clean the workspace--the workspace is already clean
+    -   You need to load required pacakges with `library()`
+    -   Don't work on several different projects in one R session at the same time!
+
+2.  You have all of the necessary packages installed
+
+    -   Don't include `install.packages()` calls unless they are commented out or otherwise set not to run
+
+3.  The script will run without human input
+
+    -   You need to import or load any data you are working with
+    -   Load data and write output using R commands, not `file.choose()`, `read.clipboard()`, the buttons in RStudio, etc.
+
+4.  All of the needed files live in your project folder
+
+    -   Write *relative* paths, rather than *absolute* paths
+    -   `file.path("data", "cats-data_2020-03-04.xlsx")`
+    -   Not:
+        `/Users/brenton/Research/cats_project/data/cats-data_2020-03-04.xlsx`
+        or
+        `C:\\Users\\brenton\\Research\\cats_project\\data\\cats-data_2020-03-04.xlsx`\
+        or`file.path("C:", "Users", "brenton", "Research", "cats_project", "data", "cats-data_2020-03-04.xlsx")`
+
+5.  Your script might run on any system
+
+    -   Write the paths to files using `file.path()` or `here::here()`, rather than typing out the whole path 
+    -   This is because Windows and Mac/Linux have different syntaxes for file paths:
+
+        -   Mac/Linux: `path/to/folder`
+        -   Windows: `path\\to\\folder`
+
+This approach has several advantages:
+
+1.  Frictionless running on different computers
+2.  Less breakage (e.g., if you move a folder around, the relative paths will still work)
+3.  Less surprising or weird behaviors due to session crud
+4.  Easy to tweak data/code and update results
+
+# RStudio projects
+
+RStudio projects can help with following these best practices. 
+
+The best way to work with R is to have a separate Project for each project/paper you are working on. Switch RStudio to that Project whenever you are working on those files. 
+
+You can you are working in a Project because its name will be in the RStudio title bar. 
+One macOS, the Project name will also show on the Dock icon.
+
+
+# here::here()
+
+The *here* package is the best way to refer to files. 
+
+The major function is `here::here()`. 
+Like `file.path()`, `here::here()` lets you specify a path to a file and then adds the system-appropriate separators (`/` or `\\`). 
+
+Where `here::here()` shines is that it figures out where the relative paths should start from. 
+It looks around in the folders in your directory and finds the .Rproj file, then constructs the relative file paths from there.
+
+The .Rproj file is a sign post that says "START HERE".
+
+For example, create a new folder "data" in your participation folder. 
+Then, save `gap_asia_2007` using the `here::here()` and `write_csv()` functions:
+
+```{r, eval = FALSE}
+write_csv(gap_asia_2007, 
+          here::here("participation", "data", "gap_asia_2007.csv")
+)
+```
+
+More details on `here` are available in this [short
+article](http://jenrichmond.rbind.io/post/how-to-use-the-here-package/).

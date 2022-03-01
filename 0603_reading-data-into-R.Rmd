@@ -1,0 +1,195 @@
+# Reading data from disk
+
+The same csv file that we just saved to disk can be imported into R again by specifying the path where it exists:
+
+```{r, eval = FALSE}
+dat <- read_csv(here::here("participation", "data", "gap_asia_2007.csv"))
+dat
+```
+
+Notice that the output of the imported file is the same as the original tibble.
+`read_csv()` was intelligent enough to detect the types of the columns. 
+This won't always be true so it's worth checking! 
+In particular, be on the lookout for any columns it imports as `col_character()`!
+
+The [read_csv()](https://readr.tidyverse.org/reference/read_delim.html) function has many additional options including the ability to specify column types (e.g., is "1990" a year or a number?), skip columns, skip rows, rename columns on import, trim whitespace, and more.
+
+To control the column types, use the `cols()` function:
+
+```{r, eval = FALSE}
+dat <- read_csv(
+  here::here("participation", "data", "gap_asia_2007.csv"),
+  col_types = cols(
+    country = col_factor(),
+    continent = col_factor(),
+    year = col_date(format = "%Y"),
+    .default = col_double() # all other columns as numeric (double)
+  )
+)
+dat
+```
+
+By default, it leaves all columns as `col_guess()`, but it's better to be explicit.
+
+Another important option to set is the `na` argument, which specifies what values to treat as `NA` on import. 
+By default, `read_csv()` treats blank cells (i.e., `""`) and cells with `"NA"` as missing. 
+You might need to change this (e.g., if missing values are entered as `-999`). 
+Note that `readxl::read_excel()` by default only has `na = c("")` (no `"NA"`)!
+
+```{r, eval = FALSE}
+dat <- read_csv(
+  here::here("participation", "data", "gap_asia_2007.csv"),
+  col_types = cols(
+    country = col_factor(),
+    continent = col_factor(),
+    year = col_date(format = "%Y"),
+    .default = col_double() # all other columns as numeric (double)
+  ),
+  na = c("", "NA", -99, "No response")
+)
+dat
+```
+
+
+# Import a file from the web/cloud
+
+## Import a CSV file from the internet
+
+To import a CSV file directly from the web, assign the URL to a variable
+
+```{r}
+url <- "http://gattonweb.uky.edu/sheather/book/docs/datasets/magazines.csv"
+```
+
+and then apply read_csv file to the `url`.
+
+```{r}
+dat <- read_csv(url)
+```
+
+You can do this in one step if you like:
+
+```{r eval = FALSE}
+read_csv("http://gattonweb.uky.edu/sheather/book/docs/datasets/magazines.csv")
+```
+
+
+
+## Import an Excel file (.xls or .xlsx) from the internet
+
+First, we'll need the package to load in Excel files:
+
+```{r}
+library(readxl) 
+```
+
+Datafiles from this tutorial were obtained from:
+<https://beanumber.github.io/sds192/lab-import.html#data_from_an_excel_file>
+
+Unlike with a CSV file, to import an .xls or .xlsx file from the internet, you first need to download it locally.
+
+*Note: The folder you want to save the file to _has to exist_!.*
+*If it doesn't, _you will get an error._*
+
+You can create the folder path in one of three ways:
+
+  1. Create them directly in Finder/Windows Explorer
+  2. Use the buttons in the Files tab in RStudio
+  3. Use the `dir.create()` function:
+
+```{r, eval = FALSE}
+if ( !dir.exists( here::here("participation", "data") ) ) {
+  dir.create( here::here("participation", "data"), recursive = TRUE )
+}
+```
+
+Next, you download the file.
+To download it, create a new object called `xls_url` and then use `download.file()` to download it to a specified path.
+
+```{r, eval = FALSE}
+xls_url <- "http://gattonweb.uky.edu/sheather/book/docs/datasets/GreatestGivers.xls"
+download.file(
+  xls_url, 
+  here::here("participation", "data", "some_file.xls"), 
+  mode = "wb"
+)
+```
+
+**NOTE:** Don't assign the result of `download.file()`.
+
+**NOTE:** The `mode = "wb"` argument at the end is really important if you are on Windows. 
+If you omit, you will probably get a message about downloading a corrupt file.
+More details about this behavior can be found [here](https://github.com/HenrikBengtsson/Wishlist-for-R/issues/30).
+
+
+Naming a file "some_file" is extremely bad practice (hard to keep track of the files).
+You should **always** give it a more descriptive name. 
+It's also a good idea to avoid spaces in filenames.
+You should come up with a system for naming your files and use it consistently. 
+My file names look like this: `progdata_example-dataset_2021-03-02_bmw.csv`
+
+
+Often, it's a good idea to name the file similarly (or the same as) the original file (sometimes that might not be a good idea if the original name is non-descriptive).
+
+There's handy trick to extract the filename from the URL:
+
+```{r, eval = FALSE}
+file_name <- basename(xls_url)
+download.file(
+  xls_url, 
+  here::here("participation", "data", file_name), 
+  mode = "wb"
+)
+```
+
+Now we can import the file:
+
+```{r, eval = FALSE}
+dat <- read_excel(
+  here::here("participation", "data", file_name)
+)
+```
+
+
+# Read in a sample SPSS file.
+
+Let's load a sample SPSS file and work with it. 
+Download the file from [here](https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/data/clevel.sav) and save it in your `data` folder in your class GitHub repo.
+
+These data are a random subset of the data used in [this paper](https://doi.org/10.1016/j.jvb.2018.02.005). 
+This was a study looking at personality traits that distinguish C-level executives from lower-level managers among men and women.
+
+The subset of data here consists of 200 cases, with variables indicating: 
+
+  1. The language of assessment (English, Dutch, or French) 
+  2. Gender 
+  3. C-level or not 
+  4. Extraversion level, as well as 4 facet traits (Leading, Communion, Persuasive, Motivating)
+
+Let's load in the data using the `haven` package.
+
+```{r, eval = FALSE}
+(clevel <- haven::read_spss(
+  here::here("participation", "data", "clevel.sav")
+)
+)
+```
+
+Notice that this tibble looks a little different for the `language` and `gender` variables than normal. 
+It has **labels** for the numeric values. 
+This format is what SPSS uses, but it's not standard for R.
+Let's convert those variables, and `isClevel` as well, to factors:
+
+```{r, eval = FALSE}
+clevel_cleaned <-
+  clevel |> 
+  mutate(language = as_factor(language),
+         gender = as_factor(gender),
+         isClevel = factor(isClevel, 
+                           levels = c(0, 1), 
+                           labels = c("No", "Yes"))
+  )
+print(clevel_cleaned)
+```
+
+Notice how the variables are now factors with labels as the entries, instead of the original code numbers.

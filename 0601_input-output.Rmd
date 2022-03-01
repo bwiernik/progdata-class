@@ -1,0 +1,32 @@
+# (PART) Module 06 {-}
+
+# File input/output (I/O)
+
+Today's class is all about reading into R and writing out data files out
+of R.
+
+Because sometimes you want to work with your own damn data, instead of
+data about penguins, cars, life expectancy, or the Big Five personality
+scores of 2800 of your closest friends.
+
+## Resources
+
+### References and tutorials
+
+-   Jenny Bryan's [notes](https://stat545.com/import-export.html) on
+    file I/O
+-   [Tutorial](https://beanumber.github.io/sds192/lab-import.html#data_from_an_excel_file)
+    on importing Excel files
+-   [Tutorial](http://jenrichmond.rbind.io/post/how-to-use-the-here-package/)
+    on relative paths and how RStudio treats .R script files and .Rmd
+    files
+
+### Package documentation
+
+-   [readr::read_csv()](https://readr.tidyverse.org/reference/read_delim.html)
+-   [readxl::read_excel()](https://readxl.tidyverse.org/reference/read_excel.html)
+-   [googlesheets4::read_sheet()](https://googlesheets4.tidyverse.org/reference/read_sheet.html)
+-   [haven](https://haven.tidyverse.org/) package for importing SPSS,
+    SAS, Stata files
+-   [rio::import()](https://cloud.r-project.org/web/packages/rio/vignettes/rio.html) for importing all manner of formats with one command!
+-   [here::here()](https://here.r-lib.org)

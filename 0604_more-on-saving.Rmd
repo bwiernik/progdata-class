@@ -1,0 +1,97 @@
+# Saving files
+
+## Saving data frames
+
+Let's save this file as a CSV file so that it's a smaller file and easier to import again in the future.
+
+```{r, eval = FALSE}
+write_csv(
+  clevel_cleaned, 
+  here::here("participation", "data", "clevel_cleaned.csv")
+)
+```
+
+## Saving plots
+
+Now let's make a plot.
+
+```{r, eval = FALSE}
+clevel_plot <-
+  clevel_cleaned |> 
+  mutate(isClevel = recode(isClevel, 
+                           No = "Below C-level", 
+                           Yes = "C-level"),
+         gender = recode(gender,
+                         Female = "Women",
+                         Male = "Men")) |> 
+  ggplot(aes(paste(isClevel, gender, sep = "\n"), Extraversion, color = gender)) +
+  geom_boxplot() +
+  geom_jitter(height = .2) +
+  scale_color_manual(values = c("#1b9e77", "#7570b3")) +
+  ggtitle("Extraversion Stan Scores") +
+  scale_y_continuous(breaks = 1:9) +
+  ggthemes::theme_fivethirtyeight()
+
+clevel_plot
+```
+
+Let's save the plot in several formats. 
+This is useful if we want to use the plot outside of Markdown. 
+Save plots using the `ggsave()` funnction.
+
+`ggsave()` has many options. 
+See the help function `?ggsave` for full details. 
+The main arguments are:
+
+  - `filename`
+  - `plot`
+  - `width` and `height` (inches by default)
+  - `dpi` (dots per inch; for bitmap formats).
+
+`ggsave()` will try to guess what format you want based on the file name. 
+If you want, you can specify a specific format or R graphics device to save with using the `device` argument.
+
+```{r, eval = FALSE}
+dir.create(here::here("participation", "output", "figures"), recursive = TRUE)
+ggsave(here::here("participation", "output", "figures", "clevel_extraversion.svg"), 
+       clevel_plot,
+       height = 6,
+       width = 6
+)
+```
+
+You can save to several formats. 
+Generally, work with a *vector* format like `.svg`, `.eps`, or `.pdf`. 
+
+Vector graphics represent the image as a series of data points and equations. 
+This means that they can be made smaller or larger or zoomed in on without damaging the image quality.
+
+If you can't use a vector format for some reason, you can also export to a *bitmap* format. 
+Bitmap graphs represent the image as colored dots or pixels. 
+This means that the image quality will suffer if you make the image larger or zoom in on it (making it smaller can also sometimes compromise quality). 
+With bitmap images, you need to be concerned with *resolution* (how many pixels/dots per inch when printed). 
+Always use at least **300 DPI** resolution.
+
+There are several popular bitmap image formats. 
+
+  - `.tiff`/`.tif` 
+    - Highest quality, but also the largest. 
+    - Use it for print graphics, but you should probably avoid it for images to be hosted on the web. 
+  - `.png` 
+    - A bit smaller, and it should be your go to for charts, figures, line drawings, etc. 
+    - More complex images (e.g., photos) can get pretty big with `.png`, though. 
+  - `.jpg`/`.jpeg`
+    - Probably the most popular bitmap format.
+    - Works well for photographs hosted on the web, but its compression often makes line drawing and charts look terrible.
+    - `.jpg`/`.jpeg` also degrades in quality each time you edit/save it, so don't use it for images you intend to edit. 
+  - `.gif`
+    - Generally avoid `.gif` unless you are making an animation or you need very small file size for a simple image. 
+    - `.gif` supports very few colors, so always check your image quality after making a `.gif`.
+
+Let's save to some other formats:
+
+```{r, eval = FALSE}
+ggsave(here::here("participation", "output", "figures", "clevel_extraversion.pdf"), clevel_plot, height = 6, width = 4)
+ggsave(here::here("participation", "output", "figures", "clevel_extraversion.tiff"), clevel_plot)
+ggsave(here::here("participation", "output", "figures", "clevel_extraversion.png"), clevel_plot)
+```
