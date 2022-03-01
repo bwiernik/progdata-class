@@ -472,29 +472,41 @@ you might want to split/subfolder this into <code>figures</code>, <code>reports<
 <div id="step-3-find-download-and-document-a-dataset" class="section level2" number="47.3">
 <h2><span class="header-section-number">47.3</span> Step 3: Find, download, and document a dataset</h2>
 <p>In this step, you need to identify a dataset you want to work with for your final project.
-Some potential sources for datasets include:
-- <a href="https://www.icpsr.umich.edu/icpsrweb/">ICPSR</a>
-- <a href="https://www.blog.google/products/search/discovering-millions-datasets-web/">Google Datasets</a>
-- <a href="https://dataverse.harvard.edu/">Harvard Dataverse</a>
-- <a href="https://github.com/fivethirtyeight/data">FiveThirtyEight’s GitHub repos</a>
-- Data from your own research work or experience</p>
-<p>The requirements for this dataset:
-- It cannot be already available as an R package like <code>gapminder</code>, <code>nycflights13</code>, or one of the datasets in <code>datasets</code>
-- It’s okay if there is any R package you use to download the data, such as
-<code>rtweet</code>, so long as it isn’t already a neatly packaged dataset for you.
-- It should be a dataset that needs some cleaning, reshaping, wrangling before it’s ready for analysis.
-This is the case for almost any real-world data.</p>
+Some potential sources for datasets include:</p>
+<ul>
+<li><a href="https://www.icpsr.umich.edu/icpsrweb/">ICPSR</a></li>
+<li><a href="https://www.blog.google/products/search/discovering-millions-datasets-web/">Google Datasets</a></li>
+<li><a href="https://dataverse.harvard.edu/">Harvard Dataverse</a></li>
+<li><a href="https://github.com/fivethirtyeight/data">FiveThirtyEight’s GitHub repos</a></li>
+<li>Data from your own research work or experience</li>
+</ul>
+<p>The requirements for this dataset:</p>
+<ul>
+<li>It cannot be already available as an R package like <code>gapminder</code>, <code>nycflights13</code>, or one of the datasets in <code>datasets</code>
+<ul>
+<li>It’s okay if there is any R package you use to download the data, such as
+<code>rtweet</code>, so long as it isn’t already a neatly packaged dataset for you.</li>
+</ul></li>
+<li>It should be a dataset that needs some cleaning, reshaping, wrangling before it’s ready for analysis.
+This is the case for almost any real-world data.</li>
+</ul>
 <p>Talk to me if you are having trouble finding an interesting or suitable dataset!</p>
-<p>Once you have identified a dataset, download it and place it in your <code>data</code> folder.
-- Bonus: If this is data you are downloading from the internet, write and run a .R script to download the dataset
-- Hint: Try to write this as a separate .R file from your homework .Rmd file
-and call it in your .Rmd using <code>source()</code>.
-- Your data file should have a useful descriptive name (no <code>data.xlsx</code>!).
+<p>Once you have identified a dataset, download it and place it in your <code>data</code> folder.</p>
+<ul>
+<li>Bonus: If this is data you are downloading from the internet, write and run a .R script to download the dataset
+<ul>
+<li>Hint: Try to write this as a separate .R file from your homework .Rmd file
+and call it in your .Rmd using <code>source()</code>.</li>
+</ul></li>
+<li>Your data file should have a useful descriptive name (no <code>data.xlsx</code>!).
 It should include:
-- A description of the file (e.g., “gapminder-data-all-countries”)
-- A date in a sortable format (e.g., “2020-03-04”)
-- No spaces
-- The file extension (e.g., “.csv” or “.xlsx”)</p>
+<ul>
+<li>A description of the file (e.g., “gapminder-data-all-countries”)</li>
+<li>A date in a sortable format (e.g., “2020-03-04”)</li>
+<li>No spaces</li>
+<li>The file extension (e.g., “.csv” or “.xlsx”)</li>
+</ul></li>
+</ul>
 <p>Document your data.
 Describe the key variables, their types (e.g., character, integrer, numeric), their possible values (e.g., for a personality item, maybe integers from 1-5), etc.
 Describe how missing data is indicated (blank cells, “NA”, “-999”, etc.).
