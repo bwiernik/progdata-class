@@ -1485,6 +1485,16 @@
         "DBI"
       ]
     },
+    "mnormt": {
+      "Package": "mnormt",
+      "Version": "2.0.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7e6ee68a01d6c87c69087d4a250ee763",
+      "Requirements": [
+        "tmvnsim"
+      ]
+    },
     "modelbased": {
       "Package": "modelbased",
       "Version": "0.7.0.1",
@@ -1819,6 +1829,29 @@
       "Repository": "CRAN",
       "Hash": "32620e2001c1dce1af49c49dccbb9420",
       "Requirements": []
+    },
+    "psych": {
+      "Package": "psych",
+      "Version": "2.1.9",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "ffa6d4c281173358806341ad7d0029a0",
+      "Requirements": [
+        "lattice",
+        "mnormt",
+        "nlme"
+      ]
+    },
+    "psychTools": {
+      "Package": "psychTools",
+      "Version": "2.1.12",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "08509c03287c77cfba5b8161a2819fa1",
+      "Requirements": [
+        "foreign",
+        "psych"
+      ]
     },
     "purrr": {
       "Package": "purrr",
@@ -2395,6 +2428,14 @@
       "Requirements": [
         "xfun"
       ]
+    },
+    "tmvnsim": {
+      "Package": "tmvnsim",
+      "Version": "1.0-2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "50470c7ed0cc8099cbc17b38f0ef621f",
+      "Requirements": []
     },
     "tsibble": {
       "Package": "tsibble",
