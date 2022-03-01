@@ -34,7 +34,7 @@ In each wave, both the child and parent completed measures of **communication be
 
 ```{r, eval = FALSE}
 family |> 
-  DT::datatable(rownames = FALSE)
+  knitr::kable()
 ```
 
 1. Reshape the dataset to a "longer" format.

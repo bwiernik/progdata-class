@@ -57,19 +57,19 @@ dat
 
 To import a CSV file directly from the web, assign the URL to a variable
 
-```{r}
+```{r, eval = FALSE}
 url <- "http://gattonweb.uky.edu/sheather/book/docs/datasets/magazines.csv"
 ```
 
 and then apply read_csv file to the `url`.
 
-```{r}
+```{r, eval = FALSE}
 dat <- read_csv(url)
 ```
 
 You can do this in one step if you like:
 
-```{r eval = FALSE}
+```{r, eval = FALSE}
 read_csv("http://gattonweb.uky.edu/sheather/book/docs/datasets/magazines.csv")
 ```
 
@@ -79,7 +79,7 @@ read_csv("http://gattonweb.uky.edu/sheather/book/docs/datasets/magazines.csv")
 
 First, we'll need the package to load in Excel files:
 
-```{r}
+```{r, eval = FALSE}
 library(readxl) 
 ```
 

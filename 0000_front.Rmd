@@ -128,13 +128,7 @@ Along with these packages:
 ```{r message = FALSE,error=TRUE, warning = FALSE, echo = FALSE}
 session$packages %>% 
   select(package, loadedversion, date, source) %>% 
-  DT::datatable(rownames = FALSE,
-                class = 'cell-border stripe',
-                filter = list(position = 'top'),
-                options = list(pageLength = nrow(session$packages), 
-                           autoWidth = TRUE,
-                           bInfo = FALSE,
-                           paging = FALSE))
+  knitr::kable()
 ```
 
 

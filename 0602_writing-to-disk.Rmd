@@ -2,7 +2,7 @@
 
 Let's first load the built-in gapminder dataset and the tidyverse:
 
-```{r, echo = FALSE, warning = FALSE, message = FALSE}
+```{r}
 library(gapminder)
 library(tidyverse)
 ```
@@ -10,7 +10,7 @@ library(tidyverse)
 Next, let's filter the data to only 2007 and only the Asia continent and
 save it to a new object.
 
-```{r}
+```{r, eval = FALSE}
 (gap_asia_2007 <- gapminder |> filter(year == 2007, continent == "Asia"))
 ```
 
