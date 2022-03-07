@@ -409,8 +409,6 @@ Using the `tidytext::get_sentiments()` function we can take a peek at the words 
 bing <- read.csv(here::here("data","bing_dictionary.csv"))
 ```
 
-We can see that this lexicon has `r nrow(bing)` words.
-
 ```{r}
 bing |> 
   dplyr::count(sentiment)
@@ -423,8 +421,6 @@ Here we can see how many words are positive and negative within our lexicon
 ```{r}
 afinn <- read.csv(here::here("data","afinn_dictionary.csv"))
 ```
-
-We can see that this lexicon has `r nrow(afinn)` words.
 
 ```{r}
 afinn |>
