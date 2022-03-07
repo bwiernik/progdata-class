@@ -401,15 +401,15 @@ There exists different lexicons with different ways of expressing sentiment. We 
 
 ### Looking at our Lexicons
 
-Using the `get_sentiments()` function we can take a peek at the words within.
+Using the `tidytext::get_sentiments()` function we can take a peek at the words within.
 
 #### Bing - Positive vs. Negative
 
 ```{r}
-bing <- get_sentiments("bing") 
+bing <- tidytext::get_sentiments("bing") 
 ```
 
-We can see that this lexicon has `r nrow(get_sentiments("bing"))` words.
+We can see that this lexicon has `r nrow(tidytext::get_sentiments("bing"))` words.
 
 ```{r}
 bing |> 
@@ -421,10 +421,10 @@ Here we can see how many words are positive and negative within our lexicon
 #### AFINN - Words on a -5 to 5 scale
 
 ```{r}
-afinn <- get_sentiments("afinn")
+afinn <- tidytext::get_sentiments("afinn")
 ```
 
-We can see that this lexicon has `r nrow(get_sentiments("afinn"))` words.
+We can see that this lexicon has `r nrow(tidytext::get_sentiments("afinn"))` words.
 
 ```{r}
 afinn |>
@@ -447,7 +447,7 @@ afinn |>
 #### NRC - Anger, Anticipation, ...
 
 ```{r}
-nrc <- get_sentiments("nrc") 
+nrc <- tidytext::get_sentiments("nrc") 
 ```
 
 This lexicon has multiple representations of a word with different sentiments
@@ -819,7 +819,7 @@ We are going to work with the BING and NRC lexicons.
 *Just a reminder, BING uses a positive/negative coding of each word.*
 
 ```{r}
-bing <- get_sentiments("bing")
+bing <- tidytext::get_sentiments("bing")
 ```
 
 ```{r}
@@ -872,7 +872,7 @@ Intuitively, we expect for an inverse relationship between the rating and number
 *Reminder: NRC codes words with different emotions.*
 
 ```{r}
-nrc <- get_sentiments("nrc")
+nrc <- tidytext::get_sentiments("nrc")
 ```
 
 ```{r}
