@@ -406,7 +406,7 @@ Using the `tidytext::get_sentiments()` function we can take a peek at the words 
 #### Bing - Positive vs. Negative
 
 ```{r}
-bing <- tidytext::get_sentiments("bing") 
+bing <- read.csv(here::here("data","bing_dictionary.csv"))
 ```
 
 We can see that this lexicon has `r nrow(tidytext::get_sentiments("bing"))` words.
@@ -421,7 +421,7 @@ Here we can see how many words are positive and negative within our lexicon
 #### AFINN - Words on a -5 to 5 scale
 
 ```{r}
-afinn <- tidytext::get_sentiments("afinn")
+afinn <- read.csv(here::here("data","afinn_dictionary.csv"))
 ```
 
 We can see that this lexicon has `r nrow(tidytext::get_sentiments("afinn"))` words.
@@ -447,7 +447,7 @@ afinn |>
 #### NRC - Anger, Anticipation, ...
 
 ```{r}
-nrc <- tidytext::get_sentiments("nrc") 
+nrc <- read.csv(here::here("data","nrc_dictionary.csv"))
 ```
 
 This lexicon has multiple representations of a word with different sentiments
