@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 44 Organizing Your Project Folders | Programming with Data</title>
-  <meta name="description" content="Part 44 Organizing Your Project Folders | Programming with Data" />
+  <title>Part 52 Case Study: Martin Luther King Jr.’s Speech | Programming with Data</title>
+  <meta name="description" content="Part 52 Case Study: Martin Luther King Jr.’s Speech | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 44 Organizing Your Project Folders | Programming with Data" />
+  <meta property="og:title" content="Part 52 Case Study: Martin Luther King Jr.’s Speech | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 44 Organizing Your Project Folders | Programming with Data" />
+  <meta name="twitter:title" content="Part 52 Case Study: Martin Luther King Jr.’s Speech | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="saving-files.html"/>
-<link rel="next" href="bonus-activity-rio.html"/>
+<link rel="prev" href="clean-your-text-grammar-vs.-computers.html"/>
+<link rel="next" href="mining.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -453,45 +453,67 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="organizing-your-project-folders" class="section level1" number="44">
-<h1><span class="header-section-number">Part 44</span> Organizing Your Project Folders</h1>
-<p>Follow a consistent folder structure for all of your projects.
-This will make it easier for you to say organized and make your code, data, and projects easy to share.</p>
-<p>In your project’s root folder, you should have a README.md file and a .Rproj project.
-Then, you should have folders that separate different types of files:</p>
-<ul>
-<li><p><code>data</code>: Stores all of your data files for a project</p>
-<ul>
-<li>Have subfolders for different dates, waves, groups, etc. as needed</li>
-<li>If you plan on saving cleaned data, having separate <code>data_raw</code> and <code>data</code> folders is a good idea.</li>
-</ul></li>
-<li><p><code>output</code>: Stores any output your scripts generate</p>
-<ul>
-<li>Depending on how many figures and other output files you will create, you might want to split/subfolder this into <code>figures</code>, <code>reports</code>, etc.</li>
-</ul></li>
-</ul>
-<p>You might add additional folders, such as:</p>
-<ul>
-<li><p><code>tests</code>: A folder that includes tests to check that your scripts or results are accurate. Check out the <code>testthat</code> package.</p></li>
-<li><p><code>templates</code>: A folder to hold template files (e.g., RMarkdown templates, Word templates, CSS files for HTML output, TeX templates for PDF output)</p></li>
-<li><p><code>admin</code>: For administrative documents (e.g., IRB approval, grant information)</p></li>
-<li><p><code>doc</code>: For documentation (e.g., variable codebooks, style guides)</p></li>
-<li><p><code>R</code> or <code>src</code> or <code>scripts</code>: Folders to store functions and scripts that you call from your markdown (e.g., a data import and cleaning script)</p>
-<ul>
-<li>Use folders or subfolders for each language if you are programming in multiple languages: <code>R</code>, <code>python</code>, <code>sql</code>, <code>C</code>, etc.</li>
-<li>Can put them all in a generic <code>scripts</code> or <code>src</code> folder if not too many</li>
-</ul></li>
-<li><p><code>markdown</code>: If you have multiple RMarkdown documents for your project, consider putting them into a subfolder</p></li>
-</ul>
-
+<div id="case-study-martin-luther-king-jr.s-speech" class="section level1" number="52">
+<h1><span class="header-section-number">Part 52</span> Case Study: Martin Luther King Jr.’s Speech</h1>
+<p>We are going to look at Martin Luther King Jr.’s “I Have a Dream” speech found <a href="https://www.americanrhetoric.com/speeches/mlkihaveadream.htm">here</a>.</p>
+<p>Lets read it in. Since it’s in a <code>.txt</code> file we can use <code>read.table()</code> and specify some things:</p>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="case-study-martin-luther-king-jr.s-speech.html#cb208-1" aria-hidden="true" tabindex="-1"></a>speech_txt <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
+<span id="cb208-2"><a href="case-study-martin-luther-king-jr.s-speech.html#cb208-2" aria-hidden="true" tabindex="-1"></a>  here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;martin_luther_king_speech.txt&quot;</span>),</span>
+<span id="cb208-3"><a href="case-study-martin-luther-king-jr.s-speech.html#cb208-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">quote =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb208-4"><a href="case-study-martin-luther-king-jr.s-speech.html#cb208-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb208-5"><a href="case-study-martin-luther-king-jr.s-speech.html#cb208-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep =</span> <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>,</span>
+<span id="cb208-6"><a href="case-study-martin-luther-king-jr.s-speech.html#cb208-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb208-7"><a href="case-study-martin-luther-king-jr.s-speech.html#cb208-7" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb208-8"><a href="case-study-martin-luther-king-jr.s-speech.html#cb208-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as_tibble</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb208-9"><a href="case-study-martin-luther-king-jr.s-speech.html#cb208-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">line =</span> V1)</span></code></pre></div>
+<div id="wrangle-our-text" class="section level2" number="52.1">
+<h2><span class="header-section-number">52.1</span> Wrangle our text</h2>
+<div id="unnest_tokens" class="section level3" number="52.1.1">
+<h3><span class="header-section-number">52.1.1</span> <code>unnest_tokens()</code></h3>
+<p>Wielding the power of <code>tidytext</code>:</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="case-study-martin-luther-king-jr.s-speech.html#cb209-1" aria-hidden="true" tabindex="-1"></a>speech_unnest <span class="ot">&lt;-</span></span>
+<span id="cb209-2"><a href="case-study-martin-luther-king-jr.s-speech.html#cb209-2" aria-hidden="true" tabindex="-1"></a>  speech_txt <span class="sc">|&gt;</span> </span>
+<span id="cb209-3"><a href="case-study-martin-luther-king-jr.s-speech.html#cb209-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, line)</span>
+<span id="cb209-4"><a href="case-study-martin-luther-king-jr.s-speech.html#cb209-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb209-5"><a href="case-study-martin-luther-king-jr.s-speech.html#cb209-5" aria-hidden="true" tabindex="-1"></a>speech_unnest</span></code></pre></div>
+</div>
+<div id="remove-stop-words" class="section level3" number="52.1.2">
+<h3><span class="header-section-number">52.1.2</span> Remove stop words</h3>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="case-study-martin-luther-king-jr.s-speech.html#cb210-1" aria-hidden="true" tabindex="-1"></a>speech_unnest <span class="ot">&lt;-</span></span>
+<span id="cb210-2"><a href="case-study-martin-luther-king-jr.s-speech.html#cb210-2" aria-hidden="true" tabindex="-1"></a>  speech_unnest <span class="sc">|&gt;</span> </span>
+<span id="cb210-3"><a href="case-study-martin-luther-king-jr.s-speech.html#cb210-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span>
+<span id="cb210-4"><a href="case-study-martin-luther-king-jr.s-speech.html#cb210-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb210-5"><a href="case-study-martin-luther-king-jr.s-speech.html#cb210-5" aria-hidden="true" tabindex="-1"></a>speech_unnest</span></code></pre></div>
+</div>
+<div id="count-the-words" class="section level3" number="52.1.3">
+<h3><span class="header-section-number">52.1.3</span> Count the words</h3>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="case-study-martin-luther-king-jr.s-speech.html#cb211-1" aria-hidden="true" tabindex="-1"></a>speech_unnest <span class="ot">&lt;-</span></span>
+<span id="cb211-2"><a href="case-study-martin-luther-king-jr.s-speech.html#cb211-2" aria-hidden="true" tabindex="-1"></a>  speech_unnest <span class="sc">|&gt;</span> </span>
+<span id="cb211-3"><a href="case-study-martin-luther-king-jr.s-speech.html#cb211-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb211-4"><a href="case-study-martin-luther-king-jr.s-speech.html#cb211-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb211-5"><a href="case-study-martin-luther-king-jr.s-speech.html#cb211-5" aria-hidden="true" tabindex="-1"></a>speech_unnest</span></code></pre></div>
+</div>
+</div>
+<div id="visualizing-the-words" class="section level2" number="52.2">
+<h2><span class="header-section-number">52.2</span> Visualizing the words</h2>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="case-study-martin-luther-king-jr.s-speech.html#cb212-1" aria-hidden="true" tabindex="-1"></a>speech_unnest <span class="sc">|&gt;</span></span>
+<span id="cb212-2"><a href="case-study-martin-luther-king-jr.s-speech.html#cb212-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n <span class="sc">&gt;=</span> <span class="dv">4</span>) <span class="sc">|&gt;</span> <span class="co"># look at words that only occurred 4 or more times</span></span>
+<span id="cb212-3"><a href="case-study-martin-luther-king-jr.s-speech.html#cb212-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb212-4"><a href="case-study-martin-luther-king-jr.s-speech.html#cb212-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> n, <span class="at">x =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(word, n, max)) <span class="sc">+</span> <span class="co"># sort our bars</span></span>
+<span id="cb212-5"><a href="case-study-martin-luther-king-jr.s-speech.html#cb212-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb212-6"><a href="case-study-martin-luther-king-jr.s-speech.html#cb212-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="co"># flip the coords (easier to digest graph)</span></span>
+<span id="cb212-7"><a href="case-study-martin-luther-king-jr.s-speech.html#cb212-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;word&quot;</span>,</span>
+<span id="cb212-8"><a href="case-study-martin-luther-king-jr.s-speech.html#cb212-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;count&quot;</span>)</span></code></pre></div>
+<hr />
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="saving-files.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bonus-activity-rio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="clean-your-text-grammar-vs.-computers.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="mining.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -522,7 +544,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0605_staying-organized.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0701_text-wrangling-mining.Rmd",
 "text": "Edit"
 },
 "history": {

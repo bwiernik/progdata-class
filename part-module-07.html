@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 44 Organizing Your Project Folders | Programming with Data</title>
-  <meta name="description" content="Part 44 Organizing Your Project Folders | Programming with Data" />
+  <title>Part 48 (PART) Module 07 | Programming with Data</title>
+  <meta name="description" content="Part 48 (PART) Module 07 | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 44 Organizing Your Project Folders | Programming with Data" />
+  <meta property="og:title" content="Part 48 (PART) Module 07 | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 44 Organizing Your Project Folders | Programming with Data" />
+  <meta name="twitter:title" content="Part 48 (PART) Module 07 | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="saving-files.html"/>
-<link rel="next" href="bonus-activity-rio.html"/>
+<link rel="prev" href="lab-07-make-a-portfolio-piece.html"/>
+<link rel="next" href="text-data.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -453,45 +453,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="organizing-your-project-folders" class="section level1" number="44">
-<h1><span class="header-section-number">Part 44</span> Organizing Your Project Folders</h1>
-<p>Follow a consistent folder structure for all of your projects.
-This will make it easier for you to say organized and make your code, data, and projects easy to share.</p>
-<p>In your project’s root folder, you should have a README.md file and a .Rproj project.
-Then, you should have folders that separate different types of files:</p>
-<ul>
-<li><p><code>data</code>: Stores all of your data files for a project</p>
-<ul>
-<li>Have subfolders for different dates, waves, groups, etc. as needed</li>
-<li>If you plan on saving cleaned data, having separate <code>data_raw</code> and <code>data</code> folders is a good idea.</li>
-</ul></li>
-<li><p><code>output</code>: Stores any output your scripts generate</p>
-<ul>
-<li>Depending on how many figures and other output files you will create, you might want to split/subfolder this into <code>figures</code>, <code>reports</code>, etc.</li>
-</ul></li>
-</ul>
-<p>You might add additional folders, such as:</p>
-<ul>
-<li><p><code>tests</code>: A folder that includes tests to check that your scripts or results are accurate. Check out the <code>testthat</code> package.</p></li>
-<li><p><code>templates</code>: A folder to hold template files (e.g., RMarkdown templates, Word templates, CSS files for HTML output, TeX templates for PDF output)</p></li>
-<li><p><code>admin</code>: For administrative documents (e.g., IRB approval, grant information)</p></li>
-<li><p><code>doc</code>: For documentation (e.g., variable codebooks, style guides)</p></li>
-<li><p><code>R</code> or <code>src</code> or <code>scripts</code>: Folders to store functions and scripts that you call from your markdown (e.g., a data import and cleaning script)</p>
-<ul>
-<li>Use folders or subfolders for each language if you are programming in multiple languages: <code>R</code>, <code>python</code>, <code>sql</code>, <code>C</code>, etc.</li>
-<li>Can put them all in a generic <code>scripts</code> or <code>src</code> folder if not too many</li>
-</ul></li>
-<li><p><code>markdown</code>: If you have multiple RMarkdown documents for your project, consider putting them into a subfolder</p></li>
-</ul>
-
+<div id="part-module-07" class="section level1" number="48">
+<h1><span class="header-section-number">Part 48</span> (PART) Module 07</h1>
+<p>Guest chapter by Wesley Gardiner.</p>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="part-module-07.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb191-2"><a href="part-module-07.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidytext)</span>
+<span id="cb191-3"><a href="part-module-07.html#cb191-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(textdata)</span></code></pre></div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="saving-files.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bonus-activity-rio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="lab-07-make-a-portfolio-piece.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="text-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -522,7 +497,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0605_staying-organized.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0701_text-wrangling-mining.Rmd",
 "text": "Edit"
 },
 "history": {

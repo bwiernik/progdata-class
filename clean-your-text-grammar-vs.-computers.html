@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 44 Organizing Your Project Folders | Programming with Data</title>
-  <meta name="description" content="Part 44 Organizing Your Project Folders | Programming with Data" />
+  <title>Part 51 Clean your text! Grammar vs. Computers | Programming with Data</title>
+  <meta name="description" content="Part 51 Clean your text! Grammar vs. Computers | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 44 Organizing Your Project Folders | Programming with Data" />
+  <meta property="og:title" content="Part 51 Clean your text! Grammar vs. Computers | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 44 Organizing Your Project Folders | Programming with Data" />
+  <meta name="twitter:title" content="Part 51 Clean your text! Grammar vs. Computers | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="saving-files.html"/>
-<link rel="next" href="bonus-activity-rio.html"/>
+<link rel="prev" href="the-mighty-unnest_tokens-function.html"/>
+<link rel="next" href="case-study-martin-luther-king-jr.s-speech.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -453,45 +453,148 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="organizing-your-project-folders" class="section level1" number="44">
-<h1><span class="header-section-number">Part 44</span> Organizing Your Project Folders</h1>
-<p>Follow a consistent folder structure for all of your projects.
-This will make it easier for you to say organized and make your code, data, and projects easy to share.</p>
-<p>In your project’s root folder, you should have a README.md file and a .Rproj project.
-Then, you should have folders that separate different types of files:</p>
+<div id="clean-your-text-grammar-vs.-computers" class="section level1" number="51">
+<h1><span class="header-section-number">Part 51</span> Clean your text! Grammar vs. Computers</h1>
+<p>In English (and broadly all language), we have grammar. Computers don’t. This has big implications.</p>
+<p>We need to make sure that we capture our words (or tokens) as <em>we</em> understand them. Computers don’t know that “Capital Word” is the same thing as “capital word”. They also don’t know that “running” is the same idea as “run”.</p>
+<p>I’m sure you already have thought of practical solutions to some of these problems and guess what? We do exactly that.</p>
+<div id="capitalization" class="section level2" number="51.1">
+<h2><span class="header-section-number">51.1</span> Capitalization</h2>
+<p>This one’s pretty easy: we make all our text the same format. Usually lowercase is the format of choice. I like lowercase because then I’m not being yelled at.</p>
+<p><code>unnest_tokens()</code> automatically makes words lowercase. We can change that by specifying <code>to_lower = FALSE</code>. (In the case we are working with URLs.)</p>
+</div>
+<div id="stemming" class="section level2" number="51.2">
+<h2><span class="header-section-number">51.2</span> Stemming</h2>
+<p>For words that have the same “stem” (or root) we can remove the end.</p>
+<p>Example:</p>
+<p>These words:</p>
 <ul>
-<li><p><code>data</code>: Stores all of your data files for a project</p>
-<ul>
-<li>Have subfolders for different dates, waves, groups, etc. as needed</li>
-<li>If you plan on saving cleaned data, having separate <code>data_raw</code> and <code>data</code> folders is a good idea.</li>
-</ul></li>
-<li><p><code>output</code>: Stores any output your scripts generate</p>
-<ul>
-<li>Depending on how many figures and other output files you will create, you might want to split/subfolder this into <code>figures</code>, <code>reports</code>, etc.</li>
-</ul></li>
+<li><p>Consult</p></li>
+<li><p>Consultant</p></li>
+<li><p>Consultants</p></li>
+<li><p>Consulting</p></li>
+<li><p>Consultative</p></li>
 </ul>
-<p>You might add additional folders, such as:</p>
+<p>Become:</p>
 <ul>
-<li><p><code>tests</code>: A folder that includes tests to check that your scripts or results are accurate. Check out the <code>testthat</code> package.</p></li>
-<li><p><code>templates</code>: A folder to hold template files (e.g., RMarkdown templates, Word templates, CSS files for HTML output, TeX templates for PDF output)</p></li>
-<li><p><code>admin</code>: For administrative documents (e.g., IRB approval, grant information)</p></li>
-<li><p><code>doc</code>: For documentation (e.g., variable codebooks, style guides)</p></li>
-<li><p><code>R</code> or <code>src</code> or <code>scripts</code>: Folders to store functions and scripts that you call from your markdown (e.g., a data import and cleaning script)</p>
-<ul>
-<li>Use folders or subfolders for each language if you are programming in multiple languages: <code>R</code>, <code>python</code>, <code>sql</code>, <code>C</code>, etc.</li>
-<li>Can put them all in a generic <code>scripts</code> or <code>src</code> folder if not too many</li>
-</ul></li>
-<li><p><code>markdown</code>: If you have multiple RMarkdown documents for your project, consider putting them into a subfolder</p></li>
+<li>Consult</li>
 </ul>
-
+<p>We can specify this in <code>unnest_tokens()</code> with <code>token =</code> argument. Look at <code>?unnext_tokens()</code> to see the different types of tokens the function offers.</p>
+<p>These grammar vs. computer problems don’t stop here (nor do their solutions).</p>
+</div>
+<div id="regular-expressions-regex-for-urls" class="section level2" number="51.3">
+<h2><span class="header-section-number">51.3</span> Regular Expressions (Regex) for URLS</h2>
+<p>Depending on the text data we are working with, we might either be interested (or not interested) in URLs. Using regular expressions, we can try and detect URLs within our text. Regular expressions are a whole other beast so to keep in scope with the class, here is one example of a regular expression for URLs with a little explanation.</p>
+<pre><code>(http|https)([^\\s]*)</code></pre>
+<ul>
+<li><p>The <code>(http|https)</code> looks for “http” or “http” at the start of a string.</p></li>
+<li><p>The <code>([^\\s]*)</code> means “keep matching until a white space”</p></li>
+</ul>
+<p>Using <code>stringr</code> we can select different <code>str_*</code> functions to aid in our goal.</p>
+<p>Here are a list of texts that have a URL in different places within the string.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="clean-your-text-grammar-vs.-computers.html#cb198-1" aria-hidden="true" tabindex="-1"></a>url_front <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;https://regex101.com/ is an awesome website to check out different regular expressions&quot;</span>)</span>
+<span id="cb198-2"><a href="clean-your-text-grammar-vs.-computers.html#cb198-2" aria-hidden="true" tabindex="-1"></a>url_middle <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;One of my friends suggested I look at https://www.youtube.com/watch?v=dQw4w9WgXcQ for a good tutorial on regular expressions&quot;</span>)</span>
+<span id="cb198-3"><a href="clean-your-text-grammar-vs.-computers.html#cb198-3" aria-hidden="true" tabindex="-1"></a>url_back <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Here is a good resource on regex: https://stackoverflow.com/questions/tagged/regex&quot;</span>)</span>
+<span id="cb198-4"><a href="clean-your-text-grammar-vs.-computers.html#cb198-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb198-5"><a href="clean-your-text-grammar-vs.-computers.html#cb198-5" aria-hidden="true" tabindex="-1"></a>urls <span class="ot">&lt;-</span> <span class="fu">c</span>(url_front, url_middle, url_back)</span></code></pre></div>
+<p>We can create functions to help us do it!</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="clean-your-text-grammar-vs.-computers.html#cb199-1" aria-hidden="true" tabindex="-1"></a>remove_url <span class="ot">&lt;-</span> <span class="cf">function</span>(text) {</span>
+<span id="cb199-2"><a href="clean-your-text-grammar-vs.-computers.html#cb199-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Regex</span></span>
+<span id="cb199-3"><a href="clean-your-text-grammar-vs.-computers.html#cb199-3" aria-hidden="true" tabindex="-1"></a>  url_regex_expression <span class="ot">&lt;-</span> <span class="st">&quot;(http|https)([^</span><span class="sc">\\</span><span class="st">s]*)&quot;</span></span>
+<span id="cb199-4"><a href="clean-your-text-grammar-vs.-computers.html#cb199-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb199-5"><a href="clean-your-text-grammar-vs.-computers.html#cb199-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Removes URL</span></span>
+<span id="cb199-6"><a href="clean-your-text-grammar-vs.-computers.html#cb199-6" aria-hidden="true" tabindex="-1"></a>  text <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_remove</span>(</span>
+<span id="cb199-7"><a href="clean-your-text-grammar-vs.-computers.html#cb199-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">string =</span> text,</span>
+<span id="cb199-8"><a href="clean-your-text-grammar-vs.-computers.html#cb199-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pattern =</span> url_regex_expression</span>
+<span id="cb199-9"><a href="clean-your-text-grammar-vs.-computers.html#cb199-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb199-10"><a href="clean-your-text-grammar-vs.-computers.html#cb199-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb199-11"><a href="clean-your-text-grammar-vs.-computers.html#cb199-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(text)</span>
+<span id="cb199-12"><a href="clean-your-text-grammar-vs.-computers.html#cb199-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb199-13"><a href="clean-your-text-grammar-vs.-computers.html#cb199-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-14"><a href="clean-your-text-grammar-vs.-computers.html#cb199-14" aria-hidden="true" tabindex="-1"></a>extract_url <span class="ot">&lt;-</span> <span class="cf">function</span>(text) {</span>
+<span id="cb199-15"><a href="clean-your-text-grammar-vs.-computers.html#cb199-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Regex</span></span>
+<span id="cb199-16"><a href="clean-your-text-grammar-vs.-computers.html#cb199-16" aria-hidden="true" tabindex="-1"></a>  url_regex_expression <span class="ot">&lt;-</span> <span class="st">&quot;(http|https)([^</span><span class="sc">\\</span><span class="st">s]*)&quot;</span></span>
+<span id="cb199-17"><a href="clean-your-text-grammar-vs.-computers.html#cb199-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb199-18"><a href="clean-your-text-grammar-vs.-computers.html#cb199-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extracts URL</span></span>
+<span id="cb199-19"><a href="clean-your-text-grammar-vs.-computers.html#cb199-19" aria-hidden="true" tabindex="-1"></a>  text <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb199-20"><a href="clean-your-text-grammar-vs.-computers.html#cb199-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">string =</span> text,</span>
+<span id="cb199-21"><a href="clean-your-text-grammar-vs.-computers.html#cb199-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">pattern =</span> url_regex_expression</span>
+<span id="cb199-22"><a href="clean-your-text-grammar-vs.-computers.html#cb199-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb199-23"><a href="clean-your-text-grammar-vs.-computers.html#cb199-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb199-24"><a href="clean-your-text-grammar-vs.-computers.html#cb199-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(text)</span>
+<span id="cb199-25"><a href="clean-your-text-grammar-vs.-computers.html#cb199-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Putting it all together can call the function either on each individual string…</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="clean-your-text-grammar-vs.-computers.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Individual URL matching</span></span>
+<span id="cb200-2"><a href="clean-your-text-grammar-vs.-computers.html#cb200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_url</span>(url_middle)</span>
+<span id="cb200-3"><a href="clean-your-text-grammar-vs.-computers.html#cb200-3" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_url</span>(url_middle)</span></code></pre></div>
+<p>…or within a list like so:</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="clean-your-text-grammar-vs.-computers.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group URL matching</span></span>
+<span id="cb201-2"><a href="clean-your-text-grammar-vs.-computers.html#cb201-2" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_url</span>(urls)</span>
+<span id="cb201-3"><a href="clean-your-text-grammar-vs.-computers.html#cb201-3" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_url</span>(urls)</span></code></pre></div>
+</div>
+<div id="counting-words" class="section level2" number="51.4">
+<h2><span class="header-section-number">51.4</span> Counting words</h2>
+<p>Now that we have our tidy text data frame, we can start digging in.</p>
+<p>Let’s add a count of each word:</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="clean-your-text-grammar-vs.-computers.html#cb202-1" aria-hidden="true" tabindex="-1"></a>unnest_df <span class="sc">|&gt;</span> </span>
+<span id="cb202-2"><a href="clean-your-text-grammar-vs.-computers.html#cb202-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>But lets work within our sentences (or documents)</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="clean-your-text-grammar-vs.-computers.html#cb203-1" aria-hidden="true" tabindex="-1"></a>count_df <span class="ot">&lt;-</span> </span>
+<span id="cb203-2"><a href="clean-your-text-grammar-vs.-computers.html#cb203-2" aria-hidden="true" tabindex="-1"></a>  unnest_df <span class="sc">|&gt;</span> </span>
+<span id="cb203-3"><a href="clean-your-text-grammar-vs.-computers.html#cb203-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(line) <span class="sc">|&gt;</span></span>
+<span id="cb203-4"><a href="clean-your-text-grammar-vs.-computers.html#cb203-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb203-5"><a href="clean-your-text-grammar-vs.-computers.html#cb203-5" aria-hidden="true" tabindex="-1"></a>count_df</span></code></pre></div>
+<p>Lets look at a (not) very interesting graph of what we have:</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="clean-your-text-grammar-vs.-computers.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb204-2"><a href="clean-your-text-grammar-vs.-computers.html#cb204-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-3"><a href="clean-your-text-grammar-vs.-computers.html#cb204-3" aria-hidden="true" tabindex="-1"></a>count_df <span class="sc">|&gt;</span> </span>
+<span id="cb204-4"><a href="clean-your-text-grammar-vs.-computers.html#cb204-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb204-5"><a href="clean-your-text-grammar-vs.-computers.html#cb204-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> n, <span class="at">x =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(word, n, max)) <span class="sc">+</span> <span class="co"># sort our bars</span></span>
+<span id="cb204-6"><a href="clean-your-text-grammar-vs.-computers.html#cb204-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb204-7"><a href="clean-your-text-grammar-vs.-computers.html#cb204-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="co"># flip the coords (easier to digest graph)</span></span>
+<span id="cb204-8"><a href="clean-your-text-grammar-vs.-computers.html#cb204-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> line, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span> <span class="co"># let our y axis be free</span></span>
+<span id="cb204-9"><a href="clean-your-text-grammar-vs.-computers.html#cb204-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;word&quot;</span>,</span>
+<span id="cb204-10"><a href="clean-your-text-grammar-vs.-computers.html#cb204-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;count&quot;</span>)</span></code></pre></div>
+<p>From the graph above, we can see that we have a lot of words that don’t really carry a lot of meaning.</p>
+</div>
+<div id="cant-stop-words-wont-stop-words" class="section level2" number="51.5">
+<h2><span class="header-section-number">51.5</span> Can’t stop (words) won’t stop (words)</h2>
+<p>Not all words are created equal - some words are more important than others. Words like “the”, “a”, “it” don’t have any inherent meaning. Pronouns also may not be meaningful “he”, “their”, “hers”. These are called <strong>stop words</strong></p>
+<p>So what do we do? Get rid of ’em.</p>
+<p>How? We get a stop words data set and <code>anti_join()</code> them. There exists many stop word data sets. These are sometimes called “Lexicons”. You can think of a lexicon as a set of words with a common idea.</p>
+</div>
+<div id="lexicon-based-approach" class="section level2" number="51.6">
+<h2><span class="header-section-number">51.6</span> Lexicon-based approach</h2>
+<p>Some common (and native) stop word data sets (or Lexicons) are:</p>
+<ul>
+<li><p>Onix</p></li>
+<li><p>SMART</p></li>
+<li><p>snowball</p></li>
+</ul>
+<p>These are all within the <code>tidytext</code> package’s <code>stop_words</code> data set.</p>
+<p>This is a glimpse of what it looks like:</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="clean-your-text-grammar-vs.-computers.html#cb205-1" aria-hidden="true" tabindex="-1"></a>tidytext<span class="sc">::</span>stop_words <span class="sc">|&gt;</span> </span>
+<span id="cb205-2"><a href="clean-your-text-grammar-vs.-computers.html#cb205-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>Now let’s remove our stop words.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="clean-your-text-grammar-vs.-computers.html#cb206-1" aria-hidden="true" tabindex="-1"></a>unnest_df <span class="ot">&lt;-</span> </span>
+<span id="cb206-2"><a href="clean-your-text-grammar-vs.-computers.html#cb206-2" aria-hidden="true" tabindex="-1"></a>  count_df <span class="sc">|&gt;</span> </span>
+<span id="cb206-3"><a href="clean-your-text-grammar-vs.-computers.html#cb206-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+<p>Here we can see our words with substance.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="clean-your-text-grammar-vs.-computers.html#cb207-1" aria-hidden="true" tabindex="-1"></a>unnest_df <span class="sc">|&gt;</span> </span>
+<span id="cb207-2"><a href="clean-your-text-grammar-vs.-computers.html#cb207-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb207-3"><a href="clean-your-text-grammar-vs.-computers.html#cb207-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> word, <span class="at">y =</span> n) <span class="sc">+</span></span>
+<span id="cb207-4"><a href="clean-your-text-grammar-vs.-computers.html#cb207-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb207-5"><a href="clean-your-text-grammar-vs.-computers.html#cb207-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> line, <span class="at">scale =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb207-6"><a href="clean-your-text-grammar-vs.-computers.html#cb207-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="saving-files.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="bonus-activity-rio.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="the-mighty-unnest_tokens-function.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="case-study-martin-luther-king-jr.s-speech.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -522,7 +625,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0605_staying-organized.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0701_text-wrangling-mining.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Part 53 Mining | Programming with Data</title>
+  <meta name="description" content="Part 53 Mining | Programming with Data" />
+  <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Part 53 Mining | Programming with Data" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:image" content="/progdata_class_icon.png" />
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Part 53 Mining | Programming with Data" />
+  
+  
+  <meta name="twitter:image" content="/progdata_class_icon.png" />
+
+<meta name="author" content="Brenton M. Wiernik" />
+
+
+<meta name="date" content="2022-03-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+<link rel="prev" href="case-study-martin-luther-king-jr.s-speech.html"/>
+
+<script src="libs/header-attrs-2.11/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="libs/vembedr-0.1.5/css/vembedr.css" rel="stylesheet" />
+<script src="libs/twitter-widget-0.0.1/widgets.js"></script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  
+  ga('create', 'UA-147022704-2', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Programming with Data!</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About This Guide</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#brentons-notes"><i class="fa fa-check"></i>Brenton’s Notes</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html"><i class="fa fa-check"></i>Attribution</a>
+<ul>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html#major-attributions"><i class="fa fa-check"></i>Major Attributions</a></li>
+<li class="chapter" data-level="" data-path="attribution.html"><a href="attribution.html#additional-attributions"><i class="fa fa-check"></i>Additional Attributions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="license.html"><a href="license.html"><i class="fa fa-check"></i>License</a></li>
+<li class="chapter" data-level="" data-path="colophon.html"><a href="colophon.html"><i class="fa fa-check"></i>Colophon</a></li>
+<li class="part"><span><b>Module 00</b></span></li>
+<li class="chapter" data-level="" data-path="getting-started.html"><a href="getting-started.html"><i class="fa fa-check"></i>Getting Started</a>
+<ul>
+<li class="chapter" data-level="0.1" data-path="getting-started.html"><a href="getting-started.html#big-ideas"><i class="fa fa-check"></i><b>0.1</b> Big Ideas</a></li>
+<li class="chapter" data-level="0.2" data-path="getting-started.html"><a href="getting-started.html#course-modality"><i class="fa fa-check"></i><b>0.2</b> Course Modality</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="syllabus.html"><a href="syllabus.html"><i class="fa fa-check"></i>Syllabus</a>
+<ul>
+<li class="chapter" data-level="0.3" data-path="syllabus.html"><a href="syllabus.html#materials"><i class="fa fa-check"></i><b>0.3</b> Materials</a></li>
+<li class="chapter" data-level="0.4" data-path="syllabus.html"><a href="syllabus.html#assignment-instructions"><i class="fa fa-check"></i><b>0.4</b> Assignment Instructions</a></li>
+<li class="chapter" data-level="0.5" data-path="syllabus.html"><a href="syllabus.html#due-dates"><i class="fa fa-check"></i><b>0.5</b> Due dates</a></li>
+</ul></li>
+<li class="part"><span><b>I Module 01</b></span></li>
+<li class="chapter" data-level="1" data-path="welcome-to-data-science.html"><a href="welcome-to-data-science.html"><i class="fa fa-check"></i><b>1</b> Welcome to Data Science</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="welcome-to-data-science.html"><a href="welcome-to-data-science.html#module-materials"><i class="fa fa-check"></i><b>1.1</b> Module Materials</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="what-is-data-science.html"><a href="what-is-data-science.html"><i class="fa fa-check"></i><b>2</b> What is Data Science?</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="what-is-data-science.html"><a href="what-is-data-science.html#see-for-yourselves"><i class="fa fa-check"></i><b>2.1</b> See for yourselves!</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="meet-our-toolbox.html"><a href="meet-our-toolbox.html"><i class="fa fa-check"></i><b>3</b> Meet our toolbox!</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="meet-our-toolbox.html"><a href="meet-our-toolbox.html#r-and-rstudio"><i class="fa fa-check"></i><b>3.1</b> R and RStudio</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="bechdal.html"><a href="bechdal.html"><i class="fa fa-check"></i><b>4</b> Bechdel Activity</a></li>
+<li class="chapter" data-level="5" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html"><i class="fa fa-check"></i><b>5</b> Thoughtful Workflow</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#rmarkdown"><i class="fa fa-check"></i><b>5.1</b> R Markdown</a></li>
+<li class="chapter" data-level="5.2" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#installgit"><i class="fa fa-check"></i><b>5.2</b> Git and Github</a></li>
+<li class="chapter" data-level="5.3" data-path="thoughtful-workflow.html"><a href="thoughtful-workflow.html#getting-help-with-r"><i class="fa fa-check"></i><b>5.3</b> Getting Help with R</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="r_basics.html"><a href="r_basics.html"><i class="fa fa-check"></i><b>6</b> R basics and workflows</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="r_basics.html"><a href="r_basics.html#basics-of-working-with-r-at-the-command-line-and-rstudio-goodies"><i class="fa fa-check"></i><b>6.1</b> Basics of working with R at the command line and RStudio goodies</a></li>
+<li class="chapter" data-level="6.2" data-path="r_basics.html"><a href="r_basics.html#workspace-and-working-directory"><i class="fa fa-check"></i><b>6.2</b> Workspace and working directory</a></li>
+<li class="chapter" data-level="6.3" data-path="r_basics.html"><a href="r_basics.html#saving-an-r-script"><i class="fa fa-check"></i><b>6.3</b> Saving an R script</a></li>
+<li class="chapter" data-level="6.4" data-path="r_basics.html"><a href="r_basics.html#script-housekeeping"><i class="fa fa-check"></i><b>6.4</b> Script housekeeping</a></li>
+<li class="chapter" data-level="6.5" data-path="r_basics.html"><a href="r_basics.html#to-do-before-next-class"><i class="fa fa-check"></i><b>6.5</b> To do before next class</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="r_scipts.html"><a href="r_scipts.html"><i class="fa fa-check"></i><b>7</b> R Scripts</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="r_scipts.html"><a href="r_scipts.html#assign-an-object"><i class="fa fa-check"></i><b>7.1</b> Assign an Object</a></li>
+<li class="chapter" data-level="7.2" data-path="r_scipts.html"><a href="r_scipts.html#types-of-objects-and-operations"><i class="fa fa-check"></i><b>7.2</b> Types of Objects and Operations</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="markdown.html"><a href="markdown.html"><i class="fa fa-check"></i><b>8</b> Markdown</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="markdown.html"><a href="markdown.html#markdown-syntax"><i class="fa fa-check"></i><b>8.1</b> Markdown syntax</a></li>
+<li class="chapter" data-level="8.2" data-path="markdown.html"><a href="markdown.html#rmarkdown-1"><i class="fa fa-check"></i><b>8.2</b> RMarkdown</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="github.html"><a href="github.html"><i class="fa fa-check"></i><b>9</b> GitHub and Version Control</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="github.html"><a href="github.html#learning-objectives"><i class="fa fa-check"></i><b>9.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="github.html"><a href="github.html#resources"><i class="fa fa-check"></i><b>9.2</b> Resources</a></li>
+<li class="chapter" data-level="9.3" data-path="github.html"><a href="github.html#git-and-github"><i class="fa fa-check"></i><b>9.3</b> Git and GitHub</a></li>
+<li class="chapter" data-level="9.4" data-path="github.html"><a href="github.html#understanding-the-github-flow"><i class="fa fa-check"></i><b>9.4</b> Understanding the GitHub flow</a></li>
+<li class="chapter" data-level="9.5" data-path="github.html"><a href="github.html#making-a-github-repository"><i class="fa fa-check"></i><b>9.5</b> Making a GitHub Repository</a></li>
+<li class="chapter" data-level="9.6" data-path="github.html"><a href="github.html#navigating-a-github-repository"><i class="fa fa-check"></i><b>9.6</b> Navigating a GitHub Repository</a></li>
+<li class="chapter" data-level="9.7" data-path="github.html"><a href="github.html#cloning-a-github-repo-to-your-computer"><i class="fa fa-check"></i><b>9.7</b> Cloning a GitHub repo to your computer</a></li>
+<li class="chapter" data-level="9.8" data-path="github.html"><a href="github.html#rstudio-projects"><i class="fa fa-check"></i><b>9.8</b> RStudio Projects</a></li>
+<li class="chapter" data-level="9.9" data-path="github.html"><a href="github.html#the-version-control-workflow"><i class="fa fa-check"></i><b>9.9</b> The Version Control Workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html"><i class="fa fa-check"></i><b>10</b> Lab 1: Getting started with RStudio, Git, and Markdown</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-1-set-up-r-and-rstudio"><i class="fa fa-check"></i><b>10.1</b> Part 1: Set up R and RStudio</a></li>
+<li class="chapter" data-level="10.2" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-2-make-a-readme.md-file-with-markdown"><i class="fa fa-check"></i><b>10.2</b> Part 2: Make a README.md file with Markdown</a></li>
+<li class="chapter" data-level="10.3" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-3-practice-some-r-fucntions"><i class="fa fa-check"></i><b>10.3</b> Part 3: Practice some R fucntions</a></li>
+<li class="chapter" data-level="10.4" data-path="lab-1-getting-started-with-rstudio-git-and-markdown.html"><a href="lab-1-getting-started-with-rstudio-git-and-markdown.html#part-4-make-a-github-repository-for-your-work"><i class="fa fa-check"></i><b>10.4</b> Part 4: Make a GitHub Repository for your work</a></li>
+</ul></li>
+<li class="part"><span><b>II Module 02</b></span></li>
+<li class="chapter" data-level="11" data-path="plotting-with-ggplot2.html"><a href="plotting-with-ggplot2.html"><i class="fa fa-check"></i><b>11</b> Plotting with <strong>ggplot2</strong></a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="plotting-with-ggplot2.html"><a href="plotting-with-ggplot2.html#learning-objectives-1"><i class="fa fa-check"></i><b>11.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="11.2" data-path="plotting-with-ggplot2.html"><a href="plotting-with-ggplot2.html#resources-1"><i class="fa fa-check"></i><b>11.2</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="plotting-in-r.html"><a href="plotting-in-r.html"><i class="fa fa-check"></i><b>12</b> Plotting in R</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="plotting-in-r.html"><a href="plotting-in-r.html#just-plot-it"><i class="fa fa-check"></i><b>12.1</b> Just Plot It</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="the-grammar-of-graphics.html"><a href="the-grammar-of-graphics.html"><i class="fa fa-check"></i><b>13</b> The Grammar of Graphics</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="the-grammar-of-graphics.html"><a href="the-grammar-of-graphics.html#example-scatterplot-grammar"><i class="fa fa-check"></i><b>13.1</b> Example: Scatterplot grammar</a></li>
+<li class="chapter" data-level="13.2" data-path="the-grammar-of-graphics.html"><a href="the-grammar-of-graphics.html#activity-bar-chart-grammar"><i class="fa fa-check"></i><b>13.2</b> Activity: Bar chart grammar</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="working-with-ggplot2.html"><a href="working-with-ggplot2.html"><i class="fa fa-check"></i><b>14</b> Working with <strong>ggplot2</strong></a></li>
+<li class="chapter" data-level="15" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html"><i class="fa fa-check"></i><b>15</b> Activity: Build some plots!</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html#make-a-line-chart"><i class="fa fa-check"></i><b>15.1</b> Make a Line Chart</a></li>
+<li class="chapter" data-level="15.2" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html#make-a-scatterplot"><i class="fa fa-check"></i><b>15.2</b> Make a Scatterplot</a></li>
+<li class="chapter" data-level="15.3" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html#assigning-a-ggplot2-object-and-adding-to-it"><i class="fa fa-check"></i><b>15.3</b> Assigning a <strong>ggplot2</strong> object and adding to it</a></li>
+<li class="chapter" data-level="15.4" data-path="activity-build-some-plots.html"><a href="activity-build-some-plots.html#fix-me"><i class="fa fa-check"></i><b>15.4</b> Fix Me!</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html"><i class="fa fa-check"></i><b>16</b> Example <em>geoms</em> and Plots</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#bar-chart"><i class="fa fa-check"></i><b>16.1</b> Bar chart</a></li>
+<li class="chapter" data-level="16.2" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#stacked-bar-chart"><i class="fa fa-check"></i><b>16.2</b> Stacked bar chart</a></li>
+<li class="chapter" data-level="16.3" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#pie-chart"><i class="fa fa-check"></i><b>16.3</b> Pie chart</a></li>
+<li class="chapter" data-level="16.4" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#histogram"><i class="fa fa-check"></i><b>16.4</b> Histogram</a></li>
+<li class="chapter" data-level="16.5" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#density"><i class="fa fa-check"></i><b>16.5</b> Density</a></li>
+<li class="chapter" data-level="16.6" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#dot-plot"><i class="fa fa-check"></i><b>16.6</b> Dot plot</a></li>
+<li class="chapter" data-level="16.7" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#scatterplots"><i class="fa fa-check"></i><b>16.7</b> Scatterplots</a></li>
+<li class="chapter" data-level="16.8" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#more-scatterplots"><i class="fa fa-check"></i><b>16.8</b> More scatterplots</a></li>
+<li class="chapter" data-level="16.9" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#building-complex-plots"><i class="fa fa-check"></i><b>16.9</b> Building complex plots</a></li>
+<li class="chapter" data-level="16.10" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#scatterplots-for-change"><i class="fa fa-check"></i><b>16.10</b> Scatterplots for change</a></li>
+<li class="chapter" data-level="16.11" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#comparing-distributions"><i class="fa fa-check"></i><b>16.11</b> Comparing distributions</a></li>
+<li class="chapter" data-level="16.12" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#scatterplot-matrix"><i class="fa fa-check"></i><b>16.12</b> Scatterplot matrix</a></li>
+<li class="chapter" data-level="16.13" data-path="example-geoms-and-plots.html"><a href="example-geoms-and-plots.html#smoothers-and-exploratory-data-analysis"><i class="fa fa-check"></i><b>16.13</b> Smoothers and Exploratory Data Analysis</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="lab02.html"><a href="lab02.html"><i class="fa fa-check"></i><b>17</b> Lab 2: Global plastic waste</a>
+<ul>
+<li class="chapter" data-level="17.1" data-path="lab02.html"><a href="lab02.html#learning-goals"><i class="fa fa-check"></i><b>17.1</b> Learning goals</a></li>
+<li class="chapter" data-level="17.2" data-path="lab02.html"><a href="lab02.html#getting-started-1"><i class="fa fa-check"></i><b>17.2</b> Getting started</a></li>
+<li class="chapter" data-level="17.3" data-path="lab02.html"><a href="lab02.html#warm-up"><i class="fa fa-check"></i><b>17.3</b> Warm up</a></li>
+<li class="chapter" data-level="17.4" data-path="lab02.html"><a href="lab02.html#exercises"><i class="fa fa-check"></i><b>17.4</b> Exercises</a></li>
+<li class="chapter" data-level="17.5" data-path="lab02.html"><a href="lab02.html#finishing-up"><i class="fa fa-check"></i><b>17.5</b> Finishing Up</a></li>
+</ul></li>
+<li class="part"><span><b>III Module 03</b></span></li>
+<li class="chapter" data-level="18" data-path="wrangle-yo-data-with-dplyr.html"><a href="wrangle-yo-data-with-dplyr.html"><i class="fa fa-check"></i><b>18</b> Wrangle yo’ data with <strong>dplyr</strong></a>
+<ul>
+<li class="chapter" data-level="18.1" data-path="wrangle-yo-data-with-dplyr.html"><a href="wrangle-yo-data-with-dplyr.html#todays-topics"><i class="fa fa-check"></i><b>18.1</b> Today’s Topics</a></li>
+<li class="chapter" data-level="18.2" data-path="wrangle-yo-data-with-dplyr.html"><a href="wrangle-yo-data-with-dplyr.html#resources-2"><i class="fa fa-check"></i><b>18.2</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="selecting-and-sorting-data-frames.html"><a href="selecting-and-sorting-data-frames.html"><i class="fa fa-check"></i><b>19</b> Selecting and sorting data frames</a>
+<ul>
+<li class="chapter" data-level="19.1" data-path="selecting-and-sorting-data-frames.html"><a href="selecting-and-sorting-data-frames.html#learning-objectives-2"><i class="fa fa-check"></i><b>19.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="19.2" data-path="selecting-and-sorting-data-frames.html"><a href="selecting-and-sorting-data-frames.html#preamble"><i class="fa fa-check"></i><b>19.2</b> Preamble</a></li>
+<li class="chapter" data-level="19.3" data-path="selecting-and-sorting-data-frames.html"><a href="selecting-and-sorting-data-frames.html#demonstration"><i class="fa fa-check"></i><b>19.3</b> Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="the-pipe-advantage.html"><a href="the-pipe-advantage.html"><i class="fa fa-check"></i><b>20</b> The pipe advantage</a>
+<ul>
+<li class="chapter" data-level="20.1" data-path="the-pipe-advantage.html"><a href="the-pipe-advantage.html#learning-objectives-3"><i class="fa fa-check"></i><b>20.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="20.2" data-path="the-pipe-advantage.html"><a href="the-pipe-advantage.html#compare-nested-functions-to-pipe-chains"><i class="fa fa-check"></i><b>20.2</b> Compare nested functions to pipe chains</a></li>
+<li class="chapter" data-level="20.3" data-path="the-pipe-advantage.html"><a href="the-pipe-advantage.html#the-workflow"><i class="fa fa-check"></i><b>20.3</b> The workflow:</a></li>
+<li class="chapter" data-level="20.4" data-path="the-pipe-advantage.html"><a href="the-pipe-advantage.html#basic-principles"><i class="fa fa-check"></i><b>20.4</b> Basic principles:</a></li>
+<li class="chapter" data-level="20.5" data-path="the-pipe-advantage.html"><a href="the-pipe-advantage.html#tangent-base-r-workflow"><i class="fa fa-check"></i><b>20.5</b> Tangent: Base R workflow</a></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="filtering-and-mutating-data-frames.html"><a href="filtering-and-mutating-data-frames.html"><i class="fa fa-check"></i><b>21</b> Filtering and mutating data frames</a>
+<ul>
+<li class="chapter" data-level="21.1" data-path="filtering-and-mutating-data-frames.html"><a href="filtering-and-mutating-data-frames.html#learning-objectives-4"><i class="fa fa-check"></i><b>21.1</b> Learning Objectives</a></li>
+<li class="chapter" data-level="21.2" data-path="filtering-and-mutating-data-frames.html"><a href="filtering-and-mutating-data-frames.html#r-operators"><i class="fa fa-check"></i><b>21.2</b> R Operators</a></li>
+<li class="chapter" data-level="21.3" data-path="filtering-and-mutating-data-frames.html"><a href="filtering-and-mutating-data-frames.html#demonstration-1"><i class="fa fa-check"></i><b>21.3</b> Demonstration</a></li>
+</ul></li>
+<li class="chapter" data-level="22" data-path="grouping-and-summarizing-data.html"><a href="grouping-and-summarizing-data.html"><i class="fa fa-check"></i><b>22</b> Grouping and summarizing data</a>
+<ul>
+<li class="chapter" data-level="22.1" data-path="grouping-and-summarizing-data.html"><a href="grouping-and-summarizing-data.html#summarize"><i class="fa fa-check"></i><b>22.1</b> <code>summarize()</code></a></li>
+<li class="chapter" data-level="22.2" data-path="grouping-and-summarizing-data.html"><a href="grouping-and-summarizing-data.html#group_by"><i class="fa fa-check"></i><b>22.2</b> <code>group_by()</code></a></li>
+<li class="chapter" data-level="22.3" data-path="grouping-and-summarizing-data.html"><a href="grouping-and-summarizing-data.html#grouped-summarize"><i class="fa fa-check"></i><b>22.3</b> Grouped <code>summarize()</code></a></li>
+<li class="chapter" data-level="22.4" data-path="grouping-and-summarizing-data.html"><a href="grouping-and-summarizing-data.html#grouped-mutate"><i class="fa fa-check"></i><b>22.4</b> Grouped <code>mutate()</code></a></li>
+<li class="chapter" data-level="22.5" data-path="grouping-and-summarizing-data.html"><a href="grouping-and-summarizing-data.html#function-types"><i class="fa fa-check"></i><b>22.5</b> Function types</a></li>
+</ul></li>
+<li class="chapter" data-level="23" data-path="advanced-dplyr-functions.html"><a href="advanced-dplyr-functions.html"><i class="fa fa-check"></i><b>23</b> Advanced <strong>dplyr</strong> functions</a>
+<ul>
+<li class="chapter" data-level="23.1" data-path="advanced-dplyr-functions.html"><a href="advanced-dplyr-functions.html#recode"><i class="fa fa-check"></i><b>23.1</b> <code>recode()</code></a></li>
+<li class="chapter" data-level="23.2" data-path="advanced-dplyr-functions.html"><a href="advanced-dplyr-functions.html#across"><i class="fa fa-check"></i><b>23.2</b> <code>across()</code></a></li>
+<li class="chapter" data-level="23.3" data-path="advanced-dplyr-functions.html"><a href="advanced-dplyr-functions.html#complex-recoding-plus-across"><i class="fa fa-check"></i><b>23.3</b> Complex <code>recoding</code> plus <code>across()</code></a></li>
+<li class="chapter" data-level="23.4" data-path="advanced-dplyr-functions.html"><a href="advanced-dplyr-functions.html#rowwise"><i class="fa fa-check"></i><b>23.4</b> <code>rowwise()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="24" data-path="lab03.html"><a href="lab03.html"><i class="fa fa-check"></i><b>24</b> Lab 3: Explore <strong>gapminder</strong> with <strong>ggplot2</strong> and <strong>dplyr</strong></a>
+<ul>
+<li class="chapter" data-level="24.1" data-path="lab03.html"><a href="lab03.html#getting-started-2"><i class="fa fa-check"></i><b>24.1</b> Getting started</a></li>
+<li class="chapter" data-level="24.2" data-path="lab03.html"><a href="lab03.html#exercise-1-basic-dplyr"><i class="fa fa-check"></i><b>24.2</b> Exercise 1: Basic <strong>dplyr</strong></a></li>
+<li class="chapter" data-level="24.3" data-path="lab03.html"><a href="lab03.html#exercise-2-explore-two-variables-with-dplyr-and-ggplot2"><i class="fa fa-check"></i><b>24.3</b> Exercise 2: Explore two variables with <strong>dplyr</strong> and <code>ggplot2</code></a></li>
+<li class="chapter" data-level="24.4" data-path="lab03.html"><a href="lab03.html#bonus-exercise-recycling-optional"><i class="fa fa-check"></i><b>24.4</b> Bonus Exercise: Recycling (Optional)</a></li>
+</ul></li>
+<li class="chapter" data-level="25" data-path="lab04.html"><a href="lab04.html"><i class="fa fa-check"></i><b>25</b> Lab 4: Personality and green reputation</a>
+<ul>
+<li class="chapter" data-level="25.1" data-path="lab04.html"><a href="lab04.html#getting-started-3"><i class="fa fa-check"></i><b>25.1</b> Getting started</a></li>
+</ul></li>
+<li class="part"><span><b>IV Module 04</b></span></li>
+<li class="chapter" data-level="26" data-path="tidy-data-and-pivoting.html"><a href="tidy-data-and-pivoting.html"><i class="fa fa-check"></i><b>26</b> Tidy Data and Pivoting</a>
+<ul>
+<li class="chapter" data-level="26.1" data-path="tidy-data-and-pivoting.html"><a href="tidy-data-and-pivoting.html#orientation"><i class="fa fa-check"></i><b>26.1</b> Orientation</a></li>
+</ul></li>
+<li class="chapter" data-level="27" data-path="tidy-data.html"><a href="tidy-data.html"><i class="fa fa-check"></i><b>27</b> Tidy data</a>
+<ul>
+<li class="chapter" data-level="27.1" data-path="tidy-data.html"><a href="tidy-data.html#untidy-examples"><i class="fa fa-check"></i><b>27.1</b> Untidy Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="28" data-path="pivoting-data.html"><a href="pivoting-data.html"><i class="fa fa-check"></i><b>28</b> Pivoting data</a>
+<ul>
+<li class="chapter" data-level="28.1" data-path="pivoting-data.html"><a href="pivoting-data.html#univariate-pivoting"><i class="fa fa-check"></i><b>28.1</b> Univariate pivoting</a></li>
+</ul></li>
+<li class="chapter" data-level="29" data-path="lab-5a-univariate-pivoting.html"><a href="lab-5a-univariate-pivoting.html"><i class="fa fa-check"></i><b>29</b> Lab 5A: Univariate pivoting</a>
+<ul>
+<li class="chapter" data-level="29.1" data-path="lab-5a-univariate-pivoting.html"><a href="lab-5a-univariate-pivoting.html#exercise-1-univariate-pivoting"><i class="fa fa-check"></i><b>29.1</b> Exercise 1: Univariate Pivoting</a></li>
+</ul></li>
+<li class="chapter" data-level="30" data-path="multivariate-pivoting.html"><a href="multivariate-pivoting.html"><i class="fa fa-check"></i><b>30</b> Multivariate pivoting</a>
+<ul>
+<li class="chapter" data-level="30.1" data-path="multivariate-pivoting.html"><a href="multivariate-pivoting.html#multiple-variables-in-column-names"><i class="fa fa-check"></i><b>30.1</b> Multiple variables in column names</a></li>
+<li class="chapter" data-level="30.2" data-path="multivariate-pivoting.html"><a href="multivariate-pivoting.html#multiple-variables-in-column-names-1"><i class="fa fa-check"></i><b>30.2</b> Multiple variables in column names</a></li>
+<li class="chapter" data-level="30.3" data-path="multivariate-pivoting.html"><a href="multivariate-pivoting.html#pivot_wider-1"><i class="fa fa-check"></i><b>30.3</b> <code>pivot_wider()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="31" data-path="lab-5b-multivariate-pivoting.html"><a href="lab-5b-multivariate-pivoting.html"><i class="fa fa-check"></i><b>31</b> Lab 5B: Multivariate pivoting</a></li>
+<li class="part"><span><b>V Module 05</b></span></li>
+<li class="chapter" data-level="32" data-path="tibble-joins-a-tale-of-two-tibbles.html"><a href="tibble-joins-a-tale-of-two-tibbles.html"><i class="fa fa-check"></i><b>32</b> Tibble Joins: A Tale of Two Tibbles</a>
+<ul>
+<li class="chapter" data-level="32.1" data-path="tibble-joins-a-tale-of-two-tibbles.html"><a href="tibble-joins-a-tale-of-two-tibbles.html#resources-4"><i class="fa fa-check"></i><b>32.1</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="33" data-path="join-functions.html"><a href="join-functions.html"><i class="fa fa-check"></i><b>33</b> Join Functions</a></li>
+<li class="chapter" data-level="34" data-path="lab-06-join-those-tables.html"><a href="lab-06-join-those-tables.html"><i class="fa fa-check"></i><b>34</b> Lab 06: Join those tables!</a>
+<ul>
+<li class="chapter" data-level="34.1" data-path="lab-06-join-those-tables.html"><a href="lab-06-join-those-tables.html#exercise-1-singer"><i class="fa fa-check"></i><b>34.1</b> Exercise 1: <code>singer</code></a></li>
+<li class="chapter" data-level="34.2" data-path="lab-06-join-those-tables.html"><a href="lab-06-join-those-tables.html#exercise-2-lotr"><i class="fa fa-check"></i><b>34.2</b> Exercise 2: LOTR</a></li>
+<li class="chapter" data-level="34.3" data-path="lab-06-join-those-tables.html"><a href="lab-06-join-those-tables.html#exercise-3-set-operations"><i class="fa fa-check"></i><b>34.3</b> Exercise 3: Set Operations</a></li>
+</ul></li>
+<li class="part"><span><b>VI Module 06</b></span></li>
+<li class="chapter" data-level="35" data-path="file-inputoutput-io.html"><a href="file-inputoutput-io.html"><i class="fa fa-check"></i><b>35</b> File input/output (I/O)</a>
+<ul>
+<li class="chapter" data-level="35.1" data-path="file-inputoutput-io.html"><a href="file-inputoutput-io.html#resources-5"><i class="fa fa-check"></i><b>35.1</b> Resources</a></li>
+</ul></li>
+<li class="chapter" data-level="36" data-path="filesystems-and-paths.html"><a href="filesystems-and-paths.html"><i class="fa fa-check"></i><b>36</b> Filesystems and paths</a></li>
+<li class="chapter" data-level="37" data-path="the-working-directory-and-rstudio-projects.html"><a href="the-working-directory-and-rstudio-projects.html"><i class="fa fa-check"></i><b>37</b> The working directory and RStudio Projects</a></li>
+<li class="chapter" data-level="38" data-path="rstudio-projects-1.html"><a href="rstudio-projects-1.html"><i class="fa fa-check"></i><b>38</b> RStudio projects</a></li>
+<li class="chapter" data-level="39" data-path="herehere.html"><a href="herehere.html"><i class="fa fa-check"></i><b>39</b> here::here()</a></li>
+<li class="chapter" data-level="40" data-path="reading-data-from-disk.html"><a href="reading-data-from-disk.html"><i class="fa fa-check"></i><b>40</b> Reading data from disk</a></li>
+<li class="chapter" data-level="41" data-path="import-a-file-from-the-webcloud.html"><a href="import-a-file-from-the-webcloud.html"><i class="fa fa-check"></i><b>41</b> Import a file from the web/cloud</a>
+<ul>
+<li class="chapter" data-level="41.1" data-path="import-a-file-from-the-webcloud.html"><a href="import-a-file-from-the-webcloud.html#import-a-csv-file-from-the-internet"><i class="fa fa-check"></i><b>41.1</b> Import a CSV file from the internet</a></li>
+<li class="chapter" data-level="41.2" data-path="import-a-file-from-the-webcloud.html"><a href="import-a-file-from-the-webcloud.html#import-an-excel-file-.xls-or-.xlsx-from-the-internet"><i class="fa fa-check"></i><b>41.2</b> Import an Excel file (.xls or .xlsx) from the internet</a></li>
+</ul></li>
+<li class="chapter" data-level="42" data-path="read-in-a-sample-spss-file..html"><a href="read-in-a-sample-spss-file..html"><i class="fa fa-check"></i><b>42</b> Read in a sample SPSS file.</a></li>
+<li class="chapter" data-level="43" data-path="saving-files.html"><a href="saving-files.html"><i class="fa fa-check"></i><b>43</b> Saving files</a>
+<ul>
+<li class="chapter" data-level="43.1" data-path="saving-files.html"><a href="saving-files.html#saving-data-frames"><i class="fa fa-check"></i><b>43.1</b> Saving data frames</a></li>
+<li class="chapter" data-level="43.2" data-path="saving-files.html"><a href="saving-files.html#saving-plots"><i class="fa fa-check"></i><b>43.2</b> Saving plots</a></li>
+</ul></li>
+<li class="chapter" data-level="44" data-path="organizing-your-project-folders.html"><a href="organizing-your-project-folders.html"><i class="fa fa-check"></i><b>44</b> Organizing Your Project Folders</a></li>
+<li class="chapter" data-level="45" data-path="bonus-activity-rio.html"><a href="bonus-activity-rio.html"><i class="fa fa-check"></i><b>45</b> Bonus Activity: <code>rio</code></a></li>
+<li class="chapter" data-level="46" data-path="entering-data-manually.html"><a href="entering-data-manually.html"><i class="fa fa-check"></i><b>46</b> Entering Data Manually</a>
+<ul>
+<li class="chapter" data-level="46.1" data-path="entering-data-manually.html"><a href="entering-data-manually.html#making-data.frames-or-tibbles"><i class="fa fa-check"></i><b>46.1</b> Making data.frames or tibbles</a></li>
+<li class="chapter" data-level="46.2" data-path="entering-data-manually.html"><a href="entering-data-manually.html#datapasta"><i class="fa fa-check"></i><b>46.2</b> datapasta</a></li>
+</ul></li>
+<li class="chapter" data-level="47" data-path="lab-07-make-a-portfolio-piece.html"><a href="lab-07-make-a-portfolio-piece.html"><i class="fa fa-check"></i><b>47</b> Lab 07: Make a portfolio piece</a>
+<ul>
+<li class="chapter" data-level="47.1" data-path="lab-07-make-a-portfolio-piece.html"><a href="lab-07-make-a-portfolio-piece.html#step-1-make-a-new-github-repo"><i class="fa fa-check"></i><b>47.1</b> Step 1: Make a new GitHub repo</a></li>
+<li class="chapter" data-level="47.2" data-path="lab-07-make-a-portfolio-piece.html"><a href="lab-07-make-a-portfolio-piece.html#step-2-set-up-your-folder-structure"><i class="fa fa-check"></i><b>47.2</b> Step 2: Set up your folder structure</a></li>
+<li class="chapter" data-level="47.3" data-path="lab-07-make-a-portfolio-piece.html"><a href="lab-07-make-a-portfolio-piece.html#step-3-find-download-and-document-a-dataset"><i class="fa fa-check"></i><b>47.3</b> Step 3: Find, download, and document a dataset</a></li>
+<li class="chapter" data-level="47.4" data-path="lab-07-make-a-portfolio-piece.html"><a href="lab-07-make-a-portfolio-piece.html#step-4-practice-input-process-output"><i class="fa fa-check"></i><b>47.4</b> Step 4: Practice input, process, output</a></li>
+<li class="chapter" data-level="47.5" data-path="lab-07-make-a-portfolio-piece.html"><a href="lab-07-make-a-portfolio-piece.html#step-5-finish-your-data-exploration-report"><i class="fa fa-check"></i><b>47.5</b> Step 5: Finish your data exploration report</a></li>
+</ul></li>
+<li class="chapter" data-level="48" data-path="part-module-07.html"><a href="part-module-07.html"><i class="fa fa-check"></i><b>48</b> (PART) Module 07</a></li>
+<li class="chapter" data-level="49" data-path="text-data.html"><a href="text-data.html"><i class="fa fa-check"></i><b>49</b> Text Data</a>
+<ul>
+<li class="chapter" data-level="49.1" data-path="text-data.html"><a href="text-data.html#wrangling"><i class="fa fa-check"></i><b>49.1</b> Wrangling</a></li>
+<li class="chapter" data-level="49.2" data-path="text-data.html"><a href="text-data.html#natural-language-processing-nlp---terminology"><i class="fa fa-check"></i><b>49.2</b> Natural Language Processing (NLP) - Terminology</a></li>
+</ul></li>
+<li class="chapter" data-level="50" data-path="the-mighty-unnest_tokens-function.html"><a href="the-mighty-unnest_tokens-function.html"><i class="fa fa-check"></i><b>50</b> The mighty <code>unnest_tokens()</code> function</a>
+<ul>
+<li class="chapter" data-level="50.1" data-path="the-mighty-unnest_tokens-function.html"><a href="the-mighty-unnest_tokens-function.html#tidy-data-text-principles"><i class="fa fa-check"></i><b>50.1</b> Tidy <del>data</del> text principles</a></li>
+</ul></li>
+<li class="chapter" data-level="51" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html"><i class="fa fa-check"></i><b>51</b> Clean your text! Grammar vs. Computers</a>
+<ul>
+<li class="chapter" data-level="51.1" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#capitalization"><i class="fa fa-check"></i><b>51.1</b> Capitalization</a></li>
+<li class="chapter" data-level="51.2" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#stemming"><i class="fa fa-check"></i><b>51.2</b> Stemming</a></li>
+<li class="chapter" data-level="51.3" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#regular-expressions-regex-for-urls"><i class="fa fa-check"></i><b>51.3</b> Regular Expressions (Regex) for URLS</a></li>
+<li class="chapter" data-level="51.4" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#counting-words"><i class="fa fa-check"></i><b>51.4</b> Counting words</a></li>
+<li class="chapter" data-level="51.5" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#cant-stop-words-wont-stop-words"><i class="fa fa-check"></i><b>51.5</b> Can’t stop (words) won’t stop (words)</a></li>
+<li class="chapter" data-level="51.6" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#lexicon-based-approach"><i class="fa fa-check"></i><b>51.6</b> Lexicon-based approach</a></li>
+</ul></li>
+<li class="chapter" data-level="52" data-path="case-study-martin-luther-king-jr.s-speech.html"><a href="case-study-martin-luther-king-jr.s-speech.html"><i class="fa fa-check"></i><b>52</b> Case Study: Martin Luther King Jr.’s Speech</a>
+<ul>
+<li class="chapter" data-level="52.1" data-path="case-study-martin-luther-king-jr.s-speech.html"><a href="case-study-martin-luther-king-jr.s-speech.html#wrangle-our-text"><i class="fa fa-check"></i><b>52.1</b> Wrangle our text</a></li>
+<li class="chapter" data-level="52.2" data-path="case-study-martin-luther-king-jr.s-speech.html"><a href="case-study-martin-luther-king-jr.s-speech.html#visualizing-the-words"><i class="fa fa-check"></i><b>52.2</b> Visualizing the words</a></li>
+</ul></li>
+<li class="chapter" data-level="53" data-path="mining.html"><a href="mining.html"><i class="fa fa-check"></i><b>53</b> Mining</a>
+<ul>
+<li class="chapter" data-level="53.1" data-path="mining.html"><a href="mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>53.1</b> Sentiment Analysis</a></li>
+<li class="chapter" data-level="53.2" data-path="mining.html"><a href="mining.html#metrics-of-text"><i class="fa fa-check"></i><b>53.2</b> Metrics of Text</a></li>
+<li class="chapter" data-level="53.3" data-path="mining.html"><a href="mining.html#case-study-2-reviews-on-product"><i class="fa fa-check"></i><b>53.3</b> Case Study 2: Reviews on Product</a></li>
+<li class="chapter" data-level="53.4" data-path="mining.html"><a href="mining.html#contributions"><i class="fa fa-check"></i><b>53.4</b> Contributions</a></li>
+<li class="chapter" data-level="53.5" data-path="mining.html"><a href="mining.html#references"><i class="fa fa-check"></i><b>53.5</b> References</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Programming with Data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="mining" class="section level1" number="53">
+<h1><span class="header-section-number">Part 53</span> Mining</h1>
+<p>Now that we have gone over how to wrangle/shape our data, it’s time to talk about some useful quantitative measure of text that help us get a better understanding of whats going on within our text.</p>
+<div id="sentiment-analysis" class="section level2" number="53.1">
+<h2><span class="header-section-number">53.1</span> Sentiment Analysis</h2>
+<p>Feeling is a big part of communication. Some words have different emotions/feelings behind them. That may be a interest of ours when looking at text.</p>
+<p>One simple approach we can take is simply having a list of a bunch of words labeled with different emotions. We treat our text as a <strong>bag-of-words</strong> and just match words to a dataset with those word and sentiment. This is a lexicon-based approach (similar to stop words lexicon based approach).</p>
+<p>There exists different lexicons with different ways of expressing sentiment. We are going to look at some lexicons found in the <code>textdata</code> package that work nice within <code>tidytext</code>.</p>
+<p><code>textdata</code> lexicons:</p>
+<ul>
+<li><p><a href="https://emilhvitfeldt.github.io/textdata/reference/lexicon_bing.html">Bing</a>: Expresses words in a binary positive or negative fashion</p>
+<ul>
+<li>Positive or negative</li>
+</ul></li>
+<li><p><a href="https://emilhvitfeldt.github.io/textdata/reference/lexicon_afinn.html">AFINN</a>: Expresses words with a value (-5 to 5) according the the word’s valence</p>
+<ul>
+<li>-5 to 5</li>
+</ul></li>
+<li><p><a href="https://emilhvitfeldt.github.io/textdata/reference/lexicon_nrc.html">NRC</a>: Expresses words with the following sentiments:</p>
+<ul>
+<li>Negative</li>
+<li>Positive</li>
+<li>Anger</li>
+<li>Anticipation</li>
+<li>Disgust</li>
+<li>Fear</li>
+<li>Job</li>
+<li>Sadness</li>
+<li>Surprise</li>
+<li>Trust</li>
+</ul></li>
+</ul>
+<div id="looking-at-our-lexicons" class="section level3" number="53.1.1">
+<h3><span class="header-section-number">53.1.1</span> Looking at our Lexicons</h3>
+<p>Using the <code>tidytext::get_sentiments()</code> function we can take a peek at the words within. We’ll stick to manually reading it in as a <code>.csv</code> to practice our skills.</p>
+<div id="bing---positive-vs.-negative" class="section level4" number="53.1.1.1">
+<h4><span class="header-section-number">53.1.1.1</span> Bing - Positive vs. Negative</h4>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="mining.html#cb213-1" aria-hidden="true" tabindex="-1"></a>bing <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;bing_dictionary.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="mining.html#cb214-1" aria-hidden="true" tabindex="-1"></a>bing <span class="sc">|&gt;</span> </span>
+<span id="cb214-2"><a href="mining.html#cb214-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(sentiment)</span></code></pre></div>
+<p>Here we can see how many words are positive and negative within our lexicon</p>
+</div>
+<div id="afinn---words-on-a--5-to-5-scale" class="section level4" number="53.1.1.2">
+<h4><span class="header-section-number">53.1.1.2</span> AFINN - Words on a -5 to 5 scale</h4>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="mining.html#cb215-1" aria-hidden="true" tabindex="-1"></a>afinn <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;afinn_dictionary.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="mining.html#cb216-1" aria-hidden="true" tabindex="-1"></a>afinn <span class="sc">|&gt;</span></span>
+<span id="cb216-2"><a href="mining.html#cb216-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">as_factor</span>(value)) <span class="sc">|&gt;</span> <span class="co"># make our value a factor</span></span>
+<span id="cb216-3"><a href="mining.html#cb216-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb216-4"><a href="mining.html#cb216-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> value) <span class="sc">+</span></span>
+<span id="cb216-5"><a href="mining.html#cb216-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">stat =</span> <span class="st">&quot;count&quot;</span>) <span class="co"># tell ggplot to count()</span></span></code></pre></div>
+<p>From the above plot we can get a picture of the count of each value. In other words, we see that we have a lot of words with a -2 rating.</p>
+<p>If we wanted specific counts we can <code>count()</code> the <code>value</code> ourselves</p>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="mining.html#cb217-1" aria-hidden="true" tabindex="-1"></a>afinn <span class="sc">|&gt;</span> </span>
+<span id="cb217-2"><a href="mining.html#cb217-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">as_factor</span>(value)) <span class="sc">|&gt;</span> </span>
+<span id="cb217-3"><a href="mining.html#cb217-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(value)</span></code></pre></div>
+</div>
+<div id="nrc---anger-anticipation" class="section level4" number="53.1.1.3">
+<h4><span class="header-section-number">53.1.1.3</span> NRC - Anger, Anticipation, …</h4>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="mining.html#cb218-1" aria-hidden="true" tabindex="-1"></a>nrc <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;nrc_dictionary.csv&quot;</span>))</span></code></pre></div>
+<p>This lexicon has multiple representations of a word with different sentiments</p>
+<p>The word “abandon” has “fear”,“negative”,“sadness” attached to it.</p>
+<p>Let’s get a <em>feel</em> (ba-dum-tsh) for our lexicon:</p>
+<p>We can see our unique words <code>count()</code>ing them:</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="mining.html#cb219-1" aria-hidden="true" tabindex="-1"></a>nrc <span class="sc">|&gt;</span> </span>
+<span id="cb219-2"><a href="mining.html#cb219-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) <span class="sc">|&gt;</span> <span class="co"># automatically collapse the same word</span></span>
+<span id="cb219-3"><a href="mining.html#cb219-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">nrow</span>()</span></code></pre></div>
+<p>Here we can see how many different sentiments are attached to each word.</p>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="mining.html#cb220-1" aria-hidden="true" tabindex="-1"></a>nrc <span class="sc">|&gt;</span> </span>
+<span id="cb220-2"><a href="mining.html#cb220-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span> </span>
+<span id="cb220-3"><a href="mining.html#cb220-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb220-4"><a href="mining.html#cb220-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> sentiment, <span class="at">y =</span> n) <span class="sc">+</span></span>
+<span id="cb220-5"><a href="mining.html#cb220-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>()</span></code></pre></div>
+</div>
+</div>
+<div id="using-inner_join-with-our-bing-lexicon" class="section level3" number="53.1.2">
+<h3><span class="header-section-number">53.1.2</span> Using <code>inner_join()</code> with our <code>bing</code> lexicon</h3>
+<p>Let’s revisit our <code>unnest_df</code> from earlier</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="mining.html#cb221-1" aria-hidden="true" tabindex="-1"></a>unnest_df <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div>
+<p>Using <code>inner_join()</code> we can match words from our lexicon to our data.</p>
+<p><strong>Note</strong>: Remember to have the same column name as both your data and lexicon for the words.</p>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="mining.html#cb222-1" aria-hidden="true" tabindex="-1"></a>unnest_df <span class="sc">|&gt;</span> </span>
+<span id="cb222-2"><a href="mining.html#cb222-2" aria-hidden="true" tabindex="-1"></a> <span class="fu">inner_join</span>(bing, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+<p>From the above output we can see that line 2 had 2 positive words while line 3 had a mix of 1 positive word and 1 negative word.</p>
+</div>
+<div id="important-things-with-sentiment-analysis" class="section level3" number="53.1.3">
+<h3><span class="header-section-number">53.1.3</span> Important things with sentiment analysis</h3>
+<p>Now there are a couple things to consider when deciding on which lexicon to use other than just the depth/type of sentiment we want to look at.</p>
+<p>Here are a some questions to keep in mind:</p>
+<ul>
+<li><p>What was the lexicon developed for?</p>
+<ul>
+<li><p>Reviews?</p></li>
+<li><p>Tweets?</p></li>
+</ul></li>
+<li><p>How was the lexicon developed?</p>
+<ul>
+<li><p>Through researchers?</p></li>
+<li><p>Crowd sourced?</p></li>
+</ul></li>
+<li><p>How old is the lexicon?</p>
+<ul>
+<li><p>Words change meaning over time</p></li>
+<li><p>Culture of the words used?</p></li>
+</ul></li>
+</ul>
+<p>Another thing to consider is that lexicon sentiment analysis is a <strong>bag-of-word</strong> type of analysis. Context isn’t considered when looking at words. If you’re interested in looking at different techniques look into <a href="https://www.tidytextmining.com/ngrams.html">n-grams</a></p>
+</div>
+</div>
+<div id="metrics-of-text" class="section level2" number="53.2">
+<h2><span class="header-section-number">53.2</span> Metrics of Text</h2>
+<p>Let’s dig into some quantitative measures of text data. Two main metrics we will consider in this chapter are:</p>
+<ul>
+<li><p>TF-IDF</p></li>
+<li><p>Weighted log-odds ratio.</p></li>
+</ul>
+<div id="term-document-inverse-document-frequency-tf-idf" class="section level3" number="53.2.1">
+<h3><span class="header-section-number">53.2.1</span> Term-Document Inverse Document Frequency (TF-IDF)</h3>
+<p>TF-IDF stands for Term-Document Inverse Document Frequency. It’s main goal is to measure how “important” a word is in our corpus (Silge &amp; Robinson, 2017). TF-IDF is useful when we want to understand the terms in the corpus as a whole.</p>
+<p>Let’s break down TF-IDF into it’s two parts:</p>
+<ul>
+<li><p>Term-frequency: How many times a term/word occurs?</p></li>
+<li><p>Inverse-Document Frequency: The inverse of the number of times a word shows up in a collection of documents.</p></li>
+</ul>
+<p><span class="math display">\[
+idf(term) = ln(\frac{n_{documents}}{n_{documents\ containing\ terms}})
+\]</span></p>
+<p>This is based off of the idea that the more a term shows up, the less important that term is.</p>
+<div id="zipfs-law" class="section level4" number="53.2.1.1">
+<h4><span class="header-section-number">53.2.1.1</span> Zipf’s Law</h4>
+<p>TF-IDF is inspired by George Zipf’s law.</p>
+<p>Zipf’s law states the following:</p>
+<blockquote>
+<p>the frequency that a word appears is inversely proportional to its rank.</p>
+</blockquote>
+<p>This makes sense if we think about how language is. We would expect words that don’t show up often to carry more weight and be more important than words that show up all the time.</p>
+</div>
+<div id="example" class="section level4" number="53.2.1.2">
+<h4><span class="header-section-number">53.2.1.2</span> Example</h4>
+<p>Let’s calculate the TF-IDF with <code>bind_tf_idf()</code></p>
+<p>We need our data set to have one-row per document-term:</p>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="mining.html#cb223-1" aria-hidden="true" tabindex="-1"></a>tidy_df <span class="ot">&lt;-</span></span>
+<span id="cb223-2"><a href="mining.html#cb223-2" aria-hidden="true" tabindex="-1"></a>  unnest_df <span class="sc">|&gt;</span> </span>
+<span id="cb223-3"><a href="mining.html#cb223-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(line, word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb223-4"><a href="mining.html#cb223-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb223-5"><a href="mining.html#cb223-5" aria-hidden="true" tabindex="-1"></a>tidy_df <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code></pre></div>
+<p>Now we can <code>bind_tf_idf()</code></p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="mining.html#cb224-1" aria-hidden="true" tabindex="-1"></a>tidy_tf_idf_df  <span class="ot">&lt;-</span> </span>
+<span id="cb224-2"><a href="mining.html#cb224-2" aria-hidden="true" tabindex="-1"></a>  tidy_df <span class="sc">|&gt;</span> </span>
+<span id="cb224-3"><a href="mining.html#cb224-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_tf_idf</span>(word, line, n)</span>
+<span id="cb224-4"><a href="mining.html#cb224-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb224-5"><a href="mining.html#cb224-5" aria-hidden="true" tabindex="-1"></a>tidy_tf_idf_df</span></code></pre></div>
+<p>We can see the top TF-IDF words are: “words”, “feelings”, “express”, “excitement”, and “anxious” while our lowest are “learn” and “day.”</p>
+</div>
+<div id="visualize-tf-idf" class="section level4" number="53.2.1.3">
+<h4><span class="header-section-number">53.2.1.3</span> Visualize TF-IDF</h4>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="mining.html#cb225-1" aria-hidden="true" tabindex="-1"></a>tidy_tf_idf_df <span class="sc">|&gt;</span> </span>
+<span id="cb225-2"><a href="mining.html#cb225-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb225-3"><a href="mining.html#cb225-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(word, tf_idf), <span class="co"># order `word` by `tf_idf`</span></span>
+<span id="cb225-4"><a href="mining.html#cb225-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> tf_idf,</span>
+<span id="cb225-5"><a href="mining.html#cb225-5" aria-hidden="true" tabindex="-1"></a>      <span class="at">fill =</span> <span class="fu">as_factor</span>(line)) <span class="sc">+</span> <span class="co"># color :-)</span></span>
+<span id="cb225-6"><a href="mining.html#cb225-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb225-7"><a href="mining.html#cb225-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> </span>
+<span id="cb225-8"><a href="mining.html#cb225-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> line, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb225-9"><a href="mining.html#cb225-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb225-10"><a href="mining.html#cb225-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Line #&quot;</span>)</span></code></pre></div>
+<p>Above we get a nice graph of our words and their TF-IDF.</p>
+</div>
+</div>
+<div id="weighted-log-odds" class="section level3" number="53.2.2">
+<h3><span class="header-section-number">53.2.2</span> Weighted Log-odds</h3>
+<p>Sometimes we are interested in comparing words between different groups within a corpus. Here are some examples:</p>
+<ul>
+<li><p>Corpus of scientific articles from different fields (e.g., economics, medicine, technology):</p>
+<ul>
+<li>What words are you most likely to see given the field?</li>
+</ul></li>
+<li><p>Corpus of two twitter users:</p>
+<ul>
+<li>What words are you more likely to see from each user?</li>
+</ul></li>
+<li><p>Corpus of a collection of products and their respective reviews:</p>
+<ul>
+<li>What words are you more likely to see from each product/rating?</li>
+</ul></li>
+<li><p>Corpus of different baby’s names from different time periods (1960s, 1970s, …)</p>
+<ul>
+<li>What names were most prevalent in each year compared to other years?</li>
+</ul></li>
+</ul>
+<p>To do this we can use the weighted log-odds ratio. Let’s break down what “weighted log-odds ratio” means.</p>
+<div id="odds-ratio" class="section level4" number="53.2.2.1">
+<h4><span class="header-section-number">53.2.2.1</span> Odds Ratio</h4>
+<p>Odds ratio, simply, is the ratio of something happening divided by that thing not happening.</p>
+<p><span class="math display">\[
+Odds\ Ratio = \frac{x\ happening_{1960s}}{x\ not\ happening_{1960s}} \div \frac{x\ happening_{other}}{x\ not\ happening_{other}}
+\]</span></p>
+<p>This is different from probability. Probability can be thought of the ratio of x happening with <em>all</em> possible happenings.</p>
+</div>
+<div id="log-odds-ratio" class="section level4" number="53.2.2.2">
+<h4><span class="header-section-number">53.2.2.2</span> Log-odds ratio</h4>
+<p>The log-odds ratio is just the odds ratio with a log transformation (natural log).</p>
+<p>Reason being, it allows for some pretty nice behavior like:</p>
+<ul>
+<li><p>Symmetry around zero</p></li>
+<li><p>Transforms our range to be between <span class="math inline">\([-\infty, \infty]\)</span></p></li>
+</ul>
+<p><span class="math display">\[
+log(Odds\ Ratio) = log(\frac{x\ happening_{1960s}}{x\ not\ happening_{1960s}}) - log(\frac{x\ happening_{other}}{x\ not\ happening_{other}})
+\]</span></p>
+</div>
+<div id="weighted-log-odds-ratio" class="section level4" number="53.2.2.3">
+<h4><span class="header-section-number">53.2.2.3</span> Weighted log-odds ratio</h4>
+<p>The <code>bind_log_odds()</code> function fits a posterior log odds ratio assuming a multinominal model with a Dirichlet prior. (See <code>?bind_log_odds</code> for more info)</p>
+<p>To look into the actual method behind the function see <a href="https://www.cambridge.org/core/journals/political-analysis/article/fightin-words-lexical-feature-selection-and-evaluation-for-identifying-the-content-of-political-conflict/81B3703230D21620B81EB6E2266C7A66">Monroe, Colaresi &amp; Quinn 2007</a></p>
+</div>
+</div>
+<div id="example-1" class="section level3" number="53.2.3">
+<h3><span class="header-section-number">53.2.3</span> Example</h3>
+<p>Using <code>bind_log_odds()</code> we can specify different arguments to tweak our output.</p>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="mining.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidylo)</span>
+<span id="cb226-2"><a href="mining.html#cb226-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-3"><a href="mining.html#cb226-3" aria-hidden="true" tabindex="-1"></a><span class="co"># from earlier:</span></span>
+<span id="cb226-4"><a href="mining.html#cb226-4" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy_df &lt;-</span></span>
+<span id="cb226-5"><a href="mining.html#cb226-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   unnest_df |&gt; </span></span>
+<span id="cb226-6"><a href="mining.html#cb226-6" aria-hidden="true" tabindex="-1"></a><span class="co">#   count(line, word, sort = TRUE)</span></span>
+<span id="cb226-7"><a href="mining.html#cb226-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-8"><a href="mining.html#cb226-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb226-9"><a href="mining.html#cb226-9" aria-hidden="true" tabindex="-1"></a>log_odds_df <span class="ot">&lt;-</span> </span>
+<span id="cb226-10"><a href="mining.html#cb226-10" aria-hidden="true" tabindex="-1"></a>  tidy_df <span class="sc">|&gt;</span> </span>
+<span id="cb226-11"><a href="mining.html#cb226-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_log_odds</span>(line, word, n,</span>
+<span id="cb226-12"><a href="mining.html#cb226-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">uninformative =</span> <span class="cn">TRUE</span>, <span class="co"># TRUE = Do not fit with a Dirichlet Prior </span></span>
+<span id="cb226-13"><a href="mining.html#cb226-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">unweighted =</span> <span class="cn">TRUE</span>) <span class="co"># TRUE = Add a unweighted column</span></span></code></pre></div>
+<div id="visual" class="section level4" number="53.2.3.1">
+<h4><span class="header-section-number">53.2.3.1</span> Visual</h4>
+<p>We can now visualize the different weighted log odds for each line</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="mining.html#cb227-1" aria-hidden="true" tabindex="-1"></a>log_odds_df <span class="sc">|&gt;</span> </span>
+<span id="cb227-2"><a href="mining.html#cb227-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb227-3"><a href="mining.html#cb227-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(word, log_odds_weighted), <span class="at">y =</span> log_odds_weighted, <span class="at">fill =</span> <span class="fu">as_factor</span>(line)) <span class="sc">+</span></span>
+<span id="cb227-4"><a href="mining.html#cb227-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb227-5"><a href="mining.html#cb227-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb227-6"><a href="mining.html#cb227-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> line, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb227-7"><a href="mining.html#cb227-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb227-8"><a href="mining.html#cb227-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">fill =</span> <span class="st">&quot;Line #&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="case-study-2-reviews-on-product" class="section level2" number="53.3">
+<h2><span class="header-section-number">53.3</span> Case Study 2: Reviews on Product</h2>
+<p>Below we are going to look at different reviews on Amazon for candles.</p>
+<p>Let’s read in our dataset.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="mining.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyverse)</span></span>
+<span id="cb228-2"><a href="mining.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidytext)</span></span>
+<span id="cb228-3"><a href="mining.html#cb228-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-4"><a href="mining.html#cb228-4" aria-hidden="true" tabindex="-1"></a>scented_reviews <span class="ot">&lt;-</span></span>
+<span id="cb228-5"><a href="mining.html#cb228-5" aria-hidden="true" tabindex="-1"></a>  readxl<span class="sc">::</span><span class="fu">read_excel</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;Scented_all.xlsx&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb228-6"><a href="mining.html#cb228-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">review_id =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb228-7"><a href="mining.html#cb228-7" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> <span class="co"># A function that changes the column names to snake_case/cleans them up a little</span></span>
+<span id="cb228-8"><a href="mining.html#cb228-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rating =</span> <span class="fu">as_factor</span>(rating)) </span></code></pre></div>
+<div id="clean-text" class="section level3" number="53.3.1">
+<h3><span class="header-section-number">53.3.1</span> Clean Text</h3>
+<p>First step is to <code>unnest_tokens()</code> our reviews.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="mining.html#cb229-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb229-2"><a href="mining.html#cb229-2" aria-hidden="true" tabindex="-1"></a>  scented_reviews <span class="sc">|&gt;</span></span>
+<span id="cb229-3"><a href="mining.html#cb229-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="st">&quot;word&quot;</span>, <span class="st">&quot;review&quot;</span>,</span>
+<span id="cb229-4"><a href="mining.html#cb229-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> <span class="st">&quot;words&quot;</span></span>
+<span id="cb229-5"><a href="mining.html#cb229-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="remove-stop-words-1" class="section level3" number="53.3.2">
+<h3><span class="header-section-number">53.3.2</span> Remove Stop-words</h3>
+<p>We then remove our normal stop words.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="mining.html#cb230-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb230-2"><a href="mining.html#cb230-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb230-3"><a href="mining.html#cb230-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+</div>
+<div id="removing-custom-stop-words" class="section level3" number="53.3.3">
+<h3><span class="header-section-number">53.3.3</span> Removing Custom Stop-words</h3>
+<p>Usually there are words that we know are more “noise” than “signal”. In order to determine if a word is “noise” we can implement different strategies.</p>
+<p>One strategy is to look through all unique words and skim to find one’s not offered in the stop words lexicon already.</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="mining.html#cb231-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb231-2"><a href="mining.html#cb231-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(word) <span class="sc">|&gt;</span></span>
+<span id="cb231-3"><a href="mining.html#cb231-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>Another strategy is to look at the most frequent words and determine if the word is useful or not.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="mining.html#cb232-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb232-2"><a href="mining.html#cb232-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) <span class="sc">|&gt;</span></span>
+<span id="cb232-3"><a href="mining.html#cb232-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb232-4"><a href="mining.html#cb232-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>Now once we decide which to remove we can put it together in a <code>tribble()</code></p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="mining.html#cb233-1" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="ot">&lt;-</span></span>
+<span id="cb233-2"><a href="mining.html#cb233-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tribble</span>(</span>
+<span id="cb233-3"><a href="mining.html#cb233-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>word,       <span class="sc">~</span>lexicon,</span>
+<span id="cb233-4"><a href="mining.html#cb233-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;candle&quot;</span>,    <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-5"><a href="mining.html#cb233-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;candles&quot;</span>,   <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-6"><a href="mining.html#cb233-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;smell&quot;</span>,     <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-7"><a href="mining.html#cb233-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;smells&quot;</span>,    <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-8"><a href="mining.html#cb233-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;scent&quot;</span>,     <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-9"><a href="mining.html#cb233-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fragrance&quot;</span>, <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-10"><a href="mining.html#cb233-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;yankee&quot;</span>,    <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-11"><a href="mining.html#cb233-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;love&quot;</span>,      <span class="st">&quot;custom&quot;</span>, <span class="co"># This word shows up so much it acts like a stop word</span></span>
+<span id="cb233-12"><a href="mining.html#cb233-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;sooo&quot;</span>,      <span class="st">&quot;custom&quot;</span>, <span class="co"># This is an example of using text from the internet</span></span>
+<span id="cb233-13"><a href="mining.html#cb233-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;soooo&quot;</span>,     <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-14"><a href="mining.html#cb233-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;doesn&quot;</span>,     <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-15"><a href="mining.html#cb233-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;don&quot;</span>,       <span class="st">&quot;custom&quot;</span></span>
+<span id="cb233-16"><a href="mining.html#cb233-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>We use the same method to remove our <code>custom_stopwords</code> as we do with regular ol’ <code>stop_words</code></p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="mining.html#cb234-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb234-2"><a href="mining.html#cb234-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb234-3"><a href="mining.html#cb234-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(custom_stopwords, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+<div id="remove-numbersnon-alphabet-characters" class="section level4" number="53.3.3.1">
+<h4><span class="header-section-number">53.3.3.1</span> Remove Numbers/Non-alphabet characters</h4>
+<p>Depending on the type of data you’re working with there might be more than just characters you need to remove. Since we’re working with data from an online source, there are some weird characters that appear as well as digits used. Using the <code>stringr</code> package, we can clean it up.</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="mining.html#cb235-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb235-2"><a href="mining.html#cb235-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb235-3"><a href="mining.html#cb235-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">str_replace</span>(word, <span class="at">pattern =</span> <span class="st">&quot;[^</span><span class="sc">\x20</span><span class="st">-</span><span class="sc">\x7E</span><span class="st">](.*)&quot;</span>, <span class="at">replacement =</span> <span class="st">&quot;&quot;</span>)) <span class="sc">|&gt;</span> <span class="co"># Remove weird characters</span></span>
+<span id="cb235-4"><a href="mining.html#cb235-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb235-5"><a href="mining.html#cb235-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">str_detect</span>(word, <span class="st">&quot;[0-9]+&quot;</span>), <span class="co"># Remove digits</span></span>
+<span id="cb235-6"><a href="mining.html#cb235-6" aria-hidden="true" tabindex="-1"></a>    word <span class="sc">!=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb235-7"><a href="mining.html#cb235-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="removing-words-that-only-show-up-10-times." class="section level4" number="53.3.3.2">
+<h4><span class="header-section-number">53.3.3.2</span> Removing words that only show up &lt; 10 times.</h4>
+<p>A common way to reduce the amount of noise within a corpus is to focus on words that show up more than <code>n</code> number of times.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="mining.html#cb236-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb236-2"><a href="mining.html#cb236-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb236-3"><a href="mining.html#cb236-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(word, <span class="at">name =</span> <span class="st">&quot;n_total&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb236-4"><a href="mining.html#cb236-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n_total <span class="sc">&gt;=</span> <span class="dv">10</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="word-frequency" class="section level3" number="53.3.4">
+<h3><span class="header-section-number">53.3.4</span> Word Frequency</h3>
+</div>
+<div id="sentiment-analysis-1" class="section level3" number="53.3.5">
+<h3><span class="header-section-number">53.3.5</span> Sentiment analysis</h3>
+<p>Let’s get a <em>feel</em> for our data (someone stop me, I’m on a roll).</p>
+<p>We are going to work with the BING and NRC lexicons.</p>
+<div id="bing" class="section level4" number="53.3.5.1">
+<h4><span class="header-section-number">53.3.5.1</span> BING</h4>
+<p><em>Just a reminder, BING uses a positive/negative coding of each word.</em></p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="mining.html#cb237-1" aria-hidden="true" tabindex="-1"></a>bing <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;bing_dictionary.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="mining.html#cb238-1" aria-hidden="true" tabindex="-1"></a>bing_scent <span class="ot">&lt;-</span></span>
+<span id="cb238-2"><a href="mining.html#cb238-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb238-3"><a href="mining.html#cb238-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(bing, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+<div id="overall" class="section level5" number="53.3.5.1.1">
+<h5><span class="header-section-number">53.3.5.1.1</span> Overall</h5>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="mining.html#cb239-1" aria-hidden="true" tabindex="-1"></a>bing_scent <span class="sc">|&gt;</span></span>
+<span id="cb239-2"><a href="mining.html#cb239-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span></span>
+<span id="cb239-3"><a href="mining.html#cb239-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb239-4"><a href="mining.html#cb239-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb239-5"><a href="mining.html#cb239-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> sentiment, <span class="at">y =</span> n,</span>
+<span id="cb239-6"><a href="mining.html#cb239-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> sentiment</span>
+<span id="cb239-7"><a href="mining.html#cb239-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb239-8"><a href="mining.html#cb239-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb239-9"><a href="mining.html#cb239-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb239-10"><a href="mining.html#cb239-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Overall BING Sentiment of Customer Reviews&quot;</span>,</span>
+<span id="cb239-11"><a href="mining.html#cb239-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Words&quot;</span></span>
+<span id="cb239-12"><a href="mining.html#cb239-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>According to the graph above, overall we have a lot more positive words than negative ones within our reviews.</p>
+</div>
+<div id="by-rating" class="section level5" number="53.3.5.1.2">
+<h5><span class="header-section-number">53.3.5.1.2</span> By Rating</h5>
+<p>Now it might be useful to know how the number of positive and negative words change within each rating given.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="mining.html#cb240-1" aria-hidden="true" tabindex="-1"></a>bing_scent <span class="sc">|&gt;</span></span>
+<span id="cb240-2"><a href="mining.html#cb240-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rating) <span class="sc">|&gt;</span></span>
+<span id="cb240-3"><a href="mining.html#cb240-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span></span>
+<span id="cb240-4"><a href="mining.html#cb240-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb240-5"><a href="mining.html#cb240-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> sentiment, <span class="at">y =</span> n, <span class="at">fill =</span> sentiment) <span class="sc">+</span></span>
+<span id="cb240-6"><a href="mining.html#cb240-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb240-7"><a href="mining.html#cb240-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>rating, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb240-8"><a href="mining.html#cb240-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb240-9"><a href="mining.html#cb240-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;BING Sentiment of Customer Reviews by Rating&quot;</span>,</span>
+<span id="cb240-10"><a href="mining.html#cb240-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Words&quot;</span></span>
+<span id="cb240-11"><a href="mining.html#cb240-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Intuitively, we expect for an inverse relationship between the rating and number of positive/negative words. To put another way, we expect people who rate the candle lower to express/use more negative sentiment/words</p>
+</div>
+</div>
+<div id="nrc" class="section level4" number="53.3.5.2">
+<h4><span class="header-section-number">53.3.5.2</span> NRC</h4>
+<p><em>Reminder: NRC codes words with different emotions.</em></p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="mining.html#cb241-1" aria-hidden="true" tabindex="-1"></a>nrc <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;nrc_dictionary.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="mining.html#cb242-1" aria-hidden="true" tabindex="-1"></a>nrc_scent <span class="ot">&lt;-</span></span>
+<span id="cb242-2"><a href="mining.html#cb242-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb242-3"><a href="mining.html#cb242-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(nrc, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+<div id="overall-1" class="section level5" number="53.3.5.2.1">
+<h5><span class="header-section-number">53.3.5.2.1</span> Overall</h5>
+<p>Let’s take a peek at the over amount of sentiment expressed within our reviews.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="mining.html#cb243-1" aria-hidden="true" tabindex="-1"></a>nrc_scent <span class="sc">|&gt;</span></span>
+<span id="cb243-2"><a href="mining.html#cb243-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span></span>
+<span id="cb243-3"><a href="mining.html#cb243-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb243-4"><a href="mining.html#cb243-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(sentiment, n), <span class="at">y =</span> n, <span class="at">fill =</span> sentiment) <span class="sc">+</span></span>
+<span id="cb243-5"><a href="mining.html#cb243-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb243-6"><a href="mining.html#cb243-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb243-7"><a href="mining.html#cb243-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Overall NCR Sentiment of Customer Reviews&quot;</span>,</span>
+<span id="cb243-8"><a href="mining.html#cb243-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Words&quot;</span>,</span>
+<span id="cb243-9"><a href="mining.html#cb243-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sentiment&quot;</span></span>
+<span id="cb243-10"><a href="mining.html#cb243-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Similar to our BING analysis, we have a higher use of positive-type words than negative.</p>
+</div>
+<div id="by-rating-1" class="section level5" number="53.3.5.2.2">
+<h5><span class="header-section-number">53.3.5.2.2</span> By Rating</h5>
+<p>Again, its useful to take it within the context of what the review had in rating.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="mining.html#cb244-1" aria-hidden="true" tabindex="-1"></a>nrc_scent <span class="sc">|&gt;</span></span>
+<span id="cb244-2"><a href="mining.html#cb244-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rating) <span class="sc">|&gt;</span></span>
+<span id="cb244-3"><a href="mining.html#cb244-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span></span>
+<span id="cb244-4"><a href="mining.html#cb244-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb244-5"><a href="mining.html#cb244-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(sentiment, n), <span class="at">y =</span> n, <span class="at">fill =</span> sentiment) <span class="sc">+</span></span>
+<span id="cb244-6"><a href="mining.html#cb244-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb244-7"><a href="mining.html#cb244-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>rating, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb244-8"><a href="mining.html#cb244-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb244-9"><a href="mining.html#cb244-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;NCR Sentiment of Customer Reviews by Rating&quot;</span>,</span>
+<span id="cb244-10"><a href="mining.html#cb244-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Words&quot;</span>,</span>
+<span id="cb244-11"><a href="mining.html#cb244-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sentiment&quot;</span></span>
+<span id="cb244-12"><a href="mining.html#cb244-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb244-13"><a href="mining.html#cb244-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p>Directing our attention to ratings 1 and 5, we see the same relationship with the BING analysis.</p>
+</div>
+</div>
+</div>
+<div id="weighted-log-odds-1" class="section level3" number="53.3.6">
+<h3><span class="header-section-number">53.3.6</span> Weighted log-odds</h3>
+<p>Let’s look at what words are used between ratings using the weighted log-odds.</p>
+<p>First we use the helpful <code>bind_log_odds()</code> function from the <code>tidylo</code> package.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="mining.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidylo)</span>
+<span id="cb245-2"><a href="mining.html#cb245-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-3"><a href="mining.html#cb245-3" aria-hidden="true" tabindex="-1"></a>scent_log_odds <span class="ot">&lt;-</span></span>
+<span id="cb245-4"><a href="mining.html#cb245-4" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb245-5"><a href="mining.html#cb245-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rating) <span class="sc">|&gt;</span></span>
+<span id="cb245-6"><a href="mining.html#cb245-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(word, <span class="at">name =</span> <span class="st">&quot;n_rating&quot;</span>) <span class="sc">|&gt;</span> <span class="co"># count each word within the ratings</span></span>
+<span id="cb245-7"><a href="mining.html#cb245-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(word, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="co"># we only need the word (`word`) and how many times it shows up (`n_rating`)</span></span>
+<span id="cb245-8"><a href="mining.html#cb245-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_log_odds</span>(rating, word, n_rating)</span></code></pre></div>
+<p>Now that we have our metrics lets look at important words for each rating. Let’s focus on the top 15 words used to reduce clutter.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="mining.html#cb246-1" aria-hidden="true" tabindex="-1"></a>scent_log_odds <span class="sc">|&gt;</span></span>
+<span id="cb246-2"><a href="mining.html#cb246-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rating) <span class="sc">|&gt;</span></span>
+<span id="cb246-3"><a href="mining.html#cb246-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">15</span>, log_odds_weighted) <span class="sc">|&gt;</span></span>
+<span id="cb246-4"><a href="mining.html#cb246-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb246-5"><a href="mining.html#cb246-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(word, log_odds_weighted), <span class="at">y =</span> log_odds_weighted, <span class="at">fill =</span> <span class="fu">factor</span>(rating)) <span class="sc">+</span></span>
+<span id="cb246-6"><a href="mining.html#cb246-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb246-7"><a href="mining.html#cb246-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>rating, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb246-8"><a href="mining.html#cb246-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb246-9"><a href="mining.html#cb246-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb246-10"><a href="mining.html#cb246-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb246-11"><a href="mining.html#cb246-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Weighted Log Odds&quot;</span>,</span>
+<span id="cb246-12"><a href="mining.html#cb246-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Top 15 words with highest weighted log odds&quot;</span></span>
+<span id="cb246-13"><a href="mining.html#cb246-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb246-14"><a href="mining.html#cb246-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p>For our higher rated reviews, we see use of “yummy”, “excellent”, “affordable”. Now we also see “law”? Can you think of any reason why we would see that word?</p>
+<p>For lower rated reviews, we see “broken”, “unusable”, and “waste”.</p>
+<p>A interesting way to think about “importance” is to compare between a word within a group and the whole corpus. To do this we look at how much the word happens overall and the weighted log odds.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="mining.html#cb247-1" aria-hidden="true" tabindex="-1"></a>scent_log_odds <span class="sc">|&gt;</span></span>
+<span id="cb247-2"><a href="mining.html#cb247-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>, n_rating) <span class="sc">|&gt;</span></span>
+<span id="cb247-3"><a href="mining.html#cb247-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb247-4"><a href="mining.html#cb247-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> n_total, <span class="at">y =</span> log_odds_weighted, <span class="at">label =</span> word, <span class="at">color =</span> <span class="fu">factor</span>(rating)) <span class="sc">+</span></span>
+<span id="cb247-5"><a href="mining.html#cb247-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb247-6"><a href="mining.html#cb247-6" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">max.overlaps =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb247-7"><a href="mining.html#cb247-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb247-8"><a href="mining.html#cb247-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;How important is a word within a rating versus within the whole corpus?&quot;</span>,</span>
+<span id="cb247-9"><a href="mining.html#cb247-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Top 10 words per Customer Rating&quot;</span>,</span>
+<span id="cb247-10"><a href="mining.html#cb247-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Count of occurances within corpus&quot;</span>,</span>
+<span id="cb247-11"><a href="mining.html#cb247-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Weighted Log odds&quot;</span>,</span>
+<span id="cb247-12"><a href="mining.html#cb247-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Rating&quot;</span></span>
+<span id="cb247-13"><a href="mining.html#cb247-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb247-14"><a href="mining.html#cb247-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">1.2</span>)</span></code></pre></div>
+<p>Lets digest what the above graph is saying.</p>
+<p>Starting with the word “broken” we see that within a rating of 1, “broken” is extremely important. However as we look at the second point for “broken” we see that it is a lot less important for rating 2, similarly with rating 3.</p>
+<p>We can also compare different words with similar importance. For example, the word disappointed within a rating of 2 is around the same importance as wonderful is within a rating of 5.</p>
+<p>Now because there are 5 ratings on this graph, it can be less work if we just look at ratings of 1 and 5.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="mining.html#cb248-1" aria-hidden="true" tabindex="-1"></a>scent_log_odds <span class="sc">|&gt;</span></span>
+<span id="cb248-2"><a href="mining.html#cb248-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rating <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb248-3"><a href="mining.html#cb248-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, n_rating) <span class="sc">|&gt;</span></span>
+<span id="cb248-4"><a href="mining.html#cb248-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb248-5"><a href="mining.html#cb248-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> n_total, <span class="at">y =</span> log_odds_weighted, <span class="at">label =</span> word, <span class="at">color =</span> rating) <span class="sc">+</span></span>
+<span id="cb248-6"><a href="mining.html#cb248-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb248-7"><a href="mining.html#cb248-7" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">max.overlaps =</span> <span class="dv">40</span>) <span class="sc">+</span></span>
+<span id="cb248-8"><a href="mining.html#cb248-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb248-9"><a href="mining.html#cb248-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;How important is a word between a rating versus within the whole corpus?&quot;</span>,</span>
+<span id="cb248-10"><a href="mining.html#cb248-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Reviews with a Rating of 1 or 5; Top 20&quot;</span>,</span>
+<span id="cb248-11"><a href="mining.html#cb248-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Count of occurances within corpus&quot;</span>,</span>
+<span id="cb248-12"><a href="mining.html#cb248-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Log odds&quot;</span></span>
+<span id="cb248-13"><a href="mining.html#cb248-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb248-14"><a href="mining.html#cb248-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">1.2</span>)</span></code></pre></div>
+<p>Above we get a clearer picture of the importance of words between ratings of 1 and 5.</p>
+</div>
+</div>
+<div id="contributions" class="section level2" number="53.4">
+<h2><span class="header-section-number">53.4</span> Contributions</h2>
+<p>Julia Silge deserves a huge amount of credit for not only a great outline of text analysis within R but also for her inspiration.</p>
+<p>Thank you to the following for your support and guidance: Alex Denison, Loni Hagen, Mary Falling.</p>
+</div>
+<div id="references" class="section level2" number="53.5">
+<h2><span class="header-section-number">53.5</span> References</h2>
+<p>Wickham, H., &amp; Grolemund, G. (2016). <em>R for data science: Import, tidy, transform, visualize, and model data</em> (First edition). O’Reilly.</p>
+<p>Silge, J., &amp; Robinson, D. (2017). <em>Text mining with R: A tidy approach</em> (First edition). O’Reilly.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="case-study-martin-luther-king-jr.s-speech.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0701_text-wrangling-mining.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["main.pdf", "main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
