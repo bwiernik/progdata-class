@@ -6,7 +6,7 @@ Guest chapter by Wesley Gardiner.
 library(tidyverse)
 library(tidytext)
 library(textdata)
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, include = TRUE, fig.width = 5, fig.height = 4, fig.align = "center")
 ```
 
 
