@@ -401,15 +401,13 @@ There exists different lexicons with different ways of expressing sentiment. We 
 
 ### Looking at our Lexicons
 
-Using the `tidytext::get_sentiments()` function we can take a peek at the words within.
+Using the `tidytext::get_sentiments()` function we can take a peek at the words within. We'll stick to manually reading it in as a `.csv` to practice our skills.
 
 #### Bing - Positive vs. Negative
 
 ```{r}
 bing <- read.csv(here::here("data","bing_dictionary.csv"))
 ```
-
-We can see that this lexicon has `r nrow(tidytext::get_sentiments("bing"))` words.
 
 ```{r}
 bing |> 
@@ -423,8 +421,6 @@ Here we can see how many words are positive and negative within our lexicon
 ```{r}
 afinn <- read.csv(here::here("data","afinn_dictionary.csv"))
 ```
-
-We can see that this lexicon has `r nrow(tidytext::get_sentiments("afinn"))` words.
 
 ```{r}
 afinn |>
@@ -819,7 +815,7 @@ We are going to work with the BING and NRC lexicons.
 *Just a reminder, BING uses a positive/negative coding of each word.*
 
 ```{r}
-bing <- tidytext::get_sentiments("bing")
+bing <- read.csv(here::here("data","bing_dictionary.csv"))
 ```
 
 ```{r}
@@ -872,7 +868,7 @@ Intuitively, we expect for an inverse relationship between the rating and number
 *Reminder: NRC codes words with different emotions.*
 
 ```{r}
-nrc <- tidytext::get_sentiments("nrc")
+nrc <- read.csv(here::here("data","nrc_dictionary.csv"))
 ```
 
 ```{r}
