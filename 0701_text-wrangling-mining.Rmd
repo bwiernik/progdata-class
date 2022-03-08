@@ -44,7 +44,7 @@ In your journey of NLP, you might stumble across different terms used and it's i
 
 Read more about other key terms [here](https://www.kdnuggets.com/2017/02/natural-language-processing-key-terms-explained.html).
 
-# The mighty `unnest_tokens()` function
+## The mighty `unnest_tokens()` function
 
 Lets look at an example of some text:
 
@@ -102,7 +102,7 @@ I'm sure you've noted a few things about our text from using `unnest_tokens()`
 
 -   Our words are...lower case?
 
-# Clean your text! Grammar vs. Computers
+## Clean your text! Grammar vs. Computers
 
 In English (and broadly all language), we have grammar. Computers don't. This has big implications.
 
@@ -233,7 +233,7 @@ count_df
 
 Lets look at a (not) very interesting graph of what we have:
 
-```{r}
+```{r include=TRUE}
 library(ggplot2)
 
 count_df |> 
@@ -688,7 +688,7 @@ log_odds_df |>
        fill = "Line #")
 ```
 
-## Case Study 2: Reviews on Product
+# Case Study 2: Reviews on Product
 
 Below we are going to look at different reviews on Amazon for candles. 
 
