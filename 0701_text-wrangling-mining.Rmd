@@ -1,4 +1,4 @@
-# (PART) Module 07
+# (PART) Module 07 {-}
 
 Guest chapter by Wesley Gardiner.
 
@@ -6,6 +6,7 @@ Guest chapter by Wesley Gardiner.
 library(tidyverse)
 library(tidytext)
 library(textdata)
+knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
