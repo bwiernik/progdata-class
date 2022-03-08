@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 42 Read in a sample SPSS file. | Programming with Data</title>
-  <meta name="description" content="Part 42 Read in a sample SPSS file. | Programming with Data" />
+  <title>Part 51 Case Study 2: Reviews on Product | Programming with Data</title>
+  <meta name="description" content="Part 51 Case Study 2: Reviews on Product | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 42 Read in a sample SPSS file. | Programming with Data" />
+  <meta property="og:title" content="Part 51 Case Study 2: Reviews on Product | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 42 Read in a sample SPSS file. | Programming with Data" />
+  <meta name="twitter:title" content="Part 51 Case Study 2: Reviews on Product | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="import-a-file-from-the-webcloud.html"/>
-<link rel="next" href="saving-files.html"/>
+<link rel="prev" href="mining.html"/>
+
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -451,47 +451,259 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="read-in-a-sample-spss-file." class="section level1" number="42">
-<h1><span class="header-section-number">Part 42</span> Read in a sample SPSS file.</h1>
-<p>Let’s load a sample SPSS file and work with it.
-Download the file from <a href="https://raw.githubusercontent.com/USF-Psych-DataSci/Classroom/master/data/clevel.sav">here</a> and save it in your <code>data</code> folder in your class GitHub repo.</p>
-<p>These data are a random subset of the data used in <a href="https://doi.org/10.1016/j.jvb.2018.02.005">this paper</a>.
-This was a study looking at personality traits that distinguish C-level executives from lower-level managers among men and women.</p>
-<p>The subset of data here consists of 200 cases, with variables indicating:</p>
-<ol style="list-style-type: decimal">
-<li>The language of assessment (English, Dutch, or French)</li>
-<li>Gender</li>
-<li>C-level or not</li>
-<li>Extraversion level, as well as 4 facet traits (Leading, Communion, Persuasive, Motivating)</li>
-</ol>
-<p>Let’s load in the data using the <code>haven</code> package.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="read-in-a-sample-spss-file..html#cb181-1" aria-hidden="true" tabindex="-1"></a>(clevel <span class="ot">&lt;-</span> haven<span class="sc">::</span><span class="fu">read_spss</span>(</span>
-<span id="cb181-2"><a href="read-in-a-sample-spss-file..html#cb181-2" aria-hidden="true" tabindex="-1"></a>  here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;participation&quot;</span>, <span class="st">&quot;data&quot;</span>, <span class="st">&quot;clevel.sav&quot;</span>)</span>
-<span id="cb181-3"><a href="read-in-a-sample-spss-file..html#cb181-3" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb181-4"><a href="read-in-a-sample-spss-file..html#cb181-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>Notice that this tibble looks a little different for the <code>language</code> and <code>gender</code> variables than normal.
-It has <strong>labels</strong> for the numeric values.
-This format is what SPSS uses, but it’s not standard for R.
-Let’s convert those variables, and <code>isClevel</code> as well, to factors:</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="read-in-a-sample-spss-file..html#cb182-1" aria-hidden="true" tabindex="-1"></a>clevel_cleaned <span class="ot">&lt;-</span></span>
-<span id="cb182-2"><a href="read-in-a-sample-spss-file..html#cb182-2" aria-hidden="true" tabindex="-1"></a>  clevel <span class="sc">|&gt;</span> </span>
-<span id="cb182-3"><a href="read-in-a-sample-spss-file..html#cb182-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">language =</span> <span class="fu">as_factor</span>(language),</span>
-<span id="cb182-4"><a href="read-in-a-sample-spss-file..html#cb182-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">gender =</span> <span class="fu">as_factor</span>(gender),</span>
-<span id="cb182-5"><a href="read-in-a-sample-spss-file..html#cb182-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">isClevel =</span> <span class="fu">factor</span>(isClevel, </span>
-<span id="cb182-6"><a href="read-in-a-sample-spss-file..html#cb182-6" aria-hidden="true" tabindex="-1"></a>                           <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), </span>
-<span id="cb182-7"><a href="read-in-a-sample-spss-file..html#cb182-7" aria-hidden="true" tabindex="-1"></a>                           <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;No&quot;</span>, <span class="st">&quot;Yes&quot;</span>))</span>
-<span id="cb182-8"><a href="read-in-a-sample-spss-file..html#cb182-8" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb182-9"><a href="read-in-a-sample-spss-file..html#cb182-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(clevel_cleaned)</span></code></pre></div>
-<p>Notice how the variables are now factors with labels as the entries, instead of the original code numbers.</p>
+<div id="case-study-2-reviews-on-product" class="section level1" number="51">
+<h1><span class="header-section-number">Part 51</span> Case Study 2: Reviews on Product</h1>
+<p>Below we are going to look at different reviews on Amazon for candles.</p>
+<p>Let’s read in our dataset.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="case-study-2-reviews-on-product.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidyverse)</span></span>
+<span id="cb228-2"><a href="case-study-2-reviews-on-product.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="co"># library(tidytext)</span></span>
+<span id="cb228-3"><a href="case-study-2-reviews-on-product.html#cb228-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb228-4"><a href="case-study-2-reviews-on-product.html#cb228-4" aria-hidden="true" tabindex="-1"></a>scented_reviews <span class="ot">&lt;-</span></span>
+<span id="cb228-5"><a href="case-study-2-reviews-on-product.html#cb228-5" aria-hidden="true" tabindex="-1"></a>  readxl<span class="sc">::</span><span class="fu">read_excel</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>, <span class="st">&quot;Scented_all.xlsx&quot;</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb228-6"><a href="case-study-2-reviews-on-product.html#cb228-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">review_id =</span> <span class="fu">row_number</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb228-7"><a href="case-study-2-reviews-on-product.html#cb228-7" aria-hidden="true" tabindex="-1"></a>  janitor<span class="sc">::</span><span class="fu">clean_names</span>() <span class="sc">|&gt;</span> <span class="co"># A function that changes the column names to snake_case/cleans them up a little</span></span>
+<span id="cb228-8"><a href="case-study-2-reviews-on-product.html#cb228-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rating =</span> <span class="fu">as_factor</span>(rating)) </span></code></pre></div>
+<div id="clean-text" class="section level3" number="51.0.1">
+<h3><span class="header-section-number">51.0.1</span> Clean Text</h3>
+<p>First step is to <code>unnest_tokens()</code> our reviews.</p>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="case-study-2-reviews-on-product.html#cb229-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb229-2"><a href="case-study-2-reviews-on-product.html#cb229-2" aria-hidden="true" tabindex="-1"></a>  scented_reviews <span class="sc">|&gt;</span></span>
+<span id="cb229-3"><a href="case-study-2-reviews-on-product.html#cb229-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(<span class="st">&quot;word&quot;</span>, <span class="st">&quot;review&quot;</span>,</span>
+<span id="cb229-4"><a href="case-study-2-reviews-on-product.html#cb229-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">token =</span> <span class="st">&quot;words&quot;</span></span>
+<span id="cb229-5"><a href="case-study-2-reviews-on-product.html#cb229-5" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="remove-stop-words-1" class="section level3" number="51.0.2">
+<h3><span class="header-section-number">51.0.2</span> Remove Stop-words</h3>
+<p>We then remove our normal stop words.</p>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="case-study-2-reviews-on-product.html#cb230-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb230-2"><a href="case-study-2-reviews-on-product.html#cb230-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb230-3"><a href="case-study-2-reviews-on-product.html#cb230-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+</div>
+<div id="removing-custom-stop-words" class="section level3" number="51.0.3">
+<h3><span class="header-section-number">51.0.3</span> Removing Custom Stop-words</h3>
+<p>Usually there are words that we know are more “noise” than “signal”. In order to determine if a word is “noise” we can implement different strategies.</p>
+<p>One strategy is to look through all unique words and skim to find one’s not offered in the stop words lexicon already.</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="case-study-2-reviews-on-product.html#cb231-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb231-2"><a href="case-study-2-reviews-on-product.html#cb231-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(word) <span class="sc">|&gt;</span></span>
+<span id="cb231-3"><a href="case-study-2-reviews-on-product.html#cb231-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>Another strategy is to look at the most frequent words and determine if the word is useful or not.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="case-study-2-reviews-on-product.html#cb232-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb232-2"><a href="case-study-2-reviews-on-product.html#cb232-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word) <span class="sc">|&gt;</span></span>
+<span id="cb232-3"><a href="case-study-2-reviews-on-product.html#cb232-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n)) <span class="sc">|&gt;</span></span>
+<span id="cb232-4"><a href="case-study-2-reviews-on-product.html#cb232-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>Now once we decide which to remove we can put it together in a <code>tribble()</code></p>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="case-study-2-reviews-on-product.html#cb233-1" aria-hidden="true" tabindex="-1"></a>custom_stopwords <span class="ot">&lt;-</span></span>
+<span id="cb233-2"><a href="case-study-2-reviews-on-product.html#cb233-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tribble</span>(</span>
+<span id="cb233-3"><a href="case-study-2-reviews-on-product.html#cb233-3" aria-hidden="true" tabindex="-1"></a>    <span class="sc">~</span>word,       <span class="sc">~</span>lexicon,</span>
+<span id="cb233-4"><a href="case-study-2-reviews-on-product.html#cb233-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;candle&quot;</span>,    <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-5"><a href="case-study-2-reviews-on-product.html#cb233-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;candles&quot;</span>,   <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-6"><a href="case-study-2-reviews-on-product.html#cb233-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;smell&quot;</span>,     <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-7"><a href="case-study-2-reviews-on-product.html#cb233-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;smells&quot;</span>,    <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-8"><a href="case-study-2-reviews-on-product.html#cb233-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;scent&quot;</span>,     <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-9"><a href="case-study-2-reviews-on-product.html#cb233-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fragrance&quot;</span>, <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-10"><a href="case-study-2-reviews-on-product.html#cb233-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;yankee&quot;</span>,    <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-11"><a href="case-study-2-reviews-on-product.html#cb233-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;love&quot;</span>,      <span class="st">&quot;custom&quot;</span>, <span class="co"># This word shows up so much it acts like a stop word</span></span>
+<span id="cb233-12"><a href="case-study-2-reviews-on-product.html#cb233-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;sooo&quot;</span>,      <span class="st">&quot;custom&quot;</span>, <span class="co"># This is an example of using text from the internet</span></span>
+<span id="cb233-13"><a href="case-study-2-reviews-on-product.html#cb233-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;soooo&quot;</span>,     <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-14"><a href="case-study-2-reviews-on-product.html#cb233-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;doesn&quot;</span>,     <span class="st">&quot;custom&quot;</span>,</span>
+<span id="cb233-15"><a href="case-study-2-reviews-on-product.html#cb233-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;don&quot;</span>,       <span class="st">&quot;custom&quot;</span></span>
+<span id="cb233-16"><a href="case-study-2-reviews-on-product.html#cb233-16" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>We use the same method to remove our <code>custom_stopwords</code> as we do with regular ol’ <code>stop_words</code></p>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="case-study-2-reviews-on-product.html#cb234-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb234-2"><a href="case-study-2-reviews-on-product.html#cb234-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb234-3"><a href="case-study-2-reviews-on-product.html#cb234-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(custom_stopwords, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+<div id="remove-numbersnon-alphabet-characters" class="section level4" number="51.0.3.1">
+<h4><span class="header-section-number">51.0.3.1</span> Remove Numbers/Non-alphabet characters</h4>
+<p>Depending on the type of data you’re working with there might be more than just characters you need to remove. Since we’re working with data from an online source, there are some weird characters that appear as well as digits used. Using the <code>stringr</code> package, we can clean it up.</p>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="case-study-2-reviews-on-product.html#cb235-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb235-2"><a href="case-study-2-reviews-on-product.html#cb235-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb235-3"><a href="case-study-2-reviews-on-product.html#cb235-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">word =</span> <span class="fu">str_replace</span>(word, <span class="at">pattern =</span> <span class="st">&quot;[^</span><span class="sc">\x20</span><span class="st">-</span><span class="sc">\x7E</span><span class="st">](.*)&quot;</span>, <span class="at">replacement =</span> <span class="st">&quot;&quot;</span>)) <span class="sc">|&gt;</span> <span class="co"># Remove weird characters</span></span>
+<span id="cb235-4"><a href="case-study-2-reviews-on-product.html#cb235-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(</span>
+<span id="cb235-5"><a href="case-study-2-reviews-on-product.html#cb235-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">!</span><span class="fu">str_detect</span>(word, <span class="st">&quot;[0-9]+&quot;</span>), <span class="co"># Remove digits</span></span>
+<span id="cb235-6"><a href="case-study-2-reviews-on-product.html#cb235-6" aria-hidden="true" tabindex="-1"></a>    word <span class="sc">!=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb235-7"><a href="case-study-2-reviews-on-product.html#cb235-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+</div>
+<div id="removing-words-that-only-show-up-10-times." class="section level4" number="51.0.3.2">
+<h4><span class="header-section-number">51.0.3.2</span> Removing words that only show up &lt; 10 times.</h4>
+<p>A common way to reduce the amount of noise within a corpus is to focus on words that show up more than <code>n</code> number of times.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="case-study-2-reviews-on-product.html#cb236-1" aria-hidden="true" tabindex="-1"></a>unnest_scent <span class="ot">&lt;-</span></span>
+<span id="cb236-2"><a href="case-study-2-reviews-on-product.html#cb236-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb236-3"><a href="case-study-2-reviews-on-product.html#cb236-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(word, <span class="at">name =</span> <span class="st">&quot;n_total&quot;</span>) <span class="sc">|&gt;</span></span>
+<span id="cb236-4"><a href="case-study-2-reviews-on-product.html#cb236-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(n_total <span class="sc">&gt;=</span> <span class="dv">10</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="word-frequency" class="section level3" number="51.0.4">
+<h3><span class="header-section-number">51.0.4</span> Word Frequency</h3>
+</div>
+<div id="sentiment-analysis-1" class="section level3" number="51.0.5">
+<h3><span class="header-section-number">51.0.5</span> Sentiment analysis</h3>
+<p>Let’s get a <em>feel</em> for our data (someone stop me, I’m on a roll).</p>
+<p>We are going to work with the BING and NRC lexicons.</p>
+<div id="bing" class="section level4" number="51.0.5.1">
+<h4><span class="header-section-number">51.0.5.1</span> BING</h4>
+<p><em>Just a reminder, BING uses a positive/negative coding of each word.</em></p>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="case-study-2-reviews-on-product.html#cb237-1" aria-hidden="true" tabindex="-1"></a>bing <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;bing_dictionary.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="case-study-2-reviews-on-product.html#cb238-1" aria-hidden="true" tabindex="-1"></a>bing_scent <span class="ot">&lt;-</span></span>
+<span id="cb238-2"><a href="case-study-2-reviews-on-product.html#cb238-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb238-3"><a href="case-study-2-reviews-on-product.html#cb238-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(bing, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+<div id="overall" class="section level5" number="51.0.5.1.1">
+<h5><span class="header-section-number">51.0.5.1.1</span> Overall</h5>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="case-study-2-reviews-on-product.html#cb239-1" aria-hidden="true" tabindex="-1"></a>bing_scent <span class="sc">|&gt;</span></span>
+<span id="cb239-2"><a href="case-study-2-reviews-on-product.html#cb239-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span></span>
+<span id="cb239-3"><a href="case-study-2-reviews-on-product.html#cb239-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb239-4"><a href="case-study-2-reviews-on-product.html#cb239-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb239-5"><a href="case-study-2-reviews-on-product.html#cb239-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> sentiment, <span class="at">y =</span> n,</span>
+<span id="cb239-6"><a href="case-study-2-reviews-on-product.html#cb239-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> sentiment</span>
+<span id="cb239-7"><a href="case-study-2-reviews-on-product.html#cb239-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb239-8"><a href="case-study-2-reviews-on-product.html#cb239-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb239-9"><a href="case-study-2-reviews-on-product.html#cb239-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb239-10"><a href="case-study-2-reviews-on-product.html#cb239-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Overall BING Sentiment of Customer Reviews&quot;</span>,</span>
+<span id="cb239-11"><a href="case-study-2-reviews-on-product.html#cb239-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Words&quot;</span></span>
+<span id="cb239-12"><a href="case-study-2-reviews-on-product.html#cb239-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>According to the graph above, overall we have a lot more positive words than negative ones within our reviews.</p>
+</div>
+<div id="by-rating" class="section level5" number="51.0.5.1.2">
+<h5><span class="header-section-number">51.0.5.1.2</span> By Rating</h5>
+<p>Now it might be useful to know how the number of positive and negative words change within each rating given.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="case-study-2-reviews-on-product.html#cb240-1" aria-hidden="true" tabindex="-1"></a>bing_scent <span class="sc">|&gt;</span></span>
+<span id="cb240-2"><a href="case-study-2-reviews-on-product.html#cb240-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rating) <span class="sc">|&gt;</span></span>
+<span id="cb240-3"><a href="case-study-2-reviews-on-product.html#cb240-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span></span>
+<span id="cb240-4"><a href="case-study-2-reviews-on-product.html#cb240-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb240-5"><a href="case-study-2-reviews-on-product.html#cb240-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> sentiment, <span class="at">y =</span> n, <span class="at">fill =</span> sentiment) <span class="sc">+</span></span>
+<span id="cb240-6"><a href="case-study-2-reviews-on-product.html#cb240-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb240-7"><a href="case-study-2-reviews-on-product.html#cb240-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>rating, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb240-8"><a href="case-study-2-reviews-on-product.html#cb240-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb240-9"><a href="case-study-2-reviews-on-product.html#cb240-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;BING Sentiment of Customer Reviews by Rating&quot;</span>,</span>
+<span id="cb240-10"><a href="case-study-2-reviews-on-product.html#cb240-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Words&quot;</span></span>
+<span id="cb240-11"><a href="case-study-2-reviews-on-product.html#cb240-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Intuitively, we expect for an inverse relationship between the rating and number of positive/negative words. To put another way, we expect people who rate the candle lower to express/use more negative sentiment/words</p>
+</div>
+</div>
+<div id="nrc" class="section level4" number="51.0.5.2">
+<h4><span class="header-section-number">51.0.5.2</span> NRC</h4>
+<p><em>Reminder: NRC codes words with different emotions.</em></p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="case-study-2-reviews-on-product.html#cb241-1" aria-hidden="true" tabindex="-1"></a>nrc <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;data&quot;</span>,<span class="st">&quot;nrc_dictionary.csv&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="case-study-2-reviews-on-product.html#cb242-1" aria-hidden="true" tabindex="-1"></a>nrc_scent <span class="ot">&lt;-</span></span>
+<span id="cb242-2"><a href="case-study-2-reviews-on-product.html#cb242-2" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb242-3"><a href="case-study-2-reviews-on-product.html#cb242-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(nrc, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+<div id="overall-1" class="section level5" number="51.0.5.2.1">
+<h5><span class="header-section-number">51.0.5.2.1</span> Overall</h5>
+<p>Let’s take a peek at the over amount of sentiment expressed within our reviews.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="case-study-2-reviews-on-product.html#cb243-1" aria-hidden="true" tabindex="-1"></a>nrc_scent <span class="sc">|&gt;</span></span>
+<span id="cb243-2"><a href="case-study-2-reviews-on-product.html#cb243-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span></span>
+<span id="cb243-3"><a href="case-study-2-reviews-on-product.html#cb243-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb243-4"><a href="case-study-2-reviews-on-product.html#cb243-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(sentiment, n), <span class="at">y =</span> n, <span class="at">fill =</span> sentiment) <span class="sc">+</span></span>
+<span id="cb243-5"><a href="case-study-2-reviews-on-product.html#cb243-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb243-6"><a href="case-study-2-reviews-on-product.html#cb243-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb243-7"><a href="case-study-2-reviews-on-product.html#cb243-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Overall NCR Sentiment of Customer Reviews&quot;</span>,</span>
+<span id="cb243-8"><a href="case-study-2-reviews-on-product.html#cb243-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Words&quot;</span>,</span>
+<span id="cb243-9"><a href="case-study-2-reviews-on-product.html#cb243-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sentiment&quot;</span></span>
+<span id="cb243-10"><a href="case-study-2-reviews-on-product.html#cb243-10" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<p>Similar to our BING analysis, we have a higher use of positive-type words than negative.</p>
+</div>
+<div id="by-rating-1" class="section level5" number="51.0.5.2.2">
+<h5><span class="header-section-number">51.0.5.2.2</span> By Rating</h5>
+<p>Again, its useful to take it within the context of what the review had in rating.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="case-study-2-reviews-on-product.html#cb244-1" aria-hidden="true" tabindex="-1"></a>nrc_scent <span class="sc">|&gt;</span></span>
+<span id="cb244-2"><a href="case-study-2-reviews-on-product.html#cb244-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rating) <span class="sc">|&gt;</span></span>
+<span id="cb244-3"><a href="case-study-2-reviews-on-product.html#cb244-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(sentiment) <span class="sc">|&gt;</span></span>
+<span id="cb244-4"><a href="case-study-2-reviews-on-product.html#cb244-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb244-5"><a href="case-study-2-reviews-on-product.html#cb244-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(sentiment, n), <span class="at">y =</span> n, <span class="at">fill =</span> sentiment) <span class="sc">+</span></span>
+<span id="cb244-6"><a href="case-study-2-reviews-on-product.html#cb244-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb244-7"><a href="case-study-2-reviews-on-product.html#cb244-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>rating, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb244-8"><a href="case-study-2-reviews-on-product.html#cb244-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb244-9"><a href="case-study-2-reviews-on-product.html#cb244-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;NCR Sentiment of Customer Reviews by Rating&quot;</span>,</span>
+<span id="cb244-10"><a href="case-study-2-reviews-on-product.html#cb244-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Number of Words&quot;</span>,</span>
+<span id="cb244-11"><a href="case-study-2-reviews-on-product.html#cb244-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sentiment&quot;</span></span>
+<span id="cb244-12"><a href="case-study-2-reviews-on-product.html#cb244-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb244-13"><a href="case-study-2-reviews-on-product.html#cb244-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p>Directing our attention to ratings 1 and 5, we see the same relationship with the BING analysis.</p>
+</div>
+</div>
+</div>
+<div id="weighted-log-odds-1" class="section level3" number="51.0.6">
+<h3><span class="header-section-number">51.0.6</span> Weighted log-odds</h3>
+<p>Let’s look at what words are used between ratings using the weighted log-odds.</p>
+<p>First we use the helpful <code>bind_log_odds()</code> function from the <code>tidylo</code> package.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="case-study-2-reviews-on-product.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidylo)</span>
+<span id="cb245-2"><a href="case-study-2-reviews-on-product.html#cb245-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb245-3"><a href="case-study-2-reviews-on-product.html#cb245-3" aria-hidden="true" tabindex="-1"></a>scent_log_odds <span class="ot">&lt;-</span></span>
+<span id="cb245-4"><a href="case-study-2-reviews-on-product.html#cb245-4" aria-hidden="true" tabindex="-1"></a>  unnest_scent <span class="sc">|&gt;</span></span>
+<span id="cb245-5"><a href="case-study-2-reviews-on-product.html#cb245-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rating) <span class="sc">|&gt;</span></span>
+<span id="cb245-6"><a href="case-study-2-reviews-on-product.html#cb245-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(word, <span class="at">name =</span> <span class="st">&quot;n_rating&quot;</span>) <span class="sc">|&gt;</span> <span class="co"># count each word within the ratings</span></span>
+<span id="cb245-7"><a href="case-study-2-reviews-on-product.html#cb245-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(word, <span class="at">.keep_all =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> <span class="co"># we only need the word (`word`) and how many times it shows up (`n_rating`)</span></span>
+<span id="cb245-8"><a href="case-study-2-reviews-on-product.html#cb245-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_log_odds</span>(rating, word, n_rating)</span></code></pre></div>
+<p>Now that we have our metrics lets look at important words for each rating. Let’s focus on the top 15 words used to reduce clutter.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="case-study-2-reviews-on-product.html#cb246-1" aria-hidden="true" tabindex="-1"></a>scent_log_odds <span class="sc">|&gt;</span></span>
+<span id="cb246-2"><a href="case-study-2-reviews-on-product.html#cb246-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(rating) <span class="sc">|&gt;</span></span>
+<span id="cb246-3"><a href="case-study-2-reviews-on-product.html#cb246-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">15</span>, log_odds_weighted) <span class="sc">|&gt;</span></span>
+<span id="cb246-4"><a href="case-study-2-reviews-on-product.html#cb246-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb246-5"><a href="case-study-2-reviews-on-product.html#cb246-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">fct_reorder</span>(word, log_odds_weighted), <span class="at">y =</span> log_odds_weighted, <span class="at">fill =</span> <span class="fu">factor</span>(rating)) <span class="sc">+</span></span>
+<span id="cb246-6"><a href="case-study-2-reviews-on-product.html#cb246-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb246-7"><a href="case-study-2-reviews-on-product.html#cb246-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>rating, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb246-8"><a href="case-study-2-reviews-on-product.html#cb246-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb246-9"><a href="case-study-2-reviews-on-product.html#cb246-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb246-10"><a href="case-study-2-reviews-on-product.html#cb246-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb246-11"><a href="case-study-2-reviews-on-product.html#cb246-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Weighted Log Odds&quot;</span>,</span>
+<span id="cb246-12"><a href="case-study-2-reviews-on-product.html#cb246-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Top 15 words with highest weighted log odds&quot;</span></span>
+<span id="cb246-13"><a href="case-study-2-reviews-on-product.html#cb246-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb246-14"><a href="case-study-2-reviews-on-product.html#cb246-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+<p>For our higher rated reviews, we see use of “yummy”, “excellent”, “affordable”. Now we also see “law”? Can you think of any reason why we would see that word?</p>
+<p>For lower rated reviews, we see “broken”, “unusable”, and “waste”.</p>
+<p>A interesting way to think about “importance” is to compare between a word within a group and the whole corpus. To do this we look at how much the word happens overall and the weighted log odds.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="case-study-2-reviews-on-product.html#cb247-1" aria-hidden="true" tabindex="-1"></a>scent_log_odds <span class="sc">|&gt;</span></span>
+<span id="cb247-2"><a href="case-study-2-reviews-on-product.html#cb247-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">10</span>, n_rating) <span class="sc">|&gt;</span></span>
+<span id="cb247-3"><a href="case-study-2-reviews-on-product.html#cb247-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb247-4"><a href="case-study-2-reviews-on-product.html#cb247-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> n_total, <span class="at">y =</span> log_odds_weighted, <span class="at">label =</span> word, <span class="at">color =</span> <span class="fu">factor</span>(rating)) <span class="sc">+</span></span>
+<span id="cb247-5"><a href="case-study-2-reviews-on-product.html#cb247-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb247-6"><a href="case-study-2-reviews-on-product.html#cb247-6" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">max.overlaps =</span> <span class="dv">50</span>) <span class="sc">+</span></span>
+<span id="cb247-7"><a href="case-study-2-reviews-on-product.html#cb247-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb247-8"><a href="case-study-2-reviews-on-product.html#cb247-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;How important is a word within a rating versus within the whole corpus?&quot;</span>,</span>
+<span id="cb247-9"><a href="case-study-2-reviews-on-product.html#cb247-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Top 10 words per Customer Rating&quot;</span>,</span>
+<span id="cb247-10"><a href="case-study-2-reviews-on-product.html#cb247-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Count of occurances within corpus&quot;</span>,</span>
+<span id="cb247-11"><a href="case-study-2-reviews-on-product.html#cb247-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Weighted Log odds&quot;</span>,</span>
+<span id="cb247-12"><a href="case-study-2-reviews-on-product.html#cb247-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;Rating&quot;</span></span>
+<span id="cb247-13"><a href="case-study-2-reviews-on-product.html#cb247-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb247-14"><a href="case-study-2-reviews-on-product.html#cb247-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">1.2</span>)</span></code></pre></div>
+<p>Lets digest what the above graph is saying.</p>
+<p>Starting with the word “broken” we see that within a rating of 1, “broken” is extremely important. However as we look at the second point for “broken” we see that it is a lot less important for rating 2, similarly with rating 3.</p>
+<p>We can also compare different words with similar importance. For example, the word disappointed within a rating of 2 is around the same importance as wonderful is within a rating of 5.</p>
+<p>Now because there are 5 ratings on this graph, it can be less work if we just look at ratings of 1 and 5.</p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="case-study-2-reviews-on-product.html#cb248-1" aria-hidden="true" tabindex="-1"></a>scent_log_odds <span class="sc">|&gt;</span></span>
+<span id="cb248-2"><a href="case-study-2-reviews-on-product.html#cb248-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rating <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb248-3"><a href="case-study-2-reviews-on-product.html#cb248-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">top_n</span>(<span class="dv">20</span>, n_rating) <span class="sc">|&gt;</span></span>
+<span id="cb248-4"><a href="case-study-2-reviews-on-product.html#cb248-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb248-5"><a href="case-study-2-reviews-on-product.html#cb248-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> n_total, <span class="at">y =</span> log_odds_weighted, <span class="at">label =</span> word, <span class="at">color =</span> rating) <span class="sc">+</span></span>
+<span id="cb248-6"><a href="case-study-2-reviews-on-product.html#cb248-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb248-7"><a href="case-study-2-reviews-on-product.html#cb248-7" aria-hidden="true" tabindex="-1"></a>  ggrepel<span class="sc">::</span><span class="fu">geom_text_repel</span>(<span class="at">max.overlaps =</span> <span class="dv">40</span>) <span class="sc">+</span></span>
+<span id="cb248-8"><a href="case-study-2-reviews-on-product.html#cb248-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb248-9"><a href="case-study-2-reviews-on-product.html#cb248-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;How important is a word between a rating versus within the whole corpus?&quot;</span>,</span>
+<span id="cb248-10"><a href="case-study-2-reviews-on-product.html#cb248-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">&quot;Reviews with a Rating of 1 or 5; Top 20&quot;</span>,</span>
+<span id="cb248-11"><a href="case-study-2-reviews-on-product.html#cb248-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Count of occurances within corpus&quot;</span>,</span>
+<span id="cb248-12"><a href="case-study-2-reviews-on-product.html#cb248-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Log odds&quot;</span></span>
+<span id="cb248-13"><a href="case-study-2-reviews-on-product.html#cb248-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb248-14"><a href="case-study-2-reviews-on-product.html#cb248-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">size =</span> <span class="fl">1.2</span>)</span></code></pre></div>
+<p>Above we get a clearer picture of the importance of words between ratings of 1 and 5.</p>
+</div>
+<div id="contributions" class="section level2" number="51.1">
+<h2><span class="header-section-number">51.1</span> Contributions</h2>
+<p>Julia Silge deserves a huge amount of credit for not only a great outline of text analysis within R but also for her inspiration.</p>
+<p>Thank you to the following for your support and guidance: Alex Denison, Loni Hagen, Mary Falling.</p>
+</div>
+<div id="references" class="section level2" number="51.2">
+<h2><span class="header-section-number">51.2</span> References</h2>
+<p>Wickham, H., &amp; Grolemund, G. (2016). <em>R for data science: Import, tidy, transform, visualize, and model data</em> (First edition). O’Reilly.</p>
+<p>Silge, J., &amp; Robinson, D. (2017). <em>Text mining with R: A tidy approach</em> (First edition). O’Reilly.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="import-a-file-from-the-webcloud.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="saving-files.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="mining.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -522,7 +734,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0603_reading-data-into-R.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0701_text-wrangling-mining.Rmd",
 "text": "Edit"
 },
 "history": {

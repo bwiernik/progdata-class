@@ -32,7 +32,7 @@
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="lab-07-make-a-portfolio-piece.html"/>
-<link rel="next" href="the-mighty-unnest_tokens-function.html"/>
+<link rel="next" href="case-study-martin-luther-king-jr.s-speech.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -406,32 +406,30 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="48.1" data-path="text-data.html"><a href="text-data.html#wrangling"><i class="fa fa-check"></i><b>48.1</b> Wrangling</a></li>
 <li class="chapter" data-level="48.2" data-path="text-data.html"><a href="text-data.html#natural-language-processing-nlp---terminology"><i class="fa fa-check"></i><b>48.2</b> Natural Language Processing (NLP) - Terminology</a></li>
+<li class="chapter" data-level="48.3" data-path="text-data.html"><a href="text-data.html#the-mighty-unnest_tokens-function"><i class="fa fa-check"></i><b>48.3</b> The mighty <code>unnest_tokens()</code> function</a></li>
+<li class="chapter" data-level="48.4" data-path="text-data.html"><a href="text-data.html#tidy-data-text-principles"><i class="fa fa-check"></i><b>48.4</b> Tidy <del>data</del> text principles</a></li>
+<li class="chapter" data-level="48.5" data-path="text-data.html"><a href="text-data.html#clean-your-text-grammar-vs.-computers"><i class="fa fa-check"></i><b>48.5</b> Clean your text! Grammar vs. Computers</a></li>
+<li class="chapter" data-level="48.6" data-path="text-data.html"><a href="text-data.html#capitalization"><i class="fa fa-check"></i><b>48.6</b> Capitalization</a></li>
+<li class="chapter" data-level="48.7" data-path="text-data.html"><a href="text-data.html#stemming"><i class="fa fa-check"></i><b>48.7</b> Stemming</a></li>
+<li class="chapter" data-level="48.8" data-path="text-data.html"><a href="text-data.html#regular-expressions-regex-for-urls"><i class="fa fa-check"></i><b>48.8</b> Regular Expressions (Regex) for URLS</a></li>
+<li class="chapter" data-level="48.9" data-path="text-data.html"><a href="text-data.html#counting-words"><i class="fa fa-check"></i><b>48.9</b> Counting words</a></li>
+<li class="chapter" data-level="48.10" data-path="text-data.html"><a href="text-data.html#cant-stop-words-wont-stop-words"><i class="fa fa-check"></i><b>48.10</b> Can’t stop (words) won’t stop (words)</a></li>
+<li class="chapter" data-level="48.11" data-path="text-data.html"><a href="text-data.html#lexicon-based-approach"><i class="fa fa-check"></i><b>48.11</b> Lexicon-based approach</a></li>
 </ul></li>
-<li class="chapter" data-level="49" data-path="the-mighty-unnest_tokens-function.html"><a href="the-mighty-unnest_tokens-function.html"><i class="fa fa-check"></i><b>49</b> The mighty <code>unnest_tokens()</code> function</a>
+<li class="chapter" data-level="49" data-path="case-study-martin-luther-king-jr.s-speech.html"><a href="case-study-martin-luther-king-jr.s-speech.html"><i class="fa fa-check"></i><b>49</b> Case Study: Martin Luther King Jr.’s Speech</a>
 <ul>
-<li class="chapter" data-level="49.1" data-path="the-mighty-unnest_tokens-function.html"><a href="the-mighty-unnest_tokens-function.html#tidy-data-text-principles"><i class="fa fa-check"></i><b>49.1</b> Tidy <del>data</del> text principles</a></li>
+<li class="chapter" data-level="49.1" data-path="case-study-martin-luther-king-jr.s-speech.html"><a href="case-study-martin-luther-king-jr.s-speech.html#wrangle-our-text"><i class="fa fa-check"></i><b>49.1</b> Wrangle our text</a></li>
+<li class="chapter" data-level="49.2" data-path="case-study-martin-luther-king-jr.s-speech.html"><a href="case-study-martin-luther-king-jr.s-speech.html#visualizing-the-words"><i class="fa fa-check"></i><b>49.2</b> Visualizing the words</a></li>
 </ul></li>
-<li class="chapter" data-level="50" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html"><i class="fa fa-check"></i><b>50</b> Clean your text! Grammar vs. Computers</a>
+<li class="chapter" data-level="50" data-path="mining.html"><a href="mining.html"><i class="fa fa-check"></i><b>50</b> Mining</a>
 <ul>
-<li class="chapter" data-level="50.1" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#capitalization"><i class="fa fa-check"></i><b>50.1</b> Capitalization</a></li>
-<li class="chapter" data-level="50.2" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#stemming"><i class="fa fa-check"></i><b>50.2</b> Stemming</a></li>
-<li class="chapter" data-level="50.3" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#regular-expressions-regex-for-urls"><i class="fa fa-check"></i><b>50.3</b> Regular Expressions (Regex) for URLS</a></li>
-<li class="chapter" data-level="50.4" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#counting-words"><i class="fa fa-check"></i><b>50.4</b> Counting words</a></li>
-<li class="chapter" data-level="50.5" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#cant-stop-words-wont-stop-words"><i class="fa fa-check"></i><b>50.5</b> Can’t stop (words) won’t stop (words)</a></li>
-<li class="chapter" data-level="50.6" data-path="clean-your-text-grammar-vs.-computers.html"><a href="clean-your-text-grammar-vs.-computers.html#lexicon-based-approach"><i class="fa fa-check"></i><b>50.6</b> Lexicon-based approach</a></li>
+<li class="chapter" data-level="50.1" data-path="mining.html"><a href="mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>50.1</b> Sentiment Analysis</a></li>
+<li class="chapter" data-level="50.2" data-path="mining.html"><a href="mining.html#metrics-of-text"><i class="fa fa-check"></i><b>50.2</b> Metrics of Text</a></li>
 </ul></li>
-<li class="chapter" data-level="51" data-path="case-study-martin-luther-king-jr.s-speech.html"><a href="case-study-martin-luther-king-jr.s-speech.html"><i class="fa fa-check"></i><b>51</b> Case Study: Martin Luther King Jr.’s Speech</a>
+<li class="chapter" data-level="51" data-path="case-study-2-reviews-on-product.html"><a href="case-study-2-reviews-on-product.html"><i class="fa fa-check"></i><b>51</b> Case Study 2: Reviews on Product</a>
 <ul>
-<li class="chapter" data-level="51.1" data-path="case-study-martin-luther-king-jr.s-speech.html"><a href="case-study-martin-luther-king-jr.s-speech.html#wrangle-our-text"><i class="fa fa-check"></i><b>51.1</b> Wrangle our text</a></li>
-<li class="chapter" data-level="51.2" data-path="case-study-martin-luther-king-jr.s-speech.html"><a href="case-study-martin-luther-king-jr.s-speech.html#visualizing-the-words"><i class="fa fa-check"></i><b>51.2</b> Visualizing the words</a></li>
-</ul></li>
-<li class="chapter" data-level="52" data-path="mining.html"><a href="mining.html"><i class="fa fa-check"></i><b>52</b> Mining</a>
-<ul>
-<li class="chapter" data-level="52.1" data-path="mining.html"><a href="mining.html#sentiment-analysis"><i class="fa fa-check"></i><b>52.1</b> Sentiment Analysis</a></li>
-<li class="chapter" data-level="52.2" data-path="mining.html"><a href="mining.html#metrics-of-text"><i class="fa fa-check"></i><b>52.2</b> Metrics of Text</a></li>
-<li class="chapter" data-level="52.3" data-path="mining.html"><a href="mining.html#case-study-2-reviews-on-product"><i class="fa fa-check"></i><b>52.3</b> Case Study 2: Reviews on Product</a></li>
-<li class="chapter" data-level="52.4" data-path="mining.html"><a href="mining.html#contributions"><i class="fa fa-check"></i><b>52.4</b> Contributions</a></li>
-<li class="chapter" data-level="52.5" data-path="mining.html"><a href="mining.html#references"><i class="fa fa-check"></i><b>52.5</b> References</a></li>
+<li class="chapter" data-level="51.1" data-path="case-study-2-reviews-on-product.html"><a href="case-study-2-reviews-on-product.html#contributions"><i class="fa fa-check"></i><b>51.1</b> Contributions</a></li>
+<li class="chapter" data-level="51.2" data-path="case-study-2-reviews-on-product.html"><a href="case-study-2-reviews-on-product.html#references"><i class="fa fa-check"></i><b>51.2</b> References</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
@@ -483,6 +481,179 @@ Another useful package for text (or string) manipulation is the <code>stringr</c
 </ul>
 <p>Read more about other key terms <a href="https://www.kdnuggets.com/2017/02/natural-language-processing-key-terms-explained.html">here</a>.</p>
 </div>
+<div id="the-mighty-unnest_tokens-function" class="section level2" number="48.3">
+<h2><span class="header-section-number">48.3</span> The mighty <code>unnest_tokens()</code> function</h2>
+<p>Lets look at an example of some text:</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="text-data.html#cb192-1" aria-hidden="true" tabindex="-1"></a>text <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Today and only today is a lovely day to learn about text data and NLP&quot;</span>,</span>
+<span id="cb192-2"><a href="text-data.html#cb192-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;I hope that one day I will be able to apply all of what I learn because learning if cool and fun&quot;</span>,</span>
+<span id="cb192-3"><a href="text-data.html#cb192-3" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;If I were to express my feelings in two words: excitement and anxious&quot;</span>)</span>
+<span id="cb192-4"><a href="text-data.html#cb192-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb192-5"><a href="text-data.html#cb192-5" aria-hidden="true" tabindex="-1"></a>text</span></code></pre></div>
+<p>Now let’s put it into a data frame structure:</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="text-data.html#cb193-1" aria-hidden="true" tabindex="-1"></a>text_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb193-2"><a href="text-data.html#cb193-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">line =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb193-3"><a href="text-data.html#cb193-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">text =</span> text</span>
+<span id="cb193-4"><a href="text-data.html#cb193-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb193-5"><a href="text-data.html#cb193-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb193-6"><a href="text-data.html#cb193-6" aria-hidden="true" tabindex="-1"></a>text_df</span></code></pre></div>
+</div>
+<div id="tidy-data-text-principles" class="section level2" number="48.4">
+<h2><span class="header-section-number">48.4</span> Tidy <del>data</del> text principles</h2>
+<p>The “tidy data” principles apply to text data as well!</p>
+<p>We want our data to have <strong>one-token-per-document-per-row.</strong> In our case, tokens are individual words.</p>
+<p>The main three arguments of <code>unnest_tokens()</code> look like this:</p>
+<pre><code>unnest_tokens(data_frame, new_name_of_column, column_name_in_data_frame)</code></pre>
+<p>or</p>
+<pre><code>data_frame |&gt;
+  unnest_tokens(new_name_of_column, column_name_in_data_frame)</code></pre>
+<p>Let’s take a look at what that looks like:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="text-data.html#cb196-1" aria-hidden="true" tabindex="-1"></a>unnest_df <span class="ot">&lt;-</span> </span>
+<span id="cb196-2"><a href="text-data.html#cb196-2" aria-hidden="true" tabindex="-1"></a>  text_df <span class="sc">|&gt;</span> </span>
+<span id="cb196-3"><a href="text-data.html#cb196-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unnest_tokens</span>(word, text)</span>
+<span id="cb196-4"><a href="text-data.html#cb196-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb196-5"><a href="text-data.html#cb196-5" aria-hidden="true" tabindex="-1"></a>unnest_df</span></code></pre></div>
+<p>I’m sure you’ve noted a few things about our text from using <code>unnest_tokens()</code></p>
+<ul>
+<li><p>Our words are split into a word-per-row</p></li>
+<li><p>We have a way of identifying from which document (<code>line</code>) our words come from</p></li>
+<li><p>Our words are…lower case?</p></li>
+</ul>
+</div>
+<div id="clean-your-text-grammar-vs.-computers" class="section level2" number="48.5">
+<h2><span class="header-section-number">48.5</span> Clean your text! Grammar vs. Computers</h2>
+<p>In English (and broadly all language), we have grammar. Computers don’t. This has big implications.</p>
+<p>We need to make sure that we capture our words (or tokens) as <em>we</em> understand them. Computers don’t know that “Capital Word” is the same thing as “capital word”. They also don’t know that “running” is the same idea as “run”.</p>
+<p>I’m sure you already have thought of practical solutions to some of these problems and guess what? We do exactly that.</p>
+</div>
+<div id="capitalization" class="section level2" number="48.6">
+<h2><span class="header-section-number">48.6</span> Capitalization</h2>
+<p>This one’s pretty easy: we make all our text the same format. Usually lowercase is the format of choice. I like lowercase because then I’m not being yelled at.</p>
+<p><code>unnest_tokens()</code> automatically makes words lowercase. We can change that by specifying <code>to_lower = FALSE</code>. (In the case we are working with URLs.)</p>
+</div>
+<div id="stemming" class="section level2" number="48.7">
+<h2><span class="header-section-number">48.7</span> Stemming</h2>
+<p>For words that have the same “stem” (or root) we can remove the end.</p>
+<p>Example:</p>
+<p>These words:</p>
+<ul>
+<li><p>Consult</p></li>
+<li><p>Consultant</p></li>
+<li><p>Consultants</p></li>
+<li><p>Consulting</p></li>
+<li><p>Consultative</p></li>
+</ul>
+<p>Become:</p>
+<ul>
+<li>Consult</li>
+</ul>
+<p>We can specify this in <code>unnest_tokens()</code> with <code>token =</code> argument. Look at <code>?unnext_tokens()</code> to see the different types of tokens the function offers.</p>
+<p>These grammar vs. computer problems don’t stop here (nor do their solutions).</p>
+</div>
+<div id="regular-expressions-regex-for-urls" class="section level2" number="48.8">
+<h2><span class="header-section-number">48.8</span> Regular Expressions (Regex) for URLS</h2>
+<p>Depending on the text data we are working with, we might either be interested (or not interested) in URLs. Using regular expressions, we can try and detect URLs within our text. Regular expressions are a whole other beast so to keep in scope with the class, here is one example of a regular expression for URLs with a little explanation.</p>
+<pre><code>(http|https)([^\\s]*)</code></pre>
+<ul>
+<li><p>The <code>(http|https)</code> looks for “http” or “http” at the start of a string.</p></li>
+<li><p>The <code>([^\\s]*)</code> means “keep matching until a white space”</p></li>
+</ul>
+<p>Using <code>stringr</code> we can select different <code>str_*</code> functions to aid in our goal.</p>
+<p>Here are a list of texts that have a URL in different places within the string.</p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="text-data.html#cb198-1" aria-hidden="true" tabindex="-1"></a>url_front <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;https://regex101.com/ is an awesome website to check out different regular expressions&quot;</span>)</span>
+<span id="cb198-2"><a href="text-data.html#cb198-2" aria-hidden="true" tabindex="-1"></a>url_middle <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;One of my friends suggested I look at https://www.youtube.com/watch?v=dQw4w9WgXcQ for a good tutorial on regular expressions&quot;</span>)</span>
+<span id="cb198-3"><a href="text-data.html#cb198-3" aria-hidden="true" tabindex="-1"></a>url_back <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Here is a good resource on regex: https://stackoverflow.com/questions/tagged/regex&quot;</span>)</span>
+<span id="cb198-4"><a href="text-data.html#cb198-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb198-5"><a href="text-data.html#cb198-5" aria-hidden="true" tabindex="-1"></a>urls <span class="ot">&lt;-</span> <span class="fu">c</span>(url_front, url_middle, url_back)</span></code></pre></div>
+<p>We can create functions to help us do it!</p>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="text-data.html#cb199-1" aria-hidden="true" tabindex="-1"></a>remove_url <span class="ot">&lt;-</span> <span class="cf">function</span>(text) {</span>
+<span id="cb199-2"><a href="text-data.html#cb199-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Regex</span></span>
+<span id="cb199-3"><a href="text-data.html#cb199-3" aria-hidden="true" tabindex="-1"></a>  url_regex_expression <span class="ot">&lt;-</span> <span class="st">&quot;(http|https)([^</span><span class="sc">\\</span><span class="st">s]*)&quot;</span></span>
+<span id="cb199-4"><a href="text-data.html#cb199-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb199-5"><a href="text-data.html#cb199-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Removes URL</span></span>
+<span id="cb199-6"><a href="text-data.html#cb199-6" aria-hidden="true" tabindex="-1"></a>  text <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_remove</span>(</span>
+<span id="cb199-7"><a href="text-data.html#cb199-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">string =</span> text,</span>
+<span id="cb199-8"><a href="text-data.html#cb199-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pattern =</span> url_regex_expression</span>
+<span id="cb199-9"><a href="text-data.html#cb199-9" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb199-10"><a href="text-data.html#cb199-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb199-11"><a href="text-data.html#cb199-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(text)</span>
+<span id="cb199-12"><a href="text-data.html#cb199-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb199-13"><a href="text-data.html#cb199-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb199-14"><a href="text-data.html#cb199-14" aria-hidden="true" tabindex="-1"></a>extract_url <span class="ot">&lt;-</span> <span class="cf">function</span>(text) {</span>
+<span id="cb199-15"><a href="text-data.html#cb199-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Regex</span></span>
+<span id="cb199-16"><a href="text-data.html#cb199-16" aria-hidden="true" tabindex="-1"></a>  url_regex_expression <span class="ot">&lt;-</span> <span class="st">&quot;(http|https)([^</span><span class="sc">\\</span><span class="st">s]*)&quot;</span></span>
+<span id="cb199-17"><a href="text-data.html#cb199-17" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb199-18"><a href="text-data.html#cb199-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extracts URL</span></span>
+<span id="cb199-19"><a href="text-data.html#cb199-19" aria-hidden="true" tabindex="-1"></a>  text <span class="ot">&lt;-</span> stringr<span class="sc">::</span><span class="fu">str_extract</span>(</span>
+<span id="cb199-20"><a href="text-data.html#cb199-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">string =</span> text,</span>
+<span id="cb199-21"><a href="text-data.html#cb199-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">pattern =</span> url_regex_expression</span>
+<span id="cb199-22"><a href="text-data.html#cb199-22" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb199-23"><a href="text-data.html#cb199-23" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb199-24"><a href="text-data.html#cb199-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(text)</span>
+<span id="cb199-25"><a href="text-data.html#cb199-25" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Putting it all together can call the function either on each individual string…</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="text-data.html#cb200-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Individual URL matching</span></span>
+<span id="cb200-2"><a href="text-data.html#cb200-2" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_url</span>(url_middle)</span>
+<span id="cb200-3"><a href="text-data.html#cb200-3" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_url</span>(url_middle)</span></code></pre></div>
+<p>…or within a list like so:</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="text-data.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Group URL matching</span></span>
+<span id="cb201-2"><a href="text-data.html#cb201-2" aria-hidden="true" tabindex="-1"></a><span class="fu">remove_url</span>(urls)</span>
+<span id="cb201-3"><a href="text-data.html#cb201-3" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_url</span>(urls)</span></code></pre></div>
+</div>
+<div id="counting-words" class="section level2" number="48.9">
+<h2><span class="header-section-number">48.9</span> Counting words</h2>
+<p>Now that we have our tidy text data frame, we can start digging in.</p>
+<p>Let’s add a count of each word:</p>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="text-data.html#cb202-1" aria-hidden="true" tabindex="-1"></a>unnest_df <span class="sc">|&gt;</span> </span>
+<span id="cb202-2"><a href="text-data.html#cb202-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p>But lets work within our sentences (or documents)</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="text-data.html#cb203-1" aria-hidden="true" tabindex="-1"></a>count_df <span class="ot">&lt;-</span> </span>
+<span id="cb203-2"><a href="text-data.html#cb203-2" aria-hidden="true" tabindex="-1"></a>  unnest_df <span class="sc">|&gt;</span> </span>
+<span id="cb203-3"><a href="text-data.html#cb203-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(line) <span class="sc">|&gt;</span></span>
+<span id="cb203-4"><a href="text-data.html#cb203-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(word, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb203-5"><a href="text-data.html#cb203-5" aria-hidden="true" tabindex="-1"></a>count_df</span></code></pre></div>
+<p>Lets look at a (not) very interesting graph of what we have:</p>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="text-data.html#cb204-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb204-2"><a href="text-data.html#cb204-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb204-3"><a href="text-data.html#cb204-3" aria-hidden="true" tabindex="-1"></a>count_df <span class="sc">|&gt;</span> </span>
+<span id="cb204-4"><a href="text-data.html#cb204-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb204-5"><a href="text-data.html#cb204-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">y =</span> n, <span class="at">x =</span> forcats<span class="sc">::</span><span class="fu">fct_reorder</span>(word, n, max)) <span class="sc">+</span> <span class="co"># sort our bars</span></span>
+<span id="cb204-6"><a href="text-data.html#cb204-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb204-7"><a href="text-data.html#cb204-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span> <span class="co"># flip the coords (easier to digest graph)</span></span>
+<span id="cb204-8"><a href="text-data.html#cb204-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> line, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span> <span class="co"># let our y axis be free</span></span>
+<span id="cb204-9"><a href="text-data.html#cb204-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">&quot;word&quot;</span>,</span>
+<span id="cb204-10"><a href="text-data.html#cb204-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;count&quot;</span>)</span></code></pre></div>
+<p>From the graph above, we can see that we have a lot of words that don’t really carry a lot of meaning.</p>
+</div>
+<div id="cant-stop-words-wont-stop-words" class="section level2" number="48.10">
+<h2><span class="header-section-number">48.10</span> Can’t stop (words) won’t stop (words)</h2>
+<p>Not all words are created equal - some words are more important than others. Words like “the”, “a”, “it” don’t have any inherent meaning. Pronouns also may not be meaningful “he”, “their”, “hers”. These are called <strong>stop words</strong></p>
+<p>So what do we do? Get rid of ’em.</p>
+<p>How? We get a stop words data set and <code>anti_join()</code> them. There exists many stop word data sets. These are sometimes called “Lexicons”. You can think of a lexicon as a set of words with a common idea.</p>
+</div>
+<div id="lexicon-based-approach" class="section level2" number="48.11">
+<h2><span class="header-section-number">48.11</span> Lexicon-based approach</h2>
+<p>Some common (and native) stop word data sets (or Lexicons) are:</p>
+<ul>
+<li><p>Onix</p></li>
+<li><p>SMART</p></li>
+<li><p>snowball</p></li>
+</ul>
+<p>These are all within the <code>tidytext</code> package’s <code>stop_words</code> data set.</p>
+<p>This is a glimpse of what it looks like:</p>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="text-data.html#cb205-1" aria-hidden="true" tabindex="-1"></a>tidytext<span class="sc">::</span>stop_words <span class="sc">|&gt;</span> </span>
+<span id="cb205-2"><a href="text-data.html#cb205-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>()</span></code></pre></div>
+<p>Now let’s remove our stop words.</p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="text-data.html#cb206-1" aria-hidden="true" tabindex="-1"></a>unnest_df <span class="ot">&lt;-</span> </span>
+<span id="cb206-2"><a href="text-data.html#cb206-2" aria-hidden="true" tabindex="-1"></a>  count_df <span class="sc">|&gt;</span> </span>
+<span id="cb206-3"><a href="text-data.html#cb206-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">anti_join</span>(stop_words, <span class="at">by =</span> <span class="st">&quot;word&quot;</span>)</span></code></pre></div>
+<p>Here we can see our words with substance.</p>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="text-data.html#cb207-1" aria-hidden="true" tabindex="-1"></a>unnest_df <span class="sc">|&gt;</span> </span>
+<span id="cb207-2"><a href="text-data.html#cb207-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb207-3"><a href="text-data.html#cb207-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> word, <span class="at">y =</span> n) <span class="sc">+</span></span>
+<span id="cb207-4"><a href="text-data.html#cb207-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>() <span class="sc">+</span></span>
+<span id="cb207-5"><a href="text-data.html#cb207-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> line, <span class="at">scale =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb207-6"><a href="text-data.html#cb207-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+</div>
 </div>
             </section>
 
@@ -490,7 +661,7 @@ Another useful package for text (or string) manipulation is the <code>stringr</c
         </div>
       </div>
 <a href="lab-07-make-a-portfolio-piece.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-mighty-unnest_tokens-function.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="case-study-martin-luther-king-jr.s-speech.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
