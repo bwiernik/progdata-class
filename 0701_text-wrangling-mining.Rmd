@@ -627,7 +627,7 @@ To do this we can use the weighted log-odds ratio. Let's break down what "weight
 Odds ratio, simply, is the ratio of something happening divided by that thing not happening.
 
 $$
-Odds\ Ratio = \frac{x\ happening_{1960s}}{x\ not\ happening_{1960s}} \div \frac{x\ happening_{other}}{x\ not\ happening_{other}}
+Odds\ Ratio = \frac{x\ happening}{x\ not\ happening}
 $$
 
 This is different from probability. Probability can be thought of the ratio of x happening with *all* possible happenings.
@@ -643,7 +643,7 @@ Reason being, it allows for some pretty nice behavior like:
 -   Transforms our range to be between $[-\infty, \infty]$
 
 $$
-log(Odds\ Ratio) = log(\frac{x\ happening_{1960s}}{x\ not\ happening_{1960s}}) - log(\frac{x\ happening_{other}}{x\ not\ happening_{other}})
+log(Odds\ Ratio) = log(\frac{x\ happening}{x\ not\ happening})
 $$
 
 #### Weighted log-odds ratio
