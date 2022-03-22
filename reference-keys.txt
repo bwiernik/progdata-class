@@ -274,3 +274,12 @@ by-rating-1
 weighted-log-odds-1
 contributions
 references
+all-the-plot-things
+basic-elements-of-ggplot
+changing-the-stat
+customizing-plots
+scales
+position-scales
+arguments
+color-scales
+arguments-1

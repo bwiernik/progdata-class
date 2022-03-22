@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 35 File input/output (I/O) | Programming with Data</title>
-  <meta name="description" content="Part 35 File input/output (I/O) | Programming with Data" />
+  <title>Part 52 All the plot things | Programming with Data</title>
+  <meta name="description" content="Part 52 All the plot things | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 35 File input/output (I/O) | Programming with Data" />
+  <meta property="og:title" content="Part 52 All the plot things | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 35 File input/output (I/O) | Programming with Data" />
+  <meta name="twitter:title" content="Part 52 All the plot things | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="lab-06-join-those-tables.html"/>
-<link rel="next" href="filesystems-and-paths.html"/>
+<link rel="prev" href="case-study-2-reviews-on-product.html"/>
+
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -458,39 +458,424 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="file-inputoutput-io" class="section level1" number="35">
-<h1><span class="header-section-number">Part 35</span> File input/output (I/O)</h1>
-<p>Today’s class is all about reading into R and writing out data files out
-of R.</p>
-<p>Because sometimes you want to work with your own damn data, instead of
-data about penguins, cars, life expectancy, or the Big Five personality
-scores of 2800 of your closest friends.</p>
-<div id="resources-5" class="section level2" number="35.1">
-<h2><span class="header-section-number">35.1</span> Resources</h2>
-<div id="references-and-tutorials" class="section level3" number="35.1.1">
-<h3><span class="header-section-number">35.1.1</span> References and tutorials</h3>
+<div id="all-the-plot-things" class="section level1" number="52">
+<h1><span class="header-section-number">Part 52</span> All the plot things</h1>
+<p>So far in class, we’ve made a bunch of ggplots, but we haven’t paid much attention to making them <strong>beautiful</strong>.
+For the next few sessions, we’ll explore how we can customize the look and feel of our plots to make them (1) aesthetically appealing and engaging, (2) informative, and (3) accessible.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="all-the-plot-things.html#cb249-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb249-2"><a href="all-the-plot-things.html#cb249-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb249-3"><a href="all-the-plot-things.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
+<div id="basic-elements-of-ggplot" class="section level2" number="52.1">
+<h2><span class="header-section-number">52.1</span> Basic elements of ggplot</h2>
+<ol style="list-style-type: decimal">
+<li>Data</li>
+<li>Aesthetics (mapping)</li>
+<li>Geoms</li>
+<li>Facets</li>
+<li>Stats</li>
+</ol>
+</div>
+<div id="changing-the-stat" class="section level2" number="52.2">
+<h2><span class="header-section-number">52.2</span> Changing the <code>stat</code></h2>
+<p>In the process of connecting data -&gt; mapping, there is some <strong>statistical computation</strong>.
+In many cases, this computation is <code>identity()</code>. For example, with <code>geom_point()</code>, it plots the points directly based on <code>x</code> and <code>y</code> values.
+Other times, there is more of a computation.</p>
 <ul>
-<li>Jenny Bryan’s <a href="https://stat545.com/import-export.html">notes</a> on
-file I/O</li>
-<li><a href="https://beanumber.github.io/sds192/lab-import.html#data_from_an_excel_file">Tutorial</a>
-on importing Excel files</li>
-<li><a href="http://jenrichmond.rbind.io/post/how-to-use-the-here-package/">Tutorial</a>
-on relative paths and how RStudio treats .R script files and .Rmd
-files</li>
+<li><code>stat_count()</code></li>
+<li><code>stat_bin()</code></li>
+<li><code>stat_density()</code></li>
+</ul>
+<p><code>geom_*()</code> functions usually come with a reasonable default <code>stat_*()</code> and subsequent mapping.
+For example, <code>geom_histogram()</code> does <code>stat_bin()</code> to bin the continuous values, then <code>aes()</code> maps <code>y</code> to the count in each bin.</p>
+<p>But sometimes you might want to change this mapping after the stat.
+Do that with <code>after_stat()</code> inside <code>aes()</code>.</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="all-the-plot-things.html#cb250-1" aria-hidden="true" tabindex="-1"></a>bw <span class="ot">&lt;-</span> .<span class="dv">3</span></span>
+<span id="cb250-2"><a href="all-the-plot-things.html#cb250-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-3"><a href="all-the-plot-things.html#cb250-3" aria-hidden="true" tabindex="-1"></a>h1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
+<span id="cb250-4"><a href="all-the-plot-things.html#cb250-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ) <span class="sc">+</span></span>
+<span id="cb250-5"><a href="all-the-plot-things.html#cb250-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> bw, <span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>)</span>
+<span id="cb250-6"><a href="all-the-plot-things.html#cb250-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-7"><a href="all-the-plot-things.html#cb250-7" aria-hidden="true" tabindex="-1"></a><span class="do">## histogram with density</span></span>
+<span id="cb250-8"><a href="all-the-plot-things.html#cb250-8" aria-hidden="true" tabindex="-1"></a>h2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
+<span id="cb250-9"><a href="all-the-plot-things.html#cb250-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ) <span class="sc">+</span></span>
+<span id="cb250-10"><a href="all-the-plot-things.html#cb250-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb250-11"><a href="all-the-plot-things.html#cb250-11" aria-hidden="true" tabindex="-1"></a>                 <span class="at">binwidth =</span> bw, <span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>)</span>
+<span id="cb250-12"><a href="all-the-plot-things.html#cb250-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-13"><a href="all-the-plot-things.html#cb250-13" aria-hidden="true" tabindex="-1"></a><span class="do">## histogram with proportion</span></span>
+<span id="cb250-14"><a href="all-the-plot-things.html#cb250-14" aria-hidden="true" tabindex="-1"></a>h3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
+<span id="cb250-15"><a href="all-the-plot-things.html#cb250-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> displ) <span class="sc">+</span></span>
+<span id="cb250-16"><a href="all-the-plot-things.html#cb250-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count <span class="sc">/</span> <span class="fu">sum</span>(count))),</span>
+<span id="cb250-17"><a href="all-the-plot-things.html#cb250-17" aria-hidden="true" tabindex="-1"></a>                 <span class="at">binwidth =</span> bw, <span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>)</span>
+<span id="cb250-18"><a href="all-the-plot-things.html#cb250-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-19"><a href="all-the-plot-things.html#cb250-19" aria-hidden="true" tabindex="-1"></a>h1 <span class="sc">+</span> h2 <span class="sc">+</span> h3</span>
+<span id="cb250-20"><a href="all-the-plot-things.html#cb250-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-21"><a href="all-the-plot-things.html#cb250-21" aria-hidden="true" tabindex="-1"></a><span class="do">## histogram with density curve</span></span>
+<span id="cb250-22"><a href="all-the-plot-things.html#cb250-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg) <span class="sc">+</span></span>
+<span id="cb250-23"><a href="all-the-plot-things.html#cb250-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(displ) <span class="sc">+</span></span>
+<span id="cb250-24"><a href="all-the-plot-things.html#cb250-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count)), </span>
+<span id="cb250-25"><a href="all-the-plot-things.html#cb250-25" aria-hidden="true" tabindex="-1"></a>                   <span class="at">binwidth =</span> bw, <span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb250-26"><a href="all-the-plot-things.html#cb250-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_density</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(count) <span class="sc">*</span> bw)) <span class="sc">+</span></span>
+<span id="cb250-27"><a href="all-the-plot-things.html#cb250-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div>
+</div>
+<div id="customizing-plots" class="section level2" number="52.3">
+<h2><span class="header-section-number">52.3</span> Customizing plots!</h2>
+<p>You can customize all sorts of stuff in your ggplot plots!</p>
+<ol style="list-style-type: decimal">
+<li>Scales</li>
+</ol>
+<ul>
+<li>x and y</li>
+<li>Colors</li>
+<li>Shapes</li>
+<li>Line types</li>
+<li>Alpha</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Guides</li>
+</ol>
+<ul>
+<li>Legend (legend, bins, colorbar, colorsteps)</li>
+<li>Axis</li>
+<li>None</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Text</li>
+</ol>
+<ul>
+<li>Axis labels</li>
+<li>Geom labels</li>
+<li>Annotations</li>
+<li>Titles and captions</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>Themes (design features)</li>
+</ol>
+<ul>
+<li>Background</li>
+<li>Grid lines</li>
+<li>Text styling</li>
+<li>Alignment</li>
+</ul>
+<div id="scales" class="section level3" number="52.3.1">
+<h3><span class="header-section-number">52.3.1</span> Scales</h3>
+<p>A ggplot is constructed with a flow like this:</p>
+<blockquote>
+<p>data -&gt; stat -&gt; scale -&gt; mapping -&gt; render</p>
+</blockquote>
+<p>The “scale” step concerns how the computed data/stat corresponds to numbers/values on the plot (e.g., “20 mpg” corresponds to a point “3 units up on the y axis”; “4 cylinder” corresponds to “blue”).</p>
+<p>You control how values are scaled using the <code>scale_*()</code> functions.
+Almost every aesthetic you can map to data (e.g., <code>x</code>, <code>y</code>, <code>color</code>, <code>fill</code>, <code>alpha</code>, <code>linetype</code>, <code>shape</code>, <code>size</code>, <code>radius</code>) has corresponding scale functions.</p>
+<p>These functions all have the following form:</p>
+<blockquote>
+<p><code>scale_[aesthetic]_[type]</code></p>
+</blockquote>
+<p>The <code>scale_*()</code> functions include many arguments to control various features of the scale, depending on the aesthetic.</p>
+<div id="position-scales" class="section level4" number="52.3.1.1">
+<h4><span class="header-section-number">52.3.1.1</span> Position scales</h4>
+<p>The scales for <code>x</code> and <code>y</code> control positioning, limits, breaks, labels, titles, etc. of the axes.</p>
+<ul>
+<li><code>scale_x_continuous()</code></li>
+<li><code>scale_x_discrete()</code></li>
+<li><code>scale_x_binned()</code></li>
+</ul>
+<div id="arguments" class="section level5" number="52.3.1.1.1">
+<h5><span class="header-section-number">52.3.1.1.1</span> Arguments</h5>
+<ol style="list-style-type: decimal">
+<li><code>name()</code></li>
+</ol>
+<ul>
+<li>The name of the scale. Used for the axis/legend title.</li>
+<li>Give multiple scales the same name to combine them.</li>
+<li><code>scale_x_continuous(name = "MPG")</code></li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><code>breaks</code></li>
+</ol>
+<ul>
+<li>Where to break the scale (e.g., where to bin or where to place labeled tick marks)</li>
+<li>To override the default computed breaks, pass a vector of values</li>
+<li>(There are more advanced options as well)</li>
+<li><code>scale_x_continuous(name = "MPG", breaks = c(0, 10, 20, 30))</code></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><code>labels</code></li>
+</ol>
+<ul>
+<li>Override the existing axis labels</li>
+<li>Usually given as a function that transforms the text</li>
+<li>e.g.,
+<ul>
+<li>Numbers and Dates
+<ul>
+<li><code>scales::label_percent</code></li>
+<li><code>scales::label_dollar</code></li>
+<li><code>scales::label_date</code></li>
+<li><code>scales::label_comma</code></li>
+<li><code>scales::label_pvalue</code></li>
+</ul></li>
+<li>Text
+<ul>
+<li><code>stringr::str_to_upper</code></li>
+<li><code>stringr::str_to_sentence</code></li>
+<li><code>scales::label_parse</code> / <code>scales::label_math</code></li>
+</ul></li>
+</ul></li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><code>limits</code></li>
+</ol>
+<ul>
+<li>The minimum and maximum values for the scale</li>
+<li>e.g., <code>scale_x_continuous(limits = c(40, 100))</code></li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li><code>oob</code></li>
+</ol>
+<ul>
+<li>What to do with values outside the <code>limits</code></li>
+<li>Defaults
+<ul>
+<li>Continuous: <code>scales::oob_censor</code></li>
+<li>Binned: <code>scales::oob_squish</code></li>
+</ul></li>
+<li><code>scales::oob_keep</code>: Like zooming, don’t remove or change values.</li>
+</ul>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="all-the-plot-things.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
+<span id="cb251-2"><a href="all-the-plot-things.html#cb251-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
+<span id="cb251-3"><a href="all-the-plot-things.html#cb251-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> hp, <span class="at">y =</span> mpg, </span>
+<span id="cb251-4"><a href="all-the-plot-things.html#cb251-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">factor</span>(cyl), </span>
+<span id="cb251-5"><a href="all-the-plot-things.html#cb251-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> hp <span class="sc">&gt;</span> <span class="dv">200</span></span>
+<span id="cb251-6"><a href="all-the-plot-things.html#cb251-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb251-7"><a href="all-the-plot-things.html#cb251-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
+<span id="cb251-8"><a href="all-the-plot-things.html#cb251-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb251-9"><a href="all-the-plot-things.html#cb251-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">200</span>), </span>
+<span id="cb251-10"><a href="all-the-plot-things.html#cb251-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">oob =</span> scales<span class="sc">::</span>oob_squish</span>
+<span id="cb251-11"><a href="all-the-plot-things.html#cb251-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<ol start="6" style="list-style-type: decimal">
+<li><code>trans</code></li>
+</ol>
+<ul>
+<li>A transformation function to apply to each value of the scales</li>
+<li>Must be a quoted function name</li>
+<li>e.g., “sqrt” or “rev” or “log10”</li>
+<li><code>scale_x_continuous(trans = "sqrt")</code></li>
+<li><code>scale_x_sqrt()</code>, <code>scale_x_reverse()</code>, and <code>scale_x_log10()</code> are shortcuts</li>
+</ul>
+<ol start="7" style="list-style-type: decimal">
+<li><code>position</code></li>
+</ol>
+<ul>
+<li>“top”, “bottom”, “left”, or “right”</li>
+<li>Can also be set in <code>guide_axis()</code></li>
+</ul>
+<ol start="8" style="list-style-type: decimal">
+<li><code>guide</code></li>
+</ol>
+<ul>
+<li>A function controlling formatting of the guide</li>
+<li>I usually set in <code>guides()</code> instead</li>
+</ul>
+<ol start="9" style="list-style-type: decimal">
+<li><code>na.translate</code></li>
+</ol>
+<ul>
+<li>TRUE or FALSE, for discrete scales, plot NA?</li>
+<li><code>scale_x_discrete(na.translate = FALSE)</code></li>
+</ul>
+<ol start="10" style="list-style-type: decimal">
+<li><code>na.value</code></li>
+</ol>
+<ul>
+<li>What value to replace <code>NA</code> with.</li>
+<li><code>scale_x_discrete(na.translate = TRUE, na.value = "(Missing)")</code></li>
 </ul>
 </div>
-<div id="package-documentation" class="section level3" number="35.1.2">
-<h3><span class="header-section-number">35.1.2</span> Package documentation</h3>
+</div>
+<div id="color-scales" class="section level4" number="52.3.1.2">
+<h4><span class="header-section-number">52.3.1.2</span> Color scales</h4>
+<p>There are a variety of ways to specify colors in R, as well as several nice built-in color palletes.</p>
+<p>Some resources on color tools in R:</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf">R color cheatsheet</a></li>
+<li><a href="https://colorspace.r-forge.r-project.org/articles/colorspace.html">colorspace package</a></li>
+<li><a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/">R cookbook colors</a></li>
+<li><a href="https://www.datanovia.com/en/blog/ggplot-colors-best-tricks-you-will-love/">Another nice ggplot color guide</a></li>
+<li><a href="http://colormind.io/">Colormind</a></li>
+<li><a href="https://coolors.co/">coolors</a></li>
+<li><a href="https://colordesigner.io/">Color Designer</a></li>
+</ol>
+<p>Reminder:</p>
 <ul>
-<li><a href="https://readr.tidyverse.org/reference/read_delim.html">readr::read_csv()</a></li>
-<li><a href="https://readxl.tidyverse.org/reference/read_excel.html">readxl::read_excel()</a></li>
-<li><a href="https://googlesheets4.tidyverse.org/reference/read_sheet.html">googlesheets4::read_sheet()</a></li>
-<li><a href="https://haven.tidyverse.org/">haven</a> package for importing SPSS,
-SAS, Stata files</li>
-<li><a href="https://cloud.r-project.org/web/packages/rio/vignettes/rio.html">rio::import()</a> for importing all manner of formats with one command!</li>
-<li><a href="https://here.r-lib.org">here::here()</a></li>
+<li><code>color</code>: The outline color for lines/points/regions</li>
+<li><code>fill</code>: The fill color for regions and point-shapes with a filling (shapes 21-25)</li>
 </ul>
+<p>The color scale functions you should use in ggplot all have the following form:</p>
+<blockquote>
+<p><code>scale_[aesthetic]_[type + pallete]</code></p>
+</blockquote>
+<p>For example:</p>
+<p><strong>Custom Gradients, Color Wheels, and Palettes</strong>
+- Continuous: <code>scale_color_gradient()</code>
+- Continuous: <code>scale_color_gradient2()</code>
+- Continuous: <code>scale_color_gradientn()</code></p>
+<ul>
+<li><p>Binned: <code>scale_color_steps()</code></p></li>
+<li><p>Binned: <code>scale_color_steps2()</code></p></li>
+<li><p>Binned: <code>scale_color_stepsn()</code></p></li>
+<li><p>Discrete: <code>scale_color_hue()</code></p></li>
+<li><p>Discrete: <code>scale_color_manual()</code></p></li>
+</ul>
+<p><strong>Viridis</strong>
+- Continuous: <code>scale_color_viridis_c()</code>
+- Binned: <code>scale_color_viridis_b()</code>
+- Discrete: <code>scale_color_viridis_d()</code></p>
+<p><strong>Color Brewer</strong>
+- Discrete: <code>scale_color_brewer()</code>
+- Continuous: <code>scale_color_distiller()</code>
+- Binned: <code>scale_color_fermenter()</code></p>
+<p><strong>Greyscale</strong>
+- <code>scale_color_grey()</code></p>
+<p><strong>ggthemes</strong>
+- <code>ggthemes::scale_color_excel()</code>
+- <code>ggthemes::economist()</code>
+- <code>ggthemes::scale_color_fivethirtyeight()</code>
+- <code>ggthemes::scale_color_colorblind()</code></p>
+<p><strong>Other packages</strong>
+- <em>wesanderson</em>
+- <em>ggsci</em></p>
+<div id="arguments-1" class="section level5" number="52.3.1.2.1">
+<h5><span class="header-section-number">52.3.1.2.1</span> Arguments</h5>
+<p>All of the arguments that can be used with position scales can also be used with color scales.</p>
+<ol style="list-style-type: decimal">
+<li><code>name</code></li>
+<li><code>breaks</code></li>
+<li><code>labels</code></li>
+<li><code>limits</code></li>
+<li><code>oob</code></li>
+<li><code>trans</code></li>
+<li><code>position</code></li>
+<li><code>guide</code></li>
+<li><code>na.translate</code></li>
+<li><code>na.value</code></li>
+</ol>
+<p><strong>Color-specific arguments</strong></p>
+<p>Color scale functions also have arguments to control how the palettes are constructed.
+The exact arguments vary by scale function.
+Let’s look at a few.</p>
+<p><code>scale_color_viridis_*()</code></p>
+<ol style="list-style-type: decimal">
+<li><code>begin</code> and <code>end</code></li>
+</ol>
+<ul>
+<li>Values between 0 and 1 saying where on the scale to start and stop.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><code>direction</code></li>
+</ol>
+<ul>
+<li>Which end to start from?</li>
+<li>1 or -1</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><code>option</code></li>
+</ol>
+<ul>
+<li>Which of the viridis family palettes to use?</li>
+<li>“A”, “B”, “C”, “D”, “E”</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><code>aesthetics</code></li>
+</ol>
+<ul>
+<li>Which aesthetics to apply the palette to?</li>
+<li>Useful to do <code>aesthetics = c("color", "fill")</code></li>
+</ul>
+<p><code>scale_color_brewer()</code></p>
+<ol style="list-style-type: decimal">
+<li><code>direction</code></li>
+</ol>
+<ul>
+<li>Which end to start from?</li>
+<li>1 or -1</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><code>type</code></li>
+</ol>
+<ul>
+<li>Which kind of color scale to use?</li>
+<li>“seq” (sequential), “div” (diverging), “qual” (qualitative)</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><code>palette</code></li>
+</ol>
+<ul>
+<li>Which specific palette to use?</li>
+<li>Can be a number or one of the named palettes (see <code>?scale_color_brewer()</code>)</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li><code>aesthetics</code></li>
+</ol>
+<p><code>scale_color_manual()</code></p>
+<p>For specifying your own discrete palettes.</p>
+<ol style="list-style-type: decimal">
+<li><code>values</code></li>
+</ol>
+<ul>
+<li>A character vector of colors names or hex codes to use.</li>
+<li>If the vector has names, it will match data values to names.</li>
+<li>Must be at least as long as the number of unique values.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><code>aesthetics</code></li>
+</ol>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="all-the-plot-things.html#cb252-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
+<span id="cb252-2"><a href="all-the-plot-things.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(mpg, wt) <span class="sc">+</span></span>
+<span id="cb252-3"><a href="all-the-plot-things.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb252-4"><a href="all-the-plot-things.html#cb252-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl)), </span>
+<span id="cb252-5"><a href="all-the-plot-things.html#cb252-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">8</span></span>
+<span id="cb252-6"><a href="all-the-plot-things.html#cb252-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb252-7"><a href="all-the-plot-things.html#cb252-7" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;4&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;6&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;8&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkgreen&quot;</span>))</span>
+<span id="cb252-8"><a href="all-the-plot-things.html#cb252-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb252-9"><a href="all-the-plot-things.html#cb252-9" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">palette.colors</span>(<span class="st">&quot;Okabe-Ito&quot;</span>, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb252-10"><a href="all-the-plot-things.html#cb252-10" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span>
+<span id="cb252-11"><a href="all-the-plot-things.html#cb252-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb252-12"><a href="all-the-plot-things.html#cb252-12" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">palette.colors</span>(<span class="st">&quot;R4&quot;</span>, <span class="at">n =</span> <span class="dv">4</span>)</span>
+<span id="cb252-13"><a href="all-the-plot-things.html#cb252-13" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span></code></pre></div>
+<p><code>scale_color_gradient()</code></p>
+<p>For specifying your own gradient.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="all-the-plot-things.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_gradient</span>(</span>
+<span id="cb253-2"><a href="all-the-plot-things.html#cb253-2" aria-hidden="true" tabindex="-1"></a>  ...,</span>
+<span id="cb253-3"><a href="all-the-plot-things.html#cb253-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">low =</span> <span class="st">&quot;#132B43&quot;</span>,</span>
+<span id="cb253-4"><a href="all-the-plot-things.html#cb253-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">high =</span> <span class="st">&quot;#56B1F7&quot;</span>,</span>
+<span id="cb253-5"><a href="all-the-plot-things.html#cb253-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.value =</span> <span class="st">&quot;grey50&quot;</span>,</span>
+<span id="cb253-6"><a href="all-the-plot-things.html#cb253-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">aesthetics =</span> <span class="st">&quot;colour&quot;</span></span>
+<span id="cb253-7"><a href="all-the-plot-things.html#cb253-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb253-8"><a href="all-the-plot-things.html#cb253-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-9"><a href="all-the-plot-things.html#cb253-9" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_gradient2</span>(</span>
+<span id="cb253-10"><a href="all-the-plot-things.html#cb253-10" aria-hidden="true" tabindex="-1"></a>  ...,</span>
+<span id="cb253-11"><a href="all-the-plot-things.html#cb253-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">low =</span> <span class="fu">muted</span>(<span class="st">&quot;red&quot;</span>),</span>
+<span id="cb253-12"><a href="all-the-plot-things.html#cb253-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">mid =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb253-13"><a href="all-the-plot-things.html#cb253-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">high =</span> <span class="fu">muted</span>(<span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb253-14"><a href="all-the-plot-things.html#cb253-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">midpoint =</span> <span class="dv">0</span>,</span>
+<span id="cb253-15"><a href="all-the-plot-things.html#cb253-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.value =</span> <span class="st">&quot;grey50&quot;</span>,</span>
+<span id="cb253-16"><a href="all-the-plot-things.html#cb253-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">aesthetics =</span> <span class="st">&quot;colour&quot;</span></span>
+<span id="cb253-17"><a href="all-the-plot-things.html#cb253-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb253-18"><a href="all-the-plot-things.html#cb253-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-19"><a href="all-the-plot-things.html#cb253-19" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_gradientn</span>(</span>
+<span id="cb253-20"><a href="all-the-plot-things.html#cb253-20" aria-hidden="true" tabindex="-1"></a>  ...,</span>
+<span id="cb253-21"><a href="all-the-plot-things.html#cb253-21" aria-hidden="true" tabindex="-1"></a>  colours,</span>
+<span id="cb253-22"><a href="all-the-plot-things.html#cb253-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="cn">NULL</span>,</span>
+<span id="cb253-23"><a href="all-the-plot-things.html#cb253-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.value =</span> <span class="st">&quot;grey50&quot;</span>,</span>
+<span id="cb253-24"><a href="all-the-plot-things.html#cb253-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">aesthetics =</span> <span class="st">&quot;colour&quot;</span>,</span>
+<span id="cb253-25"><a href="all-the-plot-things.html#cb253-25" aria-hidden="true" tabindex="-1"></a>  colors</span>
+<span id="cb253-26"><a href="all-the-plot-things.html#cb253-26" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><code>scale_color_identity()</code></p>
+<p>A special scale.
+It doesn’t map colors to a specific value, but uses the variable values directly.
+Useful if you want to store the color codes directly in the data.</p>
 
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -499,8 +884,8 @@ SAS, Stata files</li>
           </div>
         </div>
       </div>
-<a href="lab-06-join-those-tables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="filesystems-and-paths.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="case-study-2-reviews-on-product.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -531,7 +916,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0601_input-output.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0801_plot-perfection.Rmd",
 "text": "Edit"
 },
 "history": {
