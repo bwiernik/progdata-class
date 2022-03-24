@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 30 Multivariate pivoting | Programming with Data</title>
-  <meta name="description" content="Part 30 Multivariate pivoting | Programming with Data" />
+  <title>Part 58 Color scales | Programming with Data</title>
+  <meta name="description" content="Part 58 Color scales | Programming with Data" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 30 Multivariate pivoting | Programming with Data" />
+  <meta property="og:title" content="Part 58 Color scales | Programming with Data" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 30 Multivariate pivoting | Programming with Data" />
+  <meta name="twitter:title" content="Part 58 Color scales | Programming with Data" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="lab-5a-univariate-pivoting.html"/>
-<link rel="next" href="lab-5b-multivariate-pivoting.html"/>
+<link rel="prev" href="position-scales.html"/>
+<link rel="next" href="shape-scales.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -475,107 +475,188 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="multivariate-pivoting" class="section level1" number="30">
-<h1><span class="header-section-number">Part 30</span> Multivariate pivoting</h1>
-<p>Now let’s consider the case when more than one variable are “out of place”.
-Perhaps there are multiple variables per row and/or multiple observations per row.</p>
-<div id="multiple-variables-in-column-names" class="section level2" number="30.1">
-<h2><span class="header-section-number">30.1</span> Multiple variables in column names</h2>
-<p>Consider this subset of the <code>who</code> data:</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="multivariate-pivoting.html#cb140-1" aria-hidden="true" tabindex="-1"></a>WHO <span class="ot">&lt;-</span> who <span class="sc">|&gt;</span></span>
-<span id="cb140-2"><a href="multivariate-pivoting.html#cb140-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(country<span class="sc">:</span>year, <span class="fu">starts_with</span>(<span class="st">&quot;new_&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb140-3"><a href="multivariate-pivoting.html#cb140-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename_with</span>(<span class="sc">~</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(.x, <span class="st">&quot;f&quot;</span>, <span class="st">&quot;f_&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;new_&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb140-4"><a href="multivariate-pivoting.html#cb140-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename_with</span>(<span class="sc">~</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(.x, <span class="st">&quot;m&quot;</span>, <span class="st">&quot;m_&quot;</span>), <span class="fu">starts_with</span>(<span class="st">&quot;new_&quot;</span>))</span>
-<span id="cb140-5"><a href="multivariate-pivoting.html#cb140-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(WHO, <span class="at">rownames =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<p><code>country</code>, <code>iso2</code>, <code>iso3</code>, and <code>year</code> are already variables, so they can be left as is.
-But the columns from <code>new_sp_m_014</code> to <code>new_ep_f_65</code> encode four variables in their names:</p>
+<div id="color-scales" class="section level1" number="58">
+<h1><span class="header-section-number">Part 58</span> Color scales</h1>
+<p>There are a variety of ways to specify colors in R, as well as several nice built-in color palletes.</p>
+<p>Some resources on color tools in R:</p>
+<ol style="list-style-type: decimal">
+<li><a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf">R color cheatsheet</a></li>
+<li><a href="https://colorspace.r-forge.r-project.org/articles/colorspace.html">colorspace package</a></li>
+<li><a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/">R cookbook colors</a></li>
+<li><a href="https://www.datanovia.com/en/blog/ggplot-colors-best-tricks-you-will-love/">Another nice ggplot color guide</a></li>
+<li><a href="http://colormind.io/">Colormind</a></li>
+<li><a href="https://coolors.co/">coolors</a></li>
+<li><a href="https://colordesigner.io/">Color Designer</a></li>
+</ol>
+<p>Reminder:</p>
 <ul>
-<li><p>The <code>new</code> prefix indicates these are counts of new cases (versus total cases).
-This dataset only contains new cases, so we’ll ignore it here because it’s constant.</p></li>
-<li><p><code>sp</code>/<code>rel</code>/<code>ep</code> describe how the case was diagnosed.</p></li>
-<li><p><code>m</code>/<code>f</code> gives the gender.</p></li>
-<li><p><code>014</code>/<code>1524</code>/<code>2535</code>/<code>3544</code>/<code>4554</code>/<code>65</code> supplies the age range.</p></li>
+<li><code>color</code>: The outline color for lines/points/regions</li>
+<li><code>fill</code>: The fill color for regions and point-shapes with a filling (shapes 21-25)</li>
 </ul>
-<p>We can break these variables up by specifying multiple column names in <code>names_to</code>, and then providing <code>names_sep</code>.</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="multivariate-pivoting.html#cb141-1" aria-hidden="true" tabindex="-1"></a>WHO <span class="sc">|&gt;</span> <span class="fu">pivot_longer</span>(</span>
-<span id="cb141-2"><a href="multivariate-pivoting.html#cb141-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> new_sp_m_014<span class="sc">:</span>new_ep_f_65,</span>
-<span id="cb141-3"><a href="multivariate-pivoting.html#cb141-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;diagnosis&quot;</span>, <span class="st">&quot;gender&quot;</span>, <span class="st">&quot;age&quot;</span>), </span>
-<span id="cb141-4"><a href="multivariate-pivoting.html#cb141-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_prefix =</span> <span class="st">&quot;new_&quot;</span>,</span>
-<span id="cb141-5"><a href="multivariate-pivoting.html#cb141-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb141-6"><a href="multivariate-pivoting.html#cb141-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;count&quot;</span></span>
-<span id="cb141-7"><a href="multivariate-pivoting.html#cb141-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>In the <code>names_to</code> argument, we now tell it the names of the new columns that will store each part of the existing column names.
-We give the column names in order corresponding to how they appear in the existing column names.</p>
-<p>As with univariate pivoting, <code>values_to</code> gives the name of the new column that will store the cell values.</p>
-</div>
-<div id="multiple-variables-in-column-names-1" class="section level2" number="30.2">
-<h2><span class="header-section-number">30.2</span> Multiple variables in column names</h2>
-<p>Consider these family data.</p>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="multivariate-pivoting.html#cb142-1" aria-hidden="true" tabindex="-1"></a>fam_dat <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
-<span id="cb142-2"><a href="multivariate-pivoting.html#cb142-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>family,  <span class="sc">~</span>dob_child1,  <span class="sc">~</span>dob_child2, <span class="sc">~</span>gender_child1, <span class="sc">~</span>gender_child2,</span>
-<span id="cb142-3"><a href="multivariate-pivoting.html#cb142-3" aria-hidden="true" tabindex="-1"></a>       1L, <span class="st">&quot;1998-11-26&quot;</span>, <span class="st">&quot;2000-01-29&quot;</span>,             1L,             2L,</span>
-<span id="cb142-4"><a href="multivariate-pivoting.html#cb142-4" aria-hidden="true" tabindex="-1"></a>       2L, <span class="st">&quot;1996-06-22&quot;</span>,           <span class="cn">NA</span>,             2L,             <span class="cn">NA</span>,</span>
-<span id="cb142-5"><a href="multivariate-pivoting.html#cb142-5" aria-hidden="true" tabindex="-1"></a>       3L, <span class="st">&quot;2002-07-11&quot;</span>, <span class="st">&quot;2004-04-05&quot;</span>,             2L,             2L,</span>
-<span id="cb142-6"><a href="multivariate-pivoting.html#cb142-6" aria-hidden="true" tabindex="-1"></a>       4L, <span class="st">&quot;2004-10-10&quot;</span>, <span class="st">&quot;2009-08-27&quot;</span>,             1L,             1L,</span>
-<span id="cb142-7"><a href="multivariate-pivoting.html#cb142-7" aria-hidden="true" tabindex="-1"></a>       5L, <span class="st">&quot;2000-12-05&quot;</span>, <span class="st">&quot;2005-02-28&quot;</span>,             2L,             1L,</span>
-<span id="cb142-8"><a href="multivariate-pivoting.html#cb142-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb142-9"><a href="multivariate-pivoting.html#cb142-9" aria-hidden="true" tabindex="-1"></a>fam_dat <span class="ot">&lt;-</span> fam_dat <span class="sc">|&gt;</span> <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">starts_with</span>(<span class="st">&quot;dob&quot;</span>)), parse_date)</span>
-<span id="cb142-10"><a href="multivariate-pivoting.html#cb142-10" aria-hidden="true" tabindex="-1"></a>fam_dat</span></code></pre></div>
-<p>In these data, we have two pieces of information (or values) for each child: their <code>gender</code> and their <code>dob</code> (date of birth).
-These need to go into separate columns in the result.
-Again we supply multiple variables to <code>names_to</code>, using <code>names_sep</code> to split up each variable name.</p>
-<p>The <code>names_to</code> vector gives the names of the new columns that will store each part of the existing column names.
-We give the column names in order corresponding to how they appear in the existing column names.</p>
-<p>Note the special name <code>.value</code>:</p>
-<p><code>.value</code> takes the place of the <code>values_to</code> argument.
-It tells <code>pivot_longer()</code> to get the name of the column that will hold the cell values from that part of the existing column name.</p>
-<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="multivariate-pivoting.html#cb143-1" aria-hidden="true" tabindex="-1"></a>fam_dat <span class="sc">|&gt;</span> </span>
-<span id="cb143-2"><a href="multivariate-pivoting.html#cb143-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb143-3"><a href="multivariate-pivoting.html#cb143-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>family,</span>
-<span id="cb143-4"><a href="multivariate-pivoting.html#cb143-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;.value&quot;</span>, <span class="st">&quot;child&quot;</span>), </span>
-<span id="cb143-5"><a href="multivariate-pivoting.html#cb143-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
-<span id="cb143-6"><a href="multivariate-pivoting.html#cb143-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
-<span id="cb143-7"><a href="multivariate-pivoting.html#cb143-7" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<p>Let’s also clean up the <code>child</code> column:</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="multivariate-pivoting.html#cb144-1" aria-hidden="true" tabindex="-1"></a>fam_dat_long <span class="ot">&lt;-</span> fam_dat <span class="sc">|&gt;</span> </span>
-<span id="cb144-2"><a href="multivariate-pivoting.html#cb144-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb144-3"><a href="multivariate-pivoting.html#cb144-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>family,</span>
-<span id="cb144-4"><a href="multivariate-pivoting.html#cb144-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">&quot;.value&quot;</span>, <span class="st">&quot;child&quot;</span>), </span>
-<span id="cb144-5"><a href="multivariate-pivoting.html#cb144-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>, </span>
-<span id="cb144-6"><a href="multivariate-pivoting.html#cb144-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_drop_na =</span> <span class="cn">TRUE</span></span>
-<span id="cb144-7"><a href="multivariate-pivoting.html#cb144-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span> </span>
-<span id="cb144-8"><a href="multivariate-pivoting.html#cb144-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">child =</span> stringr<span class="sc">::</span><span class="fu">str_replace</span>(child, <span class="st">&quot;child&quot;</span>, <span class="st">&quot;&quot;</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb144-9"><a href="multivariate-pivoting.html#cb144-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">child =</span> <span class="fu">as.integer</span>(child))</span></code></pre></div>
-</div>
-<div id="pivot_wider-1" class="section level2" number="30.3">
-<h2><span class="header-section-number">30.3</span> <code>pivot_wider()</code></h2>
-<p>You can also <code>pivot_wider()</code> while using multiple columns to supply variable names:</p>
+<p>The color scale functions you should use in ggplot all have the following form:</p>
+<blockquote>
+<p><code>scale_[aesthetic]_[type + pallete]</code></p>
+</blockquote>
+<p>For example:</p>
+<p><strong>Custom Gradients, Color Wheels, and Palettes</strong>
+- Continuous: <code>scale_color_gradient()</code>
+- Continuous: <code>scale_color_gradient2()</code>
+- Continuous: <code>scale_color_gradientn()</code></p>
 <ul>
-<li><code>id_cols</code>: as usual.</li>
-<li><code>names_from</code>: the new variable names are coming from old columns. Which old columns?</li>
-<li><code>names_sep</code>: What character should you separate the entries of the old columns by?</li>
-<li><code>values_from</code>: as usual.</li>
+<li><p>Binned: <code>scale_color_steps()</code></p></li>
+<li><p>Binned: <code>scale_color_steps2()</code></p></li>
+<li><p>Binned: <code>scale_color_stepsn()</code></p></li>
+<li><p>Discrete: <code>scale_color_hue()</code></p></li>
+<li><p>Discrete: <code>scale_color_manual()</code></p></li>
 </ul>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="multivariate-pivoting.html#cb145-1" aria-hidden="true" tabindex="-1"></a>fam_dat_long <span class="sc">|&gt;</span> </span>
-<span id="cb145-2"><a href="multivariate-pivoting.html#cb145-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols     =</span> family,</span>
-<span id="cb145-3"><a href="multivariate-pivoting.html#cb145-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from  =</span> <span class="fu">c</span>(child, gender), </span>
-<span id="cb145-4"><a href="multivariate-pivoting.html#cb145-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;child&quot;</span>,</span>
-<span id="cb145-5"><a href="multivariate-pivoting.html#cb145-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_sep   =</span> <span class="st">&quot;_gender&quot;</span>, </span>
-<span id="cb145-6"><a href="multivariate-pivoting.html#cb145-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> dob)</span></code></pre></div>
-<p>Or using multiple columns to supply new values:</p>
-<p>If variables are spread out amongst rows <em>and</em> columns (for example, “sepal width” has “sepal” in a column, and “width” as a column name), here’s how we can use <code>pivot_wider()</code>:</p>
+<p><strong>Viridis</strong>
+- Continuous: <code>scale_color_viridis_c()</code>
+- Binned: <code>scale_color_viridis_b()</code>
+- Discrete: <code>scale_color_viridis_d()</code></p>
+<p><strong>Color Brewer</strong>
+- Discrete: <code>scale_color_brewer()</code>
+- Continuous: <code>scale_color_distiller()</code>
+- Binned: <code>scale_color_fermenter()</code></p>
+<p><strong>Greyscale</strong>
+- <code>scale_color_grey()</code></p>
+<p><strong>ggthemes</strong>
+- <code>ggthemes::scale_color_excel()</code>
+- <code>ggthemes::economist()</code>
+- <code>ggthemes::scale_color_fivethirtyeight()</code>
+- <code>ggthemes::scale_color_colorblind()</code></p>
+<p><strong>Other packages</strong>
+- <em>wesanderson</em>
+- <em>ggsci</em></p>
+<div id="arguments-1" class="section level2" number="58.1">
+<h2><span class="header-section-number">58.1</span> Arguments</h2>
+<p>All of the arguments that can be used with position scales can also be used with color scales.</p>
+<ol style="list-style-type: decimal">
+<li><code>name</code></li>
+<li><code>breaks</code></li>
+<li><code>labels</code></li>
+<li><code>limits</code></li>
+<li><code>oob</code></li>
+<li><code>trans</code></li>
+<li><code>position</code></li>
+<li><code>guide</code></li>
+<li><code>na.translate</code></li>
+<li><code>na.value</code></li>
+</ol>
+<p><strong>Color-specific arguments</strong></p>
+<p>Color scale functions also have arguments to control how the palettes are constructed.
+The exact arguments vary by scale function.
+Let’s look at a few.</p>
+<p><code>scale_color_viridis_*()</code></p>
+<ol style="list-style-type: decimal">
+<li><code>begin</code> and <code>end</code></li>
+</ol>
 <ul>
-<li><code>id_cols</code>: as usual</li>
-<li><code>names_from</code>: Which column contains the part of the variable?</li>
-<li><code>names_sep</code>: As before, what character should you separate the entries of the old columns by?</li>
-<li><code>values_from</code>: Which column names contain the other part of the variable?</li>
+<li>Values between 0 and 1 saying where on the scale to start and stop.</li>
 </ul>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="multivariate-pivoting.html#cb146-1" aria-hidden="true" tabindex="-1"></a>fam_dat_long <span class="sc">|&gt;</span> </span>
-<span id="cb146-2"><a href="multivariate-pivoting.html#cb146-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols     =</span> family, </span>
-<span id="cb146-3"><a href="multivariate-pivoting.html#cb146-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_from  =</span> child,</span>
-<span id="cb146-4"><a href="multivariate-pivoting.html#cb146-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_prefix =</span> <span class="st">&quot;child&quot;</span>,</span>
-<span id="cb146-5"><a href="multivariate-pivoting.html#cb146-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">names_sep   =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb146-6"><a href="multivariate-pivoting.html#cb146-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> <span class="fu">c</span>(dob, gender))</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li><code>direction</code></li>
+</ol>
+<ul>
+<li>Which end to start from?</li>
+<li>1 or -1</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><code>option</code></li>
+</ol>
+<ul>
+<li>Which of the viridis family palettes to use?</li>
+<li>“A”, “B”, “C”, “D”, “E”</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><code>aesthetics</code></li>
+</ol>
+<ul>
+<li>Which aesthetics to apply the palette to?</li>
+<li>Useful to do <code>aesthetics = c("color", "fill")</code></li>
+</ul>
+<p><code>scale_color_brewer()</code></p>
+<ol style="list-style-type: decimal">
+<li><code>direction</code></li>
+</ol>
+<ul>
+<li>Which end to start from?</li>
+<li>1 or -1</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><code>type</code></li>
+</ol>
+<ul>
+<li>Which kind of color scale to use?</li>
+<li>“seq” (sequential), “div” (diverging), “qual” (qualitative)</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li><code>palette</code></li>
+</ol>
+<ul>
+<li>Which specific palette to use?</li>
+<li>Can be a number or one of the named palettes (see <code>?scale_color_brewer()</code>)</li>
+</ul>
+<ol start="5" style="list-style-type: decimal">
+<li><code>aesthetics</code></li>
+</ol>
+<p><code>scale_color_manual()</code></p>
+<p>For specifying your own discrete palettes.</p>
+<ol style="list-style-type: decimal">
+<li><code>values</code></li>
+</ol>
+<ul>
+<li>A character vector of colors names or hex codes to use.</li>
+<li>If the vector has names, it will match data values to names.</li>
+<li>Must be at least as long as the number of unique values.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><code>aesthetics</code></li>
+</ol>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="color-scales.html#cb252-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
+<span id="cb252-2"><a href="color-scales.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(mpg, wt) <span class="sc">+</span></span>
+<span id="cb252-3"><a href="color-scales.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb252-4"><a href="color-scales.html#cb252-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl)), </span>
+<span id="cb252-5"><a href="color-scales.html#cb252-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">8</span></span>
+<span id="cb252-6"><a href="color-scales.html#cb252-6" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb252-7"><a href="color-scales.html#cb252-7" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;4&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;6&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;8&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkgreen&quot;</span>))</span>
+<span id="cb252-8"><a href="color-scales.html#cb252-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb252-9"><a href="color-scales.html#cb252-9" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">palette.colors</span>(<span class="st">&quot;Okabe-Ito&quot;</span>, <span class="at">n =</span> <span class="dv">10</span>)</span>
+<span id="cb252-10"><a href="color-scales.html#cb252-10" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span>
+<span id="cb252-11"><a href="color-scales.html#cb252-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb252-12"><a href="color-scales.html#cb252-12" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">palette.colors</span>(<span class="st">&quot;R4&quot;</span>, <span class="at">n =</span> <span class="dv">4</span>)</span>
+<span id="cb252-13"><a href="color-scales.html#cb252-13" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span></code></pre></div>
+<p><code>scale_color_gradient()</code></p>
+<p>For specifying your own gradient.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="color-scales.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_gradient</span>(</span>
+<span id="cb253-2"><a href="color-scales.html#cb253-2" aria-hidden="true" tabindex="-1"></a>  ...,</span>
+<span id="cb253-3"><a href="color-scales.html#cb253-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">low =</span> <span class="st">&quot;#132B43&quot;</span>,</span>
+<span id="cb253-4"><a href="color-scales.html#cb253-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">high =</span> <span class="st">&quot;#56B1F7&quot;</span>,</span>
+<span id="cb253-5"><a href="color-scales.html#cb253-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.value =</span> <span class="st">&quot;grey50&quot;</span>,</span>
+<span id="cb253-6"><a href="color-scales.html#cb253-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">aesthetics =</span> <span class="st">&quot;colour&quot;</span></span>
+<span id="cb253-7"><a href="color-scales.html#cb253-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb253-8"><a href="color-scales.html#cb253-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-9"><a href="color-scales.html#cb253-9" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_gradient2</span>(</span>
+<span id="cb253-10"><a href="color-scales.html#cb253-10" aria-hidden="true" tabindex="-1"></a>  ...,</span>
+<span id="cb253-11"><a href="color-scales.html#cb253-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">low =</span> <span class="fu">muted</span>(<span class="st">&quot;red&quot;</span>),</span>
+<span id="cb253-12"><a href="color-scales.html#cb253-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">mid =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb253-13"><a href="color-scales.html#cb253-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">high =</span> <span class="fu">muted</span>(<span class="st">&quot;blue&quot;</span>),</span>
+<span id="cb253-14"><a href="color-scales.html#cb253-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">midpoint =</span> <span class="dv">0</span>,</span>
+<span id="cb253-15"><a href="color-scales.html#cb253-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.value =</span> <span class="st">&quot;grey50&quot;</span>,</span>
+<span id="cb253-16"><a href="color-scales.html#cb253-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">aesthetics =</span> <span class="st">&quot;colour&quot;</span></span>
+<span id="cb253-17"><a href="color-scales.html#cb253-17" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb253-18"><a href="color-scales.html#cb253-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb253-19"><a href="color-scales.html#cb253-19" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_gradientn</span>(</span>
+<span id="cb253-20"><a href="color-scales.html#cb253-20" aria-hidden="true" tabindex="-1"></a>  ...,</span>
+<span id="cb253-21"><a href="color-scales.html#cb253-21" aria-hidden="true" tabindex="-1"></a>  colours,</span>
+<span id="cb253-22"><a href="color-scales.html#cb253-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="cn">NULL</span>,</span>
+<span id="cb253-23"><a href="color-scales.html#cb253-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.value =</span> <span class="st">&quot;grey50&quot;</span>,</span>
+<span id="cb253-24"><a href="color-scales.html#cb253-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">aesthetics =</span> <span class="st">&quot;colour&quot;</span>,</span>
+<span id="cb253-25"><a href="color-scales.html#cb253-25" aria-hidden="true" tabindex="-1"></a>  colors</span>
+<span id="cb253-26"><a href="color-scales.html#cb253-26" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><code>scale_color_identity()</code></p>
+<p>A special scale.
+It doesn’t map colors to a specific value, but uses the variable values directly.
+Useful if you want to store the color codes directly in the data.</p>
 
 </div>
 </div>
@@ -584,8 +665,8 @@ It tells <code>pivot_longer()</code> to get the name of the column that will hol
           </div>
         </div>
       </div>
-<a href="lab-5a-univariate-pivoting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lab-5b-multivariate-pivoting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="position-scales.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="shape-scales.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -616,7 +697,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0405_multivariate-pivoting.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0801_plot-perfection.Rmd",
 "text": "Edit"
 },
 "history": {

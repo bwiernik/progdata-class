@@ -32,7 +32,7 @@
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link rel="prev" href="customizing-plots.html"/>
-<link rel="next" href="customizing-plots-1.html"/>
+<link rel="next" href="position-scales.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -436,24 +436,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="53" data-path="basic-elements-of-ggplot.html"><a href="basic-elements-of-ggplot.html"><i class="fa fa-check"></i><b>53</b> Basic elements of ggplot</a></li>
 <li class="chapter" data-level="54" data-path="changing-the-stat.html"><a href="changing-the-stat.html"><i class="fa fa-check"></i><b>54</b> Changing the <code>stat</code></a></li>
 <li class="chapter" data-level="55" data-path="customizing-plots.html"><a href="customizing-plots.html"><i class="fa fa-check"></i><b>55</b> Customizing plots!</a></li>
-<li class="chapter" data-level="56" data-path="scales.html"><a href="scales.html"><i class="fa fa-check"></i><b>56</b> Scales</a>
+<li class="chapter" data-level="56" data-path="scales.html"><a href="scales.html"><i class="fa fa-check"></i><b>56</b> Scales</a></li>
+<li class="chapter" data-level="57" data-path="position-scales.html"><a href="position-scales.html"><i class="fa fa-check"></i><b>57</b> Position scales</a>
 <ul>
-<li class="chapter" data-level="56.1" data-path="scales.html"><a href="scales.html#position-scales"><i class="fa fa-check"></i><b>56.1</b> Position scales</a></li>
-<li class="chapter" data-level="56.2" data-path="scales.html"><a href="scales.html#color-scales"><i class="fa fa-check"></i><b>56.2</b> Color scales</a></li>
+<li class="chapter" data-level="57.1" data-path="position-scales.html"><a href="position-scales.html#arguments"><i class="fa fa-check"></i><b>57.1</b> Arguments</a></li>
 </ul></li>
-<li class="chapter" data-level="57" data-path="customizing-plots-1.html"><a href="customizing-plots-1.html"><i class="fa fa-check"></i><b>57</b> Customizing plots!</a></li>
-<li class="chapter" data-level="58" data-path="scales-1.html"><a href="scales-1.html"><i class="fa fa-check"></i><b>58</b> Scales</a>
+<li class="chapter" data-level="58" data-path="color-scales.html"><a href="color-scales.html"><i class="fa fa-check"></i><b>58</b> Color scales</a>
 <ul>
-<li class="chapter" data-level="58.1" data-path="scales-1.html"><a href="scales-1.html#shape-scales"><i class="fa fa-check"></i><b>58.1</b> Shape scales</a></li>
-<li class="chapter" data-level="58.2" data-path="scales-1.html"><a href="scales-1.html#linetype-scales"><i class="fa fa-check"></i><b>58.2</b> Linetype scales</a></li>
-<li class="chapter" data-level="58.3" data-path="scales-1.html"><a href="scales-1.html#alpha-and-size-scales"><i class="fa fa-check"></i><b>58.3</b> Alpha and size scales</a></li>
+<li class="chapter" data-level="58.1" data-path="color-scales.html"><a href="color-scales.html#arguments-1"><i class="fa fa-check"></i><b>58.1</b> Arguments</a></li>
 </ul></li>
-<li class="chapter" data-level="59" data-path="guides.html"><a href="guides.html"><i class="fa fa-check"></i><b>59</b> Guides</a>
+<li class="chapter" data-level="59" data-path="shape-scales.html"><a href="shape-scales.html"><i class="fa fa-check"></i><b>59</b> Shape scales</a></li>
+<li class="chapter" data-level="60" data-path="linetype-scales.html"><a href="linetype-scales.html"><i class="fa fa-check"></i><b>60</b> Linetype scales</a></li>
+<li class="chapter" data-level="61" data-path="alpha-and-size-scales.html"><a href="alpha-and-size-scales.html"><i class="fa fa-check"></i><b>61</b> Alpha and size scales</a></li>
+<li class="chapter" data-level="62" data-path="guides.html"><a href="guides.html"><i class="fa fa-check"></i><b>62</b> Guides</a></li>
+<li class="chapter" data-level="63" data-path="legend-guides.html"><a href="legend-guides.html"><i class="fa fa-check"></i><b>63</b> Legend guides</a>
 <ul>
-<li class="chapter" data-level="59.1" data-path="guides.html"><a href="guides.html#legend-guide-options"><i class="fa fa-check"></i><b>59.1</b> Legend guide options</a></li>
-<li class="chapter" data-level="59.2" data-path="guides.html"><a href="guides.html#axis-guides"><i class="fa fa-check"></i><b>59.2</b> Axis guides</a></li>
-<li class="chapter" data-level="59.3" data-path="guides.html"><a href="guides.html#hide-guides"><i class="fa fa-check"></i><b>59.3</b> Hide guides</a></li>
+<li class="chapter" data-level="63.1" data-path="legend-guides.html"><a href="legend-guides.html#legend-arguments"><i class="fa fa-check"></i><b>63.1</b> Legend arguments</a></li>
 </ul></li>
+<li class="chapter" data-level="64" data-path="axis-guides.html"><a href="axis-guides.html"><i class="fa fa-check"></i><b>64</b> Axis guides</a></li>
+<li class="chapter" data-level="65" data-path="hide-guides.html"><a href="hide-guides.html"><i class="fa fa-check"></i><b>65</b> Hide guides</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown.</a></li>
 
@@ -488,315 +489,6 @@ Almost every aesthetic you can map to data (e.g., <code>x</code>, <code>y</code>
 <p><code>scale_[aesthetic]_[type]</code></p>
 </blockquote>
 <p>The <code>scale_*()</code> functions include many arguments to control various features of the scale, depending on the aesthetic.</p>
-<div id="position-scales" class="section level2" number="56.1">
-<h2><span class="header-section-number">56.1</span> Position scales</h2>
-<p>The scales for <code>x</code> and <code>y</code> control positioning, limits, breaks, labels, titles, etc. of the axes.</p>
-<ul>
-<li><code>scale_x_continuous()</code></li>
-<li><code>scale_x_discrete()</code></li>
-<li><code>scale_x_binned()</code></li>
-</ul>
-<div id="arguments" class="section level3" number="56.1.1">
-<h3><span class="header-section-number">56.1.1</span> Arguments</h3>
-<ol style="list-style-type: decimal">
-<li><code>name()</code></li>
-</ol>
-<ul>
-<li>The name of the scale. Used for the axis/legend title.</li>
-<li>Give multiple scales the same name to combine them.</li>
-<li><code>scale_x_continuous(name = "MPG")</code></li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li><code>breaks</code></li>
-</ol>
-<ul>
-<li>Where to break the scale (e.g., where to bin or where to place labeled tick marks)</li>
-<li>To override the default computed breaks, pass a vector of values</li>
-<li>(There are more advanced options as well)</li>
-<li><code>scale_x_continuous(name = "MPG", breaks = c(0, 10, 20, 30))</code></li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li><code>labels</code></li>
-</ol>
-<ul>
-<li>Override the existing axis labels</li>
-<li>Usually given as a function that transforms the text</li>
-<li>e.g.,
-<ul>
-<li>Numbers and Dates
-<ul>
-<li><code>scales::label_percent</code></li>
-<li><code>scales::label_dollar</code></li>
-<li><code>scales::label_date</code></li>
-<li><code>scales::label_comma</code></li>
-<li><code>scales::label_pvalue</code></li>
-</ul></li>
-<li>Text
-<ul>
-<li><code>stringr::str_to_upper</code></li>
-<li><code>stringr::str_to_sentence</code></li>
-<li><code>scales::label_parse</code> / <code>scales::label_math</code></li>
-</ul></li>
-</ul></li>
-</ul>
-<ol start="4" style="list-style-type: decimal">
-<li><code>limits</code></li>
-</ol>
-<ul>
-<li>The minimum and maximum values for the scale</li>
-<li>e.g., <code>scale_x_continuous(limits = c(40, 100))</code></li>
-</ul>
-<ol start="5" style="list-style-type: decimal">
-<li><code>oob</code></li>
-</ol>
-<ul>
-<li>What to do with values outside the <code>limits</code></li>
-<li>Defaults
-<ul>
-<li>Continuous: <code>scales::oob_censor</code></li>
-<li>Binned: <code>scales::oob_squish</code></li>
-</ul></li>
-<li><code>scales::oob_keep</code>: Like zooming, don’t remove or change values.</li>
-</ul>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="scales.html#cb251-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> </span>
-<span id="cb251-2"><a href="scales.html#cb251-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(</span>
-<span id="cb251-3"><a href="scales.html#cb251-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> hp, <span class="at">y =</span> mpg, </span>
-<span id="cb251-4"><a href="scales.html#cb251-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="fu">factor</span>(cyl), </span>
-<span id="cb251-5"><a href="scales.html#cb251-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">shape =</span> hp <span class="sc">&gt;</span> <span class="dv">200</span></span>
-<span id="cb251-6"><a href="scales.html#cb251-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb251-7"><a href="scales.html#cb251-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span> </span>
-<span id="cb251-8"><a href="scales.html#cb251-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(</span>
-<span id="cb251-9"><a href="scales.html#cb251-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">200</span>), </span>
-<span id="cb251-10"><a href="scales.html#cb251-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">oob =</span> scales<span class="sc">::</span>oob_squish</span>
-<span id="cb251-11"><a href="scales.html#cb251-11" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
-<ol start="6" style="list-style-type: decimal">
-<li><code>trans</code></li>
-</ol>
-<ul>
-<li>A transformation function to apply to each value of the scales</li>
-<li>Must be a quoted function name</li>
-<li>e.g., “sqrt” or “rev” or “log10”</li>
-<li><code>scale_x_continuous(trans = "sqrt")</code></li>
-<li><code>scale_x_sqrt()</code>, <code>scale_x_reverse()</code>, and <code>scale_x_log10()</code> are shortcuts</li>
-</ul>
-<ol start="7" style="list-style-type: decimal">
-<li><code>position</code></li>
-</ol>
-<ul>
-<li>“top”, “bottom”, “left”, or “right”</li>
-<li>Can also be set in <code>guide_axis()</code></li>
-</ul>
-<ol start="8" style="list-style-type: decimal">
-<li><code>guide</code></li>
-</ol>
-<ul>
-<li>A function controlling formatting of the guide</li>
-<li>I usually set in <code>guides()</code> instead</li>
-</ul>
-<ol start="9" style="list-style-type: decimal">
-<li><code>na.translate</code></li>
-</ol>
-<ul>
-<li>TRUE or FALSE, for discrete scales, plot NA?</li>
-<li><code>scale_x_discrete(na.translate = FALSE)</code></li>
-</ul>
-<ol start="10" style="list-style-type: decimal">
-<li><code>na.value</code></li>
-</ol>
-<ul>
-<li>What value to replace <code>NA</code> with.</li>
-<li><code>scale_x_discrete(na.translate = TRUE, na.value = "(Missing)")</code></li>
-</ul>
-</div>
-</div>
-<div id="color-scales" class="section level2" number="56.2">
-<h2><span class="header-section-number">56.2</span> Color scales</h2>
-<p>There are a variety of ways to specify colors in R, as well as several nice built-in color palletes.</p>
-<p>Some resources on color tools in R:</p>
-<ol style="list-style-type: decimal">
-<li><a href="https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf">R color cheatsheet</a></li>
-<li><a href="https://colorspace.r-forge.r-project.org/articles/colorspace.html">colorspace package</a></li>
-<li><a href="http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/">R cookbook colors</a></li>
-<li><a href="https://www.datanovia.com/en/blog/ggplot-colors-best-tricks-you-will-love/">Another nice ggplot color guide</a></li>
-<li><a href="http://colormind.io/">Colormind</a></li>
-<li><a href="https://coolors.co/">coolors</a></li>
-<li><a href="https://colordesigner.io/">Color Designer</a></li>
-</ol>
-<p>Reminder:</p>
-<ul>
-<li><code>color</code>: The outline color for lines/points/regions</li>
-<li><code>fill</code>: The fill color for regions and point-shapes with a filling (shapes 21-25)</li>
-</ul>
-<p>The color scale functions you should use in ggplot all have the following form:</p>
-<blockquote>
-<p><code>scale_[aesthetic]_[type + pallete]</code></p>
-</blockquote>
-<p>For example:</p>
-<p><strong>Custom Gradients, Color Wheels, and Palettes</strong>
-- Continuous: <code>scale_color_gradient()</code>
-- Continuous: <code>scale_color_gradient2()</code>
-- Continuous: <code>scale_color_gradientn()</code></p>
-<ul>
-<li><p>Binned: <code>scale_color_steps()</code></p></li>
-<li><p>Binned: <code>scale_color_steps2()</code></p></li>
-<li><p>Binned: <code>scale_color_stepsn()</code></p></li>
-<li><p>Discrete: <code>scale_color_hue()</code></p></li>
-<li><p>Discrete: <code>scale_color_manual()</code></p></li>
-</ul>
-<p><strong>Viridis</strong>
-- Continuous: <code>scale_color_viridis_c()</code>
-- Binned: <code>scale_color_viridis_b()</code>
-- Discrete: <code>scale_color_viridis_d()</code></p>
-<p><strong>Color Brewer</strong>
-- Discrete: <code>scale_color_brewer()</code>
-- Continuous: <code>scale_color_distiller()</code>
-- Binned: <code>scale_color_fermenter()</code></p>
-<p><strong>Greyscale</strong>
-- <code>scale_color_grey()</code></p>
-<p><strong>ggthemes</strong>
-- <code>ggthemes::scale_color_excel()</code>
-- <code>ggthemes::economist()</code>
-- <code>ggthemes::scale_color_fivethirtyeight()</code>
-- <code>ggthemes::scale_color_colorblind()</code></p>
-<p><strong>Other packages</strong>
-- <em>wesanderson</em>
-- <em>ggsci</em></p>
-<div id="arguments-1" class="section level3" number="56.2.1">
-<h3><span class="header-section-number">56.2.1</span> Arguments</h3>
-<p>All of the arguments that can be used with position scales can also be used with color scales.</p>
-<ol style="list-style-type: decimal">
-<li><code>name</code></li>
-<li><code>breaks</code></li>
-<li><code>labels</code></li>
-<li><code>limits</code></li>
-<li><code>oob</code></li>
-<li><code>trans</code></li>
-<li><code>position</code></li>
-<li><code>guide</code></li>
-<li><code>na.translate</code></li>
-<li><code>na.value</code></li>
-</ol>
-<p><strong>Color-specific arguments</strong></p>
-<p>Color scale functions also have arguments to control how the palettes are constructed.
-The exact arguments vary by scale function.
-Let’s look at a few.</p>
-<p><code>scale_color_viridis_*()</code></p>
-<ol style="list-style-type: decimal">
-<li><code>begin</code> and <code>end</code></li>
-</ol>
-<ul>
-<li>Values between 0 and 1 saying where on the scale to start and stop.</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li><code>direction</code></li>
-</ol>
-<ul>
-<li>Which end to start from?</li>
-<li>1 or -1</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li><code>option</code></li>
-</ol>
-<ul>
-<li>Which of the viridis family palettes to use?</li>
-<li>“A”, “B”, “C”, “D”, “E”</li>
-</ul>
-<ol start="4" style="list-style-type: decimal">
-<li><code>aesthetics</code></li>
-</ol>
-<ul>
-<li>Which aesthetics to apply the palette to?</li>
-<li>Useful to do <code>aesthetics = c("color", "fill")</code></li>
-</ul>
-<p><code>scale_color_brewer()</code></p>
-<ol style="list-style-type: decimal">
-<li><code>direction</code></li>
-</ol>
-<ul>
-<li>Which end to start from?</li>
-<li>1 or -1</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li><code>type</code></li>
-</ol>
-<ul>
-<li>Which kind of color scale to use?</li>
-<li>“seq” (sequential), “div” (diverging), “qual” (qualitative)</li>
-</ul>
-<ol start="4" style="list-style-type: decimal">
-<li><code>palette</code></li>
-</ol>
-<ul>
-<li>Which specific palette to use?</li>
-<li>Can be a number or one of the named palettes (see <code>?scale_color_brewer()</code>)</li>
-</ul>
-<ol start="5" style="list-style-type: decimal">
-<li><code>aesthetics</code></li>
-</ol>
-<p><code>scale_color_manual()</code></p>
-<p>For specifying your own discrete palettes.</p>
-<ol style="list-style-type: decimal">
-<li><code>values</code></li>
-</ol>
-<ul>
-<li>A character vector of colors names or hex codes to use.</li>
-<li>If the vector has names, it will match data values to names.</li>
-<li>Must be at least as long as the number of unique values.</li>
-</ul>
-<ol start="2" style="list-style-type: decimal">
-<li><code>aesthetics</code></li>
-</ol>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="scales.html#cb252-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mtcars) <span class="sc">+</span></span>
-<span id="cb252-2"><a href="scales.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(mpg, wt) <span class="sc">+</span></span>
-<span id="cb252-3"><a href="scales.html#cb252-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb252-4"><a href="scales.html#cb252-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">colour =</span> <span class="fu">factor</span>(cyl)), </span>
-<span id="cb252-5"><a href="scales.html#cb252-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="dv">8</span></span>
-<span id="cb252-6"><a href="scales.html#cb252-6" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb252-7"><a href="scales.html#cb252-7" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">&quot;4&quot;</span> <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="st">&quot;6&quot;</span> <span class="ot">=</span> <span class="st">&quot;blue&quot;</span>, <span class="st">&quot;8&quot;</span> <span class="ot">=</span> <span class="st">&quot;darkgreen&quot;</span>))</span>
-<span id="cb252-8"><a href="scales.html#cb252-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-9"><a href="scales.html#cb252-9" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">palette.colors</span>(<span class="st">&quot;Okabe-Ito&quot;</span>, <span class="at">n =</span> <span class="dv">10</span>)</span>
-<span id="cb252-10"><a href="scales.html#cb252-10" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span>
-<span id="cb252-11"><a href="scales.html#cb252-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb252-12"><a href="scales.html#cb252-12" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">palette.colors</span>(<span class="st">&quot;R4&quot;</span>, <span class="at">n =</span> <span class="dv">4</span>)</span>
-<span id="cb252-13"><a href="scales.html#cb252-13" aria-hidden="true" tabindex="-1"></a>p <span class="sc">+</span> <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> pal)</span></code></pre></div>
-<p><code>scale_color_gradient()</code></p>
-<p>For specifying your own gradient.</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="scales.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_gradient</span>(</span>
-<span id="cb253-2"><a href="scales.html#cb253-2" aria-hidden="true" tabindex="-1"></a>  ...,</span>
-<span id="cb253-3"><a href="scales.html#cb253-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">low =</span> <span class="st">&quot;#132B43&quot;</span>,</span>
-<span id="cb253-4"><a href="scales.html#cb253-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">high =</span> <span class="st">&quot;#56B1F7&quot;</span>,</span>
-<span id="cb253-5"><a href="scales.html#cb253-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.value =</span> <span class="st">&quot;grey50&quot;</span>,</span>
-<span id="cb253-6"><a href="scales.html#cb253-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">aesthetics =</span> <span class="st">&quot;colour&quot;</span></span>
-<span id="cb253-7"><a href="scales.html#cb253-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb253-8"><a href="scales.html#cb253-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb253-9"><a href="scales.html#cb253-9" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_gradient2</span>(</span>
-<span id="cb253-10"><a href="scales.html#cb253-10" aria-hidden="true" tabindex="-1"></a>  ...,</span>
-<span id="cb253-11"><a href="scales.html#cb253-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">low =</span> <span class="fu">muted</span>(<span class="st">&quot;red&quot;</span>),</span>
-<span id="cb253-12"><a href="scales.html#cb253-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">mid =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb253-13"><a href="scales.html#cb253-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">high =</span> <span class="fu">muted</span>(<span class="st">&quot;blue&quot;</span>),</span>
-<span id="cb253-14"><a href="scales.html#cb253-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">midpoint =</span> <span class="dv">0</span>,</span>
-<span id="cb253-15"><a href="scales.html#cb253-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.value =</span> <span class="st">&quot;grey50&quot;</span>,</span>
-<span id="cb253-16"><a href="scales.html#cb253-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">aesthetics =</span> <span class="st">&quot;colour&quot;</span></span>
-<span id="cb253-17"><a href="scales.html#cb253-17" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb253-18"><a href="scales.html#cb253-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb253-19"><a href="scales.html#cb253-19" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_colour_gradientn</span>(</span>
-<span id="cb253-20"><a href="scales.html#cb253-20" aria-hidden="true" tabindex="-1"></a>  ...,</span>
-<span id="cb253-21"><a href="scales.html#cb253-21" aria-hidden="true" tabindex="-1"></a>  colours,</span>
-<span id="cb253-22"><a href="scales.html#cb253-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">values =</span> <span class="cn">NULL</span>,</span>
-<span id="cb253-23"><a href="scales.html#cb253-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.value =</span> <span class="st">&quot;grey50&quot;</span>,</span>
-<span id="cb253-24"><a href="scales.html#cb253-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">aesthetics =</span> <span class="st">&quot;colour&quot;</span>,</span>
-<span id="cb253-25"><a href="scales.html#cb253-25" aria-hidden="true" tabindex="-1"></a>  colors</span>
-<span id="cb253-26"><a href="scales.html#cb253-26" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p><code>scale_color_identity()</code></p>
-<p>A special scale.
-It doesn’t map colors to a specific value, but uses the variable values directly.
-Useful if you want to store the color codes directly in the data.</p>
-
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="scales.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb254-2"><a href="scales.html#cb254-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb254-3"><a href="scales.html#cb254-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span></code></pre></div>
-</div>
-</div>
 </div>
             </section>
 
@@ -804,7 +496,7 @@ Useful if you want to store the color codes directly in the data.</p>
         </div>
       </div>
 <a href="customizing-plots.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="customizing-plots-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="position-scales.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
