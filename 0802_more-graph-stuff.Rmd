@@ -1,0 +1,273 @@
+```{r}
+library(ggplot2)
+library(dplyr)
+library(patchwork)
+```
+
+# Customizing plots!
+
+You can customize all sorts of stuff in your ggplot plots!
+
+1.  Scales
+  -   x and y ✔
+  -   Colors ✔
+  -   Shapes
+  -   Line types
+  -   Alpha, Size
+
+2.  Guides
+  -   Legend (legend, bins, colorbar, colorsteps)
+  -   Axis
+  -   None
+
+3.  Text
+  -   Axis labels
+  -   Geom labels
+  -   Annotations
+  -   Titles and captions
+
+4.  Themes (design features)
+  -   Background
+  -   Grid lines
+  -   Text styling
+  -   Alignment
+
+# Scales
+
+## Shape scales
+
+In addition to distinguishing groups or values by color, you can also distinguish groups by **shape**.
+You can see a list of R's built-in plot shapes [here](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/).
+
+You can use `scale_shape_*()` with **discrete** and **binned** variables, but not *continuous* variables.
+
+R has a set of built-in plot shapes:
+
+  -   0--14: Empty shapes --- outline `color`, no `fill`
+  -   15--20: Solid shapes --- solid `color`, no separate `fill`
+    -   Default ggplot shape is 19
+  -   21--25: Filled shapes --- outline `color`, separate `fill`
+
+```{r}
+ggplot(mtcars) +
+  aes(x = hp, y = mpg, shape = factor(cyl)) +
+  geom_point(size = 4, color = "blue", fill = "yellow") +
+  scale_shape_manual(values = c(1, 19, 25)) +
+  theme_minimal()
+```
+
+You can also give a character vector to plot those characters. 
+Each element must be a single character long.
+
+```{r}
+ggplot(mtcars) +
+  aes(x = hp, y = mpg, shape = factor(cyl)) +
+  geom_point(size = 4, color = "blue", fill = "yellow") +
+  scale_shape_manual(values = c("4", "6", "8")) +
+  theme_minimal()
+
+ggplot(mtcars) +
+  aes(x = hp, y = mpg, shape = factor(cyl)) +
+  geom_point(size = 4, color = "blue", fill = "yellow") +
+  scale_shape_manual(values = c("😸", "😾", "🙀")) +
+  theme_minimal()
+```
+
+`scale_*_identity()` is a special `scale` that uses the value of the variable directly on the plot.
+With shape, you can use it to plot the values if they are single character. 
+(Use one of the text geoms if you want multi-character shapes.)
+
+```{r}
+ggplot(mtcars) +
+  aes(x = hp, y = mpg, shape = factor(cyl)) +
+  geom_point(size = 4, color = "blue", fill = "yellow") +
+  scale_shape_identity() +
+  theme_minimal()
+```
+
+You can also use it with `color` or `fill` to store the color codes directly in the data.
+
+```{r}
+tibble(
+  scale = forcats::as_factor(c("ES", "A", "C", "Ex", "O")),
+  score = c(5, 8, 4, 6, 3),
+  .fill = c("#CD0BBC", "#DF536B", "#2297E6", "#61D04F", "#F5C710")
+) %>% 
+  ggplot() +
+  aes(x = scale, y = score, fill = .fill) +
+  geom_path(group = "n") + 
+  geom_errorbar(aes(ymin = score - .5, ymax = score + .5), width = .05) +
+  geom_point(shape = 21, size = 5) +
+  scale_fill_identity() +
+  ylim(0, 10) + 
+  theme_minimal()
+```
+
+## Linetype scales
+
+Line type is like shape. You can specify line type for **discrete** and **binned** variables, but not *continuous* variables.
+
+You can see a list of R's built-in line types [here](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/). 
+You can refer to line types by number or name.
+
+R's built-in line types:
+
+| Number | Name       |
+|--------|------------|
+| 0      | 'blank'    |
+| 1      | 'solid'    |
+| 2      | 'dashed'   |
+| 3      | 'dotted'   |
+| 4      | 'dotdash'  |
+| 5      | 'longdash' |
+| 6      | 'twodash'  |
+
+## Alpha and size scales
+
+`scale_alpha_*()` (transparency) and `scale_size_*()` work similarly to `scale_color_*()`.
+You may want to set the `range` argument to control the minimum and maximum alpha/size used.
+Alpha can range between 0 and 1.
+
+
+# Guides
+
+Guides are the instructions for how to read the scales on your plot.
+The two major kinds of guides are **axes** and **legends**.
+You can customize the appearance of your guides using the `guides()` and `guide_*()` functions.
+
+```{r}
+p <- data.frame(
+  x = 1:5, y = 1:5, p = 1:5, q = 1:5, r = factor(1:5)
+  ) %>% 
+  ggplot() +
+  aes(x, y, colour = p, size = q, shape = r) +
+  geom_point() +
+  scale_size_continuous(range = c(4, 8)) +
+  theme_classic()
+  
+p
+
+# Legends will be combined if they have the same type, values, and titles 
+p + 
+  guides(
+    colour = guide_legend(title = "title"),
+    size = guide_legend(title = "title"),
+    shape = guide_legend(title = "title")
+ )
+
+# If all you want to change is the title of the guides, you can use labs()
+p + 
+  labs(
+    color = "title",
+    size = "title",
+    shape = "title"
+  )
+```
+
+## Legend guide options
+
+There are four styles of legend guides available:
+
+1. `guide_legend()`
+  - Basic legend guide.
+  - Use this one most of the time.
+2. `guide_bins()`
+  - Use if you've got binned scales.
+3. `guide_colorbar()`
+  - Nicely show a continuous color gradient.
+4. `guide_colorsteps()`
+  - Use with binned color/fill scales.
+  - Can also be useful if you have continous scales, but want to pick out useful reference levels.
+  
+```{r}
+p1 <- p + 
+  guides(
+    colour = guide_legend(title = "legend"),
+    size = "none",
+    shape = "none"
+  )
+p2 <- p + 
+  guides(
+    colour = guide_bins(title = "bins"),
+    size = "none",
+    shape = "none"
+  )
+p3 <- p + 
+  guides(
+    colour = guide_colorbar(title = "colorbar"),
+    size = "none",
+    shape = "none"
+  )
+p4 <- p + 
+  guides(
+    colour = guide_colorsteps(title = "colorsteps"),
+    size = "none",
+    shape = "none"
+  )
+
+p1 + p2 + p3 + p4
+```
+
+### Legend arguments
+
+1. `title`
+  - Set the title of the legend guide
+  - Also impacts legend merging
+2. `direction` 
+  - `"vertical"` or `"horizontal"`
+3. `nrow` and `ncol`
+  - Control number of rows and columns of legend
+4. `reverse`
+  - `TRUE` or `FALSE`: Should the order of the legend values be reversed?
+5. `order`
+  - If multiple legend guides are shown separately, what order should they appear in?
+  - A number between 1 and 99
+
+To place the legend somewhere other than the right side, add `theme(legend.position = "bottom")` to the plot:
+
+```{r}
+p + 
+  guides(
+    colour = guide_legend(title = "title"),
+    size = guide_legend(title = "title"),
+    shape = guide_legend(title = "title")
+  ) +
+  theme(legend.position = "bottom")
+```
+
+## Axis guides
+
+`guide_axis()` controls how the axes appear. 
+The main use is to control label overlap and change the axis position.
+Some useful arguments are:
+
+1. `title`
+  - Set the title of the axis guide
+2. `check.overlap` 
+  - Drop some labels if they overlap?
+  - Mostly usful if the values are ordered.
+3. `angle`
+  - Rotation in degrees of axis labels
+  - This is usually very hard to read and should be avoided.
+4. `n.dodge`
+  - Put labels on multiple rows/columns to avoid overlap?
+  - A number indicating how many rows/columns
+5. `position`
+  - Where to put the axis?
+  - `"top"`, `"bottom"`, `"left"`, `"right"`
+  
+
+## Hide guides
+
+You can hide a guide with `guide_none()`.
+
+```{r}
+p + 
+  guides(
+    colour = guide_legend(title = "Legend Title"),
+    size = guide_none(),
+    shape = "none"
+  ) +
+  theme(legend.position = "bottom")
+```
+

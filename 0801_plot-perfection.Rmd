@@ -11,7 +11,7 @@ library(dplyr)
 library(patchwork)
 ```
 
-## Basic elements of ggplot
+# Basic elements of ggplot
 
 1. Data
 2. Aesthetics (mapping)
@@ -19,7 +19,7 @@ library(patchwork)
 4. Facets
 5. Stats
 
-## Changing the `stat`
+# Changing the `stat`
 
 In the process of connecting data -> mapping, there is some **statistical computation**. 
 In many cases, this computation is `identity()`. For example, with `geom_point()`, it plots the points directly based on `x` and `y` values.
@@ -66,7 +66,7 @@ ggplot(mpg) +
 ```
 
 
-## Customizing plots!
+# Customizing plots!
 
 You can customize all sorts of stuff in your ggplot plots!
 
@@ -91,7 +91,7 @@ You can customize all sorts of stuff in your ggplot plots!
   - Text styling
   - Alignment
 
-### Scales
+# Scales
 
 A ggplot is constructed with a flow like this:
 
@@ -108,7 +108,7 @@ These functions all have the following form:
 
 The `scale_*()` functions include many arguments to control various features of the scale, depending on the aesthetic.
 
-#### Position scales
+## Position scales
 
 The scales for `x` and `y` control positioning, limits, breaks, labels, titles, etc. of the axes. 
 
@@ -116,7 +116,7 @@ The scales for `x` and `y` control positioning, limits, breaks, labels, titles, 
   - `scale_x_discrete()`
   - `scale_x_binned()`
 
-##### Arguments
+### Arguments
 
 1. `name()`
   - The name of the scale. Used for the axis/legend title.
@@ -190,7 +190,7 @@ ggplot(mtcars) +
   - `scale_x_discrete(na.translate = TRUE, na.value = "(Missing)")`
 
 
-#### Color scales
+## Color scales
 
 There are a variety of ways to specify colors in R, as well as several nice built-in color palletes.
 
@@ -250,7 +250,7 @@ For example:
   - _wesanderson_
   - _ggsci_
 
-##### Arguments
+### Arguments
 
 All of the arguments that can be used with position scales can also be used with color scales.
 
