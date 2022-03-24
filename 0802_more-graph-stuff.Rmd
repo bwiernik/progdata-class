@@ -1,40 +1,10 @@
+# Shape scales
+
 ```{r}
 library(ggplot2)
 library(dplyr)
 library(patchwork)
 ```
-
-# Customizing plots!
-
-You can customize all sorts of stuff in your ggplot plots!
-
-1.  Scales
-  -   x and y ✔
-  -   Colors ✔
-  -   Shapes
-  -   Line types
-  -   Alpha, Size
-
-2.  Guides
-  -   Legend (legend, bins, colorbar, colorsteps)
-  -   Axis
-  -   None
-
-3.  Text
-  -   Axis labels
-  -   Geom labels
-  -   Annotations
-  -   Titles and captions
-
-4.  Themes (design features)
-  -   Background
-  -   Grid lines
-  -   Text styling
-  -   Alignment
-
-# Scales
-
-## Shape scales
 
 In addition to distinguishing groups or values by color, you can also distinguish groups by **shape**.
 You can see a list of R's built-in plot shapes [here](http://www.cookbook-r.com/Graphs/Shapes_and_line_types/).
@@ -64,6 +34,13 @@ ggplot(mtcars) +
   aes(x = hp, y = mpg, shape = factor(cyl)) +
   geom_point(size = 4, color = "blue", fill = "yellow") +
   scale_shape_manual(values = c("4", "6", "8")) +
+  theme_minimal()
+
+mtcars |> 
+  tibble::rownames_to_column(var = "model") |> 
+  ggplot() +
+  aes(x = hp, y = mpg, shape = factor(cyl), label = model) +
+  geom_text(size = 4, color = "blue", fill = "yellow") +
   theme_minimal()
 
 ggplot(mtcars) +
@@ -103,7 +80,7 @@ tibble(
   theme_minimal()
 ```
 
-## Linetype scales
+# Linetype scales
 
 Line type is like shape. You can specify line type for **discrete** and **binned** variables, but not *continuous* variables.
 
@@ -122,7 +99,7 @@ R's built-in line types:
 | 5      | 'longdash' |
 | 6      | 'twodash'  |
 
-## Alpha and size scales
+# Alpha and size scales
 
 `scale_alpha_*()` (transparency) and `scale_size_*()` work similarly to `scale_color_*()`.
 You may want to set the `range` argument to control the minimum and maximum alpha/size used.
@@ -164,18 +141,25 @@ p +
   )
 ```
 
-## Legend guide options
+# Legend guides
 
 There are four styles of legend guides available:
 
 1. `guide_legend()`
+
   - Basic legend guide.
   - Use this one most of the time.
+
 2. `guide_bins()`
+
   - Use if you've got binned scales.
+
 3. `guide_colorbar()`
+
   - Nicely show a continuous color gradient.
+
 4. `guide_colorsteps()`
+
   - Use with binned color/fill scales.
   - Can also be useful if you have continous scales, but want to pick out useful reference levels.
   
@@ -208,7 +192,7 @@ p4 <- p +
 p1 + p2 + p3 + p4
 ```
 
-### Legend arguments
+## Legend arguments
 
 1. `title`
   - Set the title of the legend guide
@@ -235,7 +219,7 @@ p +
   theme(legend.position = "bottom")
 ```
 
-## Axis guides
+# Axis guides
 
 `guide_axis()` controls how the axes appear. 
 The main use is to control label overlap and change the axis position.
@@ -257,7 +241,7 @@ Some useful arguments are:
   - `"top"`, `"bottom"`, `"left"`, `"right"`
   
 
-## Hide guides
+# Hide guides
 
 You can hide a guide with `guide_none()`.
 
@@ -270,4 +254,3 @@ p +
   ) +
   theme(legend.position = "bottom")
 ```
-

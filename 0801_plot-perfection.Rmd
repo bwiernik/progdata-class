@@ -108,7 +108,7 @@ These functions all have the following form:
 
 The `scale_*()` functions include many arguments to control various features of the scale, depending on the aesthetic.
 
-## Position scales
+# Position scales
 
 The scales for `x` and `y` control positioning, limits, breaks, labels, titles, etc. of the axes. 
 
@@ -116,7 +116,7 @@ The scales for `x` and `y` control positioning, limits, breaks, labels, titles, 
   - `scale_x_discrete()`
   - `scale_x_binned()`
 
-### Arguments
+## Arguments
 
 1. `name()`
   - The name of the scale. Used for the axis/legend title.
@@ -190,7 +190,7 @@ ggplot(mtcars) +
   - `scale_x_discrete(na.translate = TRUE, na.value = "(Missing)")`
 
 
-## Color scales
+# Color scales
 
 There are a variety of ways to specify colors in R, as well as several nice built-in color palletes.
 
@@ -250,7 +250,7 @@ For example:
   - _wesanderson_
   - _ggsci_
 
-### Arguments
+## Arguments
 
 All of the arguments that can be used with position scales can also be used with color scales.
 
