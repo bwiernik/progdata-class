@@ -283,3 +283,13 @@ position-scales
 arguments
 color-scales
 arguments-1
+customizing-plots-1
+scales-1
+shape-scales
+linetype-scales
+alpha-and-size-scales
+guides
+legend-guide-options
+legend-arguments
+axis-guides
+hide-guides
