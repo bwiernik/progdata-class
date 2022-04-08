@@ -24,7 +24,7 @@
 <meta name="author" content="Brenton M. Wiernik" />
 
 
-<meta name="date" content="2022-03-24" />
+<meta name="date" content="2022-04-08" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -528,7 +528,7 @@ Inside the <code>()</code>, type the arguments and values to use as input.</p>
 <p>What’s the average sleep time?
 Let’s compute that using the <code>mean()</code> function.</p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="r_scipts.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(times)</span>
-<span id="cb34-2"><a href="r_scipts.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7.3</span></span></code></pre></div>
+<span id="cb34-2"><a href="r_scipts.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7.9</span></span></code></pre></div>
 <p>To learn how a function works, we can look at its <strong>help file</strong>.
 Open the help file for <code>mean()</code> by typing <code>?mean</code> or <code>help(mean)</code> in the console.</p>
 <p>The help file will includes the following:</p>
@@ -551,10 +551,10 @@ If an argument has no default (like <code>x</code> in <code>mean()</code>), it u
 <p>Let’s compute the trimmed mean of <code>times</code>, dropping 10% of values from each end.</p>
 <p>You can either enter arguments <strong>in order</strong>:</p>
 <div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="r_scipts.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(times, .<span class="dv">1</span>)</span>
-<span id="cb35-2"><a href="r_scipts.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7.38</span></span></code></pre></div>
+<span id="cb35-2"><a href="r_scipts.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7.94</span></span></code></pre></div>
 <p>Or <strong>by name</strong>:</p>
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="r_scipts.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(times, <span class="at">trim =</span> .<span class="dv">1</span>)</span>
-<span id="cb36-2"><a href="r_scipts.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7.38</span></span></code></pre></div>
+<span id="cb36-2"><a href="r_scipts.html#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7.94</span></span></code></pre></div>
 <p>It’s good practice to <em>name all arguments after the first (or maybe second if its clear)</em>.</p>
 <p>Try out some other functions, such as <code>sd()</code>, <code>range()</code>, and <code>length()</code>.</p>
 <p>Much of R is about becoming familiar with R’s “vocabulary”.
@@ -566,29 +566,29 @@ A nice list can be found in <a href="http://adv-r.had.co.nz/Vocabulary.html">Adv
 Let’s answer that using <em>comparisons</em>.</p>
 <p>We can compare the values of <code>times</code> to another value using <code>&lt;</code>.</p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="r_scipts.html#cb37-1" aria-hidden="true" tabindex="-1"></a>times <span class="sc">&lt;</span> <span class="dv">6</span></span>
-<span id="cb37-2"><a href="r_scipts.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  TRUE FALSE  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE</span></span>
-<span id="cb37-3"><a href="r_scipts.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span></code></pre></div>
+<span id="cb37-2"><a href="r_scipts.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb37-3"><a href="r_scipts.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span></span></code></pre></div>
 <p>Comparisons return a vector of <strong>logical</strong> values.</p>
 <p>We can do other logical comparisons:</p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="r_scipts.html#cb38-1" aria-hidden="true" tabindex="-1"></a>times <span class="sc">&gt;</span> <span class="dv">6</span></span>
-<span id="cb38-2"><a href="r_scipts.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE</span></span>
-<span id="cb38-3"><a href="r_scipts.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE</span></span>
+<span id="cb38-2"><a href="r_scipts.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE</span></span>
+<span id="cb38-3"><a href="r_scipts.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE</span></span>
 <span id="cb38-4"><a href="r_scipts.html#cb38-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-5"><a href="r_scipts.html#cb38-5" aria-hidden="true" tabindex="-1"></a>times <span class="sc">==</span> <span class="dv">5</span></span>
-<span id="cb38-6"><a href="r_scipts.html#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
-<span id="cb38-7"><a href="r_scipts.html#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb38-6"><a href="r_scipts.html#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
+<span id="cb38-7"><a href="r_scipts.html#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span></span>
 <span id="cb38-8"><a href="r_scipts.html#cb38-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-9"><a href="r_scipts.html#cb38-9" aria-hidden="true" tabindex="-1"></a>times <span class="sc">&lt;=</span> <span class="dv">7</span></span>
-<span id="cb38-10"><a href="r_scipts.html#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE</span></span>
-<span id="cb38-11"><a href="r_scipts.html#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</span></span>
+<span id="cb38-10"><a href="r_scipts.html#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  TRUE FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE</span></span>
+<span id="cb38-11"><a href="r_scipts.html#cb38-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13]  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE</span></span>
 <span id="cb38-12"><a href="r_scipts.html#cb38-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-13"><a href="r_scipts.html#cb38-13" aria-hidden="true" tabindex="-1"></a>times <span class="sc">!=</span> <span class="dv">2</span></span>
 <span id="cb38-14"><a href="r_scipts.html#cb38-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span></span>
 <span id="cb38-15"><a href="r_scipts.html#cb38-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [16] TRUE TRUE TRUE TRUE TRUE</span></span></code></pre></div>
 <p>We can combine multiple comparisons using <code>&amp;</code> (AND), <code>|</code> (OR), and <code>!</code> (NOT).</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="r_scipts.html#cb39-1" aria-hidden="true" tabindex="-1"></a>(times <span class="sc">&lt;</span> <span class="dv">4</span>) <span class="sc">|</span> (times <span class="sc">&gt;</span> <span class="dv">9</span>)</span>
-<span id="cb39-2"><a href="r_scipts.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</span></span>
-<span id="cb39-3"><a href="r_scipts.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13]  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE</span></span></code></pre></div>
+<span id="cb39-2"><a href="r_scipts.html#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE</span></span>
+<span id="cb39-3"><a href="r_scipts.html#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [13] FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE</span></span></code></pre></div>
 <p>Try out these functions that work with logical values.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="r_scipts.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">any</span>(times <span class="sc">&lt;</span> <span class="dv">6</span>)</span>
 <span id="cb40-2"><a href="r_scipts.html#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] TRUE</span></span>
@@ -597,27 +597,27 @@ Let’s answer that using <em>comparisons</em>.</p>
 <span id="cb40-5"><a href="r_scipts.html#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] FALSE</span></span>
 <span id="cb40-6"><a href="r_scipts.html#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-7"><a href="r_scipts.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">which</span>(times <span class="sc">&lt;</span> <span class="dv">6</span>)</span>
-<span id="cb40-8"><a href="r_scipts.html#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 3 6 7</span></span></code></pre></div>
+<span id="cb40-8"><a href="r_scipts.html#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 20</span></span></code></pre></div>
 </div>
 <div id="subsetting" class="section level3" number="7.2.4">
 <h3><span class="header-section-number">7.2.4</span> Subsetting</h3>
 <p>Use <code>[]</code> to subset values from a vector.
 You can subset with an integer (by position) or with logicals.</p>
 <div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="r_scipts.html#cb41-1" aria-hidden="true" tabindex="-1"></a>times[<span class="dv">4</span>]</span>
-<span id="cb41-2"><a href="r_scipts.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6</span></span>
+<span id="cb41-2"><a href="r_scipts.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7</span></span>
 <span id="cb41-3"><a href="r_scipts.html#cb41-3" aria-hidden="true" tabindex="-1"></a>times[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>)]</span>
-<span id="cb41-4"><a href="r_scipts.html#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7 9</span></span>
+<span id="cb41-4"><a href="r_scipts.html#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 8 7</span></span>
 <span id="cb41-5"><a href="r_scipts.html#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-6"><a href="r_scipts.html#cb41-6" aria-hidden="true" tabindex="-1"></a>times[<span class="sc">-</span><span class="dv">6</span>]</span>
-<span id="cb41-7"><a href="r_scipts.html#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  4  7  4  6  9  4  9  6  6  8  6 10  9 10 10 10  8  6  9</span></span>
+<span id="cb41-7"><a href="r_scipts.html#cb41-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  6  8  9  7  7  8  9  9  7  8 10  6  6  6 10  9 10  9  5</span></span>
 <span id="cb41-8"><a href="r_scipts.html#cb41-8" aria-hidden="true" tabindex="-1"></a>times[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)]</span>
-<span id="cb41-9"><a href="r_scipts.html#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  4  6  9  5  4  9  6  6  8  6 10  9 10 10 10  8  6  9</span></span>
+<span id="cb41-9"><a href="r_scipts.html#cb41-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  6  7  7  9  8  9  9  7  8 10  6  6  6 10  9 10  9  5</span></span>
 <span id="cb41-10"><a href="r_scipts.html#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-11"><a href="r_scipts.html#cb41-11" aria-hidden="true" tabindex="-1"></a>times[<span class="dv">4</span><span class="sc">:</span><span class="dv">8</span>]</span>
-<span id="cb41-12"><a href="r_scipts.html#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 6 9 5 4 9</span></span>
+<span id="cb41-12"><a href="r_scipts.html#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7 7 9 8 9</span></span>
 <span id="cb41-13"><a href="r_scipts.html#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb41-14"><a href="r_scipts.html#cb41-14" aria-hidden="true" tabindex="-1"></a>times[times <span class="sc">&gt;=</span> <span class="dv">7</span>]</span>
-<span id="cb41-15"><a href="r_scipts.html#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  7  9  9  8 10  9 10 10 10  8  9</span></span></code></pre></div>
+<span id="cb41-15"><a href="r_scipts.html#cb41-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  8  9  7  7  9  8  9  9  7  8 10 10  9 10  9</span></span></code></pre></div>
 <p>Subset <code>times</code>:</p>
 <ol style="list-style-type: decimal">
 <li>Extract the third entry.</li>
@@ -639,7 +639,7 @@ Recycling!
 Be careful of recycling!</p>
 <p>Let’s compute the mean of these new times:</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="r_scipts.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(times)</span>
-<span id="cb42-2"><a href="r_scipts.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7.3</span></span></code></pre></div>
+<span id="cb42-2"><a href="r_scipts.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 7.9</span></span></code></pre></div>
 <p>What happened?
 How do we compute the mean of the non-missing values?</p>
 </div>
