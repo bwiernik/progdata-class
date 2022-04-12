@@ -1,0 +1,150 @@
+---
+title: "Marvel Dashboard"
+output: flexdashboard::flex_dashboard
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+# Interactive charts
+library(highcharter)
+# HTML Tables
+library(DT)
+
+
+dataMarvel <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/comic-characters/marvel-wikia-data.csv")
+
+# Source from FiveThirtyEight: https://github.com/fivethirtyeight/data/tree/master/comic-characters
+```
+
+```{r GSMgraphs, include=FALSE}
+# Factor Orientation
+dataMarvel$GSM <- if_else(dataMarvel$GSM == "", "Non-Minority Character", dataMarvel$GSM)
+
+dataMarvel$anyGSM <- if_else(dataMarvel$GSM == "Non-Minority Character", "Non-Minority Character", "Minority Character")
+
+dataMarvel$GSM <- factor(dataMarvel$GSM)
+levels(dataMarvel$GSM)
+
+dataMarvel$anyGSM <- factor(dataMarvel$anyGSM)
+levels(dataMarvel$anyGSM)
+
+# Get appearance date
+dataMarvel$month <- str_extract(dataMarvel$FIRST.APPEARANCE, "[:alpha:]+")
+
+dataMarvel$dateAppeared <- lubridate::my(paste(dataMarvel$month, dataMarvel$Year, sep = "-"))
+
+# Cumsum by GSM over time
+dataMarvel$cumCount <- 1
+
+dataMarvel <- dataMarvel |>
+  arrange(dateAppeared) |>
+  group_by(GSM) |>
+  mutate(cumChars = cumsum(cumCount))
+
+# By any GSM
+dataMarvel <- dataMarvel |>
+  arrange(dateAppeared) |>
+  group_by(anyGSM) |>
+  mutate(groupCumChars = cumsum(cumCount)) |>
+  ungroup()
+  
+# subset data so it loads
+marvelSub <- subset(dataMarvel, GSM != "Non-Minority Character")
+
+marvelSub <- rbind(marvelSub, dataMarvel[sample(nrow(subset(dataMarvel, GSM == "Non-Minority Character")), 3000), ])
+
+marvelSub <- ungroup(marvelSub)
+
+# counts table
+counts <- dataMarvel |>
+  select(GSM, SEX) |>
+  na.omit() |>
+  group_by(GSM, SEX) |>
+  summarise(Count = n())
+```
+
+```{r goodbadgraph, include=FALSE}
+
+goodBadSummary <- marvelSub |> 
+  select(ALIGN, SEX, EYE) |>
+  group_by(ALIGN, SEX, EYE) |>
+  summarise(sums = n()) |>
+  ungroup() |>
+  subset(ALIGN != "")
+
+goodBadSummary$SEX  <- if_else(goodBadSummary$SEX == "", "No Record", goodBadSummary$SEX )
+
+goodBadSummary$EYE <- if_else(goodBadSummary$EYE == "", "No Record", goodBadSummary$EYE)
+
+goodBadSummary$ALIGN <- factor(goodBadSummary$ALIGN)
+```
+
+Villains vs Heroes
+============================================
+
+
+Column 
+-------------------------------------
+
+### Villians by Physical Features
+
+```{r}
+goodBadSummary |>
+  filter(ALIGN == "Bad Characters") |>
+ggplot(aes(x = SEX, y = EYE, fill= sums)) + 
+  geom_tile() +
+  scale_fill_distiller(palette = "RdPu") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) + 
+  xlab(label="") + ylab(label="")
+```
+
+Column 
+-------------------------------------
+
+### Heroes by Physical Features
+
+```{r}
+
+goodBadSummary |>
+  filter(ALIGN == "Good Characters") |>
+ggplot(aes(x = SEX, y = EYE, fill= sums)) + 
+  geom_tile() +
+  scale_fill_distiller(palette = "Blues") +
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust = 1)) + 
+  xlab(label="") + ylab(label="")
+
+```
+
+Gender/Sexual Minority Characters
+================================================
+
+Row {.tabset}
+---------------------------------------------------
+
+### Character Realeases by Gender/Sexual Minority
+
+```{r}
+
+hchart(marvelSub, type = "scatter", hcaes(x = Year,  y = groupCumChars, group = anyGSM))
+
+```
+
+### Time Series of GSM Character Releases
+
+```{r}
+
+hchart(subset(marvelSub, anyGSM == "Minority Character"), type = "line", hcaes(x = Year,  y = groupCumChars)) |>
+  hc_yAxis(title = list(text = "Cumlative Character Releases"))
+
+```
+
+Row
+---------------------------------------------------
+
+### Table of GSM Categories
+
+```{r}
+datatable(counts)
+```
+

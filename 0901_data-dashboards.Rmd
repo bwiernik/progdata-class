@@ -1,0 +1,70 @@
+# (PART) Module 09 {-}
+
+# Interactive Dashboards with **flexdashboard**
+
+Set up the work space:
+
+```{r setup}
+# Load required packages
+library(tidyverse) # loads ggplot2 and other tidyverse packages
+
+# Set a default figure size
+knitr::opts_chunk$set(fig.width = 5, fig.height = 4, fig.align = "center")
+```
+
+## Learning Objectives
+
+By the end of this lesson, you will be able to:
+
+- Understand the difference between a data dashboard and traditional data story
+- Understand when a dashboard should be used
+- Identify what elements of your dataset should be included in the dashboard
+- Use flexdashboard to create simple interactive dashboards in R Markdown
+
+## Resources
+
+Here are some good references for **flexdashboard**:
+
+- [Official Flexdashboard page](https://pkgs.rstudio.com/flexdashboard/)
+- The [Flexdashboard Gallary](https://pkgs.rstudio.com/flexdashboard/articles/examples.html)
+- [Layouts for Flexdashboard](https://pkgs.rstudio.com/flexdashboard/articles/layouts.html#chart-stack-fill)
+- Full [reference](https://pkgs.rstudio.com/flexdashboard/articles/using.html) for Flexdashboard functionality
+- [Example from NHS Case Study](https://rpubs.com/richardi7/shmi0217)
+
+Here are some good resource for general dashboard design:
+- 
+
+# Data Stories vs Dashboards
+
+In this workshop I want to differentiate a data dashboard from a data story, which is probably what you are most familiar with. Quite simply, a data story is a story or narrative you create and present your data around. If you have seen a research presentation, then you've seen a data story (although the narrative might not have been very good). We can think of the data story as having a couple of features
+
+- It tells one specific story or answers a set of specific questions
+- It is created and fully guided by the analyst or researcher
+- It is generally static (it presents a snapshot of data at a given point in time)
+- It is presented one piece at a time
+- It is a guided demonstration (e.g., a presentation) that takes place over a set period of time and is targeted to either expert or novice audiences
+
+On the other hand, a data dashboard tends to be more unguided and involve direct interaction from the person using them. Dashboards also tend to present high level information or summaries compared to the targeted analyses you would find in a data story. One example of a dashboard we are probably all familiar with is COVID-19 tracking. For example, this [daily update dashboard](https://covid.cdc.gov/covid-data-tracker/#datatracker-home) from the CDC shows information about COVID-19 spread and is updated every day. If you have ever Googled COVID-19 cases you've probably also seen Google's COVID dashboard. This lets you look at trends in cases, deaths, or vaccinations over various amounts of time and different locations. If you've never seen this, Google "google covid dashboard" or "florida covid" and it should come up.
+
+From the above example you might intuitively realize that data dashboards are most common when visualizing data that is constantly being updated and changes over time and user autonomy is desirable. Financial information like revenue, sales numbers, stock prices, or marketing performance are other common areas where dashboards are used.
+
+Compared to data stories, some general features of a dashboard is that:
+
+- It tells a general story or gives the user the tools to answer their own questions
+- It is created by the analyst but gives the user some autonomy over how its use is guided
+- It is generally a dynamic visualization of data that is frequently updated as new data becomes available
+- It is available for users to visit and explore at any time
+- It is an unguided demonstration, so generally requires users to have some expertise in what is being visualized
+
+So, data dashboards sound great! But as the saying goes, 
+
+![](img/uncleben.jpg)
+
+Just because data dashboards give a lot of power to the user does not mean you are absolved of your responsibilities as a data scientist and visualization expert! In fact, good design and visualization is even more important in dashboards because you often can't easily answer simple questions if something is unclear. 
+
+Some things to consider when designing your dashboard:
+
+- What are the most important insights users need from your dashboard?
+- Are these insights central to the design?
+- What are common ways users might try to manipulate the dashboard?
+- Is your dashboard easy to filter?
