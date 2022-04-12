@@ -4,7 +4,7 @@
 
 Set up the work space:
 
-```{r setup}
+```{r}
 # Load required packages
 library(tidyverse) # loads ggplot2 and other tidyverse packages
 

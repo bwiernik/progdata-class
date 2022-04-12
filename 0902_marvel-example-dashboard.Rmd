@@ -3,7 +3,7 @@ title: "Marvel Dashboard"
 output: flexdashboard::flex_dashboard
 ---
 
-```{r setup, include=FALSE}
+```{r, include=FALSE}
 library(flexdashboard)
 library(tidyverse)
 # Interactive charts
