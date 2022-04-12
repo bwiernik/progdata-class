@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Part 9 GitHub and Version Control | Marvel Dashboard</title>
-  <meta name="description" content="Part 9 GitHub and Version Control | Marvel Dashboard" />
+  <title>Part 67 Data Stories vs Dashboards | Marvel Dashboard</title>
+  <meta name="description" content="Part 67 Data Stories vs Dashboards | Marvel Dashboard" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Part 9 GitHub and Version Control | Marvel Dashboard" />
+  <meta property="og:title" content="Part 67 Data Stories vs Dashboards | Marvel Dashboard" />
   <meta property="og:type" content="book" />
   
   <meta property="og:image" content="/progdata_class_icon.png" />
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Part 9 GitHub and Version Control | Marvel Dashboard" />
+  <meta name="twitter:title" content="Part 67 Data Stories vs Dashboards | Marvel Dashboard" />
   
   
   <meta name="twitter:image" content="/progdata_class_icon.png" />
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-<link rel="prev" href="markdown.html"/>
-<link rel="next" href="lab-1-getting-started-with-rstudio-git-and-markdown.html"/>
+<link rel="prev" href="interactive-dashboards-with-flexdashboard.html"/>
+<link rel="next" href="villains-vs-heroes.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -493,259 +493,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="github" class="section level1" number="9">
-<h1><span class="header-section-number">Part 9</span> GitHub and Version Control</h1>
-<div id="learning-objectives" class="section level2" number="9.1">
-<h2><span class="header-section-number">9.1</span> Learning Objectives</h2>
-<p>By the end of this module, you will be able to:</p>
+<div id="data-stories-vs-dashboards" class="section level1" number="67">
+<h1><span class="header-section-number">Part 67</span> Data Stories vs Dashboards</h1>
+<p>In this workshop I want to differentiate a data dashboard from a data story, which is probably what you are most familiar with. Quite simply, a data story is a story or narrative you create and present your data around. If you have seen a research presentation, then you’ve seen a data story (although the narrative might not have been very good). We can think of the data story as having a couple of features</p>
 <ul>
-<li>Understand the benefits of a version control workflow</li>
-<li>Commit file changes to GitHub</li>
-<li>Navigate the commit history of a repository and a file on GitHub</li>
+<li>It tells one specific story or answers a set of specific questions</li>
+<li>It is created and fully guided by the analyst or researcher</li>
+<li>It is generally static (it presents a snapshot of data at a given point in time)</li>
+<li>It is presented one piece at a time</li>
+<li>It is a guided demonstration (e.g., a presentation) that takes place over a set period of time and is targeted to either expert or novice audiences</li>
 </ul>
-</div>
-<div id="resources" class="section level2" number="9.2">
-<h2><span class="header-section-number">9.2</span> Resources</h2>
-<p>If you want to learn more about Git and GitHub, check out:</p>
+<p>On the other hand, a data dashboard tends to be more unguided and involve direct interaction from the person using them. Dashboards also tend to present high level information or summaries compared to the targeted analyses you would find in a data story. One example of a dashboard we are probably all familiar with is COVID-19 tracking. For example, this <a href="https://covid.cdc.gov/covid-data-tracker/#datatracker-home">daily update dashboard</a> from the CDC shows information about COVID-19 spread and is updated every day. If you have ever Googled COVID-19 cases you’ve probably also seen Google’s COVID dashboard. This lets you look at trends in cases, deaths, or vaccinations over various amounts of time and different locations. If you’ve never seen this, Google “google covid dashboard” or “florida covid” and it should come up.</p>
+<p>From the above example you might intuitively realize that data dashboards are most common when visualizing data that is constantly being updated and changes over time and user autonomy is desirable. Financial information like revenue, sales numbers, stock prices, or marketing performance are other common areas where dashboards are used.</p>
+<p>Compared to data stories, some general features of a dashboard is that:</p>
 <ul>
-<li>The <a href="https://guides.github.com/activities/hello-world/">GitHub “Hello World”</a> is a nice intro activity</li>
-<li><a href="https://www.youtube.com/watch?v=w3jLJU7DT5E&amp;feature=youtu.be">A short video explaining what GitHub is</a></li>
-<li><a href="https://docs.github.com/en/github/getting-started-with-github/git-and-github-learning-resources">Git and GitHub learning resources</a></li>
-<li><a href="https://guides.github.com/introduction/flow/">Understanding the GitHub flow</a></li>
-<li><a href="https://www.youtube.com/watch?v=H5GJfcp3p4Q&amp;feature=youtu.be">How to use GitHub branches</a></li>
-<li><a href="https://githubtraining.github.io/training-manual/#/01_getting_ready_for_class">Interactive Git training materials</a></li>
+<li>It tells a general story or gives the user the tools to answer their own questions</li>
+<li>It is created by the analyst but gives the user some autonomy over how its use is guided</li>
+<li>It is generally a dynamic visualization of data that is frequently updated as new data becomes available</li>
+<li>It is available for users to visit and explore at any time</li>
+<li>It is an unguided demonstration, so generally requires users to have some expertise in what is being visualized</li>
 </ul>
-</div>
-<div id="git-and-github" class="section level2" number="9.3">
-<h2><span class="header-section-number">9.3</span> Git and GitHub</h2>
-<p>We will be using <a href="https://github.com">GitHub</a> a lot in this course.</p>
-<p>GitHub is similar to Dropbox, OneDrive, or other cloud storage services.
-There are 3 key benefits of GitHub compared to those other services.</p>
-<ol style="list-style-type: decimal">
-<li><p>GitHub is a <em>version control</em> platform.
-It is designed to <strong>track</strong> exactly <strong>what changes you make</strong> and <strong>when you make them</strong>.
-You can browse the history</p></li>
-<li><p>GitHub is designed for code.
-You can track what changes you make <strong>line by line</strong>
-You can integrate your code with automated tools for error checking, testing, etc.</p></li>
-<li><p>GitHub is designed for <em>collaborative coding</em>.</p>
+<p>So, data dashboards sound great! But as the saying goes,</p>
+<p><img src="img/uncleben.jpg" /></p>
+<p>Just because data dashboards give a lot of power to the user does not mean you are absolved of your responsibilities as a data scientist and visualization expert! In fact, good design and visualization is even more important in dashboards because you often can’t easily answer simple questions if something is unclear.</p>
+<p>Some things to consider when designing your dashboard:</p>
 <ul>
-<li>One master copy</li>
-<li>People can make simultaneous edits</li>
-<li>No emailing files back and forth</li>
-<li>Tools for checking and verifying each other’s code</li>
+<li>What are the most important insights users need from your dashboard?</li>
+<li>Are these insights central to the design?</li>
+<li>What are common ways users might try to manipulate the dashboard?</li>
+<li>Is your dashboard easy to filter?</li>
 </ul>
-<p>We will practice using GitHub for collaboration through the weekly homework.</p></li>
-</ol>
-</div>
-<div id="understanding-the-github-flow" class="section level2" number="9.4">
-<h2><span class="header-section-number">9.4</span> Understanding the GitHub flow</h2>
-<p>The GitHub flow is a lightweight workflow that allows you to experiment and collaborate on your projects easily, without the risk of losing your previous work.</p>
-<div id="repositories-repos" class="section level3" number="9.4.1">
-<h3><span class="header-section-number">9.4.1</span> Repositories (“Repos”)</h3>
-<p>A repository is where your project work happens–think of it as your project folder. It contains all of your project’s files and revision history. You can work within a repository alone or invite others to collaborate with you on those files.</p>
-<p>You should make a new GitHub repo for each project. In this class, you will make a repo for your lab activities and one for each of your portfolio pieces.</p>
-</div>
-<div id="cloning" class="section level3" number="9.4.2">
-<h3><span class="header-section-number">9.4.2</span> Cloning</h3>
-<p>When a repository is created with GitHub, it’s stored remotely in the ☁️. You can clone a repository to create a local copy on your computer and then use Git to sync the two. This is similar to tools like Dropbox, but designed for code with a detail change history. Cloning a repository also pulls down all the repository data that GitHub has at that point in time, including all versions of every file and folder for the project! This can be helpful if you experiment with your project and then realize you liked a previous version more.
-To learn more about cloning, read <a href="https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository">“Cloning a Repository”</a>.</p>
-</div>
-<div id="committing-and-pushing" class="section level3" number="9.4.3">
-<h3><span class="header-section-number">9.4.3</span> Committing and pushing</h3>
-<p><strong>Committing</strong> and <strong>pushing</strong> are how you can add the changes you made on your local machine to the remote repository in GitHub. That way your instructor and/or teammates can see your latest work when you’re ready to share it.</p>
-<p>Any changes you make on your local computer aren’t “final” until you “commit” them (lock them in and write them into the repo history) and “push” those commits up to the GitHub cloud.</p>
-<p>You can make a commit when you have made changes to your project that you want to “checkpoint.” You can also add a helpful <strong>commit message</strong> to remind yourself or your teammates what work you did (e.g. “Added a README with information about our project”).</p>
-<p>Once you have a commit or multiple commits that you’re ready to add to your repository, you can use the push command to add those changes to your remote repository. Committing and pushing may feel new at first, but I promise you’ll get used to it 🙂</p>
-</div>
-</div>
-<div id="making-a-github-repository" class="section level2" number="9.5">
-<h2><span class="header-section-number">9.5</span> Making a GitHub Repository</h2>
-<p>Let’s make a GitHub repository that you will use for this class.</p>
-<p>On <a href="https://GitHub.com" class="uri">https://GitHub.com</a>, make a new repository called “progdata-class”.
-As you make it, do the following:</p>
-<ol style="list-style-type: decimal">
-<li>Give your repo a useful description.</li>
-<li>Make it Public.</li>
-<li>Check “Add a README file”</li>
-<li>Check “Add .gitignore” and select “R” from the dropdown.</li>
-</ol>
-</div>
-<div id="navigating-a-github-repository" class="section level2" number="9.6">
-<h2><span class="header-section-number">9.6</span> Navigating a GitHub Repository</h2>
-<p>Let’s take a look at various parts of a GitHub repo.</p>
-<ol style="list-style-type: decimal">
-<li>Files and folders/directories (“code”)</li>
-<li>History</li>
-<li>Issues</li>
-</ol>
-<p>There are other important features of GitHub (branches, issues) that we aren’t going to use in class for now. Talk to me if you want to learn more.</p>
-<p>Let’s practice editing a file with GitHub.
-Make a new file on your participation repository and edit it:</p>
-<pre><code>- Click on the &quot;Create New File&quot; button on your repository&#39;s home page.
-- Call it `navigating_github.md`
-- Write something (e.g., what&#39;s your favorite color?). 
-- Commit (&quot;save&quot;) the file by clicking on green &quot;commit new file&quot; button at the bottom of the page.
-- Now type something else (e.g., what&#39;s your favorite animal?) and commit the change.</code></pre>
-<p>Now look at your commit history in the “History” tab.</p>
-</div>
-<div id="cloning-a-github-repo-to-your-computer" class="section level2" number="9.7">
-<h2><span class="header-section-number">9.7</span> Cloning a GitHub repo to your computer</h2>
-<p>You can download a copy of your repository to your computer (<strong>cloning</strong> it), make changes (<strong>commits</strong>) there, then <strong>push</strong> them back to GitHub.</p>
-<p>Click big green “Code” button at the top of your repo page and choose “Open with GitHub Desktop”. You can also do this from the File menu in GitHub Desktop.</p>
-<p>Note where the repository folder is being saved on your computer.
-Save it somewhere easy to find and not in a cloud folder.</p>
-<p>Go to the folder on your computer. Any changes you make to files in this folder are tracked by the GitHub Desktop app and can be committed and pushed up to GitHub.</p>
-<p>Open your <code>navigating_github.md</code> file, make a change, then save, commit, and push it. Go look at your change on GitHub.</p>
-</div>
-<div id="rstudio-projects" class="section level2" number="9.8">
-<h2><span class="header-section-number">9.8</span> RStudio Projects</h2>
-<p>RStudio projects are a way to manage which folder R runs in on your computer, where it looks for files to read in, and where it writes its output.</p>
-<p>In RStudio, click File → New Project… → Existing Directory. Navigate to your GitHub repo folder. This will add an RStudio Project (<code>.Rproj</code>) file to the folder.</p>
-<div id="the-working-directory" class="section level3" number="9.8.1">
-<h3><span class="header-section-number">9.8.1</span> The working directory</h3>
-<p>When you open R, it “runs” in some folder on your computer.
-This is the place it will look for files to import and write files as output.
-Think about where your Rmd output files end up when you knit them.</p>
-<p>If you have R/RStudio closed, and you open a .R or .Rmd file, R/RStudio will start in the folder holding that file.</p>
-<p>If you open R/RStudio from the Windows Start menu, the Mac dock, the Mac Spotlight, etc., R/Studio will start in its default location (probably your user home directory, see Tools → Global Options → General → Default working directory…).</p>
-<p>When I say “R/Studio will start in…”, what I am referring to is R’s “working directory”.
-Like I say above, this is the place R will look for files to import and write files as output.
-You can check what R’s current working directory is using the <code>getwd()</code> function:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="github.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
-<span id="cb48-2"><a href="github.html#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/Users/runner/work/progdata-class/progdata-class&quot;</span></span></code></pre></div>
-<p>You can also change the working directory using the <code>setwd()</code> function:</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="github.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">file.path</span>(<span class="st">&quot;path&quot;</span>, <span class="st">&quot;to&quot;</span>, <span class="st">&quot;folder&quot;</span>))</span></code></pre></div>
-<p>Do not use <code>setwd()</code>!
-You should always write your R scripts so that the entire project is self-contained in a folder.
-All of the scripts, folders, data, output, etc. should all “live” within this project folder.</p>
-<p>We will talk a lot about how to do this throughout the semester.
-For now, we will start by working with RStudio Projects to make this easier.</p>
-<p>When you double click on a .Rproj file, it:</p>
-<ol style="list-style-type: decimal">
-<li>Opens a new fresh R session, with</li>
-<li>The working directory set to the location of the .Rproj file, and</li>
-<li>No connection whatsoever to any other R sessions you already have open</li>
-</ol>
-<p>You can also set specfic options for each RStudio project (e.g., number of spaces to insert when you type Tab, etc.).</p>
-<p>Let’s practice closing RStudio and re-opening it by opening the RStudio project.
-Run <code>getwd()</code> to see where R is running.</p>
-</div>
-</div>
-<div id="the-version-control-workflow" class="section level2" number="9.9">
-<h2><span class="header-section-number">9.9</span> The Version Control Workflow</h2>
-<p>Now, let’s practice the workflow to work with your files with GitHub.</p>
-<div id="editing-a-file-and-making-a-commit" class="section level3" number="9.9.1">
-<h3><span class="header-section-number">9.9.1</span> Editing a file and making a commit</h3>
-<p>Open the <code>README.md</code> file in your local git folder by clicking on it in the Files pane.
-<code>README.md</code> is a special file that will show when viewing a folder on GitHub.
-Use README files to describe the contents of a folder and what’s going on there.</p>
-<p>Type “Hello world” and save the file.</p>
-<p>Now, go back to the GitHub Desktop app. It shows you the files in the git repo folder that <strong>have changed since the last commit</strong>.
-Any files shown here have had changes made.
-(Remember, you need to save the file in RStudio [so the title on the Source tab isn’t blue] before they appear in this list.)
-Changes shown here are not saved in the repo history until you <strong>commit</strong> them.</p>
-<p>If you’ve changed several files but want to only commit changes for some, uncheck the box next to the files you don’t want to commit yet.</p>
-<p>You can view the changes in more detail by selecting the file name.</p>
-<p>If you want to undo any changes and revert back to the previous committed version of a file, right click on the file name and click “Revert changes”.</p>
-<p>To <strong>commit</strong> your changes, type a at the bottom of the right column describing what you’ve changed.
-Always give informative commit messages (help out future you!).
-When you are ready, click the “Commit” button.</p>
-<p>Now, you’ve made the commit locally, but you need to “push” it to GitHub so that it shows up there as well.
-Click the “Push” (up arrow) button.</p>
-<p>Now go check out the file on GitHub online.</p>
-</div>
-<div id="fetching-or-pulling-changes-from-the-remote-repo" class="section level3" number="9.9.2">
-<h3><span class="header-section-number">9.9.2</span> Fetching or Pulling Changes from the Remote Repo</h3>
-<p>One of the amazing things about git is that it can track changes made to a file at different locations or on different computers and reconcile them together.
-(This is how it is so useful for collaboration!)</p>
-<p>Let’s see how that works.</p>
-<ol style="list-style-type: decimal">
-<li>First, let’s make a change directly on the GitHub website.
-Edit <code>README.md</code> and type “oops!” at the top.
-Commit your change.</li>
-<li>Go back to GitHub Desktop</li>
-<li>Click the “Fetch Origin” button.</li>
-<li>See how the file on your local computer changed to reflect the change you made online.</li>
-</ol>
-<p>Let’s fix that “oops!”.
-Delete it, commit your change (give an informative commit message), and push your changes back online.</p>
-</div>
-<div id="the-general-workflow" class="section level3" number="9.9.3">
-<h3><span class="header-section-number">9.9.3</span> The General Workflow</h3>
-<p>You will use this basic workflow througout the semester (and your coding career).</p>
-<p>When you sit down to start working:</p>
-<ol style="list-style-type: decimal">
-<li>Open GitHub Desktop and select your repo.</li>
-<li>Click the Fetch Origin button to fetch remote changes and get your local repo copy up to date.</li>
-<li>Open you RStudio Project.</li>
-<li>Make changes to your files.</li>
-<li>Commit your changes.</li>
-<li>Push your commits back up to the remote repo (GitHub).</li>
-</ol>
-<p>You should get in the habit of <strong>commit early, commit often</strong>.
-Don’t wait until you are completely done with your work to commit the changes.
-Make small commits as you go.
-This makes it much easier to go back if you accidentally break something and need to revert.</p>
-<!-- Video Links-->
-<!-- [pl_00]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaEAnJX20Ryy4OSie375rVY -->
-<!-- 
-[pl_02]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZmr_T3PnuxjVIlj0C0kUNI
-[pl_03]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYaHmjzdRvfg0yhOIYQnfjwE
-[pl_04]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYWFcel6_vp8__RUKLxhX4y
-[pl_05]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYMIguiV1F8RagMYibTY4iW
-[pl_06]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYYV_KDod3Mk9-RmtFXii9Dv
-[pl_07]: https://www.youtube.com/watch?list=PLKrrdtYgOUYZxvEvQ8-PcWrOY_dwY_ETI
-[pl_08]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZgOzYB_dmauw55M7jXvsdo
-[pl_09]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbaiTmldRY2ddsLrHp3z6yO
-[pl_10]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbPw5iYzYEzoOKa7mJKNIhq
-[pl_11]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYZ-u6LzBbanrNFoeLHKaLL6
-[pl_12]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbwRS-9Htmb80_t1NG-021e
-[pl_13]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
-[pl_14]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYbWGmSnbLIYwdLOnGm6une6
-[pl_15]: https://www.youtube.com/playlist?list=PLKrrdtYgOUYa5MoYrV8EsWQ5jIr5ZYMpM
--->
-<!--AE Links-->
-<!--
-[ae01a_unvotes]: https://github.com/DataScience4Psych/ae01a_unvotes
-[ae01b_covid]: https://github.com/DataScience4Psych/ae01b_covid
-[ae02_bechdel]: https://github.com/DataScience4Psych/ae-02-bechdel-rmarkdown
-[ae03_starwars]: https://github.com/DataScience4Psych/ae-03-starwars-dataviz
--->
-<!-- Lab Links-->
-<!--Slides-->
-<!--
-[d03_dataviz]: https://datascience4psych.github.io/slides/d03_dataviz/d03_dataviz.html
-[d04_ggplot2]: https://datascience4psych.github.io/slides/d04_ggplot2/d04_ggplot2.html
-[d05_viznum]: https://datascience4psych.github.io/slides/d05_viznum/d05_viznum.html
-[d06_vizcat]: https://datascience4psych.github.io/slides/d06_vizcat/d06_vizcat.html
-[d07_tidy]: https://datascience4psych.github.io/slides/d07_tidy/d07_tidy.html
-[d08_grammar]: https://datascience4psych.github.io/slides/d08_grammar/d08_grammar.html
-[d09_wrangle]: https://datascience4psych.github.io/slides/d09_wrangle/d09_wrangle.html
-[d10_dfs]: https://datascience4psych.github.io/slides/d10_dfs/d10_dfs.html
-[d11_types]: https://datascience4psych.github.io/slides/d11_types/d11_types.html
-[d12_import]: https://datascience4psych.github.io/slides/d12_import/d12_import.html
-[d13_goodviz]: https://datascience4psych.github.io/slides/d13_goodviz/d13_goodviz.html
-[d13b_moreggplot]: https://datascience4psych.github.io/slides/d13_goodviz/d13b_moreggplot.html
-[d14_confound]: https://datascience4psych.github.io/slides/d14_confound/d14_confound.html
-[d15_goodtalk]: https://datascience4psych.github.io/slides/d15_goodtalk/d15_goodtalk.html
-[d16_webscraping]: https://datascience4psych.github.io/slides/d16_webscraping/d16_webscraping.html
-[d17_functions]: https://datascience4psych.github.io/slides/d17_functions/d17_functions.html
-[d18_ethics]: https://datascience4psych.github.io/slides/d18_ethics/d18_ethics.html
-[d19_bias]: https://datascience4psych.github.io/slides/d19_bias/d19_bias.html
--->
-<!--externals-->
 
-</div>
-</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="markdown.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="lab-1-getting-started-with-rstudio-git-and-markdown.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="interactive-dashboards-with-flexdashboard.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="villains-vs-heroes.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -776,7 +562,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0105_git-and-github.Rmd",
+"link": "https://github.com/USF-Psych-DataSci/Classroom/edit/master/0901_data-dashboards.Rmd",
 "text": "Edit"
 },
 "history": {
